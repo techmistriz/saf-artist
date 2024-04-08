@@ -1,0 +1,33 @@
+<?php 
+
+return [
+	
+	'years'	=>	array(
+		"2016"	=>	'2016',
+		"2017"	=>	'2017',
+		"2018"	=>	'2018',
+		"2019"	=>	'2019',
+		"2022"	=>	'2022',
+	),
+
+	'category_form_mapper'	=>	array(
+		"Accessibility"		=>	'accessibility',
+		"Craft"				=>	'craft',
+		"Culinary Arts"		=>	'culinary_arts',
+		"Performing Arts"	=>	'performing_arts',
+		"Dance"				=>	'dance',
+		"Exhibitions"		=>	'exhibitions',
+		"Music"				=>	'music',
+		"Photography"		=>	'photography', // 
+		"Talks"				=>	'talks', // 
+		"Theatre"			=>	'theatre',
+		"Visual Arts"		=>	'visual_arts',
+		"Special Project"	=>	'special_project',
+		"Workshops"			=>	'workshops', //
+		"Vendors@SAF"		=>	'vendorssaf', //
+		"Default"			=>	'default',
+	),
+
+	'numbers'	=>	range(1,50)
+
+];

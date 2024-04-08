@@ -1,0 +1,2 @@
+- 	Distrbutor Config all password saved in plain text.
+- 	

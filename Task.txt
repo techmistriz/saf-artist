@@ -1,0 +1,43 @@
+ALTER TABLE `venues` ADD `title` VARCHAR(500) NULL AFTER `id`, ADD `description` TEXT NULL AFTER `title`, ADD `short_description` TEXT NULL AFTER `description`, ADD `featured_image` TEXT NULL AFTER `short_description`, ADD `google_map_url` TEXT NULL AFTER `featured_image`;
+ALTER TABLE `venues` ADD `status` TINYINT(1) NULL DEFAULT '1' AFTER `google_map_url`
+ALTER TABLE `email_templates` ADD `subject` VARCHAR(255) NULL AFTER `name`;
+ALTER TABLE `roles` ADD `role_code` VARCHAR(255) NULL AFTER `name`;
+
+ALTER TABLE `users` CHANGE `role_id` `role_id` VARCHAR(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '0';
+
+
+
+// if ($request->has('featured_image') && $request->filled('featured_image')) {
+
+     //        $folder      	= public_path('uploads/vanues/');
+     //        $fileName		= \Helper::saveBase64($request->featured_image, $folder);
+     //        $folderTemp  	= public_path($folder);
+     //        Image::make($folderTemp.$fileName)->resize(250, 250, function($constraint)
+     //        {
+     //            $constraint->aspectRatio();
+                
+     //        })->save($folderTemp . 'thumbnails'. DIRECTORY_SEPARATOR .'250'.DIRECTORY_SEPARATOR .'' . $fileName);
+     //        $venue->featured_image = $fileName;
+     //    }
+
+     // Class definition
+	// var KTTinymce = function () {
+	//     // Private functions
+	//     var demos = function () {
+	//         tinymce.init({
+	//             selector: '#description'
+	//         });
+	//     }
+
+	//     return {
+	//         // public functions
+	//         init: function() {
+	//             demos();
+	//         }
+	//     };
+	// }();
+
+	// // Initialization
+	// jQuery(document).ready(function() {
+	//     KTTinymce.init();
+	// });
