@@ -113,7 +113,7 @@
                             <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
-                                    <i class="la la-bank  icon-xl"></i>
+                                    <i class="la la-question  icon-xl"></i>
                                 </span>
                             </div>
                             <!--end::Symbol-->
