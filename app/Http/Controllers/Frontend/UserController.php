@@ -16,6 +16,7 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\MetroCity;
 use App\Models\Project;
+use App\Models\Role;
 use App\Models\TravelMode;
 use App\Models\TravelBoarding;
 use App\Http\Requests\UserRequest;
@@ -64,12 +65,13 @@ class UserController extends Controller
     	// dd(\Helper::decrypt('eyJpdiI6ImhpMFNiZEJuODM5eWJicjhoUzJvUHc9PSIsInZhbHVlIjoiYnZJZ1h0TjN2ZWtWQUtKNTBxUkkyUT09IiwibWFjIjoiZmUzOThmMjgwYjQxYmM5MzI3M2Q0Y2E1ZmE5YmVkYTVkYTMwYjc2ZTU1YTM4NDQ0NTdkMmQyMWExMjE4OTVhOCIsInRhZyI6IiJ9'));
     	$user_id		= \Auth::user()->id;
     	$countries 		= Country::where('status', 1)->get();
+        $frontendRoles  = Role::where(['status' => 1, 'type' => 2])->get();
     	$row 			= User::findOrFail($user_id);
         $artistTypes    = ArtistType::where('status', 1)->get();
         $categories     = Category::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->get();
 
-        return view('frontend.dashboard')->with('row', $row)->with('years', $this->years)->with('countries', $countries)->with('artistTypes', $artistTypes)->with('categories', $categories)->with('curators', $curators);
+        return view('frontend.dashboard')->with('row', $row)->with('years', $this->years)->with('countries', $countries)->with('artistTypes', $artistTypes)->with('categories', $categories)->with('frontendRoles', $frontendRoles)->with('curators', $curators);
     }
 
     /**
@@ -230,5 +232,12 @@ class UserController extends Controller
 
     	\Flash::success('Your account details updated successfully.');
         return \Redirect::route('edit.travel_boarding.details');
+    }
+
+    public function editFaqDetails()
+    {
+        
+
+        return view('frontend.faq_details.edit');
     }
 }

@@ -88,6 +88,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\Models\ArtistType', 'artist_type_id', 'id');
     }
 
+    public function frontendRole()
+    {
+        return $this->belongsTo('App\Models\Role', 'frontend_role_id', 'id');
+    }
+
     public function project()
     {
         return $this->belongsTo('App\Models\Project', 'project_id', 'id');

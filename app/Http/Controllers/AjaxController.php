@@ -13,6 +13,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Project;
+use Illuminate\Support\Facades\Session;
 
 class AjaxController extends Controller
 {
@@ -124,5 +125,33 @@ class AjaxController extends Controller
             'data' => new \stdClass()
         ]);
     }
+
+    public function sendOtp(Request $request)
+    {
+        try {
+            $validation = \Validator::make($request->all(), [
+                'contact' => 'required|digits:10',
+            ]);
+
+            if ($validation->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $validation->errors()->first(),
+                    'data' => new \stdClass()
+                ]);
+            }
+
+            $contact = $request->contact;
+            $otp = mt_rand(100000, 999999);
+            Session::put('otp', $otp);
+            Session::put('contact', $contact);
+
+            return response()->json(['success' => true, 'message' => 'OTP Sent Successfully', 'otp' => $otp]);
+            
+        } catch (\Exception $e) {
+            return response()->json(['status' => false, 'message' => 'Something went wrong.']);
+        }
+    }
+
 
 }

@@ -79,6 +79,24 @@
                 type: 'number',
                 selector: false,
                 textAlign: 'center',
+            },  
+            {
+                field: "type",
+                title: "Type",
+                template: function(t) {
+                    var type = {
+                        1: {
+                            'title': 'Admin',
+                            'class': ' label-light-success'
+                        },
+                        2: {
+                            'title': 'Frontend',
+                            'class': ' label-light-primary'
+                        }
+                        
+                    };
+                    return '<span class="label font-weight-bold label-lg ' + type[t?.type].class + ' label-inline">' + type[t?.type].title + '</span>';
+                },
             },
             {
                 field: "name",

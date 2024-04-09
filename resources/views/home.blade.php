@@ -194,59 +194,61 @@
 
                                 <div class="row">
 
-                                    <!-- <div class="col-12">
-                                        <div class="form-group row validated">
-                                            <div class="col-6">
-                                                <div class="form-group row validated">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <div class="radio-inline">
-                                                            <label class="radio theme-text-color">
-                                                                Are you registering for Group 
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group row validated">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <select class="form-control form-control-lg form-control-custom selectpicker" name="reg_for_group" tabindex="null" >
-                                                            <option value="">Select</option>
-                                                            <option {{ old('reg_for_group') == 1 ? 'selected' : '' }} value="1">Yes</option>
-                                                            <option {{ old('reg_for_group') == 0 ? 'selected' : '' }} value="0">No</option>
-                                                        </select>
+                                    <div class="col-12">
+                                        <div class="form-group row validated" style="align-items:center;">
 
-                                                        @error('reg_for_group')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    
-                                                    </div>
+                                            <div class="inline-select">
+                                                <div class="checkbox-inline">
+                                                    <label class="checkbox theme-text-color" style="padding-top:8px; padding-left:0px;">
+                                                        Are you
+                                                    </label>
+                                                </div>
+                                                <div class="selectfield">
+                                                    <select class="form-control form-control-lg form-control-custom selectpicker1" name="frontend_role_id" id="frontend_role_id" tabindex="null" required>
+                                                        <option value="">Select Role</option>
+                                                        @if($frontendRoles->count())
+                                                            @foreach($frontendRoles as $value)
+
+                                                               <option {{ old('frontend_role_id') == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
+
+                                                            @endforeach
+                                                        @endif
+                                                    </select>
+
+                                                    @error('frontend_role_id')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> -->
+                                    </div>
                                     
                                     <div class="col-12">
                                         <div class="form-group row validated">
                                             
                                             <div class="col-6">
-                                                <input type="text" name="name" value="{{ old('name') ? old('name') :( isset($row->name) ? $row->name : '') }}" class="form-control form-control-lg form-control-custom"  placeholder="Enter Full Name"/>
+                                                <input type="text" name="name" value="{{ old('name', $row->name ?? '') }}" class="form-control form-control-lg form-control-custom"  placeholder="Enter Full Name" required/>
                                                 @error('name')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
 
                                             <div class="col-6">
-                                                <div class="form-group row validated">
+                                                <div class="form-group row validated" style="position:relative;">
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <input type="text" oninput="this.value=this.value.replace(/[^0-9]/, '')" name="contact" value="{{ old('contact') ? old('contact') :( isset($row->contact) ? $row->contact : '') }}" class="form-control form-control-lg form-control-custom"   placeholder="Enter Contact"/>
+                                                        <input type="text" oninput="this.value=this.value.replace(/[^0-9]/, '')" name="contact" id="contact" value="{{ old('contact', $row->contact ?? '') }}" class="form-control form-control-lg form-control-custom" maxlength="10"   placeholder="Enter Contact" required/>
                                                         @error('contact')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
-                                                    
+                                                        
                                                     </div>
+                                                </div> 
+                                                <div id="otp" style="display:none; margin-top: -65px; margin-left: 190px; position: absolute;">
+                                                    <input id="otp-input" placeholder="Enter OTP" class="form-control" name="otp" type="text">
                                                 </div>
-                                                
+                                                <div class="sendBtn" style=" margin-top: -65px; margin-left: 290px; position: absolute; display:none;">
+                                                    <input type="button" id="send-otp" class="btn btn-primary" value="Send OTP" >
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -256,7 +258,7 @@
                                             <div class="col-6">
                                                 <div class="form-group row validated">
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <input type="text" name="email" value="{{ old('email') ? old('email') : ( isset($row->email) ? $row->email : '') }}" class="form-control form-control-lg form-control-custom"  placeholder="Enter Email"/>
+                                                        <input type="text" name="email" value="{{ old('email') ? old('email') : ( isset($row->email) ? $row->email : '') }}" class="form-control form-control-lg form-control-custom"  placeholder="Enter Email" required/>
                                                         @error('email')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
@@ -525,6 +527,87 @@
             
         }
     }
+
+    $(document).ready(function () {
+        $('#contact').on('input', function () {
+            var inputValue = $(this).val();
+            if (inputValue.length === 10 && !isNaN(inputValue)) {
+                $('.sendBtn').show();
+            } else {
+                $('.sendBtn').hide();
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#send-otp').click(function(e) {
+            var contact = $("#contact").val();
+            e.preventDefault();
+
+            if (!isValidContact(contact)) {
+                $('.validation-errors').text('Please enter a valid 10-digit contact number.');
+                alert('Please enter a valid 10-digit contact number.');
+                setTimeout(function() {
+                    $('.validation-errors').text('');
+                }, 5000);
+                return;
+            }
+            
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("ajax.send.otp") }}',
+                data: {"_token": "{{ csrf_token() }}", contact: contact},
+                dataType: 'json',
+                success: function(response) {
+                    if(response.success) {
+                        $('#otp').show().find('input').prop('required', true);
+                        $('.sendBtn').hide();
+                        alert('OTP has been sent successfully! Please check your phone.');
+                        var generatedOTP = response.otp;
+                    } else {
+                        $('.validation-errors').text(response.message);
+                        alert('Failed to send OTP. Please try again later.');
+                        setTimeout(function() {
+                            $('.validation-errors').text('');
+                        }, 5000);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        $('#query-form').submit(function(e) {
+            e.preventDefault();
+            submitForm();
+        });
+
+        
+
+        
+        function isValidContact(contact) {
+            if (contact.trim() === '') {
+                return false;
+            }
+            if (!/^\d+$/.test(contact)) {
+                return false;
+            }
+            if (contact.length !== 10) {
+                return false;
+            }
+
+            return true;
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const sendBtn = document.getElementById('send-otp');
+
+        sendBtn.addEventListener('click', function() {
+            sendBtn.disabled = true;
+        });
+    });
     
 </script>
 @endpush

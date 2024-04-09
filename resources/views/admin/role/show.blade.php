@@ -19,6 +19,21 @@
 		                <div class="row">
 		                    
 		                    <div class="col-6">
+
+		                    	<div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Type: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+
+		                            	<label class="col-form-label text-lg-left">
+		                            		@if($row->type == 1)
+								                Admin
+								            @elseif($row->type == 2)
+								                Frontend
+								            @endif
+		                            	</label>
+		                            
+		                            </div>
+		                        </div>
 		                        
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name: </label>

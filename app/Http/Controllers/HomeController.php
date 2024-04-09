@@ -49,6 +49,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $frontendRoles = Role::where(['status' => 1, 'type' => 2])->get();
         $categories     = Category::where('status', 1)->get();
         $addressProofs  = AddressProof::where('status', 1)->get();
         $countries      = Country::where('status', 1)->whereNotNull('code')->get();
@@ -56,7 +57,7 @@ class HomeController extends Controller
         $curators       = Curator::where('status', 1)->get();
 
         // return view('home-1')->with(['row' => null, 'categories' => $categories, 'addressProofs' => $addressProofs]);
-        return view('home')->with(['row' => null, 'categories' => $categories, 'addressProofs' => $addressProofs, 'years' => $this->years, 'countries' => $countries, 'artistTypes' => $artistTypes, 'curators' => $curators]);
+        return view('home')->with(['row' => null, 'categories' => $categories, 'addressProofs' => $addressProofs, 'years' => $this->years, 'countries' => $countries, 'artistTypes' => $artistTypes, 'curators' => $curators,'frontendRoles' => $frontendRoles]);
     }
 
     public function register(UserRegisterRequest $request) {
@@ -71,6 +72,7 @@ class HomeController extends Controller
         $user->artist_type_id           = $request->artist_type_id;
         $user->curator_name             = $request->curator_name;
         $user->category_id              = $request->category_id;
+        $user->frontend_role_id         = $request->frontend_role_id;
         $user->password                 = Hash::make($password);
         $user->password_plane           = \Helper::encrypt($password);
         $user->save();

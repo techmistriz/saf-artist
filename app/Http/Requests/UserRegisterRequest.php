@@ -39,6 +39,7 @@ class UserRegisterRequest extends FormRequest
           //   'password' 				=> $password_rule,          
           //   'password_confirm' 		=> $password_confirm_rule,
             'category_id'			=> 'required',
+            'frontend_role_id'           => 'required',
             // 'gender' 				=> 'required',
             'contact' 				=> 'required',
             // 'terms' 				=> 'required',

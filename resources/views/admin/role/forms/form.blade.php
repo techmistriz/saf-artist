@@ -16,6 +16,22 @@
                     <div class="col-6">
 
                         <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Type</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="type" tabindex="null" >
+                                    <option value="">Select</option>
+                                    <option value="1" {{ old('type') == '1' || (isset($row->type) && $row->type == '1') ? 'selected' : '' }}>Admin</option>
+                                    <option value="2" {{ old('type') == '2' || (isset($row->type) && $row->type == '2') ? 'selected' : '' }}>Frontend</option>
+                                </select>
+
+                                @error('type')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+
+                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Name</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="name" value="{{ old('name') ? old('name') :( isset($row->name) ? $row->name : '') }}" class="form-control" required placeholder="Enter Name"/>

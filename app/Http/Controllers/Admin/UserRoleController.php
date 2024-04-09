@@ -120,6 +120,7 @@ class UserRoleController extends Controller
 
         $newRecord                      = new Role();
         $newRecord->name                = $request->name;
+        $newRecord->type                = $request->type;
         $newRecord->role_code           = $request->role_code;
         $newRecord->status              = $request->input('status', 0);
         $newRecord->save();
@@ -163,6 +164,7 @@ class UserRoleController extends Controller
         // dd($request->all());
         $updateRecord = Role::findOrFail($id);
         $updateRecord->name                 = $request->name;
+        $updateRecord->type                 = $request->type;
         $updateRecord->role_code            = $request->role_code;
         $updateRecord->status               = $request->input('status', 0);
         $updateRecord->save();

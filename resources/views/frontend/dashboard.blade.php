@@ -56,22 +56,25 @@
                         <div class="card-body">
                             <div class="row">
 
-                                <!-- <div class="col-12">
+                                <div class="col-12">
                                     <div class="form-group row validated">
-                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Are you registring for group </label>
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Are you Artist/group </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <select class="form-control form-control-lg form-control-custom selectpicker" name="reg_for_group" tabindex="null" >
-                                                <option value="">Select</option>
-                                                <option {{ old('reg_for_group', $row->reg_for_group ?? '') == 'Yes' ? 'selected' : '' }} value="Yes">Yes</option>
-                                                <option {{ old('reg_for_group', $row->reg_for_group ?? '') == 'No' ? 'selected' : '' }} value="No">No</option>
+                                            <select class="form-control form-control-lg form-control-custom selectpicker" name="frontend_role_id" tabindex="null" >
+                                                <option value="">Select Role</option>
+                                                @if($frontendRoles->count())
+                                                    @foreach($frontendRoles as $value)
+                                                        <option value="{{$value->id}}" {{ old('frontend_role_id', $row->frontend_role_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
-                                            @error('reg_for_group')
+                                            @error('frontend_role_id')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         
                                         </div>
                                     </div>
-                                </div> -->
+                                </div>
 
                                 <div class="col-12">
                                     <div class="form-group row validated">

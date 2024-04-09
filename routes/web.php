@@ -56,6 +56,8 @@ Route::group(['middleware' => ['verified']], function () {
 	Route::get('/account-details', [App\Http\Controllers\Frontend\UserController::class, 'editAccountDetails'])->name('edit.account.details');
 
 	Route::put('/account-details', [App\Http\Controllers\Frontend\UserController::class, 'updateAccountDetails'])->name('update.account.details');
+	
+	Route::get('/faq-details', [App\Http\Controllers\Frontend\UserController::class, 'editFaqDetails'])->name('edit.faq.details');
 
 	Route::get('/travel-boarding-details', [App\Http\Controllers\Frontend\UserController::class, 'editTravelBoardingDetails'])->name('edit.travel_boarding.details');
 
@@ -86,4 +88,6 @@ Route::get('countries', 'App\Http\Controllers\AjaxController@getCountry')->name(
 Route::get('states/{country_id?}', 'App\Http\Controllers\AjaxController@getState')->name('ajax.states');
 Route::get('cities/{state_id?}', 'App\Http\Controllers\AjaxController@getCity')->name('ajax.cities');
 Route::get('projects', 'App\Http\Controllers\AjaxController@getProject')->name('ajax.projects');
+
+Route::post('send-otp', 'App\Http\Controllers\AjaxController@sendOtp')->name('ajax.send.otp');
 
