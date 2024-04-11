@@ -46,6 +46,7 @@ trait UserTrait
         // dd($request->all());
         
         $user->reg_for_group            = $request->reg_for_group;
+        $user->frontend_role_id            = $request->frontend_role_id;
         $user->category_id              = $request->category_id;
         $user->curator_name             = $request->curator_name;
         $user->artist_type_id           = $request->artist_type_id;
@@ -143,6 +144,7 @@ trait UserTrait
         $user->has_serendipity_arts     = $request->has_serendipity_arts;
         $user->year                     = $request->year;
         $user->other_link               = $request->other_link;
+        $user->max_allowed_member               = $request->max_allowed_member;
         $user->save();
 
     }

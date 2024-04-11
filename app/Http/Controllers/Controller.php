@@ -107,6 +107,23 @@ class Controller extends BaseController
     	return 'frontend.category_details.default.edit';
     }
 
+    function    roleFormResolver(){
+        
+        $user           = \Auth::user();
+        $role       = \App\Models\Role::find($user->frontend_role_id);
+
+        if(empty($role)){
+            return 'frontend.category_details.empty.edit';
+        }
+
+        if(isset($this->role_form_mapper[$role->role_code]) && !empty($this->role_form_mapper[$role->role_code])){
+
+            return 'frontend.category_details.'.$this->role_form_mapper[$role->role_code].'.edit';
+        }
+
+        return 'frontend.category_details.default.edit';
+    }
+
     function 	categoryFunctionResolver($category_id = NULL){
     	
     	if(empty($category_id)){

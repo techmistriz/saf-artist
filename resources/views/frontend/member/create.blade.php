@@ -1,23 +1,37 @@
 @extends('layouts.frontend')
+
 @section('content')
 
 <div class="d-flex flex-column-fluid">
-    <div class="container">
+    <!--begin::Container-->
+    <div class=" container container-fluid">
 
-        @include('admin.includes.common.error')
-        @include('flash::message')  
-                  
-        <form action="{{route('store.group.member')}}" method="POST" enctype="multipart/form-data">
+        
 
-         	{{ csrf_field() }}
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card card-custom gutter-b">
+        <!--begin::Education-->
+        <div class="d-flex flex-row">
+            <!--begin::Aside-->
+            @include('frontend/includes/aside')
+            <!--end::Aside-->
+            <!--begin::Content-->
+            <div class="flex-row-fluid ml-lg-8">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-bs">
+                    <form action="{{route('store.member')}}" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+
+                        <!--Begin::Header-->
                         <div class="card-header">
+
+                            @include('includes.common.error')
+                            @include('flash::message')
+
                             <div class="card-title">
-                                <h3 class="card-label">Add Members</h3>
+                                <h3 class="card-label">Add Member</h3>
                             </div>
                         </div>
+                        <!--end::Header-->
+                        <!--Begin::Body-->
                         <div class="card-body">                
                             <div class="row">
                                 <div class="col-6">
@@ -96,11 +110,15 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </form>
 
-        </form>
-	</div>
+                </div>
+                <!--end::Card-->
+            </div>
+            <!--end::Content-->
+        </div>
+        <!--end::Education-->
+    </div>
+    <!--end::Container-->
 </div>
 @endsection

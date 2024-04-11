@@ -28,6 +28,12 @@ return [
 		"Default"			=>	'default',
 	),
 
+	'role_form_mapper'	=>	array(
+		"ARTIST"		=>	'artist',
+		"TROUPE_GROUP"				=>	'troupe_group',
+		
+	),
+
 	'numbers'	=>	range(1,50)
 
 ];

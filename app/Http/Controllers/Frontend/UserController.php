@@ -18,11 +18,11 @@ use App\Models\MetroCity;
 use App\Models\Project;
 use App\Models\Faq;
 use App\Models\Role;
-use App\Models\GroupMember;
+use App\Models\Member;
 use App\Models\TravelMode;
 use App\Models\TravelBoarding;
 use App\Http\Requests\UserRequest;
-use App\Http\Requests\GroupMemberRequest;
+use App\Http\Requests\MemberRequest;
 use App\Http\Requests\UserCategoryDetailsRequest;
 use App\Http\Requests\UserAccountDetailsRequest;
 use App\Http\Requests\UserTravelBoardingDetailsRequest;
@@ -129,7 +129,7 @@ class UserController extends Controller
     		$row		= UserCategoryDetail::where('user_id', $user_id)->first();
     	}
 
-    	$viewFile = $this->categoryFormResolver();
+    	$viewFile = $this->roleFormResolver();
 
     	// dd($viewFile);
     	
@@ -244,53 +244,63 @@ class UserController extends Controller
         return view('frontend.faq_details.details')->with('faqs', $faqs);
     }
 
-    public function addGroupMember()
+    public function addMember()
     {        
-        return view('frontend.group_member.create');
+        return view('frontend.member.create');
     }
 
-    // public function storeGroupMember(GroupMemberRequest $request)
-    // { 
-    //     $group_member                      = new GroupMember();
-
-    //     $group_member->name                = $request->name;
-    //     $group_member->email               = $request->email;
-    //     $group_member->contact             = $request->contact;
-    //     $group_member->status              = $request->input('status', 0);
-    //     $group_member->created_by          = Auth::user()->id;
-    //     $group_member->dob                 = $request->dob;
-    //     // dd($group_member);
-    //     $group_member->save();
-
-    //     \Flash::success('Member added successfully.');
-    //     return \Redirect::route('dashboard');
-    // }
-
-    public function storeGroupMember(GroupMemberRequest $request)
+    public function storeMember(MemberRequest $request)
     { 
-        $admin = Auth::user()->id;
-        $maxMembersAllowed = 8;
+        $user = Auth::user()->id;
+        $maxMembersAllowed = Auth::user()->max_allowed_member;
 
-        $existingMemberCount = GroupMember::where('created_by', $admin)->count();
+        $existingMemberCount = Member::where('created_by', $user)->count();
 
         if ($existingMemberCount >= $maxMembersAllowed) {
             \Flash::error('You have reached the maximum limit of '.$maxMembersAllowed.' members allowed per user.');
             return \Redirect::back()->withInput();
         }
 
-        $group_member = new GroupMember();
+        $member = new Member();
 
-        $group_member->name = $request->name;
-        $group_member->email = $request->email;
-        $group_member->contact = $request->contact;
-        $group_member->status = $request->input('status', 0);
-        $group_member->created_by = $admin;
-        $group_member->dob = $request->dob;
+        $member->name = $request->name;
+        $member->email = $request->email;
+        $member->contact = $request->contact;
+        $member->status = $request->input('status', 0);
+        $member->created_by = $user;
+        $member->dob = $request->dob;
 
-        $group_member->save();
+        $member->save();
 
         \Flash::success('Member added successfully.');
         return \Redirect::route('dashboard');
     }
+
+    public function memberIndex(Request $request){
+
+        return view('frontend.member.index');
+    }
+
+    public function fetchData(Request $request, Member $member)
+{
+    $data = $request->all();
+
+    $db_data = $member->getList($data, ['user']);
+    $count = $member->getListCount($data);
+
+    $returnArray = [
+        'data' => $db_data,
+        'meta' => [
+            'page' => $data['pagination']['page'] ?? 1,
+            'pages' => $data['pagination']['pages'] ?? 1,
+            'perpage' => $data['pagination']['perpage'] ?? 10,
+            'total' => $count,
+            'sort' => $data['sort']['sort'] ?? 'asc',
+            'field' => $data['sort']['field'] ?? '_id',
+        ],
+    ];
+
+    return response()->json($returnArray);
+}
 
 }

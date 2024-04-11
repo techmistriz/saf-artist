@@ -5,7 +5,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Rules\ValidHost;;
 
-class GroupMemberRequest extends FormRequest
+class MemberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,7 @@ class GroupMemberRequest extends FormRequest
     {
         $id                 = $this->input('id', 0);
         return [
-            'email'            => 'required|'.Rule::unique('group_members')->ignore($id, 'id'),
+            'email'            => 'required|'.Rule::unique('members')->ignore($id, 'id'),
             'name'             => 'required',
             'contact'          => 'required',
             'dob'              => 'required',

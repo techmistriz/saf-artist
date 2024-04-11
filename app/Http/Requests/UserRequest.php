@@ -43,7 +43,7 @@ class UserRequest extends FormRequest
             // 'gender' 				=> 'required',
             // 'contact' 				=> 'required',
           //   'age' 					=> 'required',
-            'dob' 					=> 'required',
+            'dob' 					=> $this->input('frontend_role_id') == '8' ? 'required' : '',
             'permanent_address' 	=> 'required',
           //   'pa_city_id' 				=> 'required',
           //   'pa_state_id' 				=> 'required',
@@ -58,7 +58,7 @@ class UserRequest extends FormRequest
           //   'address_proof_image'	=> 'required',
           //   'address_proof_image'	=> 'required',
           //   'stage_name' 			=> 'required',
-            'artist_bio' 			=> ['required', new MaxWordsRule(150)],
+            'artist_bio' => $this->input('frontend_role_id') == '8' ? ['required', new MaxWordsRule(150)] : [],
           //   'facebook_username'		=> 'required',
           //   'facebook_url' 			=> 'required',
           //   'instagram_urername'	=> 'required',
@@ -75,6 +75,7 @@ class UserRequest extends FormRequest
           //   'profile_image_2'		=> 'required',
           //   'has_serendipity_arts'	=> 'required',
           //   'other_link'			=> 'required',
+            'max_allowed_member'         => $this->input('frontend_role_id') == '9' ? 'required' : '',
         ];
     }
 

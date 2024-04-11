@@ -52,7 +52,7 @@
                             </div>
 
                             <div class="text-right" style=" margin-bottom: -25px;">
-                                <a href="{{route('group.member')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Group Member</a>
+                                <a href="{{route('add.member')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Group Member</a>
                             </div>
                         </div>
                         <!--end::Header-->
@@ -381,7 +381,7 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Max Member Allowed </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <input type="number" value="{{ $row->max_allowed_member ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Allowed Max Member" />
+                                            <input type="number" name="max_allowed_member" value="{{ $row->max_allowed_member ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Allowed Max Member" />
                                             @error('max_allowed_member')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -413,7 +413,7 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Bio <i>(150 words only) </i> </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <textarea class="form-control form-control-lg form-control-solid no-summernote-editor" name="artist_bio" id="artist_bio" placeholder="Enter Artist Bio">{{ old('artist_bio') ? old('artist_bio') : ( isset($row->artist_bio) ? $row->artist_bio : '') }}</textarea>
+                                            <textarea class="form-control form-control-lg form-control-solid no-summernote-editor" name="artist_bio" id="artist_bio" placeholder="Enter Artist Bio" maxlength="150">{{ old('artist_bio') ? old('artist_bio') : ( isset($row->artist_bio) ? $row->artist_bio : '') }}</textarea>
                                             @error('artist_bio')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
