@@ -361,7 +361,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-12" id="company_collective" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? 'display:none;' :''}}">
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective (If Applicable) </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
@@ -894,10 +894,12 @@
             $('#marketingSocialMedia').show();
             $('#dob').show();
             $('#members_numbers').hide();
+            $('#company_collective').hide();
         }else {
             $('#marketingSocialMedia').hide();
             $('#dob').hide();
             $('#members_numbers').show();
+            $('#company_collective').show();
         }
     }
     

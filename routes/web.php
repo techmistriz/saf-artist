@@ -59,9 +59,11 @@ Route::group(['middleware' => ['verified']], function () {
 	
 	Route::get('/faq-details', [App\Http\Controllers\Frontend\UserController::class, 'FaqDetails'])->name('faq.details');
 
-	Route::get('/travel-boarding-details', [App\Http\Controllers\Frontend\UserController::class, 'editTravelBoardingDetails'])->name('edit.travel_boarding.details');
+	Route::get('/ticket-booking-details', [App\Http\Controllers\Frontend\UserController::class, 'editTicketBookingDetails'])->name('edit.ticket.booking.details');
 
 	Route::put('/travel-boarding-details', [App\Http\Controllers\Frontend\UserController::class, 'updateTravelBoardingDetails'])->name('update.travel_boarding.details');
+
+	Route::get('/hotel-booking-details', [App\Http\Controllers\Frontend\UserController::class, 'editHotelBookingDetails'])->name('edit.hotel.booking.details');
 
 	Route::get('/add-member', [App\Http\Controllers\Frontend\UserController::class, 'addMember'])->name('add.member');
 	Route::post('/store-member', [App\Http\Controllers\Frontend\UserController::class, 'storeMember'])->name('store.member');

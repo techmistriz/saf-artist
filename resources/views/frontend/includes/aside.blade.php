@@ -150,8 +150,21 @@
                             </div>
 
                             <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('edit.travel_boarding.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Travel, Boarding & Lodging</a>
-                                <span class="text-muted font-weight-bold">Travel, Boarding & Lodging</span>
+                                <a href="{{ route('edit.ticket.booking.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Ticket Booking</a>
+                                <span class="text-muted font-weight-bold">Ticket Booking</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center pb-9">
+                            <div class="symbol symbol-45 symbol-light mr-4">
+                                <span class="symbol-label">
+                                    <i class="la la-plane  icon-xl"></i>
+                                </span>
+                            </div>
+
+                            <div class="d-flex flex-column flex-grow-1">
+                                <a href="{{ route('edit.hotel.booking.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Hotel Booking</a>
+                                <span class="text-muted font-weight-bold">Hotel Booking</span>
                             </div>
                         </div>
 

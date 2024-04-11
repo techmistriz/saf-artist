@@ -206,7 +206,7 @@ class UserController extends Controller
      * @param  $id
      * @return Redirect
      */
-    public function editTravelBoardingDetails()
+    public function editHotelBookingDetails()
     {
         $user 				= \Auth::user();
         $user_id 			= $user->id;
@@ -221,7 +221,25 @@ class UserController extends Controller
     		$row			= TravelBoarding::where('user_id', $user_id)->first();
     	}
 
-        return view('frontend.travel_boarding_details.edit')->with(['row' => $row, 'countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'user' => $user, 'projects' => $projects]);
+        return view('frontend.hotel_booking_details.edit')->with(['row' => $row, 'countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'user' => $user, 'projects' => $projects]);
+    }
+
+    public function editTicketBookingDetails()
+    {
+        $user               = \Auth::user();
+        $user_id            = $user->id;
+        $countries          = Country::where('status', 1)->get();
+        $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
+        $travelModes        = TravelMode::where('status', 1)->get();
+        $projects           = Project::where('status', 1)->where('year', date('Y'))->get();
+
+        $row                = TravelBoarding::where('user_id', $user_id)->first();
+        if(empty($row)) {
+            TravelBoarding::create(['user_id' => $user_id]);
+            $row            = TravelBoarding::where('user_id', $user_id)->first();
+        }
+
+        return view('frontend.ticket_booking_details.edit')->with(['row' => $row, 'countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'user' => $user, 'projects' => $projects]);
     }
 
     /**
