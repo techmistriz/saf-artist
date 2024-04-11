@@ -16,10 +16,13 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\MetroCity;
 use App\Models\Project;
+use App\Models\Faq;
 use App\Models\Role;
+use App\Models\GroupMember;
 use App\Models\TravelMode;
 use App\Models\TravelBoarding;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\GroupMemberRequest;
 use App\Http\Requests\UserCategoryDetailsRequest;
 use App\Http\Requests\UserAccountDetailsRequest;
 use App\Http\Requests\UserTravelBoardingDetailsRequest;
@@ -27,6 +30,7 @@ use Carbon\Carbon;
 use DB;
 use Hash;
 use Image;
+use Auth;
 use ImageUploadHelper;
 use FileUploadHelper;
 use App\Traits\UserTrait;
@@ -234,10 +238,59 @@ class UserController extends Controller
         return \Redirect::route('edit.travel_boarding.details');
     }
 
-    public function editFaqDetails()
+    public function FaqDetails()
     {
-        
-
-        return view('frontend.faq_details.edit');
+        $faqs        = Faq::where('status', 1)->get();
+        return view('frontend.faq_details.details')->with('faqs', $faqs);
     }
+
+    public function addGroupMember()
+    {        
+        return view('frontend.group_member.create');
+    }
+
+    // public function storeGroupMember(GroupMemberRequest $request)
+    // { 
+    //     $group_member                      = new GroupMember();
+
+    //     $group_member->name                = $request->name;
+    //     $group_member->email               = $request->email;
+    //     $group_member->contact             = $request->contact;
+    //     $group_member->status              = $request->input('status', 0);
+    //     $group_member->created_by          = Auth::user()->id;
+    //     $group_member->dob                 = $request->dob;
+    //     // dd($group_member);
+    //     $group_member->save();
+
+    //     \Flash::success('Member added successfully.');
+    //     return \Redirect::route('dashboard');
+    // }
+
+    public function storeGroupMember(GroupMemberRequest $request)
+    { 
+        $admin = Auth::user()->id;
+        $maxMembersAllowed = 8;
+
+        $existingMemberCount = GroupMember::where('created_by', $admin)->count();
+
+        if ($existingMemberCount >= $maxMembersAllowed) {
+            \Flash::error('You have reached the maximum limit of '.$maxMembersAllowed.' members allowed per user.');
+            return \Redirect::back()->withInput();
+        }
+
+        $group_member = new GroupMember();
+
+        $group_member->name = $request->name;
+        $group_member->email = $request->email;
+        $group_member->contact = $request->contact;
+        $group_member->status = $request->input('status', 0);
+        $group_member->created_by = $admin;
+        $group_member->dob = $request->dob;
+
+        $group_member->save();
+
+        \Flash::success('Member added successfully.');
+        return \Redirect::route('dashboard');
+    }
+
 }

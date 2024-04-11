@@ -57,11 +57,14 @@ Route::group(['middleware' => ['verified']], function () {
 
 	Route::put('/account-details', [App\Http\Controllers\Frontend\UserController::class, 'updateAccountDetails'])->name('update.account.details');
 	
-	Route::get('/faq-details', [App\Http\Controllers\Frontend\UserController::class, 'editFaqDetails'])->name('edit.faq.details');
+	Route::get('/faq-details', [App\Http\Controllers\Frontend\UserController::class, 'FaqDetails'])->name('faq.details');
 
 	Route::get('/travel-boarding-details', [App\Http\Controllers\Frontend\UserController::class, 'editTravelBoardingDetails'])->name('edit.travel_boarding.details');
 
 	Route::put('/travel-boarding-details', [App\Http\Controllers\Frontend\UserController::class, 'updateTravelBoardingDetails'])->name('update.travel_boarding.details');
+
+	Route::get('/group-member', [App\Http\Controllers\Frontend\UserController::class, 'addGroupMember'])->name('group.member');
+	Route::post('/store-group-member', [App\Http\Controllers\Frontend\UserController::class, 'storeGroupMember'])->name('store.group.member');
 
 });
 

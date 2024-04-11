@@ -120,7 +120,7 @@
 
                             <!--begin::Text-->
                             <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('edit.faq.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">FAQs</a>
+                                <a href="{{ route('faq.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">FAQs</a>
                                 <span class="text-muted font-weight-bold">FAQs Details</span>
                             </div>
                             <!--end::Text-->

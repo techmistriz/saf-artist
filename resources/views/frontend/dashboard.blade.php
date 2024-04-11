@@ -50,6 +50,10 @@
                             <div class="card-title">
                                 <h3 class="card-label">Artist Personal Details</h3>
                             </div>
+
+                            <div class="text-right" style=" margin-bottom: -25px;">
+                                <a href="{{route('group.member')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Group Member</a>
+                            </div>
                         </div>
                         <!--end::Header-->
                         <!--Begin::Body-->
@@ -60,7 +64,7 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Are you Artist/group </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <select class="form-control form-control-lg form-control-custom selectpicker" name="frontend_role_id" tabindex="null" >
+                                            <select class="form-control form-control-lg form-control-custom selectpicker" name="frontend_role_id" tabindex="null" onchange="marketingSocialMediaHide()">
                                                 <option value="">Select Role</option>
                                                 @if($frontendRoles->count())
                                                     @foreach($frontendRoles as $value)
@@ -80,16 +84,25 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
-                                                <option value="">Select Category</option>
 
-                                                @if($categories->count())
-                                                    @foreach($categories as $value)
-                                                        <option value="{{$value->id}}" {{ old('category_id', $row->category_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
-                                                    @endforeach
-                                                @endif
+                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist'))
 
-                                            </select>
+                                                <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
+                                                    <option value="">Select Category</option>
+
+                                                    @if($categories->count())
+                                                        @foreach($categories as $value)
+                                                            <option value="{{$value->id}}" {{ old('category_id', $row->category_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
+                                                        @endforeach
+                                                    @endif
+
+                                                </select>
+                                            
+                                            @else
+                                                <input type="text" name="category_id" id="category_id" class="form-control form-control-lg form-control-custom " value="{{ $categories->count() ? $categories->first()->name : '' }}" readonly>
+                                            
+                                            @endif                                            
+                                            
                                             @error('category_id')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -102,7 +115,10 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name of Curators </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
+
+                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist'))
+                                            
+                                                <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
                                                 <option value="">Select Curator</option>
 
                                                 @if($curators->count())
@@ -112,6 +128,12 @@
                                                 @endif
 
                                             </select>
+                                            
+                                            @else
+                                                <input type="text" name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom " value="{{ $curators->count() ? $curators->first()->name : '' }}" readonly>
+                                            
+                                            @endif                                             
+                                            
                                             @error('curator_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -154,7 +176,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-12">
+                                <div class="col-12" id="dob" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? '' :'display:none;'}}">
                                     
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
@@ -354,7 +376,21 @@
                                 
                             </div>
 
-                            <div class="row">
+                            <div class="row" id="members_numbers" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? 'display:none;' :''}}">
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Max Member Allowed </label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <input type="number" value="{{ $row->max_allowed_member ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Allowed Max Member" />
+                                            @error('max_allowed_member')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" id="marketingSocialMedia" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? '' :'display:none;'}}">
 
                                 <div class="col-12">
                                     <h4 class="card-label">For marketing and social media purpose</h4><hr>
@@ -372,9 +408,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-12">
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Bio <i>(150 words only) </i> </label>
@@ -387,10 +421,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                
 
                                 <div class="col-12">
                                     <div class="form-group row validated">
@@ -404,10 +434,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                
 
                                 <div class="col-12">
                                     <div class="form-group row validated">
@@ -420,11 +446,7 @@
                                         
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                
+                                </div>                                
 
                                 <div class="col-12">
                                     <div class="form-group row validated">
@@ -437,11 +459,7 @@
                                         
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                
+                                </div>                               
 
                                 <div class="col-12">
                                     <div class="form-group row validated">
@@ -455,9 +473,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-12">
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Website <i>(If any)</i> </label>
@@ -470,9 +486,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-12">
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</label>
@@ -586,9 +600,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-12">
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Have you been associated with Serendipity Arts in the past ? </label>
@@ -629,9 +641,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-12">
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work <i>(If any)</i> </label>
@@ -644,7 +654,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row">
 
                                 <div class="col-12">
@@ -877,6 +886,20 @@
 
         getProjects(null, <?php echo old( 'project_id', $row->project_id ?? 0 )?>);
     });
+
+    function marketingSocialMediaHide() {
+
+        var frontendRole = $('select[name="frontend_role_id"] option:selected').text();
+        if (frontendRole == 'Artist') {
+            $('#marketingSocialMedia').show();
+            $('#dob').show();
+            $('#members_numbers').hide();
+        }else {
+            $('#marketingSocialMedia').hide();
+            $('#dob').hide();
+            $('#members_numbers').show();
+        }
+    }
     
 </script>
 @endpush
