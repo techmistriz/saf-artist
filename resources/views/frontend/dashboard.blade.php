@@ -51,7 +51,7 @@
                                 <h3 class="card-label">Artist Personal Details</h3>
                             </div>
 
-                            <div class="text-right" style=" margin-bottom: -25px;">
+                            <div class="text-right" style="margin-bottom: -25px; {{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? 'display:none;' : ''}}">
                                 <a href="{{route('add.member')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Group Member</a>
                             </div>
                         </div>

@@ -75,7 +75,7 @@
                             <!--end::Text-->
                         </div>
 
-                        <div class="d-flex align-items-center pb-9">
+                        <div class="d-flex align-items-center pb-9" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? '' :'display:none;'}}">
                             <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
