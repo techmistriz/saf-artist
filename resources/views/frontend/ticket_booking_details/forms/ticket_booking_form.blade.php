@@ -179,7 +179,7 @@
         <div class="form-group row validated">
             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International/Domestic Traveller </label>
             <div class="col-lg-9 col-md-9 col-sm-12">
-                <select class="form-control form-control-lg form-control-solid selectpicker" name="international_or_domestic" tabindex="null">
+                <select class="form-control form-control-lg form-control-solid selectpicker" name="international_or_domestic" tabindex="null" onchange="travellerField()">
                     <option value="">Select International or Domestic Traveller</option>
                     <option value="International" {{ old('international_or_domestic') == 'International' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'selected' : '' }}>International</option>
                     <option value="Domestic" {{ old('international_or_domestic') == 'Domestic' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'selected' : ''  }}>Domestic</option>
@@ -192,7 +192,7 @@
     </div>
 
     <div class="col-12">
-        <div class="form-group row validated">
+        <div class="form-group row validated" id="visa">
             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Do you have work visa for India</label>
             <div class="col-lg-9 col-md-9 col-sm-12">
                 <select class="form-control form-control-lg form-control-solid selectpicker" name="work_visa" tabindex="null">
@@ -207,7 +207,7 @@
         </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-12" id="passport">
 
         <div class="form-group row validated">
             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Image) </label>
@@ -246,6 +246,68 @@
         </div>
     </div>
 
+    <div class="col-12" id="adhaar_driving">
+
+        <div class="form-group row validated">
+            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Adhaar card or Driving License </label>
+            <div class="col-lg-9 col-md-9 col-sm-12">
+                
+                <div class="image-input image-input-outline" id="adhaarcard_driving" style="background-image: url({{asset('media/users/blank.png')}})">
+
+                    @if(isset($row->adhaarcard_driving) && !empty($row->adhaarcard_driving))
+                        <div class="image-input-wrapper" style="background-image: url({{asset('uploads/passports/'.$row->adhaarcard_driving)}})"></div>
+                    @else
+                        <div class="image-input-wrapper adhaarcard_driving_base64"></div>
+                    @endif
+
+                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
+                        <i class="fa fa-pen icon-sm text-muted"></i>
+                        <input type="file" name="adhaarcard_driving" accept=".png, .jpg, .jpeg"/>
+                        <input type="hidden" name="adhaarcard_driving_remove"/>
+                    </label>
+
+                    @if(isset($row->adhaarcard_driving) && !empty($row->adhaarcard_driving))
+                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove">
+                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                        </span>
+                    @else
+                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel">
+                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                        </span>
+                    @endif
+                </div>
+
+                @error('adhaarcard_driving')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12" id="dob" style="">
+                                    
+        <div class="form-group row validated">
+            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
+            <div class="col-lg-9 col-md-9 col-sm-12">
+
+                <div class="input-group date">
+                    <input type="text" name="dob" value="{{ old('dob', $row->dob ?? '') }}" class="form-control form-control-lg form-control-solid kt_datepicker" {{isset($row->dob) ? '':''}} placeholder="Enter DOB" autocomplete="new dob" readonly />
+
+                    @error('dob')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+
+                    <div class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="la la-calendar-check-o"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @push('scripts')
@@ -277,6 +339,52 @@
             });
         });
         // END upload_passport
+
+        // START adhaarcard_driving
+        var adhaarcard_driving = new KTImageInput('adhaarcard_driving');
+
+        adhaarcard_driving.on('cancel', function(imageInput) {
+            swal.fire({
+                title: 'Image successfully canceled !',
+                type: 'success',
+                buttonsStyling: false,
+                confirmButtonText: 'Okay!',
+                confirmButtonClass: 'btn btn-primary font-weight-bold'
+            });
+        });
+
+        adhaarcard_driving.on('change', function(imageInput) {
+            
+        });
+
+        adhaarcard_driving.on('remove', function(imageInput) {
+            swal.fire({
+                title: 'Image successfully removed !',
+                type: 'error',
+                buttonsStyling: false,
+                confirmButtonText: 'Got it!',
+                confirmButtonClass: 'btn btn-primary font-weight-bold'
+            });
+        });
+        // END adhaarcard_driving
+
+        // start field hide
+        function travellerField() {
+
+            var traveller = $('select[name="international_or_domestic"] option:selected').text();
+            if (traveller == 'International') {
+                $('#visa').show();
+                $('#passport').show();
+                $('#dob').hide();
+                $('#adhaar_driving').hide();
+            }else {
+                $('#visa').hide();
+                $('#passport').hide();
+                $('#dob').show();
+                $('#adhaar_driving').show();
+            }
+        } 
+        // end field hide 
     </script>
 @endpush
 
