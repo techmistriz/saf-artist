@@ -75,21 +75,27 @@
                             <!--end::Text-->
                         </div>
 
-                        <div class="d-flex align-items-center pb-9" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? '' :'display:none;'}}">
-                            <!--begin::Symbol-->
-                            <div class="symbol symbol-45 symbol-light mr-4">
-                                <span class="symbol-label">
-                                    <i class="flaticon-users icon-xl"></i>
-                                </span>
+
+                        @if(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Troupe/Group'))
+                       
+                            <div class="d-flex align-items-center pb-9">
+                                <!--begin::Symbol-->
+                                <div class="symbol symbol-45 symbol-light mr-4">
+                                    <span class="symbol-label">
+                                        <i class="flaticon-users icon-xl"></i>
+                                    </span>
+                                </div>
+                                <!--end::Symbol-->
+                                <!--begin::Text-->
+                                <div class="d-flex flex-column flex-grow-1">
+                                    <a href="{{route('members.list')}}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Members List</a>
+                                    <span class="text-muted font-weight-bold">Members List</span>
+                                </div>
+                                <!--end::Text-->
                             </div>
-                            <!--end::Symbol-->
-                            <!--begin::Text-->
-                            <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{route('members.list')}}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Members List</a>
-                                <span class="text-muted font-weight-bold">Members List</span>
-                            </div>
-                            <!--end::Text-->
-                        </div>
+                                       
+                        @endif
+                        
 
                         <!--begin::Item-->
                         <div class="d-flex align-items-center pb-9">
