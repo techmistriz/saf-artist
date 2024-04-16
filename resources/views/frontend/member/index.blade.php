@@ -22,7 +22,7 @@
                             <span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
                         </div>
                         <div class="card-toolbar">
-                            <a href="{{route('add.member')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Group Member</a>
+                            <a href="{{route('add.member')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Member</a>
                         </div>
                     </div>
                     <div class="card-body">

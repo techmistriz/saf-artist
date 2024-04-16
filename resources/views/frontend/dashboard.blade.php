@@ -48,7 +48,9 @@
                             @include('flash::message')
 
                             <div class="card-title">
-                                <h3 class="card-label">Artist Personal Details</h3>
+                                @if(isset($row->frontendRole->name) && !empty($row->frontendRole->name))
+                                    <h3 class="card-label">{{ $row->frontendRole->name }} Personal Details</h3>
+                                @endif
                             </div>
 
                             <div class="text-right" style="margin-bottom: -25px; {{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? 'display:none;' : ''}}">
