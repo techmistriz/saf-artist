@@ -1,6 +1,8 @@
 @extends('layouts.frontend')
 @section('content')
 
+<link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" /> 
+
 <style type="text/css">
     .radio {
         display: -webkit-box;
@@ -19,6 +21,22 @@
         background-color: #f3f6f9 !important;
         border-color: #f3f6f9 !important;
     }
+
+    .col-form-label .fa-info{
+        background: black;
+        border-radius: 50px;
+        color: white;
+        height: 20px;
+        width: 20px;
+        text-align: center;
+        line-height: 19px;
+        font-size: 12px;
+    }
+
+    .form-group .form-control{
+        width: 100%;
+    }
+
 </style>
 
 <div class="d-flex flex-column-fluid">
@@ -84,7 +102,7 @@
 
                                 <div class="col-12">
                                     <div class="form-group row validated">
-                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category </label>
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category <i class="fa fa-info" data-toggle="tooltip" data-placement="right" title="Tooltip on right"></i></label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
 
                                             @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist'))
@@ -904,6 +922,11 @@
             $('#company_collective').show();
         }
     }
+
+
+     $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
     
 </script>
 @endpush
