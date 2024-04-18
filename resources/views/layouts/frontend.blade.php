@@ -95,7 +95,7 @@
 					orientation: "bottom left",
 					templates: arrows,
 					autoClose: true,
-					format: 'dd/mm/yyyy',
+					format: 'dd-mm-yyyy',
 				});
 			}
 

@@ -88,7 +88,7 @@
                                 <!--end::Symbol-->
                                 <!--begin::Text-->
                                 <div class="d-flex flex-column flex-grow-1">
-                                    <a href="{{route('members.list')}}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Members List</a>
+                                    <a href="{{route('group.member.list')}}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Members List</a>
                                     <span class="text-muted font-weight-bold">Members List</span>
                                 </div>
                                 <!--end::Text-->
@@ -154,9 +154,14 @@
                                     <i class="la la-plane  icon-xl"></i>
                                 </span>
                             </div>
-
                             <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('edit.ticket.booking.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Ticket Booking</a>
+                                <div class="dropdown">
+                                    <a href="#" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder dropdown-toggle" id="ticketDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ticket Booking</a>
+                                    <div class="dropdown-menu" aria-labelledby="ticketDropdown">
+                                        <a class="dropdown-item" href="{{ route('ticket.booking.create') }}">Add Ticket Booking</a>
+                                        <a class="dropdown-item" href="{{ route('ticket.booking.list') }}">Ticket Booking List</a>
+                                    </div>
+                                </div>
                                 <span class="text-muted font-weight-bold">Ticket Booking</span>
                             </div>
                         </div>
@@ -167,9 +172,14 @@
                                     <i class="la la-plane  icon-xl"></i>
                                 </span>
                             </div>
-
                             <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('edit.hotel.booking.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Hotel Booking</a>
+                                <div class="dropdown">
+                                    <a href="#" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder dropdown-toggle" id="hotelDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hotel Booking</a>
+                                    <div class="dropdown-menu" aria-labelledby="hotelDropdown">
+                                        <a class="dropdown-item" href="{{ route('hotel.booking.create') }}">Add Hotel Booking</a>
+                                        <a class="dropdown-item" href="{{ route('hotel.booking.list') }}">Hotel Booking List</a>
+                                    </div>
+                                </div>
                                 <span class="text-muted font-weight-bold">Hotel Booking</span>
                             </div>
                         </div>

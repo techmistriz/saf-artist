@@ -1,7 +1,8 @@
 @extends('layouts.frontend')
+
 @section('content')
 
-<link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" /> 
+<!-- <link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" />  -->
 
 <style type="text/css">
     .radio {
@@ -72,7 +73,7 @@
                             </div>
 
                             <div class="text-right" style="margin-bottom: -25px; {{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? 'display:none;' : ''}}">
-                                <a href="{{route('add.member')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Member</a>
+                                <a href="{{route('group.member.create')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Member</a>
                             </div>
                         </div>
                         <!--end::Header-->
