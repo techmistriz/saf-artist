@@ -59,45 +59,45 @@ Route::group(['middleware' => ['verified']], function () {
 	
 	Route::get('/faq-details', [App\Http\Controllers\Frontend\UserController::class, 'FaqDetails'])->name('faq.details');
 
-	Route::get('/ticket-booking-details', [App\Http\Controllers\Frontend\UserController::class, 'editTicketBookingDetails'])->name('edit.ticket.booking.details');
+	Route::get('/ticket-booking/details', [App\Http\Controllers\Frontend\UserController::class, 'editTicketBookingDetails'])->name('edit.ticket.booking.details');
 
 	Route::put('/travel-boarding-details', [App\Http\Controllers\Frontend\UserController::class, 'updateTravelBoardingDetails'])->name('update.travel_boarding.details');
 
-	Route::get('/hotel-booking-details', [App\Http\Controllers\Frontend\UserController::class, 'editHotelBookingDetails'])->name('edit.hotel.booking.details');
+	Route::get('/hotel-booking/details', [App\Http\Controllers\Frontend\UserController::class, 'editHotelBookingDetails'])->name('edit.hotel.booking.details');
 
 	// start group-member route
-	Route::get('/group-member-list', [App\Http\Controllers\Frontend\GroupMemberController::class, 'index'])->name('group.member.list');
+	Route::get('/group-member/list', [App\Http\Controllers\Frontend\GroupMemberController::class, 'index'])->name('group.member.list');
 	Route::post('/fetch-group-member-data', [App\Http\Controllers\Frontend\GroupMemberController::class, 'fetchData'])->name('fetch.group.member.data');
-	Route::get('/group-member-create', [App\Http\Controllers\Frontend\GroupMemberController::class, 'create'])->name('group.member.create');
+	Route::get('/group-member/create', [App\Http\Controllers\Frontend\GroupMemberController::class, 'create'])->name('group.member.create');
 	Route::post('/store-group-member', [App\Http\Controllers\Frontend\GroupMemberController::class, 'store'])->name('store.group.member');
-	Route::get('/group-member-edit/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'edit'])->name('group.member.edit');
+	Route::get('/group-member/edit/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'edit'])->name('group.member.edit');
 	Route::put('/group-member-update/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'update'])->name('store.group.update');
-	Route::get('/group-member-show/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'show'])->name('group.member.show');
-	Route::get('/group-member-delete/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'delete'])->name('group.member.delete');
+	Route::get('/group-member/show/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'show'])->name('group.member.show');
+	Route::get('/group-member/delete/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'delete'])->name('group.member.delete');
 	// end group-member route
 
 
 	// start ticket-booking route
-	Route::get('/ticket-booking-list', [App\Http\Controllers\Frontend\TicketBookingController::class, 'index'])->name('ticket.booking.list');
+	Route::get('/ticket-booking/list', [App\Http\Controllers\Frontend\TicketBookingController::class, 'index'])->name('ticket.booking.list');
 	Route::post('/fetch-ticket-booking-data', [App\Http\Controllers\Frontend\TicketBookingController::class, 'fetchData'])->name('fetch.ticket.booking.data');
-	Route::get('/ticket-booking-create', [App\Http\Controllers\Frontend\TicketBookingController::class, 'create'])->name('ticket.booking.create');
+	Route::get('/ticket-booking/create', [App\Http\Controllers\Frontend\TicketBookingController::class, 'create'])->name('ticket.booking.create');
 	Route::post('/store-ticket-booking', [App\Http\Controllers\Frontend\TicketBookingController::class, 'store'])->name('store.ticket.booking');
-	Route::get('/ticket-booking-edit/{id}', [App\Http\Controllers\Frontend\TicketBookingController::class, 'edit'])->name('ticket.booking.edit');
+	Route::get('/ticket-booking/edit/{id}', [App\Http\Controllers\Frontend\TicketBookingController::class, 'edit'])->name('ticket.booking.edit');
 	Route::put('/ticket-booking-update/{id}', [App\Http\Controllers\Frontend\TicketBookingController::class, 'update'])->name('ticket.booking.update');
-	Route::get('/ticket-booking-show/{id}', [App\Http\Controllers\Frontend\TicketBookingController::class, 'show'])->name('ticket.booking.show');
-	Route::get('/ticket-booking-delete/{id}', [App\Http\Controllers\Frontend\TicketBookingController::class, 'delete'])->name('ticket.booking.delete');
+	Route::get('/ticket-booking/show/{id}', [App\Http\Controllers\Frontend\TicketBookingController::class, 'show'])->name('ticket.booking.show');
+	Route::get('/ticket-booking/delete/{id}', [App\Http\Controllers\Frontend\TicketBookingController::class, 'delete'])->name('ticket.booking.delete');
 	// end ticket-booking route
 
 
 	// start hotel-booking route
-	Route::get('/hotel-booking-list', [App\Http\Controllers\Frontend\HotelBookingController::class, 'index'])->name('hotel.booking.list');
+	Route::get('/hotel-booking/list', [App\Http\Controllers\Frontend\HotelBookingController::class, 'index'])->name('hotel.booking.list');
 	Route::post('/fetch-hotel-booking-data', [App\Http\Controllers\Frontend\HotelBookingController::class, 'fetchData'])->name('fetch.hotel.booking.data');
-	Route::get('/hotel-booking-create', [App\Http\Controllers\Frontend\HotelBookingController::class, 'create'])->name('hotel.booking.create');
+	Route::get('/hotel-booking/create', [App\Http\Controllers\Frontend\HotelBookingController::class, 'create'])->name('hotel.booking.create');
 	Route::post('/store-hotel-booking', [App\Http\Controllers\Frontend\HotelBookingController::class, 'store'])->name('store.hotel.booking');
-	Route::get('/hotel-booking-edit/{id}', [App\Http\Controllers\Frontend\HotelBookingController::class, 'edit'])->name('hotel.booking.edit');
+	Route::get('/hotel-booking/edit/{id}', [App\Http\Controllers\Frontend\HotelBookingController::class, 'edit'])->name('hotel.booking.edit');
 	Route::put('/hotel-booking-update/{id}', [App\Http\Controllers\Frontend\HotelBookingController::class, 'update'])->name('hotel.booking.update');
-	Route::get('/hotel-booking-show/{id}', [App\Http\Controllers\Frontend\HotelBookingController::class, 'show'])->name('hotel.booking.show');
-	Route::get('/hotel-booking-delete/{id}', [App\Http\Controllers\Frontend\HotelBookingController::class, 'delete'])->name('hotel.booking.delete');
+	Route::get('/hotel-booking/show/{id}', [App\Http\Controllers\Frontend\HotelBookingController::class, 'show'])->name('hotel.booking.show');
+	Route::get('/hotel-booking/delete/{id}', [App\Http\Controllers\Frontend\HotelBookingController::class, 'delete'])->name('hotel.booking.delete');
 	// end hotel-booking route
 
 });

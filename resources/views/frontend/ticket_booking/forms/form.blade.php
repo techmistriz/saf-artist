@@ -88,17 +88,17 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col-12">
+                    <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Age </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="age" value="{{ old('age', $row->age ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter Age" readonly/>
+                                <input type="text" name="age" value="{{ old('age', $row->age ?? '')}}" class="form-control form-control-solid form-control-lg" placeholder="Enter Age"/>
                                 @error('age')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
-                    </div> -->
+                    </div>
 
                     <div class="col-12">
                         <div class="form-group row validated">
@@ -317,7 +317,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="dob" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
+                    <!-- <div class="col-12" id="dob" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
                                                     
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
@@ -338,7 +338,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>

@@ -93,12 +93,19 @@ class TicketBookingController extends Controller
      */
     public function create(TicketBooking $ticket)
     {
+        $userId = Auth::user()->id;
+        $members = User::where('status', 1)
+            ->where('poc_id', $userId)
+            ->whereNotIn('id', function($query) {
+                $query->select('member_id')
+                    ->from('ticket_bookings');
+            })
+            ->get();
         
         $countries          = Country::where('status', 1)->get();
         $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
         $travelModes        = TravelMode::where('status', 1)->get();
         $projects           = Project::where('status', 1)->get();  //->where('year', date('Y'))
-        $members = User::where('status', 1)->whereNotNull('poc_id')->get();
 
         return view('frontend.ticket_booking.create')->with('row', null)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members]);
     }

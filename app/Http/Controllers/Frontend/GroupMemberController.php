@@ -52,12 +52,13 @@ class GroupMemberController extends Controller
 
     public function fetchData(Request $request, GroupMember $member)
     {
-        
+        $userId = Auth::user()->id;
+
         $data               =   $request->all();
 
-        $db_data            =   $member->getList($data,['poc']);
+        $db_data            =   $member->getList($data, ['poc'], ['poc_id'=> $userId]);
 
-        $count 				=  	$member->getListCount($data);
+        $count 				=  	$member->getListCount($data,[], ['poc_id'=> $userId]);
 
         $returnArray = array(
             'data' => $db_data,

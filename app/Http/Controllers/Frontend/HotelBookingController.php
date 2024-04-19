@@ -93,7 +93,13 @@ class HotelBookingController extends Controller
      */
     public function create(HotelBooking $hotel)
     {
-        $members = User::where('status', 1)->whereNotNull('poc_id')->get();
+        $members = User::where('status', 1)
+            ->whereNotNull('poc_id')
+            ->whereNotIn('id', function($query) {
+                $query->select('member_id')
+                    ->from('ticket_bookings');
+            })
+            ->get();
 
         return view('frontend.hotel_booking.create')->with('row', null)->with('members', $members);
     }

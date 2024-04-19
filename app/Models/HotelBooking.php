@@ -88,13 +88,13 @@ class HotelBooking extends MasterModel
    function getActionsAttribute(){
    
       return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-         <a href="hotel-booking-show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+         <a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
             <i class="flaticon-eye"></i>
          </a>
-         <a href="hotel-booking-edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+         <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
             <i class="flaticon2-pen"></i>
          </a>
-         <a href="hotel-booking-delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
+         <a href="delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
             <i class="flaticon2-trash"></i>
          </a>
       </span>';

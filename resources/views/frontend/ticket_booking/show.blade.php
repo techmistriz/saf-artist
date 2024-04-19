@@ -3,12 +3,15 @@
 @section('content')
 
 <div class="d-flex flex-column-fluid">
-    <div class="container">
+    <!--begin::Container-->
+    <div class=" container container-fluid">        
 
-        <div class="row">
-		    <div class="col-md-12">
-		        
-		        <div class="card card-custom gutter-b">
+        <!--begin::Education-->
+        <div class="d-flex flex-row">
+            @include('frontend/includes/aside')
+            <div class="flex-row-fluid ml-lg-8">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-bs">
 		            <div class="card-header">
 		                <div class="card-title">
 		                    <h3 class="card-label">Show Ticket Booking</h3>
