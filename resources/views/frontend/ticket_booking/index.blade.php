@@ -98,25 +98,33 @@
                 {
                     field: "contact",
                     title: "Contact",
-                }, 
+                },
                 {
-                    field: "status",
-                    title: "status",
+                    field: "ticket_status",
+                    title: "Ticket Status",
                     template: function(t) {
-                        var status = {
+                        var ticket_status = {
                             0: {
-                                'title': 'Inactive',
-                                'class': ' label-light-danger'
+                                'title': 'Added by Group',
+                                'class': ' label-light-warning'
                             },
                             1: {
-                                'title': 'Active',
+                                'title': 'Added by Admin',
                                 'class': ' label-light-success'
+                            },                        
+                            2: {
+                                'title': 'COMPLETED',
+                                'class': ' label-light-danger'
+                            },
+                            3: {
+                                'title': 'CANCELLED',
+                                'class': ' label-danger'
                             }
                             
                         };
-                        return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
+                        return '<span class="label font-weight-bold label-lg ' + ticket_status[t?.ticket_status].class + ' label-inline">' + ticket_status[t?.ticket_status].title + '</span>';
                     },
-                },      
+                },    
                 {
                     field: "actions",
                     title: "actions",

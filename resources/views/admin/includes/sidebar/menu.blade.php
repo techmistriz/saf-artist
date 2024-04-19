@@ -29,9 +29,13 @@
             	@include('admin/includes/sidebar/project')
             @endif
             
-        	<!-- if(\Helper::checkPermisson('TravelBoardingController', $rolePermissionArr))
-            	include('admin/includes/sidebar/travel_boarding')
-            endif -->
+        	@if(\Helper::checkPermisson('HotelBookingController', $rolePermissionArr))
+            	@include('admin/includes/sidebar/hotel_booking')
+            @endif
+
+            @if(\Helper::checkPermisson('TicketBookingController', $rolePermissionArr))
+                @include('admin/includes/sidebar/ticket_booking')
+            @endif
 
             @if(\Helper::isSuperAdmin('AdminUserControllerController', $rolePermissionArr))
             	@include('admin/includes/sidebar/admin_user')

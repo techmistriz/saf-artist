@@ -19,7 +19,6 @@ use App\Models\Project;
 use App\Models\Faq;
 use App\Models\Role;
 use App\Models\TravelMode;
-use App\Models\TravelBoarding;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserCategoryDetailsRequest;
 use App\Http\Requests\UserAccountDetailsRequest;

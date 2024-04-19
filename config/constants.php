@@ -34,6 +34,21 @@ return [
 		
 	),
 
-	'numbers'	=>	range(1,50)
+	'numbers'	=>	range(1,50),
+
+	'TICKET_STATUS' => [
+		'Added by Group' => 0,
+		'Added by Admin' => 1,
+		'COMPLETED' => 2,
+		'CANCELLED' => 3,
+	],
+
+	'HOTEL_STATUS' => [
+		'Added by Group' => 0,
+		'Added by Admin' => 1,
+		'COMPLETED' => 2,
+		'CANCELLED' => 3,
+
+	]
 
 ];

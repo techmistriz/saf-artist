@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,7 +9,6 @@ use App\Models\User;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
-use App\Models\Role;
 use App\Models\Project;
 use App\Models\TravelMode;
 use App\Models\MetroCity;
@@ -23,24 +22,45 @@ use ImageUploadHelper;
 class HotelBookingController extends Controller
 {   
     
+    /*
+    |--------------------------------------------------------------------------
+    | {{moduleTitle}} Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles create, update, delete and show list of {{moduleTitle}}.
+    |
+    */
+
     public static $moduleConfig = [
-        "passportUploadFolder" => 'uploads/passports/',
-        "adhaarcardDrivingUploadFolder" => 'uploads/adhaarcard_drivings/',
+        "routes" => [
+            "listRoute" => 'admin.hotel_booking.index',
+            "fetchDataRoute" => 'admin.hotel_booking.fetch.data', 
+            "createRoute" => 'admin.hotel_booking.create', 
+            "storeRoute" => 'admin.hotel_booking.store', 
+            "editRoute" => 'admin.hotel_booking.edit', 
+            "updateRoute" => 'admin.hotel_booking.update', 
+            "deleteRoute" => 'admin.hotel_booking.delete',
+        ],
+        "moduleTitle" => 'Hotel Booking',
+        "moduleName" => 'hotel_booking',
+        "viewFolder" => 'hotel_booking',
+        // "passportUploadFolder" => 'uploads/passports/',
+        // "adhaarcardDrivingUploadFolder" => 'uploads/adhaarcard_drivings/',
     ];
 
-	/**
+    /**
      * Constructor Method.
      *
      * Setting Authentication
      *
      */
 
-    // public function __construct()
-    // {
-    // 	parent::__construct();
-    //     $this->middleware('auth:admin');
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('auth:admin');
 
-    // }
+    }
 
 
     /**
@@ -52,7 +72,7 @@ class HotelBookingController extends Controller
 
     public function index(Request $request){
 
-        return view('frontend.hotel_booking.index');
+       return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig);
     }
 
     /**
@@ -67,7 +87,7 @@ class HotelBookingController extends Controller
         
         $data               =   $request->all();
 
-        $db_data            =   $hotel->getList($data);
+        $db_data            =   $hotel->getList($data,['member']);
 
         $count 				=  	$hotel->getListCount($data);
 
@@ -96,14 +116,14 @@ class HotelBookingController extends Controller
     {
         $userId = Auth::user()->id;
         $members = User::where('status', 1)
-            ->where('poc_id', $userId)
+            ->whereNotNull('poc_id')
             ->whereNotIn('id', function($query) {
                 $query->select('source_id')
                     ->from('hotel_bookings');
             })
             ->get();
 
-        return view('frontend.hotel_booking.create')->with('row', null)->with('members', $members);
+       return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('members', $members);
     }
 
     /**
@@ -118,24 +138,17 @@ class HotelBookingController extends Controller
     {
         $hotel                                       = new HotelBooking();
 
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) {
-
-            $hotel->source_id   = Auth::user()->id;
-        }else{            
-            $hotel->source_id   = $request->member_id;
-        }
-
-
+        $hotel->source_id                            = $request->member_id;
         $hotel->accomodation                         = $request->accomodation;
         $hotel->check_in_date                        = $request->check_in_date;
         $hotel->check_out_date                       = $request->check_out_date;
         $hotel->total_room_nights                    = $request->total_room_nights;
         $hotel->artist_remarks                       = $request->artist_remarks;
-        $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Group'];
+        $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Admin'];
         $hotel->save();
 
-        \Flash::success(' Hotel booking created successfully');
-        return \Redirect::route('hotel.booking.list');
+        \Flash::success(self::$moduleConfig['moduleTitle'].' created successfully');
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
     }
 
 
@@ -148,7 +161,7 @@ class HotelBookingController extends Controller
     public function show ($id, HotelBooking $hotel){
 
         $row = HotelBooking::findOrFail($id);
-        return view('frontend.hotel_booking.show ')->with('row', $row);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
     }
 
     /**
@@ -160,11 +173,11 @@ class HotelBookingController extends Controller
     public function edit($id, HotelBooking $hotel){
 
         $row = HotelBooking::findOrFail($id);
+        
+        $userId             = Auth::user()->id;
+        $members            = User::where('status', 1)->get();
 
-        $userId = Auth::user()->id;
-        $members            = User::where('status', 1)->where('poc_id', $userId)->get();
-
-        return view('frontend.hotel_booking.edit')->with('row', $row)->with('members', $members);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members);
     }
 
     /**
@@ -176,24 +189,18 @@ class HotelBookingController extends Controller
     public function update(HotelBookingRequest $request, $id){
 
         $hotel                  = HotelBooking::findOrFail($id);
-        
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) {
 
-            $hotel->source_id   = Auth::user()->id;
-        }else{            
-            $hotel->source_id   = $request->member_id;
-        }
-
+        $hotel->source_id                            = $request->member_id;
         $hotel->accomodation                         = $request->accomodation;
         $hotel->check_in_date                        = $request->check_in_date;
         $hotel->check_out_date                       = $request->check_out_date;
         $hotel->total_room_nights                    = $request->total_room_nights;
         $hotel->artist_remarks                       = $request->artist_remarks;
-        $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Group'];
+        $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Admin'];
         $hotel->save();
 
-        \Flash::success('Hotel booking updated successfully.');
-        return \Redirect::route('hotel.booking.list');
+        \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
     }
 
     /**
@@ -208,8 +215,8 @@ class HotelBookingController extends Controller
         
         $row = HotelBooking::findOrFail($id);
         $row->delete();
-        \Flash::success('Hotel booking deleted successfully.'); 
-        return \Redirect::route('hotel.booking.list');
+        \Flash::success(self::$moduleConfig['moduleTitle'].' can\'t be deleted.'); 
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
     }
 
 }

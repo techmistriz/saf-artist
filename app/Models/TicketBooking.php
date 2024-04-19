@@ -50,6 +50,26 @@ class TicketBooking extends MasterModel
       return $records->get();
    }
 
+   public function project() {
+
+      return $this->belongsTo('App\Models\Project', 'project_id', 'id');
+   }
+
+   public function member() {
+
+      return $this->belongsTo('App\Models\User', 'source_id', 'id');
+   }
+
+   public function onwardCity() {
+
+      return $this->belongsTo('App\Models\MetroCity', 'onward_city_id', 'id');
+   }
+
+   public function returnCity() {
+
+      return $this->belongsTo('App\Models\MetroCity', 'return_city_id', 'id');
+   }
+
    public function getListCount($data, $with = [], $where = []){  
 
       $records = $this->query();

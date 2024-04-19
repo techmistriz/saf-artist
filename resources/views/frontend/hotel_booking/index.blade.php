@@ -98,25 +98,33 @@
                 {
                     field: "check_out_date",
                     title: "check out date",
-                }, 
+                },
                 {
-                    field: "status",
-                    title: "status",
+                    field: "hotel_status",
+                    title: "Hotel Status",
                     template: function(t) {
-                        var status = {
+                        var hotel_status = {
                             0: {
-                                'title': 'Inactive',
-                                'class': ' label-light-danger'
+                                'title': 'Added by Group',
+                                'class': ' label-light-warning'
                             },
                             1: {
-                                'title': 'Active',
+                                'title': 'Added by Admin',
                                 'class': ' label-light-success'
+                            },                        
+                            2: {
+                                'title': 'COMPLETED',
+                                'class': ' label-light-danger'
+                            },
+                            3: {
+                                'title': 'CANCELLED',
+                                'class': ' label-danger'
                             }
                             
                         };
-                        return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
+                        return '<span class="label font-weight-bold label-lg ' + hotel_status[t?.hotel_status].class + ' label-inline">' + hotel_status[t?.hotel_status].title + '</span>';
                     },
-                },      
+                },     
                 {
                     field: "actions",
                     title: "actions",

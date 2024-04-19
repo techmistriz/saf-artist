@@ -59,6 +59,11 @@ class HotelBooking extends MasterModel
       return $records->get();
    }
 
+   public function member() {
+
+      return $this->belongsTo('App\Models\User', 'source_id', 'id');
+   }
+
    public function getListCount($data, $with = [], $where = []){  
 
       $records = $this->query();

@@ -1,4 +1,4 @@
-<li class="menu-item menu-item-submenu {{ $helper->isActivate(['admin.travel_boarding.index', 'admin.travel_boarding.create', 'admin.travel_boarding.edit']) }}" aria-haspopup="true" data-menu-toggle="hover">
+<li class="menu-item menu-item-submenu {{ $helper->isActivate(['admin.hotel_booking.index', 'admin.hotel_booking.create', 'admin.hotel_booking.edit']) }}" aria-haspopup="true" data-menu-toggle="hover">
     <a href="javascript:;" class="menu-link menu-toggle">
         <span class="svg-icon menu-icon">
             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Bucket.svg-->
@@ -11,7 +11,7 @@
             </svg>
             <!--end::Svg Icon-->
         </span>
-        <span class="menu-text">Travel, Boarding & Lodging</span>
+        <span class="menu-text">Hotel Booking</span>
         <i class="menu-arrow"></i>
     </a>
     <div class="menu-submenu">
@@ -19,25 +19,25 @@
         <ul class="menu-subnav">
             <li class="menu-item menu-item-parent" aria-haspopup="true">
                 <span class="menu-link">
-                    <span class="menu-text">Travel, Boarding & Lodging</span>
+                    <span class="menu-text">Hotel Booking</span>
                 </span>
             </li>
-            <li class="menu-item {{ $helper->isActivate(['admin.travel_boarding.index']) }}" aria-haspopup="true">
-                <a href="{{route('admin.travel_boarding.index')}}" class="menu-link">
+            <li class="menu-item {{ $helper->isActivate(['admin.hotel_booking.index']) }}" aria-haspopup="true">
+                <a href="{{route('admin.hotel_booking.index')}}" class="menu-link">
                     <i class="menu-bullet menu-bullet-dot">
                         <span></span>
                     </i>
                     <span class="menu-text">List</span>
                 </a>
             </li>
-           <!--  <li class="menu-item {{ $helper->isActivate(['admin.travel_boarding.create']) }}" aria-haspopup="true">
-                <a href="{{route('admin.travel_boarding.create')}}" class="menu-link">
+            <li class="menu-item {{ $helper->isActivate(['admin.hotel_booking.create']) }}" aria-haspopup="true">
+                <a href="{{route('admin.hotel_booking.create')}}" class="menu-link">
                     <i class="menu-bullet menu-bullet-dot">
                         <span></span>
                     </i>
                     <span class="menu-text">Add</span>
                 </a>
-            </li> -->
+            </li>
         </ul>
     </div>
 </li>

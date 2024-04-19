@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -12,7 +12,6 @@ use App\Models\City;
 use App\Models\Project;
 use App\Models\TravelMode;
 use App\Models\MetroCity;
-use App\Models\Role;
 use Carbon\Carbon;
 use App\Http\Requests\TicketBookingRequest;
 use Hash;
@@ -23,24 +22,45 @@ use ImageUploadHelper;
 class TicketBookingController extends Controller
 {   
     
+    /*
+    |--------------------------------------------------------------------------
+    | {{moduleTitle}} Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles create, update, delete and show list of {{moduleTitle}}.
+    |
+    */
+
     public static $moduleConfig = [
+        "routes" => [
+            "listRoute" => 'admin.ticket_booking.index',
+            "fetchDataRoute" => 'admin.ticket_booking.fetch.data', 
+            "createRoute" => 'admin.ticket_booking.create', 
+            "storeRoute" => 'admin.ticket_booking.store', 
+            "editRoute" => 'admin.ticket_booking.edit', 
+            "updateRoute" => 'admin.ticket_booking.update', 
+            "deleteRoute" => 'admin.ticket_booking.delete',
+        ],
+        "moduleTitle" => 'Ticket Booking',
+        "moduleName" => 'ticket_booking',
+        "viewFolder" => 'ticket_booking',
         "passportUploadFolder" => 'uploads/passports/',
         "adhaarcardDrivingUploadFolder" => 'uploads/adhaarcard_drivings/',
     ];
 
-	/**
+    /**
      * Constructor Method.
      *
      * Setting Authentication
      *
      */
 
-    // public function __construct()
-    // {
-    // 	parent::__construct();
-    //     $this->middleware('auth:admin');
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('auth:admin');
 
-    // }
+    }
 
 
     /**
@@ -52,7 +72,7 @@ class TicketBookingController extends Controller
 
     public function index(Request $request){
 
-        return view('frontend.ticket_booking.index');
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig);
     }
 
     /**
@@ -67,7 +87,7 @@ class TicketBookingController extends Controller
         
         $data               =   $request->all();
 
-        $db_data            =   $ticket->getList($data);
+        $db_data            =   $ticket->getList($data,['member', 'project']);
 
         $count 				=  	$ticket->getListCount($data);
 
@@ -94,10 +114,9 @@ class TicketBookingController extends Controller
      */
     public function create(TicketBooking $ticket)
     {
-        $user               = \Auth::user();
-        $userId            = $user->id;
+        $userId = Auth::user()->id;
         $members = User::where('status', 1)
-            ->where('poc_id', $userId)
+            ->whereNotNull('poc_id')
             ->whereNotIn('id', function($query) {
                 $query->select('source_id')
                     ->from('ticket_bookings');
@@ -109,7 +128,7 @@ class TicketBookingController extends Controller
         $travelModes        = TravelMode::where('status', 1)->get();
         $projects           = Project::where('status', 1)->get();  //->where('year', date('Y'))
 
-        return view('frontend.ticket_booking.create')->with('row', null)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members, 'user' => $user]);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members]);
     }
 
     /**
@@ -122,14 +141,6 @@ class TicketBookingController extends Controller
 
     public function store(TicketBookingRequest $request)
     {
-        // $pocId = Auth::user()->id;
-        // $allowticket = Auth::user()->max_allowed_ticket;
-        // $existingticketsCount = TicketBooking::where('poc_id', $pocId)->count();
-        // if ($existingticketsCount >= $allowticket) {
-        //     \Flash::error('You have allowed to add only'. ' '. $allowticket. ' '. 'tickets.');
-        //     return \Redirect::back()->withInput();
-        // }
-
         $ticket                                       = new TicketBooking();
 
         if ($request->hasFile('upload_passport')) {
@@ -145,14 +156,8 @@ class TicketBookingController extends Controller
             $ticket->adhaarcard_driving  = $fileName;
         }
 
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) {
-
-            $ticket->source_id   = Auth::user()->id;
-        }else{            
-            $ticket->source_id   = $request->member_id;
-        }
-
         $ticket->name                                 = $request->name;
+        $ticket->source_id                            = $request->member_id;
         $ticket->project_id                           = $request->project_id;
         $ticket->salutation                           = $request->salutation;
         $ticket->age                                  = $request->age;
@@ -165,11 +170,11 @@ class TicketBookingController extends Controller
         $ticket->artist_remarks                       = $request->artist_remarks;
         $ticket->international_or_domestic            = $request->international_or_domestic;
         $ticket->work_visa                            = $request->work_visa;
-        $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Group'];
+        $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Admin'];
         $ticket->save();
 
-        \Flash::success('Ticket booking created successfully');
-        return \Redirect::route('ticket.booking.list');
+        \Flash::success(self::$moduleConfig['moduleTitle'].' created successfully');
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
     }
 
 
@@ -182,7 +187,7 @@ class TicketBookingController extends Controller
     public function show ($id, TicketBooking $ticket){
 
         $row = TicketBooking::findOrFail($id);
-        return view('frontend.ticket_booking.show ')->with('row', $row);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
     }
 
     /**
@@ -199,11 +204,10 @@ class TicketBookingController extends Controller
         $travelModes        = TravelMode::where('status', 1)->get();
         $projects           = Project::where('status', 1)->get();  //->where('year', date('Y'))
 
-        $user              = \Auth::user();
-        $userId             = $user->id;
-        $members            = User::where('status', 1)->where('poc_id', $userId)->get();
+        // $userId             = Auth::user()->id;
+        $members            = User::where('status', 1)->get();
 
-        return view('frontend.ticket_booking.edit')->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members, 'user' => $user]);
+       return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members]);
     }
 
     /**
@@ -228,14 +232,8 @@ class TicketBookingController extends Controller
             $ticket->adhaarcard_driving  = $fileName;
         }
 
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) {
-
-            $ticket->source_id   = Auth::user()->id;
-        }else{            
-            $ticket->source_id   = $request->member_id;
-        }
-
         $ticket->name                                 = $request->name;
+        $ticket->source_id                            = $request->member_id;
         $ticket->project_id                           = $request->project_id;
         $ticket->salutation                           = $request->salutation;
         $ticket->age                                  = $request->age;
@@ -248,11 +246,11 @@ class TicketBookingController extends Controller
         $ticket->artist_remarks                       = $request->artist_remarks;
         $ticket->international_or_domestic            = $request->international_or_domestic;
         $ticket->work_visa                            = $request->work_visa;
-        $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Group'];
+        $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Admin'];
         $ticket->save();
 
-        \Flash::success('Ticket booking updated successfully.');
-        return \Redirect::route('ticket.booking.list');
+        \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
     }
 
     /**
@@ -267,8 +265,8 @@ class TicketBookingController extends Controller
         
         $row = TicketBooking::findOrFail($id);
         $row->delete();
-        \Flash::success('Ticket booking deleted successfully.'); 
-        return \Redirect::route('ticket.booking.list');
+        \Flash::success(self::$moduleConfig['moduleTitle'].' can\'t be deleted.'); 
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
     }
 
 }

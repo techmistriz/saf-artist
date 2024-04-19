@@ -175,18 +175,33 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
         });
 
-        Route::group(['prefix' => 'travel-boarding', 'middleware' => ['AdminPermissionCheck:TravelBoardingController']], function(){
+        Route::group(['prefix' => 'ticket-booking', 'middleware' => ['AdminPermissionCheck:TicketBookingController']], function(){
 
             // program routes
-            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'travel_boarding.'], function(){
-                Route::get('list/',                     'TravelBoardingController@index')->name('index');
-                Route::post('fetch-data/',              'TravelBoardingController@fetchData')->name('fetch.data');
-                Route::get('create/',                   'TravelBoardingController@create')->name('create');
-                Route::post('store/',                   'TravelBoardingController@store')->name('store');
-                Route::get('show/{id}',                 'TravelBoardingController@show')->name('show');
-                Route::get('edit/{id}',                 'TravelBoardingController@edit')->name('edit');
-                Route::put('update/{id}',               'TravelBoardingController@update')->name('update');
-                Route::get('delete/{id}',               'TravelBoardingController@delete')->name('delete');
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'ticket_booking.'], function(){
+                Route::get('list/',                     'TicketBookingController@index')->name('index');
+                Route::post('fetch-data/',              'TicketBookingController@fetchData')->name('fetch.data');
+                Route::get('create/',                   'TicketBookingController@create')->name('create');
+                Route::post('store/',                   'TicketBookingController@store')->name('store');
+                Route::get('show/{id}',                 'TicketBookingController@show')->name('show');
+                Route::get('edit/{id}',                 'TicketBookingController@edit')->name('edit');
+                Route::put('update/{id}',               'TicketBookingController@update')->name('update');
+                Route::get('delete/{id}',               'TicketBookingController@delete')->name('delete');
+            });
+        });
+
+        Route::group(['prefix' => 'hotel-booking', 'middleware' => ['AdminPermissionCheck:HotelBookingController']], function(){
+
+            // program routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'hotel_booking.'], function(){
+                Route::get('list/',                     'HotelBookingController@index')->name('index');
+                Route::post('fetch-data/',              'HotelBookingController@fetchData')->name('fetch.data');
+                Route::get('create/',                   'HotelBookingController@create')->name('create');
+                Route::post('store/',                   'HotelBookingController@store')->name('store');
+                Route::get('show/{id}',                 'HotelBookingController@show')->name('show');
+                Route::get('edit/{id}',                 'HotelBookingController@edit')->name('edit');
+                Route::put('update/{id}',               'HotelBookingController@update')->name('update');
+                Route::get('delete/{id}',               'HotelBookingController@delete')->name('delete');
             });
         });
 

@@ -6,15 +6,15 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} Hotel Booking</h3>
+                    <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} {{$moduleConfig['moduleTitle']}}</h3>
                 </div>
             </div>
             
             <div class="card-body">                
                 <div class="row">
 
-                    <div class="col-12" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist') ? 'display:none;' : ''}}">
-                        <div class="form-group row validated" >
+                    <div class="col-12">
+                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Member</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
@@ -23,7 +23,7 @@
                                     @if($members->count())
                                         @foreach($members as $value)
 
-                                           <option {{ old('member_id', $row->member_id ?? 0) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
+                                           <option {{ old('member_id', $row->source_id ?? 0) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
 
                                         @endforeach
                                     @endif
@@ -128,14 +128,13 @@
                 <div class="row">
                     <div class="col-lg-4"></div>
                     <div class="col-lg-4 text-center">
-                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a class="btn btn-light-danger" href="{{ route('hotel.booking.list') }}">Cancel</a>
+                        <button type="submit" class="btn btn-light-primary mr-2">Submit</button>
+                        <a class="btn btn-light-danger" href="{{ route($moduleConfig['routes']['listRoute']) }}">Cancel</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 @push('scripts')
