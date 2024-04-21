@@ -112,24 +112,24 @@ class TicketBookingController extends Controller
      * @param  null
      * @return \Illuminate\Http\Response
      */
-    public function create(TicketBooking $ticket)
-    {
-        $userId = Auth::user()->id;
-        $members = User::where('status', 1)
-            ->whereNotNull('poc_id')
-            ->whereNotIn('id', function($query) {
-                $query->select('source_id')
-                    ->from('ticket_bookings');
-            })
-            ->get();
+    // public function create(TicketBooking $ticket)
+    // {
+    //     $userId = Auth::user()->id;
+    //     $members = User::where('status', 1)
+    //         ->whereNotNull('poc_id')
+    //         ->whereNotIn('id', function($query) {
+    //             $query->select('source_id')
+    //                 ->from('ticket_bookings');
+    //         })
+    //         ->get();
         
-        $countries          = Country::where('status', 1)->get();
-        $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
-        $travelModes        = TravelMode::where('status', 1)->get();
-        $projects           = Project::where('status', 1)->get();  //->where('year', date('Y'))
+    //     $countries          = Country::where('status', 1)->get();
+    //     $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
+    //     $travelModes        = TravelMode::where('status', 1)->get();
+    //     $projects           = Project::where('status', 1)->get();  //->where('year', date('Y'))
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members]);
-    }
+    //     return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members]);
+    // }
 
     /**
      * Create a new {{moduleTitle}}.
@@ -139,43 +139,43 @@ class TicketBookingController extends Controller
      */
     
 
-    public function store(TicketBookingRequest $request)
-    {
-        $ticket                                       = new TicketBooking();
+    // public function store(TicketBookingRequest $request)
+    // {
+    //     $ticket                                       = new TicketBooking();
 
-        if ($request->hasFile('upload_passport')) {
-            $upload_passport         = $request->file('upload_passport');
-            $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['passportUploadFolder'], $upload_passport);
-            $ticket->upload_passport  = $fileName;
-        }
+    //     if ($request->hasFile('upload_passport')) {
+    //         $upload_passport         = $request->file('upload_passport');
+    //         $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['passportUploadFolder'], $upload_passport);
+    //         $ticket->upload_passport  = $fileName;
+    //     }
 
 
-        if ($request->hasFile('adhaarcard_driving')) {
-            $adhaarcard_driving         = $request->file('adhaarcard_driving');
-            $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
-            $ticket->adhaarcard_driving  = $fileName;
-        }
+    //     if ($request->hasFile('adhaarcard_driving')) {
+    //         $adhaarcard_driving         = $request->file('adhaarcard_driving');
+    //         $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
+    //         $ticket->adhaarcard_driving  = $fileName;
+    //     }
 
-        $ticket->name                                 = $request->name;
-        $ticket->source_id                            = $request->member_id;
-        $ticket->project_id                           = $request->project_id;
-        $ticket->salutation                           = $request->salutation;
-        $ticket->age                                  = $request->age;
-        $ticket->email                                = $request->email;
-        $ticket->contact                              = $request->contact;
-        $ticket->onward_city_id                       = $request->onward_city_id;
-        $ticket->onward_city_other                    = $request->onward_city_other;
-        $ticket->return_city_id                       = $request->return_city_id;
-        $ticket->return_city_other                    = $request->return_city_other;
-        $ticket->artist_remarks                       = $request->artist_remarks;
-        $ticket->international_or_domestic            = $request->international_or_domestic;
-        $ticket->work_visa                            = $request->work_visa;
-        $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Admin'];
-        $ticket->save();
+    //     $ticket->name                                 = $request->name;
+    //     $ticket->source_id                            = $request->member_id;
+    //     $ticket->project_id                           = $request->project_id;
+    //     $ticket->salutation                           = $request->salutation;
+    //     $ticket->age                                  = $request->age;
+    //     $ticket->email                                = $request->email;
+    //     $ticket->contact                              = $request->contact;
+    //     $ticket->onward_city_id                       = $request->onward_city_id;
+    //     $ticket->onward_city_other                    = $request->onward_city_other;
+    //     $ticket->return_city_id                       = $request->return_city_id;
+    //     $ticket->return_city_other                    = $request->return_city_other;
+    //     $ticket->artist_remarks                       = $request->artist_remarks;
+    //     $ticket->international_or_domestic            = $request->international_or_domestic;
+    //     $ticket->work_visa                            = $request->work_visa;
+    //     $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Admin'];
+    //     $ticket->save();
 
-        \Flash::success(self::$moduleConfig['moduleTitle'].' created successfully');
-        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
-    }
+    //     \Flash::success(self::$moduleConfig['moduleTitle'].' created successfully');
+    //     return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
+    // }
 
 
     /**
@@ -202,9 +202,7 @@ class TicketBookingController extends Controller
         $countries          = Country::where('status', 1)->get();
         $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
         $travelModes        = TravelMode::where('status', 1)->get();
-        $projects           = Project::where('status', 1)->get();  //->where('year', date('Y'))
-
-        // $userId             = Auth::user()->id;
+        $projects           = Project::where('status', 1)->get();
         $members            = User::where('status', 1)->get();
 
        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members]);

@@ -112,19 +112,19 @@ class HotelBookingController extends Controller
      * @param  null
      * @return \Illuminate\Http\Response
      */
-    public function create(HotelBooking $hotel)
-    {
-        $userId = Auth::user()->id;
-        $members = User::where('status', 1)
-            ->whereNotNull('poc_id')
-            ->whereNotIn('id', function($query) {
-                $query->select('source_id')
-                    ->from('hotel_bookings');
-            })
-            ->get();
+    // public function create(HotelBooking $hotel)
+    // {
+    //     $userId = Auth::user()->id;
+    //     $members = User::where('status', 1)
+    //         ->whereNotNull('poc_id')
+    //         ->whereNotIn('id', function($query) {
+    //             $query->select('source_id')
+    //                 ->from('hotel_bookings');
+    //         })
+    //         ->get();
 
-       return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('members', $members);
-    }
+    //    return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('members', $members);
+    // }
 
     /**
      * Create a new {{moduleTitle}}.
@@ -134,22 +134,22 @@ class HotelBookingController extends Controller
      */
     
 
-    public function store(HotelBookingRequest $request)
-    {
-        $hotel                                       = new HotelBooking();
+    // public function store(HotelBookingRequest $request)
+    // {
+    //     $hotel                                       = new HotelBooking();
 
-        $hotel->source_id                            = $request->member_id;
-        $hotel->accomodation                         = $request->accomodation;
-        $hotel->check_in_date                        = $request->check_in_date;
-        $hotel->check_out_date                       = $request->check_out_date;
-        $hotel->total_room_nights                    = $request->total_room_nights;
-        $hotel->artist_remarks                       = $request->artist_remarks;
-        $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Admin'];
-        $hotel->save();
+    //     $hotel->source_id                            = $request->member_id;
+    //     $hotel->accomodation                         = $request->accomodation;
+    //     $hotel->check_in_date                        = $request->check_in_date;
+    //     $hotel->check_out_date                       = $request->check_out_date;
+    //     $hotel->total_room_nights                    = $request->total_room_nights;
+    //     $hotel->artist_remarks                       = $request->artist_remarks;
+    //     $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Admin'];
+    //     $hotel->save();
 
-        \Flash::success(self::$moduleConfig['moduleTitle'].' created successfully');
-        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
-    }
+    //     \Flash::success(self::$moduleConfig['moduleTitle'].' created successfully');
+    //     return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
+    // }
 
 
     /**

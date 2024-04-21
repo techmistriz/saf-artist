@@ -207,139 +207,114 @@
                         </div>
                     </div>
 
-                    <div style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist') ? 'display:none;' : ''}}">
-                        <div class="col-12">
-                            <div class="form-group row validated">
-                                <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International/Domestic Traveller </label>
-                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                    <select class="form-control form-control-lg form-control-solid selectpicker" name="international_or_domestic" tabindex="null" onchange="travellerField()">
-                                        <option value="">Select International or Domestic Traveller</option>
-                                        <option value="International" {{ old('international_or_domestic') == 'International' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'selected' : '' }}>International</option>
-                                        <option value="Domestic" {{ old('international_or_domestic') == 'Domestic' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'selected' : ''  }}>Domestic</option>
-                                    </select>
-                                    @error('international_or_domestic')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                    <div class="col-12" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist') ? 'display:none;' : ''}}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International/Domestic Traveller </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-solid selectpicker" name="international_or_domestic" tabindex="null" onchange="travellerField()">
+                                    <option value="">Select International or Domestic Traveller</option>
+                                    <option value="International" {{ old('international_or_domestic') == 'International' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'selected' : '' }}>International</option>
+                                    <option value="Domestic" {{ old('international_or_domestic') == 'Domestic' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'selected' : ''  }}>Domestic</option>
+                                </select>
+                                @error('international_or_domestic')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-12" id="visa" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic' ? 'display:none;' : '' }}">
-                            <div class="form-group row validated">
-                                <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Do you have work visa for India</label>
-                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                    <select class="form-control form-control-lg form-control-solid selectpicker" name="work_visa" tabindex="null">
-                                        <option value="">Select Work visa for India</option>
-                                        <option value="Yes" {{ old('work_visa') == 'Yes' || (isset($row->work_visa) && $row->work_visa == 'Yes') ? 'selected' : '' }}>Yes</option>
-                                        <option value="No" {{ old('work_visa') == 'No' || (isset($row->work_visa) && $row->work_visa == 'No') ? 'selected' : ''  }}>No</option>
-                                    </select>
-                                    @error('work_visa')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                    <div class="col-12" id="visa" style="{{(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Do you have work visa for India</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-solid selectpicker" name="work_visa" tabindex="null">
+                                    <option value="">Select Work visa for India</option>
+                                    <option value="Yes" {{ old('work_visa') == 'Yes' || (isset($row->work_visa) && $row->work_visa == 'Yes') ? 'selected' : '' }}>Yes</option>
+                                    <option value="No" {{ old('work_visa') == 'No' || (isset($row->work_visa) && $row->work_visa == 'No') ? 'selected' : ''  }}>No</option>
+                                </select>
+                                @error('work_visa')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-12" id="passport" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic' ? 'display:none;' : '' }}">
+                    <div class="col-12" id="passport" style="{{(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
 
-                            <div class="form-group row validated">
-                                <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Image) </label>
-                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                    
-                                    <div class="image-input image-input-outline" id="upload_passport" style="background-image: url({{asset('media/users/blank.png')}})">
-
-                                        @if(isset($row->upload_passport) && !empty($row->upload_passport))
-                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/passports/'.$row->upload_passport)}})"></div>
-                                        @else
-                                            <div class="image-input-wrapper upload_passport_base64"></div>
-                                        @endif
-
-                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
-                                            <i class="fa fa-pen icon-sm text-muted"></i>
-                                            <input type="file" name="upload_passport" accept=".png, .jpg, .jpeg"/>
-                                            <input type="hidden" name="upload_passport_remove"/>
-                                        </label>
-
-                                        @if(isset($row->upload_passport) && !empty($row->upload_passport))
-                                            <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove">
-                                                <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                            </span>
-                                        @else
-                                            <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel">
-                                                <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    @error('upload_passport')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Image) </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
                                 
+                                <div class="image-input image-input-outline" id="upload_passport" style="background-image: url({{asset('media/users/blank.png')}})">
+
+                                    @if(isset($row->upload_passport) && !empty($row->upload_passport))
+                                        <div class="image-input-wrapper" style="background-image: url({{asset('uploads/passports/'.$row->upload_passport)}})"></div>
+                                    @else
+                                        <div class="image-input-wrapper upload_passport_base64"></div>
+                                    @endif
+
+                                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
+                                        <i class="fa fa-pen icon-sm text-muted"></i>
+                                        <input type="file" name="upload_passport" accept=".png, .jpg, .jpeg"/>
+                                        <input type="hidden" name="upload_passport_remove"/>
+                                    </label>
+
+                                    @if(isset($row->upload_passport) && !empty($row->upload_passport))
+                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove">
+                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                        </span>
+                                    @else
+                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel">
+                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                        </span>
+                                    @endif
                                 </div>
+
+                                @error('upload_passport')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
                             </div>
                         </div>
+                    </div>
 
-                        <div class="col-12" id="adhaar_driving" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
+                    <div class="col-12" id="adhaar_driving" style="{{(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'display:none;' : '' }}">
 
-                            <div class="form-group row validated">
-                                <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Adhaar card or Driving License </label>
-                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                    
-                                    <div class="image-input image-input-outline" id="adhaarcard_driving" style="background-image: url({{asset('media/users/blank.png')}})">
-
-                                        @if(isset($row->adhaarcard_driving) && !empty($row->adhaarcard_driving))
-                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/adhaarcard_drivings/'.$row->adhaarcard_driving)}})"></div>
-                                        @else
-                                            <div class="image-input-wrapper adhaarcard_driving_base64"></div>
-                                        @endif
-
-                                        <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
-                                            <i class="fa fa-pen icon-sm text-muted"></i>
-                                            <input type="file" name="adhaarcard_driving" accept=".png, .jpg, .jpeg"/>
-                                            <input type="hidden" name="adhaarcard_driving_remove"/>
-                                        </label>
-
-                                        @if(isset($row->adhaarcard_driving) && !empty($row->adhaarcard_driving))
-                                            <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove">
-                                                <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                            </span>
-                                        @else
-                                            <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel">
-                                                <i class="ki ki-bold-close icon-xs text-muted"></i>
-                                            </span>
-                                        @endif
-                                    </div>
-
-                                    @error('adhaarcard_driving')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Adhaar card or Driving License </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
                                 
+                                <div class="image-input image-input-outline" id="adhaarcard_driving" style="background-image: url({{asset('media/users/blank.png')}})">
+
+                                    @if(isset($row->adhaarcard_driving) && !empty($row->adhaarcard_driving))
+                                        <div class="image-input-wrapper" style="background-image: url({{asset('uploads/adhaarcard_drivings/'.$row->adhaarcard_driving)}})"></div>
+                                    @else
+                                        <div class="image-input-wrapper adhaarcard_driving_base64"></div>
+                                    @endif
+
+                                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
+                                        <i class="fa fa-pen icon-sm text-muted"></i>
+                                        <input type="file" name="adhaarcard_driving" accept=".png, .jpg, .jpeg"/>
+                                        <input type="hidden" name="adhaarcard_driving_remove"/>
+                                    </label>
+
+                                    @if(isset($row->adhaarcard_driving) && !empty($row->adhaarcard_driving))
+                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove">
+                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                        </span>
+                                    @else
+                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel">
+                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                        </span>
+                                    @endif
                                 </div>
+
+                                @error('adhaarcard_driving')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
                             </div>
                         </div>
-
-                        <!-- <div class="col-12" id="dob" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
-                                                        
-                            <div class="form-group row validated">
-                                <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
-                                <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                    <div class="input-group date">
-                                        <input type="text" name="dob" value="{{ old('dob', $row->dob ?? '') }}" class="form-control form-control-lg form-control-solid kt_datepicker" {{isset($row->dob) ? '':''}} placeholder="Enter DOB" autocomplete="new dob" readonly />
-
-                                        @error('dob')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">
-                                                <i class="la la-calendar-check-o"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
                 </div>
             </div>

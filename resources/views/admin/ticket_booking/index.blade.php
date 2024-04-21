@@ -13,9 +13,9 @@
                             <h3 class="card-label">{{$moduleConfig['moduleTitle']}} 
                             <span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
                         </div>
-                        <div class="card-toolbar">
+                        <!-- <div class="card-toolbar">
                             <a href="{{ route($moduleConfig['routes']['createRoute']) }}" class="btn btn-light-primary font-weight-bold ml-2"> + Add</a>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="card-body">
                         
@@ -82,10 +82,13 @@
             },            
             {
                 field: "member_id",
-                title: "member",
-                template: function(t) {
-                    return ( typeof t?.member?.name != 'undefined' && t?.member?.name)? t?.member?.name : 'N/A';
-                }
+                title: "Member",
+                template: function (t) {
+                    var memberName = (typeof t?.member?.name !== 'undefined' && t?.member?.name) ? t?.member?.name : 'N/A';
+                    var member_class = (t?.member?.poc_id === null) ? 'label-success' : 'label-primary';
+
+                    return '<span class="label font-weight-bold label-lg ' + member_class + ' label-inline">' + memberName + '</span>';
+                },
             },
             {
                 field: "name",

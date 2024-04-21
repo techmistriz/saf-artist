@@ -207,7 +207,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist') ? 'display:none;' : ''}}">
+                    <div class="col-12" style="{{ isset($row->member->poc_id) && !empty($row->member->poc_id) ? '' : 'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International/Domestic Traveller </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -223,8 +223,8 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <div class="form-group row validated" id="visa" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic' ? 'display:none;' : '' }}">
+                    <div class="col-12" id="visa" style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
+                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Do you have work visa for India</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="work_visa" tabindex="null">
@@ -239,7 +239,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="passport" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic' ? 'display:none;' : '' }}">
+                    <div class="col-12" id="passport" style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
 
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Image) </label>
@@ -278,7 +278,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="adhaar_driving" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
+                    <div class="col-12" id="adhaar_driving" style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
 
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Adhaar card or Driving License </label>
@@ -316,30 +316,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="col-12" id="dob" style="{{ isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
-                                                    
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                <div class="input-group date">
-                                    <input type="text" name="dob" value="{{ old('dob', $row->dob ?? '') }}" class="form-control form-control-lg form-control-solid kt_datepicker" {{isset($row->dob) ? '':''}} placeholder="Enter DOB" autocomplete="new dob" readonly />
-
-                                    @error('dob')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="la la-calendar-check-o"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
                 </div>
             </div>
             <div class="card-footer">
@@ -421,12 +397,10 @@
             if (traveller == 'International') {
                 $('#visa').show();
                 $('#passport').show();
-                $('#dob').hide();
                 $('#adhaar_driving').hide();
             }else {
                 $('#visa').hide();
                 $('#passport').hide();
-                $('#dob').show();
                 $('#adhaar_driving').show();
             }
         } 

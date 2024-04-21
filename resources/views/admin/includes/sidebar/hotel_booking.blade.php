@@ -1,4 +1,4 @@
-<li class="menu-item menu-item-submenu {{ $helper->isActivate(['admin.hotel_booking.index', 'admin.hotel_booking.create', 'admin.hotel_booking.edit']) }}" aria-haspopup="true" data-menu-toggle="hover">
+<li class="menu-item menu-item-submenu {{ $helper->isActivate(['admin.hotel_booking.index', 'admin.hotel_booking.edit']) }}" aria-haspopup="true" data-menu-toggle="hover">
     <a href="javascript:;" class="menu-link menu-toggle">
         <span class="svg-icon menu-icon">
             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Bucket.svg-->
@@ -30,14 +30,14 @@
                     <span class="menu-text">List</span>
                 </a>
             </li>
-            <li class="menu-item {{ $helper->isActivate(['admin.hotel_booking.create']) }}" aria-haspopup="true">
+            <!-- <li class="menu-item {{ $helper->isActivate(['admin.hotel_booking.create']) }}" aria-haspopup="true">
                 <a href="{{route('admin.hotel_booking.create')}}" class="menu-link">
                     <i class="menu-bullet menu-bullet-dot">
                         <span></span>
                     </i>
                     <span class="menu-text">Add</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </li>

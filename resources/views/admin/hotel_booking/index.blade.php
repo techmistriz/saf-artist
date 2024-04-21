@@ -13,9 +13,9 @@
                             <h3 class="card-label">{{$moduleConfig['moduleTitle']}} 
                             <span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
                         </div>
-                        <div class="card-toolbar">
+                        <!-- <div class="card-toolbar">
                             <a href="{{ route($moduleConfig['routes']['createRoute']) }}" class="btn btn-light-primary font-weight-bold ml-2"> + Add</a>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="card-body">
                         
