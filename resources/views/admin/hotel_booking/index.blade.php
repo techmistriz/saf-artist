@@ -81,11 +81,14 @@
                 textAlign: 'center',
             },            
             {
-                field: "member_id",
-                title: "member",
-                template: function(t) {
-                    return ( typeof t?.member?.name != 'undefined' && t?.member?.name)? t?.member?.name : 'N/A';
-                }
+                field: "source_id",
+                title: "Member",
+                template: function (t) {
+                    var memberName = (typeof t?.member?.name !== 'undefined' && t?.member?.name) ? t?.member?.name : 'N/A';
+                    var member_class = (t?.member?.poc_id === null) ? 'label-success' : 'label-primary';
+
+                    return '<span class="label font-weight-bold label-lg ' + member_class + ' label-inline">' + memberName + '</span>';
+                },
             },
             {
                 field: "accomodation",

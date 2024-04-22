@@ -81,7 +81,7 @@
                 textAlign: 'center',
             },            
             {
-                field: "member_id",
+                field: "source_id",
                 title: "Member",
                 template: function (t) {
                     var memberName = (typeof t?.member?.name !== 'undefined' && t?.member?.name) ? t?.member?.name : 'N/A';
