@@ -76,7 +76,7 @@
                         </div>
 
 
-                        @if(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Troupe/Group'))
+                        @if(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Troupe and Group'))
                        
                             <div class="d-flex align-items-center pb-9">
                                 <!--begin::Symbol-->

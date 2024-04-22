@@ -29,7 +29,7 @@ return [
 	),
 
 	'role_form_mapper'	=>	array(
-		"ARTIST"		=>	'artist',
+		"INDIVIDUAL"		=>	'individual',
 		"TROUPE_GROUP"				=>	'troupe_group',
 		
 	),

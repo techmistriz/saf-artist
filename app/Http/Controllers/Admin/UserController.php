@@ -14,6 +14,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Project;
+use App\Models\ArtistMember;
 use App\Models\ArtistType;
 use App\Models\Curator;
 use Carbon\Carbon;
@@ -53,11 +54,14 @@ class UserController extends Controller
             "editCategoryDetailsRoute" => 'admin.user.edit.category.details', 
             "updateCategoryDetailsRoute" => 'admin.user.update.category.details', 
             "editAccountDetailsRoute" => 'admin.user.edit.account.details', 
-            "updateAccountDetailsRoute" => 'admin.user.update.account.details', 
+            "updateAccountDetailsRoute" => 'admin.user.update.account.details',
+            "artistMemberListRoute" => 'admin.user.artist.member.index',
+            "artistMemberFetchDataRoute" => 'admin.user.artist.member.fetch.data', 
         ],
         "moduleTitle" => 'Artist',
         "moduleName" => 'user',
         "viewFolder" => 'user',
+        "viewArtistMemberFolder" => 'artist_member',
         "viewCategoryDetailsFolder" => 'user.category_details',
         "viewAccountDetailsFolder" => 'user.account_details',
         "imageUploadFolder" => 'uploads/users/',
@@ -105,9 +109,9 @@ class UserController extends Controller
         
         $data               =   $request->all();
 
-        $db_data            =   $User->getList($data, ['category']);
+        $db_data            =   $User->getList($data, ['category', 'frontendRole'],['poc_id'=> NULL]);
 
-        $count              =   $User->getListCount($data);
+        $count              =   $User->getListCount($data, [] ,['poc_id'=> NULL]);
 
         $returnArray = array(
             'data' => $db_data,
@@ -165,7 +169,8 @@ class UserController extends Controller
     public function show ($id, User $User){
 
         $row = User::with(['category', 'artistType', 'PACountry', 'PAState', 'PACity'])->findOrFail($id);
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
+        $members = User::where('status', 1)->where('poc_id', $row->id)->get();
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members);
     }
 
     /**
@@ -388,6 +393,43 @@ class UserController extends Controller
 
         \Flash::success('Freeze status updated successfully');
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
+    }
+
+
+    public function artistMemberIndex(Request $request){
+
+        return view('admin.'.self::$moduleConfig['viewArtistMemberFolder'].'.index')->with('moduleConfig', self::$moduleConfig);
+    }
+
+    /**
+     * Fetch data for datatable via ajax request for {{moduleTitle}}.
+     *
+     * @param  null
+     * @return \Illuminate\Http\Response
+     */
+
+    public function artistMemberFetchData(Request $request, ArtistMember $artistMember)
+    {
+        
+        $data               =   $request->all();
+
+        $db_data            =   $artistMember->getList($data, ['frontendRole', 'poc']);
+
+        $count              =   $artistMember->getListCount($data);
+
+        $returnArray = array(
+            'data' => $db_data,
+            'meta' => array(
+                'page'          =>      $data['pagination']['page'] ?? 1, 
+                'pages'         =>      $data['pagination']['pages'] ?? 1, 
+                'perpage'       =>      $data['pagination']['perpage'] ?? 10, 
+                'total'         =>      $count, 
+                'sort'          =>      $data['sort']['sort'] ?? 'asc', 
+                'field'         =>      $data['sort']['field'] ?? '_id', 
+            ),
+        );
+
+        return $returnArray;
     }
 
 }

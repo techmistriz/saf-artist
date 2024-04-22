@@ -118,7 +118,7 @@ class HotelBookingController extends Controller
     {
         $hotel                                       = new HotelBooking();
 
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) {
+        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
 
             $hotel->source_id   = Auth::user()->id;
         }else{            
@@ -177,7 +177,7 @@ class HotelBookingController extends Controller
 
         $hotel                  = HotelBooking::findOrFail($id);
         
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) {
+        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
 
             $hotel->source_id   = Auth::user()->id;
         }else{            

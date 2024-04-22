@@ -72,7 +72,7 @@
                                 @endif
                             </div>
 
-                            <div class="text-right" style="margin-bottom: -25px; {{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? 'display:none;' : ''}}">
+                            <div class="text-right" style="margin-bottom: -25px; {{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
                                 <a href="{{route('group.member.create')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Member</a>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
 
                                 <div class="col-12">
                                     <div class="form-group row validated">
-                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Are you Artist/group </label>
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Are you Individual/group </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                             <select class="form-control form-control-lg form-control-custom selectpicker" name="frontend_role_id" tabindex="null" onchange="marketingSocialMediaHide()">
                                                 <option value="">Select Role</option>
@@ -106,7 +106,7 @@
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category <i class="fa fa-info" data-toggle="tooltip" data-placement="right" title="Tooltip on right"></i></label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist'))
+                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual'))
 
                                                 <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
                                                     <option value="">Select Category</option>
@@ -137,7 +137,7 @@
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name of Curators </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist'))
+                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual'))
                                             
                                                 <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
                                                 <option value="">Select Curator</option>
@@ -197,7 +197,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-12" id="dob" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? '' :'display:none;'}}">
+                                <div class="col-12" id="dob" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                                     
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
@@ -382,7 +382,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-12" id="company_collective" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? 'display:none;' :''}}">
+                                <div class="col-12" id="company_collective" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective (If Applicable) </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
@@ -397,7 +397,7 @@
                                 
                             </div>
 
-                            <div class="row" id="members_numbers" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? 'display:none;' :''}}">
+                            <div class="row" id="members_numbers" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                                 <div class="col-12">
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Max Member Allowed </label>
@@ -411,7 +411,7 @@
                                 </div>
                             </div>
 
-                            <div class="row" id="marketingSocialMedia" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Artist') ? '' :'display:none;'}}">
+                            <div class="row" id="marketingSocialMedia" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
 
                                 <div class="col-12">
                                     <h4 class="card-label">For marketing and social media purpose</h4><hr>
@@ -911,7 +911,7 @@
     function marketingSocialMediaHide() {
 
         var frontendRole = $('select[name="frontend_role_id"] option:selected').text();
-        if (frontendRole == 'Artist') {
+        if (frontendRole == 'Individual') {
             $('#marketingSocialMedia').show();
             $('#dob').show();
             $('#members_numbers').hide();

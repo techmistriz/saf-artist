@@ -145,7 +145,7 @@ class TicketBookingController extends Controller
             $ticket->adhaarcard_driving  = $fileName;
         }
 
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) {
+        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
 
             $ticket->source_id   = Auth::user()->id;
         }else{            
@@ -228,7 +228,7 @@ class TicketBookingController extends Controller
             $ticket->adhaarcard_driving  = $fileName;
         }
 
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Artist')) {
+        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
 
             $ticket->source_id   = Auth::user()->id;
         }else{            

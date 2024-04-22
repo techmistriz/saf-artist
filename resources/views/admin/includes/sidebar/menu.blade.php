@@ -25,17 +25,15 @@
             	@include('admin/includes/sidebar/user')
             @endif
             
-        	@if(\Helper::checkPermisson('ProjectController', $rolePermissionArr))
-            	@include('admin/includes/sidebar/project')
-            @endif
+        	
             
-        	@if(\Helper::checkPermisson('HotelBookingController', $rolePermissionArr))
-            	@include('admin/includes/sidebar/hotel_booking')
+        	@if(\Helper::checkPermisson('UserController', $rolePermissionArr))
+            	@include('admin/includes/sidebar/artist_member')
             @endif
 
-            @if(\Helper::checkPermisson('TicketBookingController', $rolePermissionArr))
-                @include('admin/includes/sidebar/ticket_booking')
-            @endif
+            <!-- if(\Helper::checkPermisson('TicketBookingController', $rolePermissionArr))
+                include('admin/includes/sidebar/ticket_booking')
+            endif -->
 
             @if(\Helper::isSuperAdmin('AdminUserControllerController', $rolePermissionArr))
             	@include('admin/includes/sidebar/admin_user')
@@ -48,7 +46,10 @@
             @if(\Helper::isSuperAdmin('FaqController', $rolePermissionArr))
                 @include('admin/includes/sidebar/faq')
             @endif
-
+            
+            @if(\Helper::checkPermisson('ProjectController', $rolePermissionArr))
+                @include('admin/includes/sidebar/project')
+            @endif
             <li class="menu-section">
                 <h4 class="menu-text">Masters</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>

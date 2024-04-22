@@ -50,6 +50,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::put('edit-account-details/{id}',		'UserController@updateAccountDetails')->name('update.account.details');
                 Route::get('show-account-details/{id}',		'UserController@showAccountDetails')->name('show.account.details');
                 Route::get('update-freeze-status/{id}',		'UserController@updateFreezeStatus')->name('update.freeze.status');
+
+                Route::get('artist-member/list/',            'UserController@artistMemberIndex')->name('artist.member.index');
+                Route::post('artist-member/fetch-data/',     'UserController@artistMemberFetchData')->name('artist.member.fetch.data');
             });
         });
 

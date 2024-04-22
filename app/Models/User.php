@@ -207,6 +207,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo('App\Models\Role', 'role_id', 'id');
     }
 
+    public function poc()
+    {
+      return $this->belongsTo('App\Models\User', 'poc_id', 'id');
+    }
+
     /**
     *   Handle Ajax to set orderby and limit and offset
     *

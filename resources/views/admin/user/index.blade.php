@@ -90,13 +90,29 @@
 				var columnsArray 	=	[
 		            
 		            {
-		                field: 'row',
+		                field: 'id',
 		                title: '#',
-		                sortable: 'asc',
+		                 sortable: 'asc',
 		                width: 30,
 		                type: 'number',
 		                selector: false,
 		                textAlign: 'center',
+		                template: function(t, i, o) {
+
+		                    var index = i + 1;
+		                    var page = o?.API?.params?.pagination?.page;
+		                    var perpage = o?.API?.params?.pagination?.perpage;
+		                    var offset = (page - 1) * perpage;
+
+		                    return (index + offset);
+		                }
+		            },
+		            {
+		                field: "frontend_role_id",
+		                title: "Artist Role",
+		                template: function(t) {
+		                    return ( typeof t?.frontend_role?.name != 'undefined' && t?.frontend_role?.name)? t?.frontend_role?.name : 'N/A';
+		                }
 		            },
 		            {
 		                field: "name",
@@ -106,11 +122,6 @@
 		                field: "email",
 		                title: "email"
 		            },
-		            // {
-		            //     field: "contact",
-		            //     title: "contact"
-		            // },
-		            
 		            {
 		                field: "category",
 		                title: "category",
