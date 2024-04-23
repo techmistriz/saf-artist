@@ -4278,15 +4278,6 @@ input:-internal-autofill-selected{
 
 }
 
-
-
-/*--- dashboard start---*/
-
-
-#kt_profile_aside .card{
-  background: #981E3D;
-}
-
 #kt_profile_aside .symbol.symbol-light .symbol-label{
   background-color: #F7EAD3;
   color: #981E3D;
