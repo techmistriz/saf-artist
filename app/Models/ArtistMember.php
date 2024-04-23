@@ -95,6 +95,7 @@ class ArtistMember extends MasterModel
 
     public function getActionsAttribute()
     {
+        
         return '<span class="overflow-visible position-relative width-125" data-id="' . $this->id . '">
             <a href="show/' . $this->id . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
                 <i class="flaticon-eye"></i>

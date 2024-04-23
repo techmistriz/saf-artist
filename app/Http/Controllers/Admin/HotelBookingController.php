@@ -12,6 +12,7 @@ use App\Models\City;
 use App\Models\Project;
 use App\Models\TravelMode;
 use App\Models\MetroCity;
+use App\Models\ShareRoom;
 use Carbon\Carbon;
 use App\Http\Requests\HotelBookingRequest;
 use Hash;
@@ -176,8 +177,9 @@ class HotelBookingController extends Controller
         
         $userId             = Auth::user()->id;
         $members            = User::where('status', 1)->get();
+        $shareRooms         = ShareRoom::where(['hotel_booking_id' => $id])->get();
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members)->with('shareRooms', $shareRooms);
     }
 
     /**
@@ -196,11 +198,41 @@ class HotelBookingController extends Controller
         $hotel->check_out_date                       = $request->check_out_date;
         $hotel->total_room_nights                    = $request->total_room_nights;
         $hotel->artist_remarks                       = $request->artist_remarks;
+        $hotel->performance_venue                    = $request->performance_venue;
+        $hotel->hotel_budget                         = $request->hotel_budget;
+        $hotel->room_sharing                         = $request->room_sharing;
+        $hotel->local_travel                         = $request->local_travel;
+        $hotel->performance_date                     = $request->performance_date;
         $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Admin'];
         $hotel->save();
 
+        $room_no_Arr              = $request->room_no;
+        $name_1_Arr               = $request->name_1;
+        $name_2_Arr               = $request->name_2;
+        $room_no_ids_arr          = $request->room_no_ids;
+
+        if(isset($room_no_Arr) && !empty($room_no_Arr) && is_array($room_no_Arr)){
+            foreach ($room_no_Arr as $key => $value) {
+
+                if(isset($room_no_Arr[$key]) && !empty($room_no_Arr[$key])){
+
+                    $shareRoom         = ShareRoom::find($room_no_ids_arr[$key]);
+
+                    if(empty($shareRoom)){
+                        $shareRoom     = new ShareRoom();
+                    }
+
+                    $shareRoom->hotel_booking_id     = $hotel->id;
+                    $shareRoom->room_no              = $room_no_Arr[$key];
+                    $shareRoom->name_1             = $name_1_Arr[$key];
+                    $shareRoom->name_2               = $name_2_Arr[$key];
+                    $shareRoom->save();
+                }
+            }
+        }
+
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
-        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
+        return \Redirect::route('admin.artist_member.index');
     }
 
     /**
@@ -214,6 +246,7 @@ class HotelBookingController extends Controller
     {
         
         $row = HotelBooking::findOrFail($id);
+        ShareRoom::where('hotel_booking_id', $id)->delete();
         $row->delete();
         \Flash::success(self::$moduleConfig['moduleTitle'].' can\'t be deleted.'); 
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);

@@ -14,7 +14,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Project;
-use App\Models\ArtistMember;
+// use App\Models\ArtistMember;
 use App\Models\ArtistType;
 use App\Models\Curator;
 use Carbon\Carbon;
@@ -55,13 +55,13 @@ class UserController extends Controller
             "updateCategoryDetailsRoute" => 'admin.user.update.category.details', 
             "editAccountDetailsRoute" => 'admin.user.edit.account.details', 
             "updateAccountDetailsRoute" => 'admin.user.update.account.details',
-            "artistMemberListRoute" => 'admin.user.artist.member.index',
-            "artistMemberFetchDataRoute" => 'admin.user.artist.member.fetch.data', 
+            // "artistMemberListRoute" => 'admin.user.artist.member.index',
+            // "artistMemberFetchDataRoute" => 'admin.user.artist.member.fetch.data', 
         ],
         "moduleTitle" => 'Artist',
         "moduleName" => 'user',
         "viewFolder" => 'user',
-        "viewArtistMemberFolder" => 'artist_member',
+        // "viewArtistMemberFolder" => 'artist_member',
         "viewCategoryDetailsFolder" => 'user.category_details',
         "viewAccountDetailsFolder" => 'user.account_details',
         "imageUploadFolder" => 'uploads/users/',
@@ -396,10 +396,10 @@ class UserController extends Controller
     }
 
 
-    public function artistMemberIndex(Request $request){
+    // public function artistMemberIndex(Request $request){
 
-        return view('admin.'.self::$moduleConfig['viewArtistMemberFolder'].'.index')->with('moduleConfig', self::$moduleConfig);
-    }
+    //     return view('admin.'.self::$moduleConfig['viewArtistMemberFolder'].'.index')->with('moduleConfig', self::$moduleConfig);
+    // }
 
     /**
      * Fetch data for datatable via ajax request for {{moduleTitle}}.
@@ -408,28 +408,28 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function artistMemberFetchData(Request $request, ArtistMember $artistMember)
-    {
+    // public function artistMemberFetchData(Request $request, ArtistMember $artistMember)
+    // {
         
-        $data               =   $request->all();
+    //     $data               =   $request->all();
 
-        $db_data            =   $artistMember->getList($data, ['frontendRole', 'poc']);
+    //     $db_data            =   $artistMember->getList($data, ['frontendRole', 'poc']);
 
-        $count              =   $artistMember->getListCount($data);
+    //     $count              =   $artistMember->getListCount($data);
 
-        $returnArray = array(
-            'data' => $db_data,
-            'meta' => array(
-                'page'          =>      $data['pagination']['page'] ?? 1, 
-                'pages'         =>      $data['pagination']['pages'] ?? 1, 
-                'perpage'       =>      $data['pagination']['perpage'] ?? 10, 
-                'total'         =>      $count, 
-                'sort'          =>      $data['sort']['sort'] ?? 'asc', 
-                'field'         =>      $data['sort']['field'] ?? '_id', 
-            ),
-        );
+    //     $returnArray = array(
+    //         'data' => $db_data,
+    //         'meta' => array(
+    //             'page'          =>      $data['pagination']['page'] ?? 1, 
+    //             'pages'         =>      $data['pagination']['pages'] ?? 1, 
+    //             'perpage'       =>      $data['pagination']['perpage'] ?? 10, 
+    //             'total'         =>      $count, 
+    //             'sort'          =>      $data['sort']['sort'] ?? 'asc', 
+    //             'field'         =>      $data['sort']['field'] ?? '_id', 
+    //         ),
+    //     );
 
-        return $returnArray;
-    }
+    //     return $returnArray;
+    // }
 
 }

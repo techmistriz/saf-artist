@@ -129,3 +129,5 @@ Route::get('projects', 'App\Http\Controllers\AjaxController@getProject')->name('
 Route::post('send-otp', 'App\Http\Controllers\AjaxController@sendOtp')->name('ajax.send.otp');
 Route::get('fetch-member-detail', 'App\Http\Controllers\AjaxController@getMember')->name('ajax.fetch.member.detail');
 
+Route::get('delete-share-room/{id?}', 'App\Http\Controllers\AjaxController@deleteShareRoom')->name('ajax.delete.share.room');
+

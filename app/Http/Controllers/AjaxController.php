@@ -14,6 +14,7 @@ use App\Models\State;
 use App\Models\User;
 use App\Models\City;
 use App\Models\Project;
+use App\Models\ShareRoom;
 use Illuminate\Support\Facades\Session;
 
 class AjaxController extends Controller
@@ -187,6 +188,24 @@ class AjaxController extends Controller
         if(!empty($results)) {
             return ['status' => true, 'message' => 'Record found.', 'data' => $results];
         }
+    }
+
+    public function deleteShareRoom(Request $request, $id = NULL)
+    {
+
+        $row = ShareRoom::find($id);
+
+        if($row) {
+            
+            $row->delete();
+            return ['status' => true, 'message' => 'Record deleted successfully.', 'data' => null];
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Record counld not deleted.',
+            'data' => new \stdClass()
+        ]);
     }
 
 
