@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Common Routes
 Route::get('/clear-cache', function() {
 
     Artisan::call('cache:clear');
@@ -29,6 +30,25 @@ Route::get('/clear-flush', function() {
     Artisan::call('cache:flush');
    	return "Cleared!";
    
+});
+
+Route::get('/mail-test', function() {
+
+    (new App\Http\Controllers\TestMailController)->mailable();
+
+});
+
+Route::get('/mail-test-simple/{email?}', function($to = 'pk836746@gmail.com') {
+
+    $to = "somebody@example.com";
+	$subject = "My subject";
+	$txt = "Hello world!";
+	$headers = "From: webmaster@example.com" . "\r\n" .
+	"CC: somebodyelse@example.com";
+
+	$sendStatus = mail($to,$subject,$txt,$headers);
+
+	return $sendStatus;
 });
 
 Auth::routes(['verify' => true]);
@@ -102,25 +122,11 @@ Route::group(['middleware' => ['verified']], function () {
 
 });
 
-Route::get('/mail-test', function() {
 
-    (new App\Http\Controllers\TestMailController)->mailable();
+// Cron Routes
+Route::get('check-session', [App\Http\Controllers\Cron\CronController::class, 'checkSession']);
 
-});
-
-Route::get('/mail-test-simple/{email?}', function($to = 'pk836746@gmail.com') {
-
-    $to = "somebody@example.com";
-	$subject = "My subject";
-	$txt = "Hello world!";
-	$headers = "From: webmaster@example.com" . "\r\n" .
-	"CC: somebodyelse@example.com";
-
-	$sendStatus = mail($to,$subject,$txt,$headers);
-
-	return $sendStatus;
-});
-
+// Ajax Routes
 Route::get('countries', 'App\Http\Controllers\AjaxController@getCountry')->name('ajax.countries');
 Route::get('states/{country_id?}', 'App\Http\Controllers\AjaxController@getState')->name('ajax.states');
 Route::get('cities/{state_id?}', 'App\Http\Controllers\AjaxController@getCity')->name('ajax.cities');
