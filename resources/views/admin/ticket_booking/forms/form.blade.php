@@ -278,7 +278,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="adhaar_driving" style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
+                    <div class="col-12" id="adhaar_driving" style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'display:none;' : '' }}">
 
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Adhaar card or Driving License </label>

@@ -3,10 +3,17 @@
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <head>
 	<meta charset="utf-8" />
-	<title>SAF ARTIST 2023</title>
+	@php
+	    $favicon 	= session('adminSettings.favicon');
+	    $appName 	= session('adminSettings.app_name');
+	    $logo 		= session('adminSettings.logo');
+	@endphp
+
+	<title>{{$appName}}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
-	<link rel="icon" type="image/x-icon" href="{{asset('media/logos/favicon.png')}}">
+
+	<link rel="icon" type="image/x-icon" href="{{ asset('uploads/admins/favicons/thumbnails/250/' .$favicon) }}">
 	<!--end::Fonts-->
 	<!--begin::Global Theme Styles(used by all pages)-->
 	<link href="{{asset('plugins/global/plugins.bundlef552.css') }}" rel="stylesheet" type="text/css" />
@@ -27,10 +34,49 @@
 </head>
 <!--end::Head-->
 <!--begin::Body-->
-<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading">
-	
+<body id="kt_body" class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed aside-minimize-hoverable page-loading" style="background:#E5E5E5;">
 
+	<!--begin::Main-->
+
+	<!--begin::Header Mobile-->
+	<div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
+		<!--begin::Logo-->
+		<a href="{{ route('admin.dashboard') }}">
+			<img alt="Logo" class="img-fluid" style="height:100%" src="{{asset('uploads/admins/logos/thumbnails/250/' .$logo)}}" />
+		</a>
+		<!--end::Logo-->
+		<!--begin::Toolbar-->
+		<div class="d-flex align-items-center">
+			<!--begin::Aside Mobile Toggle-->
+			<button class="btn p-0 burger-icon burger-icon-left" id="kt_aside_mobile_toggle">
+				<span></span>
+			</button>
+			<!--end::Aside Mobile Toggle-->
+			<!--begin::Header Menu Mobile Toggle-->
+			<!-- <button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
+				<span></span>
+			</button> -->
+			<!--end::Header Menu Mobile Toggle-->
+			<!--begin::Topbar Mobile Toggle-->
+			<button class="btn btn-hover-text-primary p-0 ml-2" id="kt_header_mobile_topbar_toggle">
+				<span class="svg-icon svg-icon-xl">
+					<!--begin::Svg Icon | path:assets/media/svg/icons/General/User.svg-->
+					<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<polygon points="0 0 24 0 24 24 0 24" />
+							<path d="M12,11 C9.790861,11 8,9.209139 8,7 C8,4.790861 9.790861,3 12,3 C14.209139,3 16,4.790861 16,7 C16,9.209139 14.209139,11 12,11 Z" fill="#000000" fill-rule="nonzero" opacity="0.3" />
+							<path d="M3.00065168,20.1992055 C3.38825852,15.4265159 7.26191235,13 11.9833413,13 C16.7712164,13 20.7048837,15.2931929 20.9979143,20.2 C21.0095879,20.3954741 20.9979143,21 20.2466999,21 C16.541124,21 11.0347247,21 3.72750223,21 C3.47671215,21 2.97953825,20.45918 3.00065168,20.1992055 Z" fill="#000000" fill-rule="nonzero" />
+						</g>
+					</svg>
+					<!--end::Svg Icon-->
+				</span>
+			</button>
+			<!--end::Topbar Mobile Toggle-->
+		</div>
+		<!--end::Toolbar-->
+	</div>
 	<!--end::Header Mobile-->
+
     <div class="d-flex flex-column flex-root">
         <!--begin::Page-->
         <div class="d-flex flex-row flex-column-fluid page">
@@ -39,8 +85,8 @@
                 <!--begin::Brand-->
                 <div class="brand flex-column-auto" id="kt_brand">
                     <!--begin::Logo-->
-                    <a href="#" class="brand-logo">
-                        <img alt="Logo" src="{{asset('media/logos/logo-white.png')}}" / style="width: 150px;">
+                    <a href="{{ route('admin.dashboard') }}" class="brand-logo">
+                        <img alt="Logo" src="{{asset('uploads/admins/logos/thumbnails/250/' .$logo)}}" style="width: 150px;">
                     </a>
                     <!--end::Logo-->
                     <!--begin::Toggle-->
@@ -65,6 +111,7 @@
                 <!--end::Aside Menu-->
             </div>
             <!--end::Aside-->
+            
             <!--begin::Wrapper-->
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
                 <!--begin::Header-->
@@ -85,8 +132,6 @@
     </div>
     <!--end::Main-->
 
-
-    <!--end::Chat Panel-->
     <!--begin::Scrolltop-->
     <div id="kt_scrolltop" class="scrolltop">
         <span class="svg-icon">
@@ -120,7 +165,13 @@
 	        <!--begin::Header-->
 	        <div class="d-flex align-items-center mt-5">
 	            <div class="symbol symbol-100 mr-5">
-	                <div class="symbol-label" style="background-image:url('/metronic/theme/html/demo1/dist/assets/media/users/300_21.jpg')"></div>
+	                <div class="image-input image-input-outline" id="image_1" style="background-image: url('{{asset("media/users/blank.png")}}')">
+                        @if(isset(Auth::user()->image) && !empty(Auth::user()->image))
+                            <div class="image-input-wrapper" style="background-image: url('{{asset("uploads/admin_users/thumbnails/250/".Auth::user()->image)}}')"></div>
+                        @else
+                            <div class="image-input-wrapper image_base64"></div>
+                        @endif
+                    </div>
 	                <i class="symbol-badge bg-success"></i>
 	            </div>
 	            <div class="d-flex flex-column">
@@ -156,15 +207,44 @@
 	        <!--begin::Separator-->
 	        <div class="separator separator-dashed mt-8 mb-5"></div>
 	        <!--end::Separator-->
+
 	        <!--begin::Nav-->
-	        
-	        <!--end::Notifications-->
-	        <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+			<div class="navi navi-spacer-x-0 p-0">
+				<!--begin::Item-->
+				<a href="{{ route('admin.profile.edit')}}" class="navi-item">
+					<div class="navi-link">
+						<div class="symbol symbol-40 bg-light mr-3">
+							<div class="symbol-label">
+								<span class="svg-icon svg-icon-md svg-icon-success">
+									<!--begin::Svg Icon | path:assets/media/svg/icons/General/Notification2.svg-->
+									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+										<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+											<rect x="0" y="0" width="24" height="24" />
+											<path d="M13.2070325,4 C13.0721672,4.47683179 13,4.97998812 13,5.5 C13,8.53756612 15.4624339,11 18.5,11 C19.0200119,11 19.5231682,10.9278328 20,10.7929675 L20,17 C20,18.6568542 18.6568542,20 17,20 L7,20 C5.34314575,20 4,18.6568542 4,17 L4,7 C4,5.34314575 5.34314575,4 7,4 L13.2070325,4 Z" fill="#000000" />
+											<circle fill="#000000" opacity="0.3" cx="18.5" cy="5.5" r="2.5" />
+										</g>
+									</svg>
+									<!--end::Svg Icon-->
+								</span>
+							</div>
+						</div>
+						<div class="navi-text">
+							<div class="font-weight-bold">My Profile</div>
+							<div class="text-muted">Account settings and more
+							<span class="label label-light-danger label-inline font-weight-bold">update</span></div>
+						</div>
+					</div>
+				</a>
+				<!--end:Item-->
+			</div>
+			<!--end::Nav-->
+
+	        <!-- <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
 	            <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
 	        </div>
 	        <div class="ps__rail-y" style="top: 0px; height: 341px; right: 0px;">
 	            <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 130px;"></div>
-	        </div>
+	        </div> -->
 	    </div>
 	    <!--end::Content-->
 	</div>
@@ -256,6 +336,8 @@
 	<script src="{{asset('plugins/global/plugins.bundlef552.js?v=7.1.8')}}"></script>
 	<script src="{{asset('plugins/custom/prismjs/prismjs.bundlef552.js?v=7.1.8')}}"></script>
 	<script src="{{asset('js/scripts.bundlef552.js?v=7.1.8')}}"></script>
+	<script src="{{asset('js/pages/widgetsf552.js?v=7.1.8')}}"></script>
+	<script src="{{asset('js/pages/features/charts/amcharts/chartsf552.js?v=7.1.8')}}"></script>
 
     <!-- Custom Scripts -->
     <script src="{{asset('js/custom/index.js')}}"></script>
@@ -345,7 +427,7 @@
 					orientation: "bottom left",
 					templates: arrows,
 					autoClose: true,
-					format: 'dd/mm/yyyy',
+					format: 'dd-mm-yyyy',
 				});
 			}
 

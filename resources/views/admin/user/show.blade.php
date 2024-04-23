@@ -346,13 +346,13 @@
                         </div>
                     </div>
 
-                    <div class="card-header">
+                    <div class="card-header" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
                         <div class="card-title">
                             <h3 class="card-label">Members Details</h3>
                         </div>
                     </div>
 
-                    <div class="card-body">
+                    <div class="card-body" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>

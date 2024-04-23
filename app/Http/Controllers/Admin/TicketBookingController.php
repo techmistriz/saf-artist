@@ -248,7 +248,7 @@ class TicketBookingController extends Controller
         $ticket->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
-        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
+        return \Redirect::route('admin.artist_member.index');
     }
 
     /**

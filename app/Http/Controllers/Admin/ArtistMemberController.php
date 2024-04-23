@@ -88,4 +88,11 @@ class ArtistMemberController extends Controller
         return $returnArray;
     }
 
+
+    public function show ($id, ArtistMember $artistMember){
+
+        $row = ArtistMember::findOrFail($id);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
+    }
+
 }

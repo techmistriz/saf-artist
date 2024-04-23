@@ -24,11 +24,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/password/reset/{token}', [App\Http\Controllers\Admin\Auth\ResetPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('/password/reset', [App\Http\Controllers\Admin\Auth\ResetPasswordController::class, 'reset']);
     
-    
     Route::group(['middleware' => ['auth:admin']], function () {
 
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');        
+        Route::get('/profile/edit', [App\Http\Controllers\Admin\AdminProfileController::class, 'edit'])->name('profile.edit');        
+        Route::put('/update/{id}', [App\Http\Controllers\Admin\AdminProfileController::class, 'update'])->name('profile.update');        
+        Route::get('/profile/change-password', [App\Http\Controllers\Admin\AdminProfileController::class, 'changePassword'])->name('profile.change_password');
+        Route::put('/profile/update-password', [App\Http\Controllers\Admin\AdminProfileController::class, 'updatePassword'])->name('password.update');
 
         Route::group(['prefix' => 'user', 'middleware' => ['AdminPermissionCheck:UserController']], function(){
 
@@ -95,6 +98,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::get('edit/{id}',                 'SystemSettingsController@edit')->name('edit');
                 Route::put('update/{id}',               'SystemSettingsController@update')->name('update');
                 Route::get('delete/{id}',               'SystemSettingsController@delete')->name('delete');
+            });
+        });
+
+        Route::group(['prefix' => 'admin-settings', 'middleware' => ['AdminPermissionCheck:AdminSettingsController']], function(){
+
+            // program routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'admin_settings.'], function(){
+                Route::get('list/',                     'AdminSettingsController@index')->name('index');
+                Route::post('fetch-data/',              'AdminSettingsController@fetchData')->name('fetch.data');
+                Route::get('create/',                   'AdminSettingsController@create')->name('create');
+                Route::post('store/',                   'AdminSettingsController@store')->name('store');
+                Route::get('show/{id}',                 'AdminSettingsController@show')->name('show');
+                Route::get('edit/{id}',                 'AdminSettingsController@edit')->name('edit');
+                Route::put('update/{id}',               'AdminSettingsController@update')->name('update');
+                Route::get('delete/{id}',               'AdminSettingsController@delete')->name('delete');
             });
         });
 
