@@ -323,7 +323,7 @@
                     <div class="col-lg-4"></div>
                     <div class="col-lg-4 text-center">
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                        <a class="btn btn-light-danger" href="{{ route($moduleConfig['routes']['listRoute']) }}">Cancel</a>
+                        <a class="btn btn-light-danger" href="{{route('admin.artist_member.index')}}">Cancel</a>
                     </div>
                 </div>
             </div>
