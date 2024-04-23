@@ -10,7 +10,7 @@
                 <div class="card card-custom">
                     <div class="card-header flex-wrap border-0 pt-6 pb-0">
                         <div class="card-title">
-                            <h3 class="card-label">Artist/Member 
+                            <h3 class="card-label">{{$moduleConfig['moduleTitle']}} 
                             <span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
                         </div>
                         <!-- <div class="card-toolbar">
@@ -68,7 +68,7 @@
 
     jQuery(document).ready((function() {
 
-        var url             = '{!! route("admin.user.artist.member.fetch.data") !!}';
+        var url             = '{!! route($moduleConfig['routes']['fetchDataRoute']) !!}';
         var columnsArray    =   [
                 
             {

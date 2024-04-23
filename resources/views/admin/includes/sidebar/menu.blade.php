@@ -27,7 +27,7 @@
             
         	
             
-        	@if(\Helper::checkPermisson('UserController', $rolePermissionArr))
+        	@if(\Helper::checkPermisson('ArtistMemberController', $rolePermissionArr))
             	@include('admin/includes/sidebar/artist_member')
             @endif
 

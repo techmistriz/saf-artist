@@ -50,9 +50,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::put('edit-account-details/{id}',		'UserController@updateAccountDetails')->name('update.account.details');
                 Route::get('show-account-details/{id}',		'UserController@showAccountDetails')->name('show.account.details');
                 Route::get('update-freeze-status/{id}',		'UserController@updateFreezeStatus')->name('update.freeze.status');
-
-                Route::get('artist-member/list/',            'UserController@artistMemberIndex')->name('artist.member.index');
-                Route::post('artist-member/fetch-data/',     'UserController@artistMemberFetchData')->name('artist.member.fetch.data');
             });
         });
 
@@ -235,6 +232,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::get('edit/{id}',          'FaqController@edit')->name('edit');
                 Route::put('update/{id}',        'FaqController@update')->name('update');
                 Route::get('delete/{id}',        'FaqController@delete')->name('delete');
+            });
+        });
+
+        Route::group(['prefix' => 'artist-member', 'middleware' => ['AdminPermissionCheck:ArtistMemberController']], function(){
+
+            //ArtistMember routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'artist_member.'], function(){
+                Route::get('list/',              'ArtistMemberController@index')->name('index');
+                Route::post('fetch-data/',       'ArtistMemberController@fetchData')->name('fetch.data');
+                Route::get('create/',            'ArtistMemberController@create')->name('create');
+                Route::post('store/',            'ArtistMemberController@store')->name('store');
+                Route::get('show/{id}',          'ArtistMemberController@show')->name('show');
+                Route::get('edit/{id}',          'ArtistMemberController@edit')->name('edit');
+                Route::put('update/{id}',        'ArtistMemberController@update')->name('update');
+                Route::get('delete/{id}',        'ArtistMemberController@delete')->name('delete');
             });
         });
 
