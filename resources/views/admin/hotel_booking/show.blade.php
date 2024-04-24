@@ -11,72 +11,76 @@
 		                <div class="card-title">
 		                    <h3 class="card-label">Show {{$moduleConfig['moduleTitle']}}</h3>
 		                </div>
-		            </div>		            
-		           <div class="card-body">
-		                <div class="row">
-		                    
-		                    <div class="col-6">
-
-		                    	<div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Member: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{$row->member->name ?? ''}}</label>
-                                    </div>
-                                </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Accomodation Required: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->accomodation}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check In Date: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->check_in_date}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check Out Date: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->check_out_date}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Total Room Nights: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->total_room_nights}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Remarks: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->artist_remarks}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Status: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-
-		                            	<label class="col-form-label text-lg-left">{{ $row->status ? 'Active' : 'Inactive' }}</label>
-		                            
-		                            </div>
-		                        </div>
-
-		                    </div>
-		                    
-		                </div>
 		            </div>
+		             <div class="card-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Member</th>
+                                                <td colspan="3">{{$row->member->name ?? ''}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Accomodation Required</th>
+                                                <td colspan="3">{{$row->accomodation}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Check In Date</th>
+                                                <td colspan="3">{{$row->check_in_date}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Check Out Date</th>
+                                                <td colspan="3">{{$row->check_out_date}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Total Room Nights</th>
+                                                <td colspan="3">{{$row->total_room_nights}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Artist Remarks</th>
+                                                <td colspan="3">{{$row->artist_remarks}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Performance Venue</th>
+                                                <td colspan="3">{{$row->performance_venue}}</td>
+                                            </tr> 
+                                            <tr>
+                                                <th>Hotel Budget</th>
+                                                <td colspan="3">{{$row->hotel_budget}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Hotel Room Sharing</th>
+                                                <td colspan="3">{{$row->room_sharing}}</td>
+                                            </tr>
+                                            @if($shareRooms->count())
+	                                            @foreach($shareRooms as $key => $value)
+				                                    <tr>
+				                                    	<th>Room No - {{ $value->room_no }}</th>
+				                                        <td>{{ $value->name_1 }}</td>
+				                                        <td>{{ $value->name_2 }}</td>
+				                                    </tr>
+				                                @endforeach
+			                                @endif
+                                            <tr>
+                                                <th>Local Travel</th>
+                                                <td colspan="3">{{$row->local_travel}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Performance Date</th>
+                                                <td colspan="3">{{$row->performance_date}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Status</th>
+                                                <td colspan="3">{{ $row->status ? 'Active' : 'Inactive' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>		           
 		            <div class="card-footer">
 		                <div class="row">
 		                    <div class="col-lg-4"></div>

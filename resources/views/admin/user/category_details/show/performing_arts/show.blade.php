@@ -15,37 +15,26 @@
 		                    <h3 class="card-label">Show {{$moduleConfig['moduleTitle']}} Category Details</h3>
 		                </div>
 		            </div>
-		            
 		            <div class="card-body">
-		                <div class="row">
-		                    
-		                    <div class="col-12">
-		                        
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Synopsis/ Description of the performance: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-right">{{ $row->synopsis_description_of_the_performance }}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Concept Note: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-										<div class="">
-											Uploaded File: 
-			                                @if($row->concept_note)
-			                                	<a target="_blank" href="{{ asset('uploads/users/'.$row->concept_note) }}">{{$row->concept_note}}</a>
-			                            	@else
-			                            	N/A
-			                            	@endif
-										</div>
-		                            </div>
-		                        </div>
-
-		                    </div>
-		                </div>
-		            </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Synopsis/ Description of the performance</th>
+                                                <td>{{$row->synopsis_description_of_the_performance}}</td>
+                                            </tr>
+                                             <tr>
+                                                <th>Status</th>
+                                                <td>{{ $row->status ? 'Active' : 'Inactive' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 		            <div class="card-footer">
 		                <div class="row">

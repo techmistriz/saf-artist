@@ -14,334 +14,215 @@
                             <h3 class="card-label">Show {{$moduleConfig['moduleTitle']}} Account Details</h3>
                         </div>
                     </div>
-                    
+
                     <div class="card-body">
                         <div class="row">
-                            
-                            <div class="col-9">
-                                
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Are you registring for group: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->reg_for_group }}</label>
-                                        
-                                    </div>
+                            <div class="col-8">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Category</th>
+                                                <td colspan="4">{{ $row->category->name ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Artist Type</th>
+                                                <td colspan="4">{{ $row->artistType->name ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Name of Curators</th>
+                                                <td colspan="4">{{ $row->curator_name ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Project Name</th>
+                                                <td colspan="4">{{ $row->project->name ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <td colspan="4">{{$row->name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>DOB</th>
+                                                <td colspan="4">{{$row->dob}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Contact</th>
+                                                <td colspan="4">{{$row->contact}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Email</th>
+                                                <td colspan="4">{{$row->email}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Address</th>
+                                                <td colspan="4">{{$row->permanent_address}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Country</th>
+                                                <td colspan="4">{{$row->PACountry->country_name ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Country - Other</th>
+                                                <td colspan="4">{{$row->pa_country_other ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>State</th>
+                                                <td colspan="4">{{$row->PAState->state_name ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>City</th>
+                                                <td colspan="4">{{$row->PACity->city_name ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>City - Other</th>
+                                                <td colspan="4">{{$row->pa_city_other ?? 'N/A' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pincode</th>
+                                                <td colspan="4">{{$row->pa_pincode}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pincode</th>
+                                                <td colspan="4">{{$row->ca_pincode}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Stage Name (If Any)</th>
+                                                <td colspan="4">{{$row->stage_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Artist Bio</th>
+                                                <td colspan="4">{!! $row->artist_bio !!}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Instagram URL</th>
+                                                <td colspan="4">{{$row->instagram_url}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Facebook URL</th>
+                                                <td colspan="4">{{$row->facebook_url}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Linkdin URL</th>
+                                                <td colspan="4">{{$row->linkdin_url}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Twitter URL</th>
+                                                <td colspan="4">{{$row->twitter_url}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Website</th>
+                                                <td colspan="4">{{$row->website}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</th>
+                                                <td>
+                                                    <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
+                                                        @if(isset($row->practice_image_1) && !empty($row->practice_image_1))
+                                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_1)}})"></div>
+                                                        @else
+                                                            <div class="image-input-wrapper"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->practice_image_1)
+                                                            <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_1) }}">{{$row->practice_image_1}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
+                                                        @if(isset($row->practice_image_2) && !empty($row->practice_image_2))
+                                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_2)}})"></div>
+                                                        @else
+                                                            <div class="image-input-wrapper"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->practice_image_2)
+                                                            <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_2) }}">{{$row->practice_image_2}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
+                                                        @if(isset($row->practice_image_3) && !empty($row->practice_image_3))
+                                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_3)}})"></div>
+                                                        @else
+                                                            <div class="image-input-wrapper"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->practice_image_3)
+                                                            <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_3) }}">{{$row->practice_image_3}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Please upload 2 high resolution profile images (For your festival ID and promotion)</th>
+                                                <td>
+                                                    <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
+                                                        @if(isset($row->profile_image_1) && !empty($row->profile_image_1))
+                                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_1)}})"></div>
+                                                        @else
+                                                            <div class="image-input-wrapper"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->profile_image_1)
+                                                            <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_1) }}">{{$row->profile_image_1}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                                <td colspan="3">
+                                                    <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
+                                                        @if(isset($row->profile_image_2) && !empty($row->profile_image_2))
+                                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_2)}})"></div>
+                                                        @else
+                                                            <div class="image-input-wrapper"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->profile_image_2)
+                                                            <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_2) }}">{{$row->profile_image_2}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Have you been associated with Serendipity Arts in the past ?</th>
+                                                <td colspan="4">{{$row->has_serendipity_arts}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Year</th>
+                                                <td colspan="4">{{ implode(', ', $row->year) }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Link with videos of your work <i>(If any)</i></th>
+                                                <td colspan="4">{{ $row->other_link }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Status</th>
+                                                <td colspan="4">{{ $row->status ? 'Active' : 'Inactive' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-                                
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Category: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->category->name ?? 'N/A' }}</label>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Artist Type: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->artistType->name ?? 'N/A' }}</label>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Name of Curators: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->curator_name ?? 'N/A' }}</label>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Project Name: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->project->name ?? 'N/A' }}</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Full Name: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{$row->name}}</label>
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">DOB: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->dob }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Contact: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->contact }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Email: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->email }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Address: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->permanent_address }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Country: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->PACountry->country_name ?? 'N/A' }}</label>
-                                        
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Country - Other: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->pa_country_other ?? 'N/A' }}</label>
-                                        
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">State: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->PAState->state_name ?? 'N/A' }}</label>
-                                        
-                                    </div>
-                                </div>  
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">City: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->PACity->city_name ?? 'N/A' }}</label>
-                                        
-                                    </div>
-                                </div>  
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">City - Other: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->pa_city_other ?? 'N/A' }}</label>
-                                        
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Pincode: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->pa_pincode }}</label>
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Pincode: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->ca_pincode }}</label>
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Stage Name (If Any): </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->stage_name }}</label>
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Artist Bio: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{!! $row->artist_bio !!}</label>
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Instagram URL: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->instagram_url }}</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Facebook URL: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->facebook_url }}</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Linkdin URL: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->linkdin_url }}</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Twitter URL: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->twitter_url }}</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Website <i>(If any)</i> : </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->website }}</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals):</label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                                <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
-                                                    @if(isset($row->practice_image_1) && !empty($row->practice_image_1))
-                                                        <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_1)}})"></div>
-                                                    @else
-                                                        <div class="image-input-wrapper"></div>
-                                                    @endif
-                                                </div>
-                                                <div class="">
-                                                    Uploaded File: 
-                                                    @if($row->practice_image_1)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_1) }}">{{$row->practice_image_1}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                                <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
-                                                    @if(isset($row->practice_image_2) && !empty($row->practice_image_2))
-                                                        <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_2)}})"></div>
-                                                    @else
-                                                        <div class="image-input-wrapper"></div>
-                                                    @endif
-                                                </div>
-                                                <div class="">
-                                                    Uploaded File: 
-                                                    @if($row->practice_image_2)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_2) }}">{{$row->practice_image_2}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                                <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
-                                                    @if(isset($row->practice_image_3) && !empty($row->practice_image_3))
-                                                        <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_3)}})"></div>
-                                                    @else
-                                                        <div class="image-input-wrapper"></div>
-                                                    @endif
-                                                </div>
-                                                <div class="">
-                                                    Uploaded File: 
-                                                    @if($row->practice_image_3)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_3) }}">{{$row->practice_image_3}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Please upload 2 high resolution profile images (For your festival ID and promotion): </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                                <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
-                                                    @if(isset($row->profile_image_1) && !empty($row->profile_image_1))
-                                                        <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_1)}})"></div>
-                                                    @else
-                                                        <div class="image-input-wrapper"></div>
-                                                    @endif
-                                                </div>
-                                                <div class="">
-                                                    Uploaded File: 
-                                                    @if($row->profile_image_1)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_1) }}">{{$row->profile_image_1}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-4 col-md-4 col-sm-4">
-                                                <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
-                                                    @if(isset($row->profile_image_2) && !empty($row->profile_image_2))
-                                                        <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_2)}})"></div>
-                                                    @else
-                                                        <div class="image-input-wrapper"></div>
-                                                    @endif
-                                                </div>
-                                                <div class="">
-                                                    Uploaded File: 
-                                                    @if($row->profile_image_2)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_2) }}">{{$row->profile_image_2}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Have you been associated with Serendipity Arts in the past ?: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->has_serendipity_arts }}</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Year: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ implode(', ', $row->year) }}</label>
-                                    </div>
-                                </div>
-                                
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Link with videos of your work <i>(If any)</i> : </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{ $row->other_link }}</label>
-                                    </div>
-                                </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -351,16 +232,19 @@
                             <h3 class="card-label">Project Category Details</h3>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="row">                            
-                            <div class="col-12">
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Project Category Details</label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                        <label class="col-form-label text-lg-right">{{ $userCategoryDetails->synopsis_description_of_the_performance }}</label>
-                                        
-                                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th width="50%">Project Category Details</th>
+                                                <td>{{ $userCategoryDetails->synopsis_description_of_the_performance }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

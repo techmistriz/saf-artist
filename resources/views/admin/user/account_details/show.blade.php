@@ -14,167 +14,116 @@
                             <h3 class="card-label">Show {{$moduleConfig['moduleTitle']}} Banking Details</h3>
                         </div>
                     </div>
-                    
+
                     <div class="card-body">
                         <div class="row">
-                            
-                            <div class="col-9">
-                                
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Full Name: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{$row->name}}</label>
-                                        
-                                    </div>
+                            <div class="col-6">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Full Name</th>
+                                                <td>{{$row->name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Permanent Address</th>
+                                                <td>{{$row->permanent_address}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Account Number</th>
+                                                <td>{{$row->account_number}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Bank holder name(As per govt id)</th>
+                                                <td>{{$row->bank_holder_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Bank Name</th>
+                                                <td>{{$row->bank_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Branch Address</th>
+                                                <td>{{$row->branch_address}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>IFSC Code</th>
+                                                <td>{{$row->ifsc_code}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Cancelled Cheque Image</th>
+                                                <td>
+                                                    <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
+
+                                                        @if(isset($row->cancel_cheque_image) && !empty($row->cancel_cheque_image))
+                                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->cancel_cheque_image)}})"></div>
+                                                        @else
+                                                            <div class="image-input-wrapper"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->cancel_cheque_image)
+                                                            <a target="_blank" href="{{ asset('uploads/users/'.$row->cancel_cheque_image) }}">{{$row->cancel_cheque_image}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pan Card Number</th>
+                                                <td>{{$row->pancard_number}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pan Card Image</th>
+                                                <td>
+                                                    <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
+
+                                                        @if(isset($row->pancard_image) && !empty($row->pancard_image))
+                                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->pancard_image)}})"></div>
+                                                        @else
+                                                            <div class="image-input-wrapper"></div>
+                                                        @endif
+                                                    </div>
+
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->pancard_image)
+                                                            <a target="_blank" href="{{ asset('uploads/users/'.$row->pancard_image) }}">{{$row->pancard_image}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>GST Applicable</th>
+                                                <td>{{$row->has_gst_applicable}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>GST Number</th>
+                                                <td>{{$row->gst_number}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Gst Certificate</th>
+                                                <td>
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->gst_certificate_file)
+                                                            <a target="_blank" href="{{ asset('uploads/users/'.$row->gst_certificate_file) }}">{{$row->gst_certificate_file}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Status</th>
+                                                <td>{{ $row->status ? 'Active' : 'Inactive' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Permanent Address: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{$row->permanent_address}}</label>
-                                    
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Account Number: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->account_number }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Bank holder name(As per govt id): </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->bank_holder_name }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Bank Name: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->bank_name }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Branch Address: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->branch_address }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">IFSC Code: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->ifsc_code }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Cancelled Cheque Image: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        
-                                        <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
-
-                                            @if(isset($row->cancel_cheque_image) && !empty($row->cancel_cheque_image))
-                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->cancel_cheque_image)}})"></div>
-                                            @else
-                                                <div class="image-input-wrapper"></div>
-                                            @endif
-                                        </div>
-
-                                        <div class="">
-                                            Uploaded File: 
-                                            @if($row->cancel_cheque_image)
-                                                <a target="_blank" href="{{ asset('uploads/users/'.$row->cancel_cheque_image) }}">{{$row->cancel_cheque_image}}</a>
-                                            @else
-                                            N/A
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Pan card Number: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->pancard_number }}</label>
-                                    
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Pan card Image: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        
-                                        <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
-
-                                            @if(isset($row->pancard_image) && !empty($row->pancard_image))
-                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->pancard_image)}})"></div>
-                                            @else
-                                                <div class="image-input-wrapper"></div>
-                                            @endif
-                                        </div>
-
-                                        <div class="">
-                                            Uploaded File: 
-                                            @if($row->pancard_image)
-                                                <a target="_blank" href="{{ asset('uploads/users/'.$row->pancard_image) }}">{{$row->pancard_image}}</a>
-                                            @else
-                                            N/A
-                                            @endif
-                                        </div>
-                                    
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">GST Applicable: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->has_gst_applicable }}</label>
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">GST Number: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-right">{{ $row->gst_number }}</label>
-                                        
-                                    </div>
-                                </div> 
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Gst Certificate: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <div class="">
-                                            Uploaded File: 
-                                            @if($row->gst_certificate_file)
-                                                <a target="_blank" href="{{ asset('uploads/users/'.$row->gst_certificate_file) }}">{{$row->gst_certificate_file}}</a>
-                                            @else
-                                            N/A
-                                            @endif
-                                        </div>
-
-                                    </div>
-                                </div> 
-
                             </div>
                         </div>
                     </div>

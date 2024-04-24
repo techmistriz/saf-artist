@@ -11,71 +11,121 @@
 		                <div class="card-title">
 		                    <h3 class="card-label">Show {{$moduleConfig['moduleTitle']}}</h3>
 		                </div>
-		            </div>		            
-		            <div class="card-body">
-		                <div class="row">
-		                    
-		                    <div class="col-6">
-
-		                    	<div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Member: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{$row->member->name ?? ''}}</label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Project Name: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{$row->project->name ?? ''}}</label>
-                                    </div>
-                                </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->name}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Email: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->email}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Contact: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->contact}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->dob}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Status: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-
-		                            	<label class="col-form-label text-lg-left">{{ $row->status ? 'Active' : 'Inactive' }}</label>
-		                            
-		                            </div>
-		                        </div>
-
-		                    </div>
-		                    
-		                </div>
 		            </div>
+		            <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <tbody>
+                                            <tr>
+                                                <th>Member</th>
+                                                <td>{{$row->member->name ?? ''}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Project Name</th>
+                                                <td>{{$row->project->name ?? ''}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Title</th>
+                                                <td>{{$row->salutation}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Traveller Name As Per Gov. ID</th>
+                                                <td>{{$row->name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Age</th>
+                                                <td>{{$row->age}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Email</th>
+                                                <td>{{$row->email}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Contact</th>
+                                                <td>{{$row->contact}}</td>
+                                            </tr> 
+                                            <tr>
+                                                <th>Onward (Mention City)</th>
+                                                <td>{{$row->onwardCity->name ?? ''}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Onward (Mention City) - Other</th>
+                                                <td>{{$row->onward_city_other}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Return City</th>
+                                                <td>{{$row->returnCity->name ?? ''}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Return City - Other</th>
+                                                <td>{{$row->return_city_other}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Artist Remarks</th>
+                                                <td>{{$row->artist_remarks}}</td>
+                                            </tr>
+                                             <tr style="{{ isset($row->member->poc_id) && !empty($row->member->poc_id) ? '' : 'display:none;'}}">
+                                                <th>International/Domestic Traveller</th>
+                                                <td>{{$row->international_or_domestic}}</td>
+                                            </tr> 
+                                            <tr style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
+                                                <th>Do you have work visa for India</th>
+                                                <td>{{$row->work_visa}}</td>
+                                            </tr>
+                                            <tr style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
+                                                <th>Upload Passport (Image)</th>
+                                                <td>
+                                                    <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
+
+                                                        @if(isset($row->upload_passport) && !empty($row->upload_passport))
+                                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/passports/'.$row->upload_passport)}})"></div>
+                                                        @else
+                                                            <div class="image-input-wrapper"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->upload_passport)
+                                                            <a target="_blank" href="{{ asset('uploads/passports/'.$row->upload_passport) }}">{{$row->upload_passport}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr> 
+                                            <tr style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'display:none;' : '' }}">
+                                                <th>Upload Adhaar card or Driving License</th>
+                                                <td>
+                                                    <div class="image-input image-input-outline" id="program_image_1" style="background-image: url({{asset('media/users/blank.png')}})">
+
+                                                        @if(isset($row->adhaarcard_driving) && !empty($row->adhaarcard_driving))
+                                                            <div class="image-input-wrapper" style="background-image: url({{asset('uploads/adhaarcard_drivings/'.$row->adhaarcard_driving)}})"></div>
+                                                        @else
+                                                            <div class="image-input-wrapper"></div>
+                                                        @endif
+                                                    </div>
+                                                    <div class="">
+                                                        Uploaded File: 
+                                                        @if($row->adhaarcard_driving)
+                                                            <a target="_blank" href="{{ asset('uploads/adhaarcard_drivings/'.$row->adhaarcard_driving) }}">{{$row->adhaarcard_driving}}</a>
+                                                        @else
+                                                        N/A
+                                                        @endif
+                                                    </div>
+                                                </td>
+                                            </tr>                                          
+                                            <tr>
+                                                <th>Status</th>
+                                                <td>{{ $row->status ? 'Active' : 'Inactive' }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 		            <div class="card-footer">
 		                <div class="row">
 		                    <div class="col-lg-4"></div>

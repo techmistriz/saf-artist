@@ -162,7 +162,8 @@ class HotelBookingController extends Controller
     public function show ($id, HotelBooking $hotel){
 
         $row = HotelBooking::findOrFail($id);
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
+        $shareRooms = ShareRoom::where(['hotel_booking_id' => $id])->get(); 
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('shareRooms', $shareRooms);
     }
 
     /**
@@ -232,7 +233,7 @@ class HotelBookingController extends Controller
         }
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
-        return \Redirect::route('admin.artist_member.index');
+        return \Redirect::route('admin.user.index');
     }
 
     /**
