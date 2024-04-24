@@ -97,7 +97,7 @@ class ArtistMember extends MasterModel
     {
         
         return '<span class="overflow-visible position-relative width-125" data-id="' . $this->id . '">
-            <a href="show/' . $this->id . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+            <a href="' . route('admin.user.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
                 <i class="flaticon-eye"></i>
             </a>
             <a href="' . route('admin.ticket_booking.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit ticket details">

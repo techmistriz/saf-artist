@@ -269,5 +269,35 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
         });
 
+        Route::group(['prefix' => 'curator', 'middleware' => ['AdminPermissionCheck:CuratorController']], function(){
+
+            // Accessibility routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'curator.'], function(){
+                Route::get('list/',                     'CuratorController@index')->name('index');
+                Route::post('fetch-data/',              'CuratorController@fetchData')->name('fetch.data');
+                Route::get('create/',                   'CuratorController@create')->name('create');
+                Route::post('store/',                   'CuratorController@store')->name('store');
+                Route::get('show/{id}',                 'CuratorController@show')->name('show');
+                Route::get('edit/{id}',                 'CuratorController@edit')->name('edit');
+                Route::put('update/{id}',               'CuratorController@update')->name('update');
+                Route::get('delete/{id}',               'CuratorController@delete')->name('delete');
+            });
+        });
+
+        Route::group(['prefix' => 'artist-type', 'middleware' => ['AdminPermissionCheck:ArtistTypeController']], function(){
+
+            // Accessibility routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'artist_type.'], function(){
+                Route::get('list/',                     'ArtistTypeController@index')->name('index');
+                Route::post('fetch-data/',              'ArtistTypeController@fetchData')->name('fetch.data');
+                Route::get('create/',                   'ArtistTypeController@create')->name('create');
+                Route::post('store/',                   'ArtistTypeController@store')->name('store');
+                Route::get('show/{id}',                 'ArtistTypeController@show')->name('show');
+                Route::get('edit/{id}',                 'ArtistTypeController@edit')->name('edit');
+                Route::put('update/{id}',               'ArtistTypeController@update')->name('update');
+                Route::get('delete/{id}',               'ArtistTypeController@delete')->name('delete');
+            });
+        });
+
     });
 });

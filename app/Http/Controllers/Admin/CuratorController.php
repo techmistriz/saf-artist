@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\Curator;
 use Carbon\Carbon;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CuratorRequest;
 use Hash;
 use Image;
 use ImageUploadHelper;
 
-class CategoryController extends Controller
+class CuratorController extends Controller
 {   
     /*
     |--------------------------------------------------------------------------
@@ -24,17 +24,17 @@ class CategoryController extends Controller
 
     public static $moduleConfig = [
         "routes" => [
-            "listRoute" => 'admin.category.index',
-            "fetchDataRoute" => 'admin.category.fetch.data', 
-            "createRoute" => 'admin.category.create', 
-            "storeRoute" => 'admin.category.store', 
-            "editRoute" => 'admin.category.edit', 
-            "updateRoute" => 'admin.category.update', 
-            "deleteRoute" => 'admin.category.delete'
+            "listRoute" => 'admin.curator.index',
+            "fetchDataRoute" => 'admin.curator.fetch.data', 
+            "createRoute" => 'admin.curator.create', 
+            "storeRoute" => 'admin.curator.store', 
+            "editRoute" => 'admin.curator.edit', 
+            "updateRoute" => 'admin.curator.update', 
+            "deleteRoute" => 'admin.curator.delete'
         ],
-        "moduleTitle" => 'Category',
-        "moduleName" => 'category',
-        "viewFolder" => 'category',
+        "moduleTitle" => 'Curators',
+        "moduleName" => 'curator',
+        "viewFolder" => 'curator',
         //"imageUploadFolder" => 'uploads/curators/',
     ];
 
@@ -72,14 +72,14 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function fetchData(Request $request, Category $Category)
+    public function fetchData(Request $request, Curator $curator)
     {
         
         $data               =   $request->all();
 
-        $db_data            =   $Category->getList($data);
+        $db_data            =   $curator->getList($data);
 
-        $count 				=  	$Category->getListCount($data);
+        $count 				=  	$curator->getListCount($data);
 
         $returnArray = array(
             'data' => $db_data,
@@ -102,7 +102,7 @@ class CategoryController extends Controller
      * @param  null
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $Category){
+    public function create(Curator $curator){
 
         return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null);
     }
@@ -113,12 +113,12 @@ class CategoryController extends Controller
      * @param  null
      * @return Redirect
      */
-    public function store (CategoryRequest $request){
+    public function store (CuratorRequest $request){
 
-        $category          = new Category();
-        $category->name        = $request->name;
-        $category->status      = $request->input('status', 0);
-        $category->save();
+        $curator          = new Curator();
+        $curator->name        = $request->name;
+        $curator->status      = $request->input('status', 0);
+        $curator->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' created successfully');
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
@@ -130,9 +130,9 @@ class CategoryController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show ($id, Category $Category){
+    // public function show ($id, Curator $curator){
 
-    //     $row = Category::findOrFail($id);
+    //     $row = Curator::findOrFail($id);
     //     return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
     // }
 
@@ -142,9 +142,9 @@ class CategoryController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Category $Category){
+    public function edit($id, Curator $curator){
 
-        $row = Category::findOrFail($id);
+        $row = Curator::findOrFail($id);
         return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
     }
 
@@ -154,12 +154,12 @@ class CategoryController extends Controller
      * @param  $id
      * @return Redirect
      */
-    public function update(CategoryRequest $request, $id){
+    public function update(CuratorRequest $request, $id){
 
-        $category                  = Category::findOrFail($id);
-        $category->name                = $request->name;
-        $category->status              = $request->input('status', 0);
-        $category->save();
+        $curator                  = Curator::findOrFail($id);
+        $curator->name                = $request->name;
+        $curator->status              = $request->input('status', 0);
+        $curator->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
@@ -175,7 +175,7 @@ class CategoryController extends Controller
     // public function delete($id)
     // {
         
-    //     $row = Category::findOrFail($id);
+    //     $row = Curator::findOrFail($id);
     //     $row->delete();
     //     \Flash::success(self::$moduleConfig['moduleTitle'].' deleted successfully.'); 
     //     return \Redirect::route(self::$moduleConfig['routes']['listRoute']);

@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\ArtistType;
 use Carbon\Carbon;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\ArtistTypeRequest;
 use Hash;
 use Image;
 use ImageUploadHelper;
 
-class CategoryController extends Controller
+class ArtistTypeController extends Controller
 {   
     /*
     |--------------------------------------------------------------------------
@@ -24,17 +24,17 @@ class CategoryController extends Controller
 
     public static $moduleConfig = [
         "routes" => [
-            "listRoute" => 'admin.category.index',
-            "fetchDataRoute" => 'admin.category.fetch.data', 
-            "createRoute" => 'admin.category.create', 
-            "storeRoute" => 'admin.category.store', 
-            "editRoute" => 'admin.category.edit', 
-            "updateRoute" => 'admin.category.update', 
-            "deleteRoute" => 'admin.category.delete'
+            "listRoute" => 'admin.artist_type.index',
+            "fetchDataRoute" => 'admin.artist_type.fetch.data', 
+            "createRoute" => 'admin.artist_type.create', 
+            "storeRoute" => 'admin.artist_type.store', 
+            "editRoute" => 'admin.artist_type.edit', 
+            "updateRoute" => 'admin.artist_type.update', 
+            "deleteRoute" => 'admin.artist_type.delete'
         ],
-        "moduleTitle" => 'Category',
-        "moduleName" => 'category',
-        "viewFolder" => 'category',
+        "moduleTitle" => 'Artist Types',
+        "moduleName" => 'artist_type',
+        "viewFolder" => 'artist_type',
         //"imageUploadFolder" => 'uploads/curators/',
     ];
 
@@ -72,14 +72,14 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function fetchData(Request $request, Category $Category)
+    public function fetchData(Request $request, ArtistType $artistType)
     {
         
         $data               =   $request->all();
 
-        $db_data            =   $Category->getList($data);
+        $db_data            =   $artistType->getList($data);
 
-        $count 				=  	$Category->getListCount($data);
+        $count 				=  	$artistType->getListCount($data);
 
         $returnArray = array(
             'data' => $db_data,
@@ -102,7 +102,7 @@ class CategoryController extends Controller
      * @param  null
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $Category){
+    public function create(ArtistType $artistType){
 
         return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null);
     }
@@ -113,12 +113,12 @@ class CategoryController extends Controller
      * @param  null
      * @return Redirect
      */
-    public function store (CategoryRequest $request){
+    public function store (ArtistTypeRequest $request){
 
-        $category          = new Category();
-        $category->name        = $request->name;
-        $category->status      = $request->input('status', 0);
-        $category->save();
+        $artistType          = new ArtistType();
+        $artistType->name        = $request->name;
+        $artistType->status      = $request->input('status', 0);
+        $artistType->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' created successfully');
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
@@ -130,9 +130,9 @@ class CategoryController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    // public function show ($id, Category $Category){
+    // public function show ($id, ArtistType $artistType){
 
-    //     $row = Category::findOrFail($id);
+    //     $row = ArtistType::findOrFail($id);
     //     return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
     // }
 
@@ -142,9 +142,9 @@ class CategoryController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Category $Category){
+    public function edit($id, ArtistType $artistType){
 
-        $row = Category::findOrFail($id);
+        $row = ArtistType::findOrFail($id);
         return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
     }
 
@@ -154,12 +154,12 @@ class CategoryController extends Controller
      * @param  $id
      * @return Redirect
      */
-    public function update(CategoryRequest $request, $id){
+    public function update(ArtistTypeRequest $request, $id){
 
-        $category                  = Category::findOrFail($id);
-        $category->name                = $request->name;
-        $category->status              = $request->input('status', 0);
-        $category->save();
+        $artistType                  = ArtistType::findOrFail($id);
+        $artistType->name                = $request->name;
+        $artistType->status              = $request->input('status', 0);
+        $artistType->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
@@ -175,7 +175,7 @@ class CategoryController extends Controller
     // public function delete($id)
     // {
         
-    //     $row = Category::findOrFail($id);
+    //     $row = ArtistType::findOrFail($id);
     //     $row->delete();
     //     \Flash::success(self::$moduleConfig['moduleTitle'].' deleted successfully.'); 
     //     return \Redirect::route(self::$moduleConfig['routes']['listRoute']);

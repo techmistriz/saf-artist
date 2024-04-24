@@ -20,12 +20,10 @@
             $rolePermissionArr = session('rolePermission');
 
             @endphp
-            
-        	@if(\Helper::checkPermisson('UserController', $rolePermissionArr))
-            	@include('admin/includes/sidebar/user')
-            @endif
-            
-        	
+
+            @if(\Helper::checkPermisson('UserController', $rolePermissionArr))
+                @include('admin/includes/sidebar/user')
+            @endif        	
             
         	@if(\Helper::checkPermisson('ArtistMemberController', $rolePermissionArr))
             	@include('admin/includes/sidebar/artist_member')
@@ -35,13 +33,7 @@
                 include('admin/includes/sidebar/ticket_booking')
             endif -->
 
-            @if(\Helper::isSuperAdmin('AdminUserControllerController', $rolePermissionArr))
-            	@include('admin/includes/sidebar/admin_user')
-            @endif
-
-            @if(\Helper::isSuperAdmin('UserRoleController', $rolePermissionArr))
-            	@include('admin/includes/sidebar/role')
-            @endif
+           
 
             @if(\Helper::isSuperAdmin('FaqController', $rolePermissionArr))
                 @include('admin/includes/sidebar/faq')
@@ -58,16 +50,32 @@
         	@if(\Helper::checkPermisson('CategoryController', $rolePermissionArr))
             	@include('admin/includes/sidebar/category')
             @endif
-            
-            @if(\Helper::isSuperAdmin('AdminModuleController', $rolePermissionArr))
-            	@include('admin/includes/sidebar/admin_module')
+
+            @if(\Helper::checkPermisson('CuratorController', $rolePermissionArr))
+                @include('admin/includes/sidebar/curator')
             @endif
+
+            @if(\Helper::checkPermisson('ArtistTypeController', $rolePermissionArr))
+                @include('admin/includes/sidebar/artist_type')
+            @endif            
             
             <!-- New Section Start -->
             <li class="menu-section">
                 <h4 class="menu-text">Settings</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>
             </li>
+
+            @if(\Helper::isSuperAdmin('AdminUserControllerController', $rolePermissionArr))
+                @include('admin/includes/sidebar/admin_user')
+            @endif            
+
+            @if(\Helper::isSuperAdmin('UserRoleController', $rolePermissionArr))
+                @include('admin/includes/sidebar/role')
+            @endif
+
+            @if(\Helper::isSuperAdmin('AdminModuleController', $rolePermissionArr))
+                @include('admin/includes/sidebar/admin_module')
+            @endif
 
         	@if(\Helper::checkPermisson('SmsTemplateController', $rolePermissionArr) || \Helper::checkPermisson('EmailTemplateController', $rolePermissionArr))
             	@include('admin/includes/sidebar/template', $rolePermissionArr)
