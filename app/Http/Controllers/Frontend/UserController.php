@@ -141,7 +141,7 @@ class UserController extends Controller
      */
     public function updateCategoryDetails(Request $request){
 
-    	// $this->__updateCategoryDetails($request);
+    	$this->__updateCategoryDetails_performing_arts($request);
     	$func = $this->categoryFunctionResolver();
     	return $this->{$func}($request);
     }

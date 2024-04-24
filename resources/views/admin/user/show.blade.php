@@ -346,6 +346,26 @@
                         </div>
                     </div>
 
+                    <div class="card-header">
+                        <div class="card-title">
+                            <h3 class="card-label">Project Category Details</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">                            
+                            <div class="col-12">
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Project Category Details</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+
+                                        <label class="col-form-label text-lg-right">{{ $userCategoryDetails->synopsis_description_of_the_performance }}</label>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card-header" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
                         <div class="card-title">
                             <h3 class="card-label">Members Details</h3>

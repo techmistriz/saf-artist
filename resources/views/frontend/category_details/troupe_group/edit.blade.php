@@ -29,7 +29,7 @@
             <!--begin::Content-->
             <div class="flex-row-fluid ml-lg-8">
 
-            	@include('flash::message')
+            	@includeonce('flash::message')
             	
                 <!--begin::Card-->
                 <div class="card card-custom gutter-bs">

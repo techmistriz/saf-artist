@@ -175,25 +175,25 @@ trait UserTrait
             'synopsis_description_of_the_performance'   => 'required', 
         ];
 
-        if(
-            empty($userCategoryDetail->tech_rider) || 
-            $request->hasFile('tech_rider')
-        ){
+        // if(
+        //     empty($userCategoryDetail->tech_rider) || 
+        //     $request->hasFile('tech_rider')
+        // ){
 
-            $validateRules['tech_rider'] = 'required|mimetypes:application/pdf|max:10000';
-        }
+        //     $validateRules['tech_rider'] = 'required|mimetypes:application/pdf|max:10000';
+        // }
 
-        $request->validate($validateRules, [
-            'tech_rider.required' => 'Tech Rider file required',
-            'tech_rider.mimetypes' => 'Only PDF file allowed',
-        ]);
+        // $request->validate($validateRules, [
+        //     'tech_rider.required' => 'Tech Rider file required',
+        //     'tech_rider.mimetypes' => 'Only PDF file allowed',
+        // ]);
 
-        if ($request->hasFile('tech_rider')) {
+        // if ($request->hasFile('tech_rider')) {
 
-            $tech_rider                       = $request->file('tech_rider');
-            $tech_rider_fileName              = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $tech_rider, 'tech_rider');
-            $userCategoryDetail->tech_rider   = $tech_rider_fileName;
-        }
+        //     $tech_rider                       = $request->file('tech_rider');
+        //     $tech_rider_fileName              = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $tech_rider, 'tech_rider');
+        //     $userCategoryDetail->tech_rider   = $tech_rider_fileName;
+        // }
 
         $userCategoryDetail->synopsis_description_of_the_performance   = $request->synopsis_description_of_the_performance;
         $userCategoryDetail->save();

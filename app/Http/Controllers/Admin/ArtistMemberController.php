@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ArtistMember;
+use App\Models\User;
 use Carbon\Carbon;
 use Hash;
 use Image;
 use ImageUploadHelper;
 use FileUploadHelper;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\ExportArtistMember;
 
 class ArtistMemberController extends Controller
 {   
@@ -54,7 +57,9 @@ class ArtistMemberController extends Controller
 
     public function index(Request $request){
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig);
+        $disciplines = \Auth::user()->getUserDisciplines();
+        $individuals       = User::where('status', 1)->where('frontend_role_id', 8)->get();
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('disciplines', $disciplines)->with('individuals', $individuals);
     }
 
     /**
@@ -93,6 +98,14 @@ class ArtistMemberController extends Controller
 
         $row = ArtistMember::findOrFail($id);
         return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
+    }
+
+    public function export(Request $request)
+    {
+        $category_ids = $request->input('category_ids');
+        $individual_ids = $request->input('individual_ids');
+
+        return Excel::download(new ExportArtistMember($category_ids, $individual_ids), 'artist_member.xlsx');
     }
 
 }

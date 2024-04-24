@@ -170,7 +170,8 @@ class UserController extends Controller
 
         $row = User::with(['category', 'artistType', 'PACountry', 'PAState', 'PACity'])->findOrFail($id);
         $members = User::where('status', 1)->where('poc_id', $row->id)->get();
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members);
+        $userCategoryDetails = UserCategoryDetail::where('status', 1)->where('user_id', $row->id)->first();
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members)->with('userCategoryDetails', $userCategoryDetails);
     }
 
     /**

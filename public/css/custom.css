@@ -4283,6 +4283,10 @@ input:-internal-autofill-selected{
   color: #981E3D;
 }
 
+#kt_profile_aside .card{
+  background: #981E3D;
+}
+
 #kt_profile_aside .symbol.symbol-light .symbol-label i{
   color: #981E3D;
 }

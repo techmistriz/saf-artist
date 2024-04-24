@@ -265,6 +265,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::get('edit/{id}',          'ArtistMemberController@edit')->name('edit');
                 Route::put('update/{id}',        'ArtistMemberController@update')->name('update');
                 Route::get('delete/{id}',        'ArtistMemberController@delete')->name('delete');
+                Route::post('export/',           'ArtistMemberController@export')->name('export');
             });
         });
 
