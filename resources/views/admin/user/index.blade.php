@@ -106,29 +106,30 @@
 
 		                    return (index + offset);
 		                }
-		            },
+		            },            
 		            {
 		                field: "frontend_role_id",
-		                title: "Artist Role",
-		                template: function(t) {
-		                    return ( typeof t?.frontend_role?.name != 'undefined' && t?.frontend_role?.name)? t?.frontend_role?.name : 'N/A';
-		                }
+		                title: "Artist Type",
+		                template: function (t) {
+		                    var artistType = (t.frontend_role && t.frontend_role.name) ? t.frontend_role.name : 'N/A';  // Added a check for t.frontend_role
+		                    var artistTypeClass = '';
+
+		                    if (artistType === 'Individual') {
+		                        artistTypeClass = 'label-primary';
+		                    } else if (artistType === 'N/A') {
+		                        artistTypeClass = 'label-danger';
+		                    } else {
+		                        artistTypeClass = 'label-success';
+		                    }
+
+		                    return '<span class="label font-weight-bold label-lg ' + artistTypeClass + ' label-inline">' + artistType + '</span>';
+		                },
+		                width: 130,
 		            },
 		            {
 		                field: "name",
 		                title: "name",
-		            }, 
-		            {
-		                field: "email",
-		                title: "email"
 		            },
-		            {
-		                field: "category",
-		                title: "category",
-		                template: function(t) {
-		                    return ( typeof t?.category?.name != 'undefined' && t?.category?.name)? t?.category?.name : 'N/A';
-		                }
-		            },	
 		            {
 		                field: "status",
 		                title: "status",
@@ -178,7 +179,17 @@
 		                field: "account_actions",
 		                title: "Edit Banking",
 		                sortable: false,
-		            }, 	
+		            },  		
+		            {
+		                field: "ticket_actions",
+		                title: "Edit Ticket",
+		                sortable: false,
+		            },  		
+		            {
+		                field: "hotel_actions",
+		                title: "Edit Hotel",
+		                sortable: false,
+		            },	
 		        ];
 			    var table_id	=	'kt_datatable';
 			    const t = KTDatatableRemoteAjaxDemo.init(url, columnsArray,  table_id,	null);

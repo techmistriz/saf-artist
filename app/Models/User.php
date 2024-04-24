@@ -40,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['actions', 'category_actions', 'account_actions'];
+    protected $appends = ['actions', 'category_actions', 'account_actions', 'ticket_actions', 'hotel_actions'];
 
     public static $withoutAppends = false;
 
@@ -312,6 +312,60 @@ class User extends Authenticatable implements MustVerifyEmail
         return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
                 '.$view.$edit.'
            	</span>';
+
+    }
+
+    function getTicketActionsAttribute(){
+
+        $view = '<a href="' . route('admin.ticket_booking.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show ticket booking details">
+                   <i class="flaticon-eye"></i>
+                </a>';
+        $edit = '<a href="' . route('admin.ticket_booking.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit ticket booking details">
+                    <i class="flaticon2-pen"></i>
+                </a>';  
+
+        $rolePermission = session('rolePermission');
+        
+        if( !array_key_exists('view', ($rolePermission['permissions']['UserController'] ?? []))){
+
+            $view = '';
+        }
+
+        if( !array_key_exists('edit', ($rolePermission['permissions']['UserController'] ?? []))){
+
+            $edit = '';
+        }
+
+        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
+                '.$view.$edit.'
+            </span>';
+
+    }
+
+    function getHotelActionsAttribute(){
+
+        $view = '<a href="' . route('admin.hotel_booking.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show hotel booking details">
+                   <i class="flaticon-eye"></i>
+                </a>';
+        $edit = '<a href="' . route('admin.hotel_booking.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit hotel booking details">
+                    <i class="flaticon2-pen"></i>
+                </a>';  
+
+        $rolePermission = session('rolePermission');
+        
+        if( !array_key_exists('view', ($rolePermission['permissions']['UserController'] ?? []))){
+
+            $view = '';
+        }
+
+        if( !array_key_exists('edit', ($rolePermission['permissions']['UserController'] ?? []))){
+
+            $edit = '';
+        }
+
+        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
+                '.$view.$edit.'
+            </span>';
 
     }
 

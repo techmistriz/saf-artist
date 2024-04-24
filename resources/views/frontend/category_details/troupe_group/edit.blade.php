@@ -73,29 +73,7 @@
 			                            
 			                            </div>
 			                        </div>
-			                    </div>
-			                    <!-- 
-			                
-			                    <div class="col-12">
-			                        <div class="form-group row validated">
-			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Tech Rider </label>
-			                            <div class="col-lg-9 col-md-9 col-sm-12">
-			                            	<input type="file" name="tech_rider"  class="form-control form-control-lg form-control-solid @error('tech_rider') is-invalid @enderror " />
-			                                <p class="text-muted small">PDF</p>
-			                                Uploaded File: 
-			                                @if($row->tech_rider)
-			                                	<a target="_blank" href="{{ asset('uploads/users/'.$row->tech_rider) }}">{{$row->tech_rider}}</a>
-			                            	@else
-			                            	N/A
-			                            	@endif
-			                                @error('tech_rider')
-			                                    <div class="invalid-feedback">{{ $message }}</div>
-			                                @enderror
-			                            
-			                            </div>
-			                        </div>
-			                    </div> -->
-			                    
+			                    </div>			                    
 		                    </div>
 			                
 			            </div>

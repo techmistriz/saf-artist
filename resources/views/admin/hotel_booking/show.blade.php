@@ -81,7 +81,7 @@
 		                <div class="row">
 		                    <div class="col-lg-4"></div>
 		                    <div class="col-lg-4 text-center">
-		                        <a class="btn btn-primary" href="{{ route($moduleConfig['routes']['listRoute']) }}">Back</a>
+		                        <a class="btn btn-primary" href="{{route('admin.user.index')}}">Back</a>
 		                    </div>
 		                </div>
 		            </div>

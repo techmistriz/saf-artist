@@ -74,9 +74,9 @@ class ArtistMemberController extends Controller
         
         $data               =   $request->all();
 
-        $db_data            =   $artistMember->getList($data, ['frontendRole', 'poc']);
+        $db_data            =   $artistMember->getList($data, ['frontendRole', 'poc'],['poc_id'=> NULL]);
 
-        $count              =   $artistMember->getListCount($data);
+        $count              =   $artistMember->getListCount($data,[],['poc_id'=> NULL]);
 
         $returnArray = array(
             'data' => $db_data,

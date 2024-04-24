@@ -69,9 +69,6 @@ class Faq extends MasterModel
          <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
             <i class="flaticon2-pen"></i>
          </a>
-         <a href="delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
-            <i class="flaticon2-trash"></i>
-         </a>
       </span>';
    }
    
