@@ -14,25 +14,30 @@
 							<span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
 						</div>
 						<div class="card-toolbar">
-
-							<!--begin::Dropdown-->
-							<form action="{{ route('admin.user.export') }}" method="POST" style="display: flex;">
-								@csrf()
-	                            <div class="side-select" style="width: 250px">
-	                                <select name="category_ids[]" class="form-control selectpicker" data-actions-box="true" multiple="" required="">
-	                                    @foreach($disciplines as $key => $val)
-	                                        <option value="{{ $val->id}}"> 
-	                                            {{ $val->name }}
-	                                        </option>
-	                                    @endforeach
-	                                </select>
-	                            </div>
-	                            <button type="submit" class="btn btn-light-info font-weight-bold ml-2"> Export</button>
-							</form>
-                            <!--end::Dropdown-->
-
-							<a href="{{ route($moduleConfig['routes']['createRoute']) }}" class="btn btn-light-primary font-weight-bold ml-2"> + Add</a>
-						</div>
+                            <!--begin::Dropdown-->
+                            <form action="{{ route('admin.user.export') }}" method="POST" style="display: flex;">
+                                @csrf()
+                                <div class="side-select" style="width: 250px">
+                                    <select name="individual_ids[]" class="form-control selectpicker" data-actions-box="true" multiple="">
+                                        @foreach($individuals as $key => $val)
+                                            <option value="{{ $val->id}}"> 
+                                                {{ $val->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="side-select" style="width: 250px">
+                                    <select name="category_ids[]" class="form-control selectpicker" data-actions-box="true" multiple="">
+                                        @foreach($disciplines as $key => $val)
+                                            <option value="{{ $val->id}}"> 
+                                                {{ $val->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-light-info font-weight-bold ml-2"> Export</button>
+                            </form>
+                        </div>
 					</div>
 					<div class="card-body">
 						

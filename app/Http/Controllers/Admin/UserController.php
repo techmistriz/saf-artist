@@ -91,10 +91,11 @@ class UserController extends Controller
 
     public function index(Request $request){
 
-        $disciplines = \Auth::user()->getUserDisciplines();
-        $userRoleCode = \Auth::user()->getUserRoleCode();
+        $disciplines       = \Auth::user()->getUserDisciplines();
+        $userRoleCode      = \Auth::user()->getUserRoleCode();
+        $individuals       = User::where('status', 1)->where('frontend_role_id', 8)->get();
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('disciplines', $disciplines)->with('userRoleCode', $userRoleCode);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('disciplines', $disciplines)->with('userRoleCode', $userRoleCode)->with('individuals', $individuals);
     }
 
     /**
@@ -248,11 +249,19 @@ class UserController extends Controller
      * @return Redirect
      */
 
+    // public function export(Request $request)
+    // {
+    //     // dd($request->all());
+
+    //     return Excel::download(new ExportUser($request->category_ids), 'users.xlsx');
+    // }
+
     public function export(Request $request)
     {
-        // dd($request->all());
+        $category_ids = $request->input('category_ids');
+        $individual_ids = $request->input('individual_ids');
 
-        return Excel::download(new ExportUser($request->category_ids), 'users.xlsx');
+        return Excel::download(new ExportUser($category_ids, $individual_ids), 'artist_member.xlsx');
     }
 
 
