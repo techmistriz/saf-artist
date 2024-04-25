@@ -47,7 +47,8 @@ class User extends Authenticatable implements MustVerifyEmail
 	public function setDobAttribute($value){
     	
     	if($value){
-        	$this->attributes['dob'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+        	// $this->attributes['dob'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+            $this->attributes['dob'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
     	}
     }
 

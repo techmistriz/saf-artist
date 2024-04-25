@@ -17,7 +17,7 @@ class HotelBooking extends MasterModel
    public function setCheckInDateAttribute($value)
    {
       if (!empty($value)) {
-         $this->attributes['check_in_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');        
+         $this->attributes['check_in_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');        
       }
    }
 
@@ -33,7 +33,7 @@ class HotelBooking extends MasterModel
    public function setCheckOutDateAttribute($value)
    {
       if (!empty($value)) {
-         $this->attributes['check_out_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+         $this->attributes['check_out_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
       }
    }
 

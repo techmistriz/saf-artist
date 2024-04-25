@@ -173,16 +173,20 @@ class HotelBookingController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, HotelBooking $hotel){
+    public function edit($id){
 
-        $row = HotelBooking::findOrFail($id);
+        $user = User::findOrFail($id);
         
-        $userId             = Auth::user()->id;
-        $venues            = Venue::where('status', 1)->get();
-        $members            = User::where('status', 1)->get();
+        $row = HotelBooking::where('source_id', $id)->first();
+        if (!$row) {
+            return abort(404);
+        }
+        // $userId             = Auth::user()->id;
+        $venues             = Venue::where('status', 1)->get();
+        $members            = User::where('status', 1)->where('poc_id', $row->id)->get();
         $shareRooms         = ShareRoom::where(['hotel_booking_id' => $id])->get();
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members)->with('venues', $venues)->with('shareRooms', $shareRooms);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members)->with('venues', $venues)->with('shareRooms', $shareRooms)->with('user', $user);
     }
 
     /**

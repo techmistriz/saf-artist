@@ -15,29 +15,6 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Member</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                <select class="form-control form-control-lg form-control-solid selectpicker" name="member_id" tabindex="null" onchange="getMember()">
-                                    <option value="">Select Member</option>
-                                    @if($members->count())
-                                        @foreach($members as $value)
-
-                                           <option {{ old('member_id', $row->source_id ?? 0) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
-
-                                        @endforeach
-                                    @endif
-                                </select>
-                                @error('member_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Name </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 

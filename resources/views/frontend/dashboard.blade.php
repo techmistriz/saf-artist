@@ -37,11 +37,7 @@
     .form-group .form-control{
         width: 100%;
     }
-
-    #button{
-        color: #fff;
-        background-color: #981e3d;
-    }
+    
 
 </style>
 
@@ -70,15 +66,15 @@
 
                             @include('includes.common.error')
                             @include('flash::message')
-
-                            <div class="card-title">
-                                @if(isset($row->frontendRole->name) && !empty($row->frontendRole->name))
-                                    <h3 class="card-label">{{ $row->frontendRole->name }} Personal Details</h3>
-                                @endif
-                            </div>
-
-                            <div class="text-right" style="margin-bottom: -25px; {{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
-                                <a href="{{route('group.member.create')}}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
+                            <div class="row" style="justify-content: space-between;">
+                                <div class="card-title">
+                                    @if(isset($row->frontendRole->name) && !empty($row->frontendRole->name))
+                                        <h3 class="card-label">{{ $row->frontendRole->name }} Personal Details</h3>
+                                    @endif
+                                </div>
+                                <div  style="margin-right: 20px; {{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
+                                    <a href="{{route('group.member.create')}}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
+                                </div>                                
                             </div>
                         </div>
                         <!--end::Header-->
