@@ -31,7 +31,7 @@
 							<div class="col-3">
 								<span class="switch switch-icon">
 									<label>
-										<input type="checkbox" value="1" name="status" {{ old('status', $row->status ?? 0) == '1' ? 'checked' : '' }} />
+										<input type="checkbox" value="1" name="status" {{ old('status', $row->status ?? 1) == '1' ? 'checked' : '' }} />
 										<span></span>
 									</label>
 								</span>

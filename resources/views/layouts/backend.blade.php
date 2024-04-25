@@ -41,9 +41,15 @@
 	<!--begin::Header Mobile-->
 	<div id="kt_header_mobile" class="header-mobile align-items-center header-mobile-fixed">
 		<!--begin::Logo-->
-		<a href="{{ route('admin.dashboard') }}">
-			<img alt="Logo" class="img-fluid" style="height:100%" src="{{asset('uploads/admins/logos/thumbnails/250/' .$logo)}}" />
-		</a>
+		@if(isset($logo) && !empty($logo))
+			<a href="{{ route('admin.dashboard') }}">
+				<img alt="Logo" class="img-fluid" style="height:100%" src="{{asset('uploads/admins/logos/thumbnails/250/' .$logo)}}" />
+			</a>
+		@else
+			<a href="{{ route('admin.dashboard') }}">
+				<img alt="Logo" class="img-fluid" style="height:100%" src="{{asset('media/logos/logo-white.png')}}" />
+			</a>
+		@endif
 		<!--end::Logo-->
 		<!--begin::Toolbar-->
 		<div class="d-flex align-items-center">
@@ -85,9 +91,15 @@
                 <!--begin::Brand-->
                 <div class="brand flex-column-auto" id="kt_brand">
                     <!--begin::Logo-->
-                    <a href="{{ route('admin.dashboard') }}" class="brand-logo">
-                        <img alt="Logo" src="{{asset('uploads/admins/logos/thumbnails/250/' .$logo)}}" style="width: 150px;">
-                    </a>
+                    @if(isset($logo) && !empty($logo))
+						<a href="{{ route('admin.dashboard') }}">
+							<img alt="Logo" class="img-fluid" style="height:100%" src="{{asset('uploads/admins/logos/thumbnails/250/' .$logo)}}" />
+						</a>
+					@else
+						<a href="{{ route('admin.dashboard') }}">
+							<img alt="Logo" class="img-fluid"  src="{{asset('media/logos/logo-white.png')}}" />
+						</a>
+					@endif
                     <!--end::Logo-->
                     <!--begin::Toggle-->
                     <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle">

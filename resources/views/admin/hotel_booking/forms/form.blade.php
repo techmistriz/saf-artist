@@ -126,17 +126,17 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Performance Venue</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-solid selectpicker" name="performance_venue" tabindex="null">
-                                    <option value="">Select Performance Venue</option>
+                                <select class="form-control form-control-lg form-control-solid selectpicker" name="venue_id" tabindex="null">
+                                    <option value="">Select Venue</option>
+                                    @if($venues->count())
+                                        @foreach($venues as $value)
 
-                                    <option value="Venue 1" {{ old('performance_venue') == 'Venue 1' || (isset($row->performance_venue) && $row->performance_venue == 'Venue 1') ? 'selected' : '' }}> Venue 1</option>
+                                           <option {{ old('venue_id', $row->venue_id ?? 0) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
 
-                                    <option value="Venue 2" {{ old('performance_venue') == 'Venue 2' || (isset($row->performance_venue) && $row->performance_venue == 'Venue 2') ? 'selected' : ''  }}>Venue 2</option>
-
-                                    <option value="Venue 3" {{ old('performance_venue') == 'Venue 3' || (isset($row->performance_venue) && $row->performance_venue == 'Venue 3') ? 'selected' : ''  }}>Venue 3</option>
-
+                                        @endforeach
+                                    @endif
                                 </select>
-                                @error('performance_venue')
+                                @error('venue_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>

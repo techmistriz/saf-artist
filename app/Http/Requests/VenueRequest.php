@@ -24,13 +24,9 @@ class VenueRequest extends FormRequest
      */
     public function rules()
     {
-
+        $id = $this->input('id', 0);
      	return [
-            'title' 			=> 'required',            
-            'description' 		=> 'required',            
-            'short_description' => 'required',            
-            // 'featured_image' 	=> 'required',            
-            'google_map_url' 	=> 'required',            
+             'name'         => 'required | ' . Rule::unique('venues')->ignore($id, 'id'),        
         ];
     }
 

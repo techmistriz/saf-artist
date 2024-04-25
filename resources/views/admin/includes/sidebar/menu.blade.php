@@ -51,6 +51,10 @@
             	@include('admin/includes/sidebar/category')
             @endif
 
+            @if(\Helper::checkPermisson('VenueController', $rolePermissionArr))
+                @include('admin/includes/sidebar/venue')
+            @endif
+
             @if(\Helper::checkPermisson('CuratorController', $rolePermissionArr))
                 @include('admin/includes/sidebar/curator')
             @endif

@@ -299,5 +299,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
         });
 
+        Route::group(['prefix' => 'venue', 'middleware' => ['AdminPermissionCheck:VenueController']], function(){
+
+            // Accessibility routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'venue.'], function(){
+                Route::get('list/',                     'VenueController@index')->name('index');
+                Route::post('fetch-data/',              'VenueController@fetchData')->name('fetch.data');
+                Route::get('create/',                   'VenueController@create')->name('create');
+                Route::post('store/',                   'VenueController@store')->name('store');
+                Route::get('show/{id}',                 'VenueController@show')->name('show');
+                Route::get('edit/{id}',                 'VenueController@edit')->name('edit');
+                Route::put('update/{id}',               'VenueController@update')->name('update');
+                Route::get('delete/{id}',               'VenueController@delete')->name('delete');
+            });
+        });
+
     });
 });

@@ -10,6 +10,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Project;
+use App\Models\Venue;
 use App\Models\TravelMode;
 use App\Models\MetroCity;
 use App\Models\ShareRoom;
@@ -177,10 +178,11 @@ class HotelBookingController extends Controller
         $row = HotelBooking::findOrFail($id);
         
         $userId             = Auth::user()->id;
+        $venues            = Venue::where('status', 1)->get();
         $members            = User::where('status', 1)->get();
         $shareRooms         = ShareRoom::where(['hotel_booking_id' => $id])->get();
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members)->with('shareRooms', $shareRooms);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members)->with('venues', $venues)->with('shareRooms', $shareRooms);
     }
 
     /**
@@ -199,7 +201,7 @@ class HotelBookingController extends Controller
         $hotel->check_out_date                       = $request->check_out_date;
         $hotel->total_room_nights                    = $request->total_room_nights;
         $hotel->artist_remarks                       = $request->artist_remarks;
-        $hotel->performance_venue                    = $request->performance_venue;
+        $hotel->venue_id                             = $request->venue_id;
         $hotel->hotel_budget                         = $request->hotel_budget;
         $hotel->room_sharing                         = $request->room_sharing;
         $hotel->local_travel                         = $request->local_travel;
