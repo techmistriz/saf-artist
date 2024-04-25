@@ -109,7 +109,7 @@
 		            },            
 		            {
 		                field: "frontend_role_id",
-		                title: "Artist Type",
+		                title: "User Type",
 		                template: function (t) {
 		                    var artistType = (t.frontend_role && t.frontend_role.name) ? t.frontend_role.name : 'N/A';  // Added a check for t.frontend_role
 		                    var artistTypeClass = '';

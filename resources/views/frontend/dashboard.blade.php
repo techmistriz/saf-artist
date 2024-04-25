@@ -38,6 +38,11 @@
         width: 100%;
     }
 
+    #button{
+        color: #fff;
+        background-color: #981e3d;
+    }
+
 </style>
 
 <div class="d-flex flex-column-fluid">
@@ -73,7 +78,7 @@
                             </div>
 
                             <div class="text-right" style="margin-bottom: -25px; {{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
-                                <a href="{{route('group.member.create')}}" class="btn btn-light-primary font-weight-bold ml-2">Add Member</a>
+                                <a href="{{route('group.member.create')}}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
                             </div>
                         </div>
                         <!--end::Header-->
@@ -83,10 +88,10 @@
 
                                 <div class="col-12">
                                     <div class="form-group row validated">
-                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Are you Individual/group </label>
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Type</label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                             <select class="form-control form-control-lg form-control-custom selectpicker" name="frontend_role_id" tabindex="null" onchange="marketingSocialMediaHide()">
-                                                <option value="">Select Role</option>
+                                                <option value="">Select User Type</option>
                                                 @if($frontendRoles->count())
                                                     @foreach($frontendRoles as $value)
                                                         <option value="{{$value->id}}" {{ old('frontend_role_id', $row->frontend_role_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>

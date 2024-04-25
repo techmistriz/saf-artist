@@ -15,7 +15,11 @@
         <div class="card card-custom gutter-b">
             <div class="card-header">
                 <div class="card-title">
-                    <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} {{$moduleConfig['moduleTitle']}}</h3>
+                    @if(isset($row->frontendRole->name) && !empty($row->frontendRole->name))
+                        <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} {{$row->frontendRole->name}}</h3>
+                    @else
+                        <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} {{$moduleConfig['moduleTitle']}}</h3>
+                    @endif
                 </div>
             </div>
             
@@ -24,14 +28,17 @@
 
                 	<div class="col-6">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Are you registring for group </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Type</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="reg_for_group" tabindex="null" >
-                                    <option value="">Select</option>
-                                    <option {{ old('reg_for_group', $row->reg_for_group ?? '') == 'Yes' ? 'selected' : '' }} value="Yes">Yes</option>
-                                    <option {{ old('reg_for_group', $row->reg_for_group ?? '') == 'No' ? 'selected' : '' }} value="No">No</option>
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="frontend_role_id" tabindex="null" onchange="groupFieldShow()">
+                                    <option value="">Select Role</option>
+                                    @if($frontendRoles->count())
+                                        @foreach($frontendRoles as $value)
+                                            <option {{ (old('frontend_role_id') ?? optional($row)->frontend_role_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
-                                @error('reg_for_group')
+                                @error('frontend_role_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -127,7 +134,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Full Name </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" value="{{ old('name') ? old('name') : ( isset($row->name) ? $row->name : '') }}" class="form-control" placeholder="Enter Full Name"/>
+                                <input type="text" name="name" value="{{ old('name', $row->name ?? '') }}" class="form-control" placeholder="Enter Full Name"/>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -135,7 +142,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-6">
+                    <div class="col-6" id="dob" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
@@ -189,19 +196,6 @@
 
                     <div class="col-6">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Organisation/ Foundation/ Trust you are associated with (if any)</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="organisation" value="{{ old('organisation') ? old('organisation') :( isset($row->organisation) ? $row->organisation : '') }}" class="form-control "   placeholder="Enter Name of the Artisan"/>
-                                @error('organisation')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Address </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <textarea class="form-control no-summernote-editor" name="permanent_address" id="permanent_address" placeholder="Enter Address" require>{{ old('permanent_address') ? old('permanent_address') : ( isset($row->permanent_address) ? $row->permanent_address : '') }}</textarea>
@@ -212,9 +206,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
 			                	
                 	<div class="col-6">
                         <div class="form-group row validated">
@@ -314,14 +305,52 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-6" id="company_collective" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective (If Applicable) </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <textarea class="form-control  no-summernote-editor" name="company_collective" placeholder="Enter Company/Collective">{{ old('company_collective', $row->company_collective ?? '') }}</textarea>
+                                @error('company_collective')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6" id="members_numbers" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Max Member Allowed </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="number" name="max_allowed_member" value="{{ old('max_allowed_member', $row->max_allowed_member ?? '') }}" class="form-control" placeholder="Enter Allowed Max Member" readonly />
+                                @error('max_allowed_member')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Organisation/ Foundation/ Trust you are associated with (if any)</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="organisation" value="{{ old('organisation') ? old('organisation') :( isset($row->organisation) ? $row->organisation : '') }}" class="form-control "   placeholder="Enter Name of the Artisan"/>
+                                @error('organisation')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-6" id="stage_name" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Stage Name <i>(If Any)</i></label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control no-summernote-editor" name="stage_name" id="stage_name" placeholder="Enter Stage Name">{{ old('stage_name') ? old('stage_name') : ( isset($row->stage_name) ? $row->stage_name : '') }}</textarea>
+                                <textarea class="form-control no-summernote-editor" name="stage_name" placeholder="Enter Stage Name">{{ old('stage_name') ? old('stage_name') : ( isset($row->stage_name) ? $row->stage_name : '') }}</textarea>
                                 @error('stage_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -330,7 +359,7 @@
                         </div>
                     </div>
                 
-                    <div class="col-6">
+                    <div class="col-6" id="artist_bio" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Bio</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -343,11 +372,11 @@
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6" id="instagram_url" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Instagram URL </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="instagram_url" value="{{ old('instagram_url') ? old('instagram_url') :( isset($row->instagram_url) ? $row->instagram_url : '') }}" class="form-control"   placeholder="Enter Instagram URL"/>
+                                <input type="text" name="instagram_url" value="{{ old('instagram_url', $row->instagram_url ?? '') }}" class="form-control"   placeholder="Enter Instagram URL"/>
                                 @error('instagram_url')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -356,11 +385,11 @@
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6" id="facebook_url" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Facebook URL </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="facebook_url" value="{{ old('facebook_url') ? old('facebook_url') :( isset($row->facebook_url) ? $row->facebook_url : '') }}" class="form-control"   placeholder="Enter Facebook URL"/>
+                                <input type="text" name="facebook_url" value="{{ old('facebook_url', $row->facebook_url ?? '') }}" class="form-control"   placeholder="Enter Facebook URL"/>
                                 @error('facebook_url')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -369,11 +398,11 @@
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6" id="linkdin_url" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Linkdin URL </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="linkdin_url" value="{{ old('linkdin_url') ? old('linkdin_url') :( isset($row->linkdin_url) ? $row->linkdin_url : '') }}" class="form-control"   placeholder="Enter Linkdin URL"/>
+                                <input type="text" name="linkdin_url" value="{{ old('linkdin_url', $row->linkdin_url ?? '') }}" class="form-control"   placeholder="Enter Linkdin URL"/>
                                 @error('linkdin_url')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -382,11 +411,11 @@
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6" id="twitter_url" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Twitter URL </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="twitter_url" value="{{ old('twitter_url') ? old('twitter_url') :( isset($row->twitter_url) ? $row->twitter_url : '') }}" class="form-control" placeholder="Enter Twitter URL"/>
+                                <input type="text" name="twitter_url" value="{{ old('twitter_url',  $row->twitter_url ?? '') }}" class="form-control" placeholder="Enter Twitter URL"/>
                                 @error('twitter_url')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -396,11 +425,11 @@
                 </div>
 
                 <div class="row">
-                	<div class="col-6">
+                	<div class="col-6" id="website" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Website <i>(If Any)</i> </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="website" value="{{ old('website') ? old('website') :( isset($row->website) ? $row->website : '') }}" class="form-control"   placeholder="Enter Website"/>
+                                <input type="text" name="website" value="{{ old('website', $row->website ?? '') }}" class="form-control"   placeholder="Enter Website"/>
                                 @error('website')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -411,7 +440,7 @@
                 </div>
 
                 <div class="row">
-                	<div class="col-6">
+                	<div class="col-6" id="practice_image_1" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Please upload 3 high resolution images of your practice. </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -477,7 +506,7 @@
                         </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-6" id="practice_image_2" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
 
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Please upload 2 high resolution profile images. </label>
@@ -571,11 +600,11 @@
                 </div>
 
                 <div class="row">
-                	<div class="col-6">
+                	<div class="col-6" id="other_link" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="other_link" value="{{ old('other_link') ? old('other_link') :( isset($row->other_link) ? $row->other_link : '') }}" class="form-control"  placeholder="Enter Link with videos of your work"/>
+                                <input type="text" name="other_link" value="{{ old('other_link', $row->other_link ?? '') }}" class="form-control"  placeholder="Enter Link with videos of your work"/>
                                 @error('other_link')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -804,7 +833,39 @@
 
     });
 
+    function groupFieldShow() {
 
+        var frontendRole = $('select[name="frontend_role_id"] option:selected').text();
+        if (frontendRole == 'Individual') {
+            $('#marketingSocialMedia').show();
+            $('#dob').show();
+            $('#stage_name').show();
+            $('#artist_bio').show();
+            $('#instagram_url').show();
+            $('#facebook_url').show();
+            $('#linkdin_url').show();
+            $('#twitter_url').show();
+            $('#website').show();
+            $('#practice_image_1').show();
+            $('#practice_image_2').show();
+            $('#other_link').show();
+            $('#company_collective').hide();
+        }else {
+            $('#marketingSocialMedia').hide();
+            $('#dob').hide();
+            $('#stage_name').hide();
+            $('#artist_bio').hide();
+            $('#instagram_url').hide();
+            $('#facebook_url').hide();
+            $('#linkdin_url').hide();
+            $('#twitter_url').hide();
+            $('#website').hide();
+            $('#practice_image_1').hide();
+            $('#practice_image_2').hide();
+            $('#other_link').hide();
+            $('#company_collective').show();
+        }
+    }
 
 </script>
 @endpush

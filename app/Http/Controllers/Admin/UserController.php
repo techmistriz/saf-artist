@@ -193,9 +193,20 @@ class UserController extends Controller
         $artistTypes    = ArtistType::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->get();
         $projects       = Project::where('status', 1)->where('year', date('Y'))->get();
+        $frontendRoles  = Role::where(['status' => 1, 'type' => 2])->get();
 
         $row            = User::findOrFail($user_id);
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('categories', $categories)->with('addressProofs', $addressProofs)->with('years' , $this->years)->with('countries', $countries)->with('artistTypes', $artistTypes)->with('curators', $curators)->with('projects', $projects);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')
+            ->with('moduleConfig', self::$moduleConfig)
+            ->with('row', $row)
+            ->with('categories', $categories)
+            ->with('addressProofs', $addressProofs)
+            ->with('years' , $this->years)
+            ->with('countries', $countries)
+            ->with('artistTypes', $artistTypes)
+            ->with('curators', $curators)
+            ->with('frontendRoles', $frontendRoles)
+            ->with('projects', $projects);
     }
 
     /**

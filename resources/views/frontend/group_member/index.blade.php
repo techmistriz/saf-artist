@@ -86,14 +86,7 @@
                     type: 'number',
                     selector: false,
                     textAlign: 'center',
-                },
-                {
-                    field: "poc_id",
-                    title: "POC",
-                    template: function(t) {
-                        return ( typeof t?.poc?.name != 'undefined' && t?.poc?.name)? t?.poc?.name : 'N/A';
-                    }
-                },  
+                }, 
                 {
                     field: "name",
                     title: "Name",
@@ -102,10 +95,10 @@
                     field: "email",
                     title: "Email",
                 },  
-                // {
-                //     field: "contact",
-                //     title: "Contact",
-                // },  
+                {
+                    field: "contact",
+                    title: "Contact",
+                },  
                 // {
                 //     field: "dob",
                 //     title: "DOB",
