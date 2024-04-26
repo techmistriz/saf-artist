@@ -179,11 +179,12 @@ class HotelBookingController extends Controller
         
         $row = HotelBooking::where('source_id', $id)->first();
         if (!$row) {
-            return abort(404);
+           // \Flash::error('Hotel details not found');
+           //  return \Redirect::route('admin.user.index');
         }
         // $userId             = Auth::user()->id;
         $venues             = Venue::where('status', 1)->get();
-        $members            = User::where('status', 1)->where('poc_id', $row->id)->get();
+        $members            = User::where('status', 1)->where('poc_id', $user->id)->get();
         $shareRooms         = ShareRoom::where(['hotel_booking_id' => $id])->get();
 
         return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members)->with('venues', $venues)->with('shareRooms', $shareRooms)->with('user', $user);
