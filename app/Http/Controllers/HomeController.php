@@ -79,8 +79,8 @@ class HomeController extends Controller
         
         try {
             
-            // $user->password_plane            = $password;
-            // \Mail::to($user->email)->send(new \App\Mail\RegisterMailable($user));
+            $user->password_plane            = $password;
+            \Mail::to($user->email)->send(new \App\Mail\RegisterMailable($user));
 
             // $user->sendEmailVerificationNotification();
 
@@ -89,7 +89,8 @@ class HomeController extends Controller
         }
 
         // \Auth::loginUsingId($user->id);
-        \Flash::success('Please click on the link sent to your email account to verify you email and continue the registration process.');
+        // \Flash::success('Please click on the link sent to your email account to verify you email and continue the registration process.');
+        \Flash::success('Your registration completed successfully.');
         return \Redirect::route('login');
     }
 
