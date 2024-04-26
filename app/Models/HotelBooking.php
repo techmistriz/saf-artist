@@ -17,7 +17,8 @@ class HotelBooking extends MasterModel
    public function setCheckInDateAttribute($value)
    {
       if (!empty($value)) {
-         $this->attributes['check_in_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');        
+         $this->attributes['check_in_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');  
+
       }
    }
 
@@ -26,7 +27,7 @@ class HotelBooking extends MasterModel
    public function getCheckInDateAttribute($value)
    {
       if (!empty($value)) {
-         return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
       }
    }
    
@@ -40,14 +41,14 @@ class HotelBooking extends MasterModel
    public function getCheckOutDateAttribute($value)
    {
       if (!empty($value)) {
-         return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
       }
    }
 
    public function setPerformanceDateAttribute($value)
    {
       if (!empty($value)) {
-         // $this->attributes['performance_date'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+         // $this->attributes['performance_date'] = Carbon::createFromFormat('d-M-Y', $value)->format('Y-m-d');
          $this->attributes['performance_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
       }
    }
@@ -55,7 +56,7 @@ class HotelBooking extends MasterModel
    public function getPerformanceDateAttribute($value)
    {
       if (!empty($value)) {
-         return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
       }
    }
 

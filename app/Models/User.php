@@ -47,7 +47,7 @@ class User extends Authenticatable
 	public function setDobAttribute($value){
     	
     	if($value){
-        	// $this->attributes['dob'] = Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+        	// $this->attributes['dob'] = Carbon::createFromFormat('d-M-Y', $value)->format('Y-m-d');
             $this->attributes['dob'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
     	}
     }
@@ -55,7 +55,7 @@ class User extends Authenticatable
     public function getDobAttribute($value){
     	
     	if($value){
-    		return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+    		return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
     	}
     }
 
