@@ -133,6 +133,7 @@ class AjaxController extends Controller
         try {
             $validation = \Validator::make($request->all(), [
                 'contact' => 'required|digits:10',
+                'email' => 'required|email',
             ]);
 
             if ($validation->fails()) {
@@ -144,13 +145,18 @@ class AjaxController extends Controller
             }
 
             $contact = $request->contact;
+            $email = $request->email;
             $otp = mt_rand(100000, 999999);
             Session::put('otp', $otp);
             Session::put('contact', $contact);
+            Session::put('email', $email);
+
+            \Mail::to($email)->send(new \App\Mail\OtpMailable(['email' => $email, 'name' => 'User', 'otp' => $otp]));
 
             return response()->json(['success' => true, 'message' => 'OTP Sent Successfully', 'otp' => $otp]);
             
         } catch (\Exception $e) {
+
             return response()->json(['status' => false, 'message' => 'Something went wrong.']);
         }
     }
