@@ -23,11 +23,7 @@
 
             @if(\Helper::checkPermisson('UserController', $rolePermissionArr))
                 @include('admin/includes/sidebar/user')
-            @endif        	
-            
-        	<!-- @if(\Helper::checkPermisson('ArtistMemberController', $rolePermissionArr))
-            	@include('admin/includes/sidebar/artist_member')
-            @endif -->
+            @endif
 
             <!-- if(\Helper::checkPermisson('TicketBookingController', $rolePermissionArr))
                 include('admin/includes/sidebar/ticket_booking')
