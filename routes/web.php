@@ -51,7 +51,7 @@ Route::get('/mail-test-simple/{email?}', function($to = 'pk836746@gmail.com') {
 	return $sendStatus;
 });
 
-Auth::routes(['verify' => true]);
+Auth::routes(['verify' => false]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
