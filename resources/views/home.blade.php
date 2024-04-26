@@ -608,8 +608,8 @@
         }
 
         function isValidEmail(email) {
-            // Basic email validation using regex
-            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             return emailPattern.test(email);
         }
     });
