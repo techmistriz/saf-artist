@@ -3594,7 +3594,7 @@ body{
 
     background: #FA9917 !important;
 
-    color: #981E3D;
+    color: #FFF;
 
 }
 
@@ -4528,5 +4528,14 @@ a.tc-btn{
 #button:hover {
     background: #FA9917 !important;
 
-    color: #981E3D;
+    color: #FFF;
+}
+
+#artist label{
+  font-weight: bold !important;
+}
+
+#artist .asterisk{
+  color: red;
+  font-size: 20px;
 }

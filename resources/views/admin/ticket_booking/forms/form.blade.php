@@ -184,7 +184,8 @@
                         </div>
                     </div>
 
-                    <div class="col-12" style="{{ isset($row->member->poc_id) && !empty($row->member->poc_id) ? '' : 'display:none;'}}">
+                    <div class="col-12" style="{{isset($user->frontendRole->name) && ($user->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
+
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International/Domestic Traveller </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -200,7 +201,8 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="visa" style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
+                    <div class="col-12" id="visa" style="{{ (isset($user->frontendRole->name) && $user->frontendRole->name == 'Individual') || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}"
+>
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Do you have work visa for India</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -216,7 +218,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="passport" style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
+                    <div class="col-12" id="passport" style="{{(isset($user->frontendRole->name) && $user->frontendRole->name == 'Individual') || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'display:none;' : '' }}">
 
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Image) </label>
@@ -255,7 +257,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="adhaar_driving" style="{{(isset($row->member->poc_id) && empty($row->member->poc_id)) || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'display:none;' : '' }}">
+                    <div class="col-12" id="adhaar_driving" style="{{(isset($user->frontendRole->name) && $user->frontendRole->name == 'Individual') || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'display:none;' : '' }}">
 
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Adhaar card or Driving License </label>

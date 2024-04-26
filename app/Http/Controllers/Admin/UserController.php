@@ -14,7 +14,6 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Project;
-// use App\Models\ArtistMember;
 use App\Models\ArtistType;
 use App\Models\Curator;
 use Carbon\Carbon;
@@ -143,8 +142,19 @@ class UserController extends Controller
         $artistTypes    = ArtistType::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->get();
         $projects       = Project::where('status', 1)->where('year', date('Y'))->get();
+        $frontendRoles  = Role::where(['status' => 1, 'type' => 2])->get();
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('categories', $categories)->with('addressProofs', $addressProofs)->with('years' , $this->years)->with('countries', $countries)->with('artistTypes', $artistTypes)->with('curators', $curators)->with('projects', $projects);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')
+            ->with('moduleConfig', self::$moduleConfig)
+            ->with('row', null)
+            ->with('categories', $categories)
+            ->with('addressProofs', $addressProofs)
+            ->with('years' , $this->years)
+            ->with('countries', $countries)
+            ->with('artistTypes', $artistTypes)
+            ->with('curators', $curators)
+            ->with('frontendRoles', $frontendRoles)
+            ->with('projects', $projects);
     }
 
     /**

@@ -198,14 +198,21 @@ class TicketBookingController extends Controller
      */
     public function edit($id, TicketBooking $ticket){
 
-        $row = TicketBooking::findOrFail($id);
+        $user = User::findOrFail($id);
+        
+        $row = TicketBooking::where('source_id', $id)->first();
+        if (!$row) {
+           // \Flash::error('Hotel details not found');
+           //  return \Redirect::route('admin.user.index');
+        }
+
         $countries          = Country::where('status', 1)->get();
         $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
         $travelModes        = TravelMode::where('status', 1)->get();
         $projects           = Project::where('status', 1)->get();
-        $members            = User::where('status', 1)->get();
+        $members            = User::where('status', 1)->where('poc_id', $user->id)->get();
 
-       return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members]);
+       return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members, 'user' => $user]);
     }
 
     /**
@@ -231,7 +238,6 @@ class TicketBookingController extends Controller
         }
 
         $ticket->name                                 = $request->name;
-        $ticket->source_id                            = $request->member_id;
         $ticket->project_id                           = $request->project_id;
         $ticket->salutation                           = $request->salutation;
         $ticket->age                                  = $request->age;

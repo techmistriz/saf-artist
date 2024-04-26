@@ -73,7 +73,7 @@
 		                <div class="row">
 		                    <div class="col-lg-4"></div>
 		                    <div class="col-lg-4 text-center">
-		                        <a class="btn btn-primary" href="{{ route('group.member.list') }}">Back</a>
+		                        <a class="theme-btn mt-0 mb-0" href="{{ route('group.member.list') }}">Back</a>
 		                    </div>
 		                </div>
 		            </div>

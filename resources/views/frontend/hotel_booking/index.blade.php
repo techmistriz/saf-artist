@@ -20,7 +20,7 @@
         						<span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
         					</div>
         					<div class="card-toolbar">
-        						<a href="{{ route('hotel.booking.create') }}" class="btn btn-light-primary font-weight-bold ml-2">Add Hotel</a>
+        						<a href="{{ route('hotel.booking.create') }}" class="btn font-weight-bold ml-2" id="button">Add Hotel</a>
         					</div>
         				</div>
         				<div class="card-body">

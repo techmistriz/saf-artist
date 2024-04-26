@@ -81,7 +81,7 @@
 		                <div class="row">
 		                    <div class="col-lg-4"></div>
 		                    <div class="col-lg-4 text-center">
-		                        <a class="btn btn-primary" href="{{ route('hotel.booking.list') }}">Back</a>
+		                        <a class="theme-btn mt-0 mb-0" href="{{ route('hotel.booking.list') }}">Back</a>
 		                    </div>
 		                </div>
 		            </div>

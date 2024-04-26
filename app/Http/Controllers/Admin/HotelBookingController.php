@@ -200,7 +200,6 @@ class HotelBookingController extends Controller
 
         $hotel                  = HotelBooking::findOrFail($id);
 
-        $hotel->source_id                            = $request->member_id;
         $hotel->accomodation                         = $request->accomodation;
         $hotel->check_in_date                        = $request->check_in_date;
         $hotel->check_out_date                       = $request->check_out_date;

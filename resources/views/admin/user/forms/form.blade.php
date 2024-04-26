@@ -23,12 +23,12 @@
                 </div>
             </div>
             
-            <div class="card-body">
+            <div class="card-body" id="artist">
                 <div class="row">
 
                 	<div class="col-6">
                         <div class="form-group">
-                            <label>User Type</label>
+                            <label>User Type<span class="asterisk">*</span></label>
                             <select class="form-control form-control-lg form-control-custom selectpicker" name="frontend_role_id" tabindex="null" onchange="groupFieldShow()">
                                 <option value="">Select Role</option>
                                 @if($frontendRoles->count())
@@ -45,7 +45,7 @@
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label>Category </label>
+                            <label>Category <span class="asterisk">*</span></label>
                                 <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
                                 <option value="">Select Category</option>
 
@@ -64,7 +64,7 @@
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label>Artist Type</label>
+                            <label>Artist Type<span class="asterisk">*</span></label>
                             <select name="artist_type_id" id="artist_type_id" class="form-control form-control-lg form-control-custom selectpicker @error('artist_type_id') is-invalid @enderror">
                                 <option value="">Select Artist Type</option>
 
@@ -83,7 +83,7 @@
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label>Name of Curators </label>
+                            <label>Name of Curators <span class="asterisk">*</span></label>
                             <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
                                 <option value="">Select Curator</option>
 
@@ -102,7 +102,7 @@
 
                     <div class="col-6">
                         <div class="form-group">
-                            <label>Project Name </label>
+                            <label>Project Name <span class="asterisk">*</span></label>
                             <select class="form-control form-control-lg form-control-solid selectpicker" name="project_id" tabindex="null" >
                                 <option value="">Select</option>
                                 @if($projects->count())
