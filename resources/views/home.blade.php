@@ -258,7 +258,7 @@
                                             <div class="col-6">
                                                 <div class="form-group row validated">
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <input type="text" name="email" value="{{ old('email') ? old('email') : ( isset($row->email) ? $row->email : '') }}" class="form-control form-control-lg form-control-custom"  placeholder="Enter Email" required/>
+                                                        <input type="text" name="email" id="email" value="{{ old('email') ? old('email') : ( isset($row->email) ? $row->email : '') }}" class="form-control form-control-lg form-control-custom"  placeholder="Enter Email" required/>
                                                         @error('email')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
@@ -542,6 +542,7 @@
     $(document).ready(function() {
         $('#send-otp').click(function(e) {
             var contact = $("#contact").val();
+            var email   = $("#email").val();
             e.preventDefault();
 
             if (!isValidContact(contact)) {
@@ -552,11 +553,20 @@
                 }, 5000);
                 return;
             }
-            
+
+            if (!isValidEmail(email)) {
+                $('.validation-errors').text('Please enter a valid email address.');
+                alert('Please enter a valid email address.');
+                setTimeout(function() {
+                    $('.validation-errors').text('');
+                }, 5000);
+                return;
+            }
+
             $.ajax({
                 type: 'POST',
                 url: '{{ route("ajax.send.otp") }}',
-                data: {"_token": "{{ csrf_token() }}", contact: contact},
+                data: {"_token": "{{ csrf_token() }}", contact: contact, email: email},
                 dataType: 'json',
                 success: function(response) {
                     if(response.success) {
@@ -583,9 +593,6 @@
             submitForm();
         });
 
-        
-
-        
         function isValidContact(contact) {
             if (contact.trim() === '') {
                 return false;
@@ -599,7 +606,14 @@
 
             return true;
         }
+
+        function isValidEmail(email) {
+            // Basic email validation using regex
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailPattern.test(email);
+        }
     });
+
 
     document.addEventListener("DOMContentLoaded", function() {
         const sendBtn = document.getElementById('send-otp');
