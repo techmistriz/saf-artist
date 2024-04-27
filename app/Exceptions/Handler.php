@@ -74,18 +74,23 @@ class Handler extends ExceptionHandler
     }
 
     // This method will return the error rather than Whooops screen of the laravel
-    public function    returnErrorView($e){
+    public function returnErrorView($e){
+        
         if ($request->is('admin') || $request->is('admin/*')) {
             return redirect()->guest(route('admin.login'));
         }
+        
         return redirect()->guest(route('login'));
     }
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+        // dd($request->is('admin'));
+
         if ($request->is('admin') || $request->is('admin/*')) {
             return redirect()->guest(route('admin.login'));
         }
+
         return redirect()->guest(route('login'));
     }
 

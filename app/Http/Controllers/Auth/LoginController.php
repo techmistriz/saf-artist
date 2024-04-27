@@ -49,7 +49,7 @@ class LoginController extends Controller
     {
         $this->guard('web')->logout();
 
-        $request->session()->invalidate();
+        // $request->session()->invalidate();
 
         return redirect('/login');
     }
