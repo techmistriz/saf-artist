@@ -34,11 +34,51 @@ class Handler extends ExceptionHandler
     public function register()
     {
 
-         //THis method will render the exception faced on server side which will restrict the user to view whoops screen of laravel exception.
+        // This method will render the exception faced on server side which will restrict the user to view whoops screen of laravel exception.
         
         $this->renderable(function (\Throwable $e, $request) {
+            if($request->is('api/*')){
+            
+                $code   =   $e->getCode();
+                $msg    =   'Server error, Please try again later';
+                if ($this->isHttpException($e)) {
+                    $code = $e->getStatusCode() ?? '';
+                    if($code == 429){
+                        $msg = "Dear Member, We are still processing your previous requests.  Please allow a little bit of time for those to process and try again. Thank You!";
+                    }
+                }
+
+                if(strpos( $e->getMessage() , 'Unauthenticated') !== false){
+                    $code = 401;
+                    $msg    =   'Unauthenticated, Please login again';
+                }
+ 
+                return response(
+                    [
+                        'status'                =>  false,
+                        'message'               =>  $msg,
+                        'data'                  =>  null,
+                        'developer_message'     =>  $e->getMessage(),
+                        'file'                  =>  $e->getFile(),
+                        'line'                  =>  $e->getLine(),
+                        'code'                  =>  $code,
+                    ]
+                );
+                
+            }
+            else{       
+                // return $this->returnErrorView($e);                    
+            }
         });
               
+    }
+
+    // This method will return the error rather than Whooops screen of the laravel
+    public function    returnErrorView($e){
+        if ($request->is('admin') || $request->is('admin/*')) {
+            return redirect()->guest(route('admin.login'));
+        }
+        return redirect()->guest(route('login'));
     }
 
     protected function unauthenticated($request, AuthenticationException $exception)
