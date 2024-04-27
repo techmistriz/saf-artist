@@ -135,23 +135,6 @@
                         </div>
 
                         <div class="d-flex align-items-center pb-9">
-                            <!--begin::Symbol-->
-                            <div class="symbol symbol-45 symbol-light mr-4">
-                                <span class="symbol-label">
-                                    <i class="la la-question  icon-xl"></i>
-                                </span>
-                            </div>
-                            <!--end::Symbol-->
-
-                            <!--begin::Text-->
-                            <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('faq.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">FAQs</a>
-                                <span class="text-muted font-weight-bold">FAQs Details</span>
-                            </div>
-                            <!--end::Text-->
-                        </div>
-
-                        <div class="d-flex align-items-center pb-9">
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
                                     <i class="la la-plane  icon-xl"></i>
