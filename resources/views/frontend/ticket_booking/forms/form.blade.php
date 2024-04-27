@@ -323,7 +323,7 @@
                     <div class="col-lg-4"></div>
                     <div class="col-lg-4 text-center">
                         <button type="submit" class="theme-btn mt-0 mb-0">Submit</button>
-                        <a class="btn btn-light-danger" href="{{ route('ticket.booking.list') }}">Cancel</a>
+                        <!-- <a class="btn btn-light-danger" id="cancleBtn" href="{{ route('ticket.booking.list') }}">Cancel</a> -->
                     </div>
                 </div>
             </div>

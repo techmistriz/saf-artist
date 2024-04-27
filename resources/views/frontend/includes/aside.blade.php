@@ -51,7 +51,10 @@
                         <!--end::Username-->
                         <!--begin::Info-->
                         <div class="font-weight-bold text-dark-50 font-size-sm">{{ Auth::user()->email }}</div>
-                        <div class="font-weight-bold text-dark-50 font-size-sm pb-6">{{ Auth::user()->getAge() }}</div>
+                        <div class="font-weight-bold text-dark-50 font-size-sm pb-5">{{ Auth::user()->getAge() }}</div>
+                        <div class="pb-6">                           
+                            <a href="#" class="theme-btn mt-0 mb-0" style="padding: 12px 9px;">Submit for Review</a>
+                        </div>
                         <!--end::Info-->
                     </div>
                     <!--end::Header-->
