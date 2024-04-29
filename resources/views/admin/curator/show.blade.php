@@ -29,6 +29,14 @@
 		                        </div>
 
 		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Serendipity Arts Festival: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-right">{{$row->serendipity_arts_festival}}</label>
+		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Status: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 

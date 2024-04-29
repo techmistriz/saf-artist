@@ -2,8 +2,6 @@
 
 @section('content')
 
-<!-- <link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" />  -->
-
 <style type="text/css">
     .radio {
         display: -webkit-box;
@@ -21,22 +19,11 @@
         border-radius: 0.42rem;
         background-color: #f3f6f9 !important;
         border-color: #f3f6f9 !important;
-    }
+    }    
 
-    .col-form-label .fa-info{
-        background: black;
-        border-radius: 50px;
-        color: white;
-        height: 20px;
-        width: 20px;
-        text-align: center;
-        line-height: 19px;
-        font-size: 12px;
-    }
-
-    .form-group .form-control{
+    /*.form-group .form-control{
         width: 100%;
-    }
+    }*/
     
 
 </style>
@@ -86,14 +73,7 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Type</label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <select class="form-control form-control-lg form-control-custom selectpicker" name="frontend_role_id" tabindex="null" onchange="marketingSocialMediaHide()">
-                                                <option value="">Select User Type</option>
-                                                @if($frontendRoles->count())
-                                                    @foreach($frontendRoles as $value)
-                                                        <option value="{{$value->id}}" {{ old('frontend_role_id', $row->frontend_role_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
+                                            <input type="text" name="frontend_role_id" id="frontend_role_id" class="form-control form-control-lg form-control-solid" value="{{$row->frontendRole->name}}" readonly>
                                             @error('frontend_role_id')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -106,25 +86,14 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category <i class="fa fa-info" data-toggle="tooltip" data-placement="right" title="Tooltip on right"></i></label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual'))
-
-                                                <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
-                                                    <option value="">Select Category</option>
-
-                                                    @if($categories->count())
-                                                        @foreach($categories as $value)
-                                                            <option value="{{$value->id}}" {{ old('category_id', $row->category_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
-                                                        @endforeach
-                                                    @endif
-
-                                                </select>
-                                            
-                                            @else
-                                                <input type="text" name="category_id" id="category_id" class="form-control form-control-lg form-control-custom " value="{{ $categories->count() ? $categories->first()->name : '' }}" readonly>
-                                            
-                                            @endif                                            
-                                            
+                                            <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
+                                                <option value="">Select Category</option>
+                                                @if($categories->count())
+                                                    @foreach($categories as $value)
+                                                        <option value="{{$value->id}}" {{ old('category_id', $row->category_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>                                            
                                             @error('category_id')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -137,10 +106,7 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name of Curators </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual'))
-                                            
-                                                <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
+                                            <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
                                                 <option value="">Select Curator</option>
 
                                                 @if($curators->count())
@@ -148,14 +114,8 @@
                                                         <option value="{{$value->name}}" {{ old('curator_name', $row->curator_name ?? '') == $value->name ? 'selected' : '' }}>{{$value->name}}</option>
                                                     @endforeach
                                                 @endif
-
-                                            </select>
-                                            
-                                            @else
-                                                <input type="text" name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom " value="{{ $curators->count() ? $curators->first()->name : '' }}" readonly>
-                                            
-                                            @endif                                             
-                                            
+                                                
+                                            </select>                                            
                                             @error('curator_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -926,7 +886,7 @@
     }
 
 
-     $(function () {
+    $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
     

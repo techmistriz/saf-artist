@@ -64,7 +64,7 @@
 			                        <div class="form-group row validated">
 			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Address</label>
 			                            <div class="col-lg-9 col-md-9 col-sm-12">
-			                                <textarea class="form-control form-control-lg form-control-solid @error('permanent_address') is-invalid @enderror  no-summernote-editor" name="permanent_address" id="permanent_address" placeholder="Enter Address" require>{{ $user->permanent_address }}</textarea>
+			                                <textarea class="form-control form-control-lg form-control-solid @error('permanent_address') is-invalid @enderror  no-summernote-editor" name="permanent_address" id="permanent_address" placeholder="Enter Address" require>{{ $user->permanent_address. ', '.$user->PACountry->country_name. ', '.$user->PAState->state_name. ', '.$user->PACity->city_name. ', '.$user->pa_pincode }}</textarea>
 			                                @error('permanent_address')
 			                                    <div class="invalid-feedback">{{ $message }}</div>
 			                                @enderror

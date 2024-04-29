@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Common\MasterModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class HotelBooking extends MasterModel
 {
@@ -20,9 +20,7 @@ class HotelBooking extends MasterModel
          $this->attributes['check_in_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');  
 
       }
-   }
-
-   
+   }   
 
    public function getCheckInDateAttribute($value)
    {

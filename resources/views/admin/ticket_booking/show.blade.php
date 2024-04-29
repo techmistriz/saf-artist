@@ -24,7 +24,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Project Name</th>
-                                                <td>{{$row->project->name ?? ''}}</td>
+                                                <td>{{ implode(', ', $row->project()) }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Title</th>

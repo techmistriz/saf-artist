@@ -27,10 +27,7 @@ class CuratorRequest extends FormRequest
 
     	$id = $this->input('id', 0);
      	return [
-            'name'			=> 'required | ' . Rule::unique('curators')->ignore($id, 'id'),       
-            'bio' 			=> 'required',            
-            // 'curator_image' 	=> 'required',            
-            'discipline_id' => 'required'
+            'name'			=> 'required | ' . Rule::unique('curators')->ignore($id, 'id'),
         ];
     }
 

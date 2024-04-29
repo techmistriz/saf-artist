@@ -284,31 +284,20 @@
 
                                                         @error('category_id')
                                                             <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    
+                                                        @enderror                                                    
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            
+                                            </div>                                            
                                         </div>
                                     </div>
 
                                     <div class="col-12">
                                         <div class="form-group row validated" style="align-items:center;">
 
-                                        <div class="inline-select">
+                                            <div class="inline-select">
                                                 <div class="checkbox-inline">
-                                                    <label class="checkbox theme-text-color" style="padding-top:8px; padding-left:0px;">
-                                                        <input type="checkbox" name="i_am" value="1" {{ old('i_am') == '1' ? 'checked' : '' }} onchange="iAmPress(this)" />
-                                                        <span></span>
-                                                        I am
-                                                    </label>
-                                                    @error('i_am')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
+                                                    <label style="padding-top:8px; padding-left:0px;"> I am </label>
                                                 </div>
-
 
                                                 <div class="selectfield">
                                                         <select class="form-control form-control-lg form-control-custom selectpicker1" name="artist_type_id" id="artist_type_id" tabindex="null" >
@@ -328,9 +317,9 @@
                                                 </div>
 
                                                 <div class="radio-inline">
-                                                            <label class="radio theme-text-color" style="padding-top:8px;">
-                                                               and part of 
-                                                            </label>
+                                                    <label class="radio theme-text-color" style="padding-top:8px;">
+                                                       and part of 
+                                                    </label>
                                                 </div>
 
                                                 <div class="selectfield">
@@ -348,116 +337,8 @@
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
                                                 </div>
-                                        </div>
+                                            </div>                                            
 
-
-
-                                            
-
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- <div class="col-12">
-                                        <div class="form-group row validated">
-                                            <div class="col-6">
-                                                <div class="form-group row validated">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <div class="radio-inline">
-                                                            <label class="radio theme-text-color">
-                                                                <input type="radio" name="i_am" value="1" {{ old('i_am') == '1' ? 'checked' : '' }} onchange="iAmPress(this)" />
-                                                                <span></span>
-                                                                I am a 
-                                                            </label>
-                                                        </div>
-
-                                                        @error('i_am')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group row validated">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <select class="form-control form-control-lg form-control-custom selectpicker1" name="artist_type_id" id="artist_type_id" tabindex="null" >
-                                                            <option value="">Select</option>
-                                                            @if($artistTypes->count())
-                                                                @foreach($artistTypes as $value)
-
-                                                                   <option {{ old('artist_type_id') == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
-
-                                                                @endforeach
-                                                            @endif
-                                                        </select>
-
-                                                        @error('artist_type_id')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-12">
-                                        <div class="form-group row validated">
-                                            <div class="col-6">
-                                                <div class="form-group row validated">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <div class="radio-inline">
-                                                            <label class="radio theme-text-color">
-                                                               and am part of 
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="form-group row validated">
-                                                    
-                                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker1 @error('curator_name') is-invalid @enderror">
-                                                            <option value="">Select Curator</option>
-
-                                                            @if($curators->count())
-                                                                @foreach($curators as $value)
-                                                                    <option value="{{$value->name}}" {{ old('curator_name', $row->curator_name ?? '') == $value->name ? 'selected' : '' }}>{{$value->name}}</option>
-                                                                @endforeach
-                                                            @endif
-
-                                                        </select>
-                                                        @error('curator_name')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> -->
-
-                                    <div class="col-12">
-                                        <div class="form-group row validated">
-                                            <div class="col-6">
-                                                <div class="form-group row validated">
-                                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <div class="checkbox-inline">
-                                                            <label class="checkbox theme-text-color" style="padding-left:0;">
-                                                                <input type="checkbox" name="i_am" value="2" {{ old('i_am') == '1' ? 'checked' : '' }} onchange="iAmPress(this)" />
-                                                                <span></span>
-                                                                I am showing a Special Project
-
-                                                            </label>
-                                                        </div>
-
-                                                        @error('i_am')
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 

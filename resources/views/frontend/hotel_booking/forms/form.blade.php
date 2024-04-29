@@ -18,7 +18,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Member</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                <select class="form-control form-control-lg form-control-solid selectpicker" name="member_id" tabindex="null">
+                                <select class="form-control form-control-solid form-control-lg selectpicker @error('member_id') is-invalid @enderror" name="member_id" tabindex="null">
                                     <option value="">Select Member</option>
                                     @if($members->count())
                                         @foreach($members as $value)
@@ -40,7 +40,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Accomodation Required</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-solid form-control-lg form-control-lg form-control-solid selectpicker" name="accomodation" tabindex="null">
+                                <select class="form-control form-control-solid form-control-lg form-control-lg form-control-solid selectpicker" name="accomodation" tabindex="null" onchange="hideField()">
                                     <option value="">Select</option>
                                     <option value="Yes" {{ old('accomodation') == 'Yes' || (isset($row->accomodation) && $row->accomodation == 'Yes') ? 'selected' : '' }}>Yes</option>
                                     <option value="No" {{ old('accomodation') == 'No' || (isset($row->accomodation) && $row->accomodation == 'No') ? 'selected' : '' }}>No</option>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="field_hide" style="{{ (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) &&(isset($row->accomodation) && ($row->accomodation == 'No')) ? 'display:none;' : ''}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check In Date </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -73,9 +73,7 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-12">
+                   
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check Out Date </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -95,9 +93,7 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-12">
+                    
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Total Room Nights</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -107,9 +103,7 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-12">
+                    
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Remarks</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -177,6 +171,22 @@
             $("#total_room_nights").val('');
         }
     }
+
+    function hideField() {
+
+        var userType = '{{ isset(Auth::user()->frontendRole->name) ? Auth::user()->frontendRole->name : '' }}';
+        var accomodation = $('select[name="accomodation"] option:selected').text();
+
+        if (userType == 'Individual') {
+            if (accomodation == 'Yes') {
+                $('#field_hide').show();
+            }else if (accomodation == 'No'){
+                $('#field_hide').hide();
+            }else{
+                $('#field_hide').show();
+            }
+        }
+    } 
 
 </script>
 @endpush

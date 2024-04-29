@@ -16,9 +16,9 @@
                     <div class="col-6">
                         
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Name</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" value="{{ old('name') ? old('name') :( isset($row->name) ? $row->name : '') }}" class="form-control" required placeholder="Enter Name"/>
+                                <input type="text" name="name" value="{{ old('name', $row->name ?? '') }}" class="form-control" required placeholder="Enter Name"/>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -26,8 +26,18 @@
                         </div>
 
                         <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Serendipity Arts Festival</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="serendipity_arts_festival" value="{{ old('serendipity_arts_festival', $row->serendipity_arts_festival ?? '') }}" class="form-control" required placeholder="Enter Serendipity Arts Festival"/>
+                                @error('serendipity_arts_festival')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
 
-                        	<label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Status</label>
+                        <div class="form-group row validated">
+
+                        	<label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Status</label>
 							<div class="col-3">
 								<span class="switch switch-icon">
 									<label>
