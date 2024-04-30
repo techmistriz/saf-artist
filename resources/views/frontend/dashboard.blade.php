@@ -372,6 +372,26 @@
                                 </div>
                             </div>
 
+                            <div class="row" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}" id="payment_troup">
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <select class="form-control form-control-solid form-control-lg form-control-lg form-control-solid selectpicker" name="payment_troup" tabindex="null">
+                                                <option value="">Select Payment of the Troup</option>
+                                                <option value="Single Account" {{ old('payment_troup') == 'Single Account' || (isset($row->payment_troup) && $row->payment_troup == 'Single Account') ? 'selected' : '' }}>Single Account</option>
+                                                <option value="Individual Account" {{ old('payment_troup') == 'Individual Account' || (isset($row->payment_troup) && $row->payment_troup == 'Individual Account') ? 'selected' : '' }}>Individual Account</option>
+                                            </select>
+
+                                            @error('payment_troup')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row" id="marketingSocialMedia" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
 
                                 <div class="col-12">
@@ -636,6 +656,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
 
                                 <div class="col-12">
@@ -877,11 +898,13 @@
             $('#dob').show();
             $('#members_numbers').hide();
             $('#company_collective').hide();
+            $('#payment_troup').hide();
         }else {
             $('#marketingSocialMedia').hide();
             $('#dob').hide();
             $('#members_numbers').show();
             $('#company_collective').show();
+            $('#payment_troup').show();
         }
     }
 

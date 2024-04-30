@@ -257,7 +257,12 @@ class TicketBookingController extends Controller
         $ticket->save();
 
         \Flash::success('Ticket booking updated successfully.');
-        return \Redirect::route('ticket.booking.list');
+        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
+
+            return \Redirect::route('ticket.booking.edit', $ticket->id);
+        }else{            
+            return \Redirect::route('ticket.booking.list');
+        } 
     }
 
     /**

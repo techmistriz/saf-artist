@@ -54,7 +54,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="field_hide" style="{{ (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) &&(isset($row->accomodation) && ($row->accomodation == 'No')) ? 'display:none;' : ''}}">
+                    <div class="col-12" id="field_hide" style="{{ isset($row->accomodation) && ($row->accomodation == 'No') ? 'display:none;' : ''}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check In Date </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">

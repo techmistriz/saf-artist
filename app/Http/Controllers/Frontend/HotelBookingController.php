@@ -193,7 +193,12 @@ class HotelBookingController extends Controller
         $hotel->save();
 
         \Flash::success('Hotel booking updated successfully.');
-        return \Redirect::route('hotel.booking.list');
+        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
+
+            return \Redirect::route('hotel.booking.edit', $hotel->id);
+        }else{            
+            return \Redirect::route('hotel.booking.list');
+        }        
     }
 
     /**

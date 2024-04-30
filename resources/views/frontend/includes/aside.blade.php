@@ -145,7 +145,7 @@
                                     <a href="#" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder dropdown-toggle" id="ticketDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ticket Booking</a>
                                     @if(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual'))
                                         <div class="dropdown-menu" aria-labelledby="ticketDropdown">
-                                            <a class="dropdown-item" href="{{ route('ticket.booking.edit',$row->id) }}">Edit Ticket Booking</a>
+                                            <a class="dropdown-item" href="{{ route('ticket.booking.edit', Auth::user()->id) }}">Edit Ticket Booking</a>
                                         </div>
                                     @else
                                         <div class="dropdown-menu" aria-labelledby="ticketDropdown">
@@ -169,7 +169,7 @@
                                     <a href="#" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder dropdown-toggle" id="hotelDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hotel Booking</a>
                                     @if(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual'))
                                         <div class="dropdown-menu" aria-labelledby="ticketDropdown">
-                                            <a class="dropdown-item" href="{{ route('hotel.booking.edit',$row->id) }}">Edit Hotel Booking</a>
+                                            <a class="dropdown-item" href="{{ route('hotel.booking.edit', Auth::user()->id) }}">Edit Hotel Booking</a>
                                         </div>
                                     @else
                                         <div class="dropdown-menu" aria-labelledby="hotelDropdown">
