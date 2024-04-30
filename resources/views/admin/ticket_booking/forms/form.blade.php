@@ -1,5 +1,4 @@
 @include('flash::message')
-
 <div class="row">
     <div class="col-md-12">
         
@@ -306,6 +305,7 @@
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Contact</th>
+                                <th>Action</th>
                             </tr>
 
                         </thead>
@@ -316,6 +316,8 @@
                                     <td>{{ $value->name }}</td>
                                     <td>{{ $value->email }}</td>
                                     <td>{{ $value->contact }}</td>
+                                    <td>{!! $value->actions !!}
+                                    </td>
                                 </tr>
 
                             @empty

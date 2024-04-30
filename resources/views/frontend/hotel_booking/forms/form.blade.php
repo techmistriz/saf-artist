@@ -174,17 +174,15 @@
 
     function hideField() {
 
-        var userType = '{{ isset(Auth::user()->frontendRole->name) ? Auth::user()->frontendRole->name : '' }}';
+        
         var accomodation = $('select[name="accomodation"] option:selected').text();
 
-        if (userType == 'Individual') {
-            if (accomodation == 'Yes') {
-                $('#field_hide').show();
-            }else if (accomodation == 'No'){
-                $('#field_hide').hide();
-            }else{
-                $('#field_hide').show();
-            }
+        if (accomodation == 'Yes') {
+            $('#field_hide').show();
+        }else if (accomodation == 'No'){
+            $('#field_hide').hide();
+        }else{
+            $('#field_hide').show();
         }
     } 
 

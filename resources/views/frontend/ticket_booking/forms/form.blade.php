@@ -129,7 +129,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International/Domestic Traveller </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="international_or_domestic" tabindex="null" onchange="travellerField()">
-                                    <option value="">Select International or Domestic Traveller</option>
+                                    <option value="">Your traveller</option>
                                     <option value="International" {{ old('international_or_domestic') == 'International' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'selected' : '' }}>International</option>
                                     <option value="Domestic" {{ old('international_or_domestic') == 'Domestic' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'selected' : ''  }}>Domestic</option>
                                 </select>
@@ -443,11 +443,16 @@
                 $('#passport').show();
                 $('#dob').hide();
                 $('#adhaar_driving').hide();
-            }else {
+            }else if(traveller == 'Domestic'){
                 $('#visa').hide();
                 $('#passport').hide();
                 $('#dob').show();
                 $('#adhaar_driving').show();
+            }else{
+                $('#visa').hide();
+                $('#passport').hide();
+                $('#dob').hide();
+                $('#adhaar_driving').hide();
             }
         } 
         // end field hide 

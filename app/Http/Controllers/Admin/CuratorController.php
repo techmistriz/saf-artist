@@ -117,7 +117,6 @@ class CuratorController extends Controller
 
         $curator          = new Curator();
         $curator->name        = $request->name;
-        $curator->serendipity_arts_festival        = $request->serendipity_arts_festival;
         $curator->status      = $request->input('status', 0);
         $curator->save();
 
@@ -159,7 +158,6 @@ class CuratorController extends Controller
 
         $curator                  = Curator::findOrFail($id);
         $curator->name                = $request->name;
-        $curator->serendipity_arts_festival                = $request->serendipity_arts_festival;
         $curator->status              = $request->input('status', 0);
         $curator->save();
 
