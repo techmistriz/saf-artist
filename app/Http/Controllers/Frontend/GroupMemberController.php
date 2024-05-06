@@ -96,21 +96,21 @@ class GroupMemberController extends Controller
 
     public function store(GroupMemberRequest $request)
     {
-        $pocId = Auth::user()->id;
-        $allowMember = Auth::user()->max_allowed_member;
-        $existingMembersCount = GroupMember::where('poc_id', $pocId)->count();
-        if ($existingMembersCount >= $allowMember) {
-            \Flash::error('You have allowed to add only'. ' '. $allowMember. ' '. 'members.');
-            return \Redirect::back()->withInput();
-        }
 
-        $member = new GroupMember();
-        $member->name = $request->name;
-        $member->poc_id = $pocId;
-        $member->email = $request->email;
-        $member->contact = $request->contact;
-        $member->dob = $request->dob;
-        $member->status = $request->input('status', 0);
+        $member                   = new GroupMember();
+        $member->name             = $request->name;
+        $member->poc_id           = Auth::user()->id;
+        $member->email            = $request->email;
+        $member->contact          = $request->contact;
+        $member->dob              = $request->dob;
+        $member->stage_name       = $request->stage_name;
+        $member->artist_bio       = $request->artist_bio;
+        $member->instagram_url    = $request->instagram_url;
+        $member->facebook_url     = $request->facebook_url;
+        $member->linkdin_url      = $request->linkdin_url;
+        $member->twitter_url      = $request->twitter_url;
+        $member->website          = $request->website;
+        $member->status           = $request->input('status', 0);
         $member->save();
 
         \Flash::success('Group member created successfully');
@@ -156,6 +156,13 @@ class GroupMemberController extends Controller
         $member->email           = $request->email;
         $member->contact         = $request->contact;
         $member->dob             = $request->dob;
+        $member->stage_name      = $request->stage_name;
+        $member->artist_bio      = $request->artist_bio;
+        $member->instagram_url   = $request->instagram_url;
+        $member->facebook_url    = $request->facebook_url;
+        $member->linkdin_url     = $request->linkdin_url;
+        $member->twitter_url     = $request->twitter_url;
+        $member->website         = $request->website;
         $member->status          = $request->input('status', 0);
         $member->save();
 

@@ -43,10 +43,8 @@ trait UserTrait
             }
         }
 
-        // dd($request->all());
+        // dd($request->all());        
         
-        $user->reg_for_group            = $request->reg_for_group;
-        $user->frontend_role_id            = $request->frontend_role_id;
         $user->category_id              = $request->category_id;
         $user->curator_name             = $request->curator_name;
         $user->artist_type_id           = $request->artist_type_id;
@@ -107,12 +105,20 @@ trait UserTrait
             $user->practice_image_1         = $practice_image_1_fileName;
         }
 
+        if($request->has('practice_credit_1') && $request->filled('practice_credit_1')) {
+            $user->practice_credit_1   = $request->practice_credit_1;
+        }
+
         if ($request->hasFile('practice_image_2')) {
 
             $practice_image_2               = $request->file('practice_image_2');
             // $practice_image_2_fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_2, $request->input('title'), 900, 900, true);
             $practice_image_2_fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_2, 'practice_image_2');
             $user->practice_image_2         = $practice_image_2_fileName;
+        }
+
+        if($request->has('practice_credit_2') && $request->filled('practice_credit_2')) {
+            $user->practice_credit_2   = $request->practice_credit_2;
         }
 
         if ($request->hasFile('practice_image_3')) {
@@ -124,6 +130,10 @@ trait UserTrait
             $user->practice_image_3                 = $practice_image_3_fileName;
         }
 
+        if($request->has('practice_credit_3') && $request->filled('practice_credit_3')) {
+            $user->practice_credit_3   = $request->practice_credit_3;
+        }
+
         if ($request->hasFile('profile_image_1')) {
 
             $profile_image_1                    = $request->file('profile_image_1');
@@ -131,6 +141,10 @@ trait UserTrait
             $profile_image_1_fileName           = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $profile_image_1, 'profile_image_1');
 
             $user->profile_image_1              = $profile_image_1_fileName;
+        }
+
+        if($request->has('profile_credit_1') && $request->filled('profile_credit_1')) {
+            $user->profile_credit_1   = $request->profile_credit_1;
         }
 
         if ($request->hasFile('profile_image_2')) {
@@ -141,10 +155,14 @@ trait UserTrait
             $user->profile_image_2      = $profile_image_2_fileName;
         }
 
+        if($request->has('profile_credit_2') && $request->filled('profile_credit_2')) {
+            $user->profile_credit_2   = $request->profile_credit_2;
+        }
+
         $user->has_serendipity_arts     = $request->has_serendipity_arts;
         $user->year                     = $request->year;
         $user->other_link               = $request->other_link;
-        $user->max_allowed_member               = $request->max_allowed_member;
+        $user->troup_size               = $request->troup_size;
         $user->save();
 
     }
