@@ -56,7 +56,6 @@ class HomeController extends Controller
         $artistTypes    = ArtistType::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->get();
 
-        // return view('home-1')->with(['row' => null, 'categories' => $categories, 'addressProofs' => $addressProofs]);
         return view('home')->with(['row' => null, 'categories' => $categories, 'addressProofs' => $addressProofs, 'years' => $this->years, 'countries' => $countries, 'artistTypes' => $artistTypes, 'curators' => $curators,'frontendRoles' => $frontendRoles]);
     }
 
@@ -64,11 +63,9 @@ class HomeController extends Controller
 
         $password                       = uniqid();
         $user                           = new User();
-        $user->reg_for_group            = $request->reg_for_group;
         $user->name                     = $request->name;
         $user->email                    = $request->email;
         $user->contact                  = $request->contact;
-        $user->i_am                     = $request->i_am;
         $user->artist_type_id           = $request->artist_type_id;
         $user->curator_name             = $request->curator_name;
         $user->category_id              = $request->category_id;

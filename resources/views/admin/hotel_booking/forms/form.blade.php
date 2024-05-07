@@ -265,41 +265,59 @@
 @push('scripts')
     <script type="text/javascript">
 
-       function addMoreShareRoom(_this){
-
+        function addMoreShareRoom(_this) {
             var html = '\
-                    <div class="row mb-7 position-relative share-room" style="border: lightgray 1px dashed">\
-                        <div class="col-6 mt-7">\
-                            <div class="form-group row validated">\
-                                <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Room No </label>\
-                                <div class="col-lg-9 col-md-9 col-sm-12">\
-                                    <input type="hidden" name="room_no_ids[]" value="" />\
-                                    <input type="text" name="room_no[]" class="form-control" placeholder="Enter Room No" />\
-                                </div>\
-                            </div>\
+                <div class="row mb-7 position-relative share-room" style="border: lightgray 1px dashed">\
+                    <div class="col-3 mt-7">\
+                        <div class="form-group">\
+                            <label>Hotel Room Sharing </label>\
+                            <input type="hidden" name="sharing_room_ids[]" value="" />\
+                            <select name="sharing_room[]" class="form-control sharing-room-select">\
+                                <option value="">Select Hotel Room Sharing</option>\
+                                <option value="Single Occu">Single Occu</option>\
+                                <option value="Double Occu">Double Occu</option>\
+                                <option value="Tripple Occu">Tripple Occu</option>\
+                            </select>\
                         </div>\
-                        <div class="col-6 mt-7">\
-                            <div class="form-group row validated">\
-                                <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name 1 </label>\
-                                <div class="col-lg-9 col-md-9 col-sm-12">\
-                                    <input type="text" name="name_1[]" class="form-control" placeholder="Enter Name 1" />\
-                                </div>\
-                            </div>\
+                    </div>\
+                    <div class="col-3 mt-7 name-fields" style="display: none;">\
+                        <div class="form-group">\
+                            <label>Name 1 </label>\
+                            <input type="text" name="name_1[]" class="form-control" placeholder="Enter Name 1" />\
                         </div>\
-                        <div class="col-6 mt-7">\
-                            <div class="form-group row validated">\
-                                <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name 2 </label>\
-                                <div class="col-lg-9 col-md-9 col-sm-12">\
-                                    <input type="text" name="name_2[]" class="form-control" placeholder="Enter Name 2" />\
-                                </div>\
-                            </div>\
+                        <div class="form-group">\
+                            <label>Name 2 </label>\
+                            <input type="text" name="name_2[]" class="form-control" placeholder="Enter Name 2" />\
                         </div>\
-                        <a href="javascript:void(0)" onclick="deleteShareRoom(this)" class="btn btn-danger btn-sm" style="position: absolute;right: 0;top: -15px; back">X</a>\
-                    </div>';
+                        <div class="form-group">\
+                            <label>Name 3 </label>\
+                            <input type="text" name="name_3[]" class="form-control" placeholder="Enter Name 3" />\
+                        </div>\
+                    </div>\
+                    <a href="javascript:void(0)" onclick="deleteShareRoom(this)" class="btn btn-danger btn-sm" style="position: absolute; right: 0; top: -15px;">X</a>\
+                </div>';
 
             $(".share-room:last").after(html);
-            
+
+            $('.sharing-room-select').change(function () {
+                var selectedOption = $(this).val();
+                var nameFields = $(this).closest('.share-room').find('.name-fields');
+
+                if (selectedOption === 'Single Occu') {
+                    nameFields.find('.form-group').hide();
+                    nameFields.find('.form-group:nth-child(1)').show(); // Show Name 1 field for Single Occu
+                } else if (selectedOption === 'Double Occu') {
+                    nameFields.find('.form-group').hide();
+                    nameFields.find('.form-group:nth-child(-n+2)').show(); // Show Name 1 and Name 2 fields for Double Occu
+                } else if (selectedOption === 'Tripple Occu') {
+                    nameFields.find('.form-group').show(); // Show all Name fields for Tripple Occu
+                } else {
+                    nameFields.find('.form-group').hide(); // Hide all Name fields if no option is selected
+                }
+            });
         }
+
+
 
         function deleteShareRoom(_this, id = null){
 
@@ -370,6 +388,21 @@
                 $('#room_share').hide();
             }
         } 
+
+        $(document).ready(function () {
+            $('#sharing-room-select').change(function () {
+                var selectedOption = $(this).val();
+                $('.name-1, .name-2, .name-3').hide(); // Hide all name fields initially
+
+                if (selectedOption === 'Single Occu') {
+                    $('.name-1').show(); // Show Name 1 field for Single Occu
+                } else if (selectedOption === 'Double Occu') {
+                    $('.name-1, .name-2').show(); // Show Name 1 and Name 2 fields for Double Occu
+                } else if (selectedOption === 'Tripple Occu') {
+                    $('.name-1, .name-2, .name-3').show(); // Show Name 1, Name 2, and Name 3 fields for Tripple Occu
+                }
+            });
+        });
 
     </script>
 @endpush

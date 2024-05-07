@@ -85,6 +85,10 @@
                 title: "name",
             }, 
             {
+                field: "serendipity_arts_festival",
+                title: "Serendipity Arts Festival",
+            },
+            {
                 field: "status",
                 title: "status",
                 template: function(t) {

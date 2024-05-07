@@ -153,7 +153,7 @@ class TicketBookingController extends Controller
         }
 
         $ticket->name                                 = $request->name;
-        $ticket->project_id                           = $request->project_id;
+        $ticket->project_ids                          = $request->project_ids;
         $ticket->salutation                           = $request->salutation;
         $ticket->age                                  = $request->age;
         $ticket->email                                = $request->email;
@@ -165,7 +165,10 @@ class TicketBookingController extends Controller
         $ticket->artist_remarks                       = $request->artist_remarks;
         $ticket->international_or_domestic            = $request->international_or_domestic;
         $ticket->work_visa                            = $request->work_visa;
+        $ticket->onward_date                          = $request->onward_date;
+        $ticket->return_date                          = $request->return_date;
         $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Group'];
+        // dd($ticket);
         $ticket->save();
 
         \Flash::success('Ticket booking created successfully');
@@ -236,7 +239,7 @@ class TicketBookingController extends Controller
         }
 
         $ticket->name                                 = $request->name;
-        $ticket->project_id                           = $request->project_id;
+        $ticket->project_ids                          = $request->project_ids;
         $ticket->salutation                           = $request->salutation;
         $ticket->age                                  = $request->age;
         $ticket->email                                = $request->email;
@@ -248,11 +251,18 @@ class TicketBookingController extends Controller
         $ticket->artist_remarks                       = $request->artist_remarks;
         $ticket->international_or_domestic            = $request->international_or_domestic;
         $ticket->work_visa                            = $request->work_visa;
+        $ticket->onward_date                          = $request->onward_date;
+        $ticket->return_date                          = $request->return_date;
         $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Group'];
         $ticket->save();
 
         \Flash::success('Ticket booking updated successfully.');
-        return \Redirect::route('ticket.booking.list');
+        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
+
+            return \Redirect::route('ticket.booking.edit', $ticket->id);
+        }else{            
+            return \Redirect::route('ticket.booking.list');
+        } 
     }
 
     /**

@@ -35,7 +35,7 @@
                             <td class="text-center">
                                 <span class="switch switch-icon">
                                     <label>
-                                        <input type="checkbox" name="permission_data[{{$value->controller}}][index]" value="1" {{ (array_key_exists($value->controller, $row->permission_data) ? 'checked' : '')}} />
+                                        <input type="checkbox" name="permission_data[{{$value->controller}}][index]" value="1" {{ (is_array($row->permission_data) && isset($row->permission_data) &&  array_key_exists($value->controller, $row->permission_data) ? 'checked' : '')}} />
                                         <span></span>
                                     </label>
                                 </span>

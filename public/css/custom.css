@@ -4539,3 +4539,15 @@ a.tc-btn{
   color: red;
   font-size: 20px;
 }
+
+.col-form-label .fa-question{
+    background: black;
+    border-radius: 50px;
+    color: white;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    margin-left: 3px;
+}

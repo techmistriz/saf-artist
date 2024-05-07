@@ -2,8 +2,6 @@
 
 @section('content')
 
-<!-- <link href="https://unpkg.com/@primer/css@^16.0.0/dist/primer.css" rel="stylesheet" />  -->
-
 <style type="text/css">
     .radio {
         display: -webkit-box;
@@ -21,22 +19,11 @@
         border-radius: 0.42rem;
         background-color: #f3f6f9 !important;
         border-color: #f3f6f9 !important;
-    }
+    }    
 
-    .col-form-label .fa-info{
-        background: black;
-        border-radius: 50px;
-        color: white;
-        height: 20px;
-        width: 20px;
-        text-align: center;
-        line-height: 19px;
-        font-size: 12px;
-    }
-
-    .form-group .form-control{
+    /*.form-group .form-control{
         width: 100%;
-    }
+    }*/
     
 
 </style>
@@ -86,14 +73,7 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Type</label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <select class="form-control form-control-lg form-control-custom selectpicker" name="frontend_role_id" tabindex="null" onchange="marketingSocialMediaHide()">
-                                                <option value="">Select User Type</option>
-                                                @if($frontendRoles->count())
-                                                    @foreach($frontendRoles as $value)
-                                                        <option value="{{$value->id}}" {{ old('frontend_role_id', $row->frontend_role_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
-                                                    @endforeach
-                                                @endif
-                                            </select>
+                                            <input type="text" name="frontend_role_id" id="frontend_role_id" class="form-control form-control-lg form-control-solid" value="{{$row->frontendRole->name}}" readonly>
                                             @error('frontend_role_id')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -104,27 +84,16 @@
 
                                 <div class="col-12">
                                     <div class="form-group row validated">
-                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category <i class="fa fa-info" data-toggle="tooltip" data-placement="right" title="Tooltip on right"></i></label>
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category <i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="Tooltip on right"></i></label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual'))
-
-                                                <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
-                                                    <option value="">Select Category</option>
-
-                                                    @if($categories->count())
-                                                        @foreach($categories as $value)
-                                                            <option value="{{$value->id}}" {{ old('category_id', $row->category_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
-                                                        @endforeach
-                                                    @endif
-
-                                                </select>
-                                            
-                                            @else
-                                                <input type="text" name="category_id" id="category_id" class="form-control form-control-lg form-control-custom " value="{{ $categories->count() ? $categories->first()->name : '' }}" readonly>
-                                            
-                                            @endif                                            
-                                            
+                                            <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
+                                                <option value="">Select Category</option>
+                                                @if($categories->count())
+                                                    @foreach($categories as $value)
+                                                        <option value="{{$value->id}}" {{ old('category_id', $row->category_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>                                            
                                             @error('category_id')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -137,10 +106,7 @@
                                     <div class="form-group row validated">
                                         <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name of Curators </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                            @if(isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual'))
-                                            
-                                                <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
+                                            <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
                                                 <option value="">Select Curator</option>
 
                                                 @if($curators->count())
@@ -148,14 +114,8 @@
                                                         <option value="{{$value->name}}" {{ old('curator_name', $row->curator_name ?? '') == $value->name ? 'selected' : '' }}>{{$value->name}}</option>
                                                     @endforeach
                                                 @endif
-
-                                            </select>
-                                            
-                                            @else
-                                                <input type="text" name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom " value="{{ $curators->count() ? $curators->first()->name : '' }}" readonly>
-                                            
-                                            @endif                                             
-                                            
+                                                
+                                            </select>                                            
                                             @error('curator_name')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -401,10 +361,10 @@
                             <div class="row" id="members_numbers" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                                 <div class="col-12">
                                     <div class="form-group row validated">
-                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Max Member Allowed </label>
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Troup Size </label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <input type="number" name="max_allowed_member" value="{{ $row->max_allowed_member ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Allowed Max Member" />
-                                            @error('max_allowed_member')
+                                            <input type="number" name="troup_size" value="{{ $row->troup_size ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Troup Size" />
+                                            @error('troup_size')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -412,7 +372,27 @@
                                 </div>
                             </div>
 
-                            <div class="row" id="marketingSocialMedia" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                            <div class="row" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}" id="payment_troup">
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <select class="form-control form-control-solid form-control-lg form-control-lg form-control-solid selectpicker" name="payment_troup" tabindex="null">
+                                                <option value="">Select Payment of the Troup</option>
+                                                <option value="Single Account" {{ old('payment_troup') == 'Single Account' || (isset($row->payment_troup) && $row->payment_troup == 'Single Account') ? 'selected' : '' }}>Single Account</option>
+                                                <option value="Individual Account" {{ old('payment_troup') == 'Individual Account' || (isset($row->payment_troup) && $row->payment_troup == 'Individual Account') ? 'selected' : '' }}>Individual Account</option>
+                                            </select>
+
+                                            @error('payment_troup')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
 
                                 <div class="col-12">
                                     <h4 class="card-label">For marketing and social media purpose</h4><hr>
@@ -508,116 +488,184 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row" id="hide_field" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+
+                                <div class="col-12">
+                                    <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>
+                                </div>
 
                                 <div class="col-12">
                                     <div class="form-group row validated">
-                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</label>
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Image 1</label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                             
-                                            <div class="row pb-5">
-                                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    
-                                                    <input type="file" name="practice_image_1"  class="form-control form-control-lg form-control-solid @error('practice_image_1') is-invalid @enderror " />
-                                                    <p class="text-muted small">( 5 MB to 10MB and 300 dpi )</p>
-                                                    
-                                                    Uploaded File: 
-                                                    @if($row->practice_image_1)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_1) }}">{{$row->practice_image_1}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
+                                            <input type="file" name="practice_image_1"  class="form-control form-control-lg form-control-solid @error('practice_image_1') is-invalid @enderror " />
+                                            <p class="text-muted small">( 5 MB to 10MB and 300 dpi )</p>
+                                            
+                                            Uploaded File: 
+                                            @if($row->practice_image_1)
+                                                <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_1) }}">{{$row->practice_image_1}}</a>
+                                            @else
+                                            N/A
+                                            @endif
 
-                                                    @error('practice_image_1')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                
-                                                </div>
-                                            </div>
-                                            <div class="row pb-5">
-                                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    
-                                                    <input type="file" name="practice_image_2"  class="form-control form-control-lg form-control-solid @error('practice_image_2') is-invalid @enderror " />
-                                                    <p class="text-muted small">( 5 MB to 10MB and 300 dpi )</p>
-                                                    Uploaded File: 
-                                                    @if($row->practice_image_2)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_2) }}">{{$row->practice_image_2}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
+                                            @error('practice_image_1')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
 
-                                                    @error('practice_image_2')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                
-                                                </div>
-                                            </div>
-
-                                            <div class="row pb-5">
-                                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    
-                                                    <input type="file" name="practice_image_3"  class="form-control form-control-lg form-control-solid @error('practice_image_3') is-invalid @enderror " />
-                                                    <p class="text-muted small">( 5 MB to 10MB and 300 dpi )</p>
-                                                    Uploaded File: 
-                                                    @if($row->practice_image_3)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_3) }}">{{$row->practice_image_3}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
-
-                                                    @error('practice_image_3')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                
-                                                </div>
-                                            </div>
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 1</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <input type="text" name="practice_credit_1" value="{{ old('practice_credit_1', $row->practice_credit_1 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Practice Credit 1"/>
+                                            @error('practice_credit_1')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
-
                                     <div class="form-group row validated">
-                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Please upload 2 high resolution profile images (For your festival ID and promotion)</label>
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Image 2</label>
                                         <div class="col-lg-9 col-md-9 col-sm-12">
                                             
-                                            <div class="row pb-5">
-                                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    
-                                                    <input type="file" name="profile_image_1"  class="form-control form-control-lg form-control-solid @error('profile_image_1') is-invalid @enderror " />
-                                                    <p class="text-muted small">( Please save file name as the Credit name )</p>
-                                                    Uploaded File: 
-                                                    @if($row->profile_image_1)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_1) }}">{{$row->profile_image_1}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
+                                            <input type="file" name="practice_image_2"  class="form-control form-control-lg form-control-solid @error('practice_image_2') is-invalid @enderror " />
+                                            <p class="text-muted small">( 5 MB to 10MB and 300 dpi )</p>
+                                            
+                                            Uploaded File: 
+                                            @if($row->practice_image_2)
+                                                <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_2) }}">{{$row->practice_image_2}}</a>
+                                            @else
+                                            N/A
+                                            @endif
 
-                                                    @error('profile_image_1')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                
-                                                </div>
-                                            </div>
+                                            @error('practice_image_2')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
 
-                                            <div class="row pb-5">
-                                                <div class="col-lg-12 col-md-12 col-sm-12">
-                                                    
-                                                    <input type="file" name="profile_image_2"  class="form-control form-control-lg form-control-solid @error('profile_image_2') is-invalid @enderror " />
-                                                    <p class="text-muted small">( Please save file name as the Credit name )</p>
-                                                    Uploaded File: 
-                                                    @if($row->profile_image_2)
-                                                        <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_2) }}">{{$row->profile_image_2}}</a>
-                                                    @else
-                                                    N/A
-                                                    @endif
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 2</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <input type="text" name="practice_credit_2" value="{{ old('practice_credit_2', $row->practice_credit_2 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Practice Credit 2"/>
+                                            @error('practice_credit_2')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        
+                                        </div>
+                                    </div>
+                                </div>
 
-                                                    @error('profile_image_2')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                
-                                                </div>
-                                            </div>
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Image 3</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            
+                                            <input type="file" name="practice_image_3"  class="form-control form-control-lg form-control-solid @error('practice_image_3') is-invalid @enderror " />
+                                            <p class="text-muted small">( 5 MB to 10MB and 300 dpi )</p>
+                                            
+                                            Uploaded File: 
+                                            @if($row->practice_image_3)
+                                                <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_3) }}">{{$row->practice_image_3}}</a>
+                                            @else
+                                            N/A
+                                            @endif
+
+                                            @error('practice_image_3')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 3</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <input type="text" name="practice_credit_3" value="{{ old('practice_credit_3', $row->practice_credit_3 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Practice Credit 3"/>
+                                            @error('practice_credit_3')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                            
+                                <div class="col-12">
+                                    <h5 class="card-label">Please upload 2 high resolution profile images (For your festival ID and promotion)</h5><hr>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Image 1</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            
+                                            <input type="file" name="profile_image_1"  class="form-control form-control-lg form-control-solid @error('profile_image_1') is-invalid @enderror " />
+                                            <p class="text-muted small">( Please save file name as the Credit name )</p>
+                                            Uploaded File: 
+                                            @if($row->profile_image_1)
+                                                <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_1) }}">{{$row->profile_image_1}}</a>
+                                            @else
+                                            N/A
+                                            @endif
+
+                                            @error('profile_image_1')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Credit 1</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <input type="text" name="profile_credit_1" value="{{ old('profile_credit_1', $row->profile_credit_1 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Profile Credit 1"/>
+                                            @error('profile_credit_1')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Image 2</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <input type="file" name="profile_image_2"  class="form-control form-control-lg form-control-solid @error('profile_image_2') is-invalid @enderror " />
+                                            <p class="text-muted small">( Please save file name as the Credit name )</p>
+                                            Uploaded File: 
+                                            @if($row->profile_image_2)
+                                                <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_2) }}">{{$row->profile_image_2}}</a>
+                                            @else
+                                            N/A
+                                            @endif
+
+                                            @error('profile_image_2')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror                                                
+                                        </div>
+                                    </div>                                        
+                                </div>>
+
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Credit 2</label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <input type="text" name="profile_credit_2" value="{{ old('profile_credit_2', $row->profile_credit_2 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Profile Credit 2"/>
+                                            @error('profile_credit_2')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         
                                         </div>
                                     </div>
@@ -637,6 +685,18 @@
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work <i>(If any)</i> </label>
+                                        <div class="col-lg-9 col-md-9 col-sm-12">
+                                            <input type="text" name="other_link" value="{{ old('other_link') ? old('other_link') :( isset($row->other_link) ? $row->other_link : '') }}" class="form-control form-control-lg form-control-solid"  placeholder="Enter Link with videos of your work"/>
+                                            @error('other_link')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -663,19 +723,8 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="col-12">
-                                    <div class="form-group row validated">
-                                        <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work <i>(If any)</i> </label>
-                                        <div class="col-lg-9 col-md-9 col-sm-12">
-                                            <input type="text" name="other_link" value="{{ old('other_link') ? old('other_link') :( isset($row->other_link) ? $row->other_link : '') }}" class="form-control form-control-lg form-control-solid"  placeholder="Enter Link with videos of your work"/>
-                                            @error('other_link')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
+
                             <div class="row">
 
                                 <div class="col-12">
@@ -909,24 +958,8 @@
         getProjects(null, <?php echo old( 'project_id', $row->project_id ?? 0 )?>);
     });
 
-    function marketingSocialMediaHide() {
 
-        var frontendRole = $('select[name="frontend_role_id"] option:selected').text();
-        if (frontendRole == 'Individual') {
-            $('#marketingSocialMedia').show();
-            $('#dob').show();
-            $('#members_numbers').hide();
-            $('#company_collective').hide();
-        }else {
-            $('#marketingSocialMedia').hide();
-            $('#dob').hide();
-            $('#members_numbers').show();
-            $('#company_collective').show();
-        }
-    }
-
-
-     $(function () {
+    $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
     

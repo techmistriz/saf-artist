@@ -213,26 +213,28 @@ class HotelBookingController extends Controller
         $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Admin'];
         $hotel->save();
 
-        $room_no_Arr              = $request->room_no;
-        $name_1_Arr               = $request->name_1;
-        $name_2_Arr               = $request->name_2;
-        $room_no_ids_arr          = $request->room_no_ids;
+        $sharing_room_Arr              = $request->sharing_room;
+        $name_1_Arr                    = $request->name_1;
+        $name_2_Arr                    = $request->name_2;
+        $name_3_Arr                    = $request->name_3;
+        $sharing_room_ids_arr          = $request->sharing_room_ids;
 
-        if(isset($room_no_Arr) && !empty($room_no_Arr) && is_array($room_no_Arr)){
-            foreach ($room_no_Arr as $key => $value) {
+        if(isset($sharing_room_Arr) && !empty($sharing_room_Arr) && is_array($sharing_room_Arr)){
+            foreach ($sharing_room_Arr as $key => $value) {
 
-                if(isset($room_no_Arr[$key]) && !empty($room_no_Arr[$key])){
+                if(isset($sharing_room_Arr[$key]) && !empty($sharing_room_Arr[$key])){
 
-                    $shareRoom         = ShareRoom::find($room_no_ids_arr[$key]);
+                    $shareRoom         = ShareRoom::find($sharing_room_ids_arr[$key]);
 
                     if(empty($shareRoom)){
                         $shareRoom     = new ShareRoom();
                     }
 
                     $shareRoom->hotel_booking_id     = $hotel->id;
-                    $shareRoom->room_no              = $room_no_Arr[$key];
-                    $shareRoom->name_1             = $name_1_Arr[$key];
+                    $shareRoom->sharing_room         = $sharing_room_Arr[$key];
+                    $shareRoom->name_1               = $name_1_Arr[$key];
                     $shareRoom->name_2               = $name_2_Arr[$key];
+                    $shareRoom->name_3               = $name_3_Arr[$key];
                     $shareRoom->save();
                 }
             }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Common\MasterModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 class TicketBooking extends MasterModel
 {
@@ -13,16 +14,39 @@ class TicketBooking extends MasterModel
 
    protected $appends = ['actions'];
 
-   public function setDobAttribute($value)
-   {
-      $formattedDate = date('Y-m-d', strtotime(str_replace('/', '-', $value)));
-
-      $this->attributes['dob'] = $value ? \Carbon\Carbon::parse($formattedDate)->format('Y-m-d') : now()->format('Y-m-d');
+   public function setProjectIdsAttribute($value){
+    
+      $this->attributes['project_ids'] = json_encode($value);
    }
 
-   public function getDobAttribute($value)
+   public function getProjectIdsAttribute($value){
+     
+      $v = json_decode($value) ?? [];
+      return !is_array($v) ? [] : $v;
+   }
+
+   public function setReturnDateAttribute($value)
    {
-      return $value ? date('d-M-Y', strtotime($value)) : null;
+      $this->attributes['return_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
+   }
+
+   public function getReturnDateAttribute($value)
+   {
+      if($value){
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
+      }
+   }
+
+   public function setOnwardDateAttribute($value)
+   {
+      $this->attributes['onward_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
+   }
+
+   public function getOnwardDateAttribute($value)
+   {
+      if($value){
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
+      }
    }
 
    public function getList($data, $with = [], $where = []){  
@@ -50,9 +74,17 @@ class TicketBooking extends MasterModel
       return $records->get();
    }
 
-   public function project() {
+   public function project()
+   {
+      if (empty($this->project_ids) || $this->project_ids == 'null') {
+         return [];
+      }
 
-      return $this->belongsTo('App\Models\Project', 'project_id', 'id');
+      $records = Project::whereIn('id', $this->project_ids)->get()->map(function ($project) {
+         return $project->name;
+      })->toArray();
+
+      return $records;
    }
 
    public function member() {
