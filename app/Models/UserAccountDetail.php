@@ -49,6 +49,21 @@ class UserAccountDetail extends MasterModel
         return $records->get();
     }
 
+    public function country()
+    {
+      return $this->belongsTo('App\Models\Country', 'country_id', 'id');
+    }
+
+    public function state()
+    {
+       return $this->belongsTo('App\Models\State', 'state_id', 'id');
+    }
+
+    public function city()
+    {
+      return $this->belongsTo('App\Models\City', 'city_id', 'id');
+    }
+
     function getActionsAttribute(){
     
         return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">

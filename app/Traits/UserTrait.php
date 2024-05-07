@@ -548,19 +548,17 @@ trait UserTrait
         $userAccountDetail                          = UserAccountDetail::where('user_id', $user_id)->first();
         $userAccountDetail->name                    = $request->name;
         $userAccountDetail->permanent_address       = $request->permanent_address;
-
-        /*if ($request->hasFile('address_proof_image')) {
-
-            $address_proof_image                = $request->file('address_proof_image');
-            $address_proof_image_fileName       = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $address_proof_image, 'pancard_image', 900, 900, true);
-            $userAccountDetail->address_proof_image             = $address_proof_image_fileName;
-        }*/
+        $userAccountDetail->pincode                 = $request->pincode;
+        $userAccountDetail->country_id              = $request->country_id;
+        $userAccountDetail->state_id                = $request->state_id;
+        $userAccountDetail->city_id                 = $request->city_id;
 
         $userAccountDetail->account_number          = $request->account_number;
         $userAccountDetail->bank_holder_name        = $request->bank_holder_name;
         $userAccountDetail->bank_name               = $request->bank_name;
         $userAccountDetail->branch_address          = $request->branch_address;
         $userAccountDetail->ifsc_code               = $request->ifsc_code;
+        $userAccountDetail->pancard_link_with_adhar = $request->pancard_link_with_adhar;
 
         if ($request->hasFile('cancel_cheque_image')) {
 

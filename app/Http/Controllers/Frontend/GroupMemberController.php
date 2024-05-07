@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\GroupMember;
 use Carbon\Carbon;
 use App\Http\Requests\GroupMemberRequest;
+use App\Imports\MembersImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Hash;
 use Image;
 use Auth;
@@ -183,6 +185,18 @@ class GroupMemberController extends Controller
         $row = GroupMember::findOrFail($id);
         $row->delete();
         \Flash::success('Group member deleted successfully.'); 
+        return \Redirect::route('group.member.list');
+    }
+
+    public function importMembers(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|mimes:xlsx,xls',
+        ]);
+
+        Excel::import(new MembersImport, $request->file('file'));
+
+        \Flash::success('Members imported successfully.');
         return \Redirect::route('group.member.list');
     }
 

@@ -56,7 +56,7 @@ class AjaxController extends Controller
         $queryModel->where('status', 1);
 
         if(!empty($country_id)){
-        	$queryModel->where('country_id', $country_id);
+            $queryModel->where('country_id', $country_id);
         }
 
         $results = $queryModel->get();
@@ -79,9 +79,9 @@ class AjaxController extends Controller
         $queryModel->where('status', 1);
 
         if(!empty($state_id)){
-        	$queryModel->whereIn('state_id', [$state_id, 0]);
+            $queryModel->whereIn('state_id', [$state_id, 0]);
 
-        	/*$queryModel->where(function($query) use ($state_id){
+            /*$queryModel->where(function($query) use ($state_id){
                 $query->where('state_id', $state_id);
                 $query->where('state_id', 0);
             });*/

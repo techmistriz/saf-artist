@@ -18,13 +18,14 @@ use App\Http\Requests\TicketBookingRequest;
 use Hash;
 use Image;
 use Auth;
-use ImageUploadHelper;
+use FileUploadHelper;
 
 class TicketBookingController extends Controller
 {   
     
     public static $moduleConfig = [
         "passportUploadFolder" => 'uploads/passports/',
+        "visaUploadFolder" => 'uploads/work_visas/',
         "adhaarcardDrivingUploadFolder" => 'uploads/adhaarcard_drivings/',
     ];
 
@@ -132,16 +133,28 @@ class TicketBookingController extends Controller
 
         $ticket                                       = new TicketBooking();
 
-        if ($request->hasFile('upload_passport')) {
-            $upload_passport         = $request->file('upload_passport');
-            $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['passportUploadFolder'], $upload_passport);
-            $ticket->upload_passport  = $fileName;
+        if ($request->hasFile('front_side_passport')) {
+            $front_side_passport         = $request->file('front_side_passport');
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['passportUploadFolder'], $front_side_passport);
+            $ticket->front_side_passport  = $fileName;
+        }
+
+        if ($request->hasFile('back_side_passport')) {
+            $back_side_passport         = $request->file('back_side_passport');
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['passportUploadFolder'], $back_side_passport);
+            $ticket->back_side_passport  = $fileName;
+        }
+
+        if ($request->hasFile('upload_visa')) {
+            $upload_visa         = $request->file('upload_visa');
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['visaUploadFolder'], $upload_visa);
+            $ticket->upload_visa  = $fileName;
         }
 
 
         if ($request->hasFile('adhaarcard_driving')) {
             $adhaarcard_driving         = $request->file('adhaarcard_driving');
-            $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
             $ticket->adhaarcard_driving  = $fileName;
         }
 
@@ -158,10 +171,10 @@ class TicketBookingController extends Controller
         $ticket->age                                  = $request->age;
         $ticket->email                                = $request->email;
         $ticket->contact                              = $request->contact;
-        $ticket->onward_city_id                       = $request->onward_city_id;
-        $ticket->onward_city_other                    = $request->onward_city_other;
-        $ticket->return_city_id                       = $request->return_city_id;
-        $ticket->return_city_other                    = $request->return_city_other;
+        // $ticket->onward_city_id                       = $request->onward_city_id;
+        $ticket->onward_city                          = $request->onward_city;
+        // $ticket->return_city_id                       = $request->return_city_id;
+        $ticket->return_city                          = $request->return_city;
         $ticket->artist_remarks                       = $request->artist_remarks;
         $ticket->international_or_domestic            = $request->international_or_domestic;
         $ticket->work_visa                            = $request->work_visa;
@@ -218,16 +231,27 @@ class TicketBookingController extends Controller
     public function update(TicketBookingRequest $request, $id){
 
         $ticket                  = TicketBooking::findOrFail($id);
-        if ($request->hasFile('upload_passport')) {
-            $upload_passport         = $request->file('upload_passport');
-            $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['passportUploadFolder'], $upload_passport);
-            $ticket->upload_passport  = $fileName;
+
+        if ($request->hasFile('front_side_passport')) {
+            $front_side_passport         = $request->file('front_side_passport');
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['passportUploadFolder'], $front_side_passport);
+            $ticket->front_side_passport  = $fileName;
+        }
+        if ($request->hasFile('back_side_passport')) {
+            $back_side_passport         = $request->file('back_side_passport');
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['passportUploadFolder'], $back_side_passport);
+            $ticket->back_side_passport  = $fileName;
         }
 
+        if ($request->hasFile('upload_visa')) {
+            $upload_visa         = $request->file('upload_visa');
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['visaUploadFolder'], $upload_visa);
+            $ticket->upload_visa  = $fileName;
+        }
 
         if ($request->hasFile('adhaarcard_driving')) {
             $adhaarcard_driving         = $request->file('adhaarcard_driving');
-            $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
             $ticket->adhaarcard_driving  = $fileName;
         }
 
@@ -244,16 +268,17 @@ class TicketBookingController extends Controller
         $ticket->age                                  = $request->age;
         $ticket->email                                = $request->email;
         $ticket->contact                              = $request->contact;
-        $ticket->onward_city_id                       = $request->onward_city_id;
-        $ticket->onward_city_other                    = $request->onward_city_other;
-        $ticket->return_city_id                       = $request->return_city_id;
-        $ticket->return_city_other                    = $request->return_city_other;
+        // $ticket->onward_city_id                       = $request->onward_city_id;
+        $ticket->onward_city                          = $request->onward_city;
+        // $ticket->return_city_id                       = $request->return_city_id;
+        $ticket->return_city                          = $request->return_city;
         $ticket->artist_remarks                       = $request->artist_remarks;
         $ticket->international_or_domestic            = $request->international_or_domestic;
         $ticket->work_visa                            = $request->work_visa;
         $ticket->onward_date                          = $request->onward_date;
         $ticket->return_date                          = $request->return_date;
         $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Group'];
+        //dd($ticket);
         $ticket->save();
 
         \Flash::success('Ticket booking updated successfully.');

@@ -174,13 +174,15 @@ class UserController extends Controller
     {
         $user 				= \Auth::user();
         $user_id 			= $user->id;
+        $countries          = Country::where('status', 1)->get();
         $row				= UserAccountDetail::where('user_id', $user_id)->first();
+        // dd($row->state_id);
     	if(empty($row)) {
     		UserAccountDetail::create(['user_id' => $user_id]);
     		$row			= UserAccountDetail::where('user_id', $user_id)->first();
     	}
 
-        return view('frontend.account_details.edit')->with('row', $row)->with('user', $user);
+        return view('frontend.account_details.edit')->with('row', $row)->with('user', $user)->with('countries', $countries);
     }
 
     /**

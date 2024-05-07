@@ -94,6 +94,7 @@ Route::group(['middleware' => ['verified']], function () {
 	Route::put('/group-member-update/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'update'])->name('store.group.update');
 	Route::get('/group-member/show/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'show'])->name('group.member.show');
 	Route::get('/group-member/delete/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'delete'])->name('group.member.delete');
+	Route::post('/group-members/import', [App\Http\Controllers\Frontend\GroupMemberController::class, 'importMembers'])->name('group.members.import');
 	// end group-member route
 
 

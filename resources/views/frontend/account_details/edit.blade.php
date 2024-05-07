@@ -72,7 +72,67 @@
 			                            </div>
 			                        </div>
 			                    </div>
-			                    
+
+			                    <div class="col-12">
+			                        <div class="form-group row validated">
+			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Pincode</label>
+			                            <div class="col-lg-9 col-md-9 col-sm-12">
+			                                <input type="text" name="pincode" value="{{ old('pincode', $row->pincode ?? '') }}" class="form-control form-control-lg form-control-solid @error('pincode') is-invalid @enderror " placeholder="Enter Pincode" required/>
+			                                @error('pincode')
+			                                    <div class="invalid-feedback">{{ $message }}</div>
+			                                @enderror
+			                            </div>
+			                        </div>
+			                    </div>
+
+                                <div class="col-12">
+                                    <div class="form-group row validated">
+			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Country</label>
+			                            <div class="col-lg-9 col-md-9 col-sm-12">
+			                                <select class="form-control selectpicker" name="country_id" tabindex="null" onchange="getState()">
+			                                    <option value="" data-slug="">Select Country</option>
+			                                    @if($countries->count())
+			                                        @foreach($countries as $value)
+			                                          <option {{ (old('country_id') ?? optional($row)->country_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->country_name}}</option>
+			                                        @endforeach
+			                                    @endif
+			                                </select>
+			                                @error('country_id')
+			                                    <div class="invalid-feedback">{{ $message }}</div>
+			                                @enderror
+			                            </div>
+			                        </div> 
+                                </div>		
+
+			                    <div class="col-12">
+                                    <div class="form-group row validated">
+			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">State</label>
+			                            <div class="col-lg-9 col-md-9 col-sm-12">
+			                                <select class="form-control selectpicker" name="state_id" tabindex="null" onchange="getCity()">
+			                                    <option value="" data-slug="">Select State</option>
+			                                   
+			                                </select>
+			                                @error('state_id')
+			                                    <div class="invalid-feedback">{{ $message }}</div>
+			                                @enderror
+			                            </div>
+			                        </div> 
+                                </div> 	
+                                
+                                <div class="col-12 state-wrapper">
+                                    <div class="form-group row validated">
+			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">City</label>
+			                            <div class="col-lg-9 col-md-9 col-sm-12">
+			                                <select class="form-control selectpicker" name="city_id" tabindex="null">
+			                                    <option value="" data-slug="">Select City</option>
+			                                    
+			                                </select>
+			                                @error('city_id')
+			                                    <div class="invalid-feedback">{{ $message }}</div>
+			                                @enderror
+			                            </div>
+			                        </div> 
+                                </div>                   
 			                    
 			                    <div class="col-12">
 			                        <div class="form-group row validated">
@@ -155,7 +215,7 @@
 			                    <div class="col-12">
 
 			                        <div class="form-group row validated">
-			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Cancelled Cheque (Image)</label>
+			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Cancelled Cheque (Image optional)</label>
 			                            <div class="col-lg-9 col-md-9 col-sm-12">
 			                                
 			                            	<input type="file" name="cancel_cheque_image"  class="form-control form-control-lg form-control-solid @error('cancel_cheque_image') is-invalid @enderror " />
@@ -184,6 +244,24 @@
 			                                    <div class="invalid-feedback">{{ $message }}</div>
 			                                @enderror
 			                            </div>
+			                        </div>
+			                    </div>
+
+			                    <div class="col-12">
+			                        <div class="form-group row validated">
+			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Is your pancard linked with adhar?</label>
+			                            <div class="col-form-label col-lg-9 col-md-9 col-sm-12">
+			                            	<div class="checkbox-inline">
+										        <label class="checkbox">
+										            <input type="checkbox" name="pancard_link_with_adhar" value="1" {{(old('pancard_link_with_adhar', $row->pancard_link_with_adhar ?? '') == '1') ? 'checked' : '' }} required="" />
+										            <span></span>
+										        </label>
+										    </div>
+
+				                            @error('pancard_link_with_adhar')
+			                                    <div class="invalid-feedback">{{ $message }}</div>
+			                                @enderror
+				                        </div>
 			                        </div>
 			                    </div>
 
@@ -331,72 +409,7 @@
 @push('scripts')
 <script type="text/javascript">
     
-    // START address_proof_image
-    var address_proof_image = new KTImageInput('address_proof_image');
-
-	address_proof_image.on('cancel', function(imageInput) {
-		swal.fire({
-			title: 'Image successfully canceled !',
-			type: 'success',
-			buttonsStyling: false,
-			confirmButtonText: 'Okay!',
-			confirmButtonClass: 'btn btn-primary font-weight-bold'
-		});
-	});
-
-	address_proof_image.on('change', function(imageInput) {
-
-		// swal.fire({
-		// 	title: 'Image successfully uploaded !',
-		// 	type: 'error',
-		// 	buttonsStyling: false,
-		// 	confirmButtonText: 'Okay!',
-		// 	confirmButtonClass: 'btn btn-primary font-weight-bold'
-		// });
-		
-	});
-
-	address_proof_image.on('remove', function(imageInput) {
-		swal.fire({
-			title: 'Image successfully removed !',
-			type: 'error',
-			buttonsStyling: false,
-			confirmButtonText: 'Got it!',
-			confirmButtonClass: 'btn btn-primary font-weight-bold'
-		});
-	});
-	// END address_proof_image
-
-
-	// START cancel_cheque_image
-    var cancel_cheque_image = new KTImageInput('cancel_cheque_image');
-
-	cancel_cheque_image.on('cancel', function(imageInput) {
-		swal.fire({
-			title: 'Image successfully canceled !',
-			type: 'success',
-			buttonsStyling: false,
-			confirmButtonText: 'Okay!',
-			confirmButtonClass: 'btn btn-primary font-weight-bold'
-		});
-	});
-
-	cancel_cheque_image.on('change', function(imageInput) {
-		
-	});
-
-	cancel_cheque_image.on('remove', function(imageInput) {
-		swal.fire({
-			title: 'Image successfully removed !',
-			type: 'error',
-			buttonsStyling: false,
-			confirmButtonText: 'Got it!',
-			confirmButtonClass: 'btn btn-primary font-weight-bold'
-		});
-	});
-	// END cancel_cheque_image
-
-	// START pancard_image
+    //START pancard_image
     var pancard_image = new KTImageInput('pancard_image');
 
 	pancard_image.on('cancel', function(imageInput) {
@@ -422,35 +435,7 @@
 			confirmButtonClass: 'btn btn-primary font-weight-bold'
 		});
 	});
-	// END pancard_image
-
-	// START gst_certificate_file
-    var gst_certificate_file = new KTImageInput('gst_certificate_file');
-
-	gst_certificate_file.on('cancel', function(imageInput) {
-		swal.fire({
-			title: 'Image successfully canceled !',
-			type: 'success',
-			buttonsStyling: false,
-			confirmButtonText: 'Okay!',
-			confirmButtonClass: 'btn btn-primary font-weight-bold'
-		});
-	});
-
-	gst_certificate_file.on('change', function(imageInput) {
-		
-	});
-
-	gst_certificate_file.on('remove', function(imageInput) {
-		swal.fire({
-			title: 'Image successfully removed !',
-			type: 'error',
-			buttonsStyling: false,
-			confirmButtonText: 'Got it!',
-			confirmButtonClass: 'btn btn-primary font-weight-bold'
-		});
-	});
-	// END gst_certificate_file
+	//END pancard_image
 
 	function hasGSTApplicable(_this){
 
@@ -461,6 +446,97 @@
 			$(".has-gst-applicable").hide();
 		}
 	}
+
+	function getState() {
+        //console.log('getState Called');
+        var country_id = $('select[name=country_id]').val();
+        //console.log('country_id', country_id);
+        if (country_id) {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('states') }}/" + country_id,
+                dataType: 'json',
+                success: function (response) {
+                    if (response && response.status) {
+                        var options = '<option value="">Select State</option>';
+                        if (response.data.length) {
+
+                            var selectedId = '{{ $row->state_id ?? 0 }}';
+
+                            for (var i = 0; i < response.data.length; i++) {
+                                var _selected = '';
+
+                                if (selectedId == response.data[i].id) {
+                                    _selected = 'selected';
+                                }
+
+                                options += '<option ' + _selected + ' value="' + response.data[i].id + '">' + response.data[i].state_name + '</option>';
+                            }
+
+                            $("select[name='state_id']").html(options);
+                            $("select[name='state_id']").selectpicker('refresh');
+                            getCity();
+                        }
+                    }
+                }
+            });
+
+        } else {
+
+            $("select[name='state_id']").html('<option value="">Select State</option>');
+            $("select[name='state_id']").selectpicker('refresh');
+        }
+    }
+
+    function getCity() {
+
+        var state_id = $('select[name=state_id]').val();
+
+        if (state_id) {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('cities') }}/" + state_id,
+                datatype: 'json',
+                success: function (response) {
+                    if (response && response.status) {
+                        var options = '<option value="">Select City</option>';
+                        if (response.data.length) {
+
+                            var selectedId = '{{ $row->city_id ?? 0 }}';
+
+                            for (var i = 0; i < response.data.length; i++) {
+                                var _selected = '';
+
+                                if (selectedId == response.data[i].id) {
+                                    _selected = 'selected';
+                                }
+
+                                options += '<option ' + _selected + ' value="' + response.data[i].id + '">' + response.data[i].city_name + '</option>';
+                            }
+
+                            $("select[name='city_id']").html(options);
+                            $("select[name='city_id']").selectpicker('refresh');
+                        }
+                    }
+                }
+            });
+
+        } else {
+            
+            $("select[name='city_id']").html('<option value="">Select City</option>');
+            $("select[name='city_id']").selectpicker('refresh');
+        }
+    }
+
+
+    $(document).ready(function(){
+        
+        getState();
+        
+    });
+
+
+    
 
 </script>
 @endpush
