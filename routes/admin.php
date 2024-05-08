@@ -314,5 +314,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
         });
 
+
+        Route::group(['prefix' => 'pincode', 'middleware' => ['AdminPermissionCheck:PincodeController']], function(){
+
+            // Pincode routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'pincode.'], function(){
+                Route::get('list/',                     'PincodeController@index')->name('index');
+                Route::post('fetch-data/',              'PincodeController@fetchData')->name('fetch.data');
+                Route::get('create/',                   'PincodeController@create')->name('create');
+                Route::post('store/',                   'PincodeController@store')->name('store');
+                Route::get('show/{id}',                 'PincodeController@show')->name('show');
+                Route::get('edit/{id}',                 'PincodeController@edit')->name('edit');
+                Route::put('update/{id}',               'PincodeController@update')->name('update');
+                Route::get('delete/{id}',               'PincodeController@delete')->name('delete');
+            });
+        });
+
     });
 });

@@ -15,6 +15,8 @@ class GroupMember extends MasterModel
    protected $appends = ['actions'];
    protected $table = 'users';
 
+   protected $fillable = ['name', 'poc_id', 'email', 'contact', 'dob', 'stage_name', 'artist_bio', 'instagram_url', 'facebook_url', 'linkdin_url', 'twitter_url', 'website', 'status'];
+
    public function setDobAttribute($value)
    {
       $formattedDate = date('Y-m-d', strtotime(str_replace('/', '-', $value)));

@@ -12,35 +12,6 @@
                     <a data-toggle="modal" data-target="#myModal" class="btn font-weight-bold ml-2" id="button">Import member</a>
                 </div>
             </div>
-
-            <!-- The Modal -->
-            <div class="modal" id="myModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-
-                        <form method="POST" action="{{ route('group.members.import') }}" enctype="multipart/form-data">
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title">Import member</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <input type="file" name="file" accept=".csv, .pdf, .xlsx, .xls" class="btn btn-secondary">
-
-                            </div>
-
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="submit" name="submit" class="btn btn-success" >Import member</button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-
             
             <div class="card-body">                
                 <div class="row">

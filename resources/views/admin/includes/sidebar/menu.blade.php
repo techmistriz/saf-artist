@@ -57,6 +57,10 @@
 
             @if(\Helper::checkPermisson('ArtistTypeController', $rolePermissionArr))
                 @include('admin/includes/sidebar/artist_type')
+            @endif 
+
+            @if(\Helper::checkPermisson('PincodeController', $rolePermissionArr))
+                @include('admin/includes/sidebar/pincode')
             @endif            
             
             <!-- New Section Start -->

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\GroupMember;
 use Carbon\Carbon;
 use App\Http\Requests\GroupMemberRequest;
-use App\Imports\MembersImport;
+use App\Imports\GroupMemberImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Hash;
 use Image;
@@ -113,6 +113,7 @@ class GroupMemberController extends Controller
         $member->twitter_url      = $request->twitter_url;
         $member->website          = $request->website;
         $member->status           = $request->input('status', 0);
+        //dd($member);
         $member->save();
 
         \Flash::success('Group member created successfully');
@@ -186,18 +187,14 @@ class GroupMemberController extends Controller
         $row->delete();
         \Flash::success('Group member deleted successfully.'); 
         return \Redirect::route('group.member.list');
-    }
+    }    
 
-    public function importMembers(Request $request)
+    public function import(Request $request) 
     {
-        $request->validate([
-            'file' => 'required|file|mimes:xlsx,xls',
-        ]);
-
-        Excel::import(new MembersImport, $request->file('file'));
-
-        \Flash::success('Members imported successfully.');
-        return \Redirect::route('group.member.list');
+        Excel::import(new GroupMemberImport, $request->file('file'));
+        
+        flash('Group member added successfully.')->success();
+        return redirect()->route('group.member.list');
     }
 
 }
