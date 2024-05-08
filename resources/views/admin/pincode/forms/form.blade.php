@@ -28,7 +28,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Country</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control selectpicker" name="country_id" tabindex="null" onchange="getState()" data-live-search="true">
+                                <select class="form-control selectpicker" name="country_id" tabindex="null" onchange="getState()" data-live-search="true" required>
                                     <option value="" data-slug="">Select Country</option>
                                     @if($countries->count())
                                         @foreach($countries as $value)
@@ -45,7 +45,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">State</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control selectpicker" name="state_id" tabindex="null" onchange="getCity()" data-live-search="true">
+                                <select class="form-control selectpicker" name="state_id" tabindex="null" onchange="getCity()" data-live-search="true" required>
                                     <option value="" data-slug="">Select State</option>
                                    
                                 </select>
@@ -58,7 +58,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">City</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control selectpicker" name="city_id" tabindex="null" data-live-search="true">
+                                <select class="form-control selectpicker" name="city_id" tabindex="null" data-live-search="true" required>
                                     <option value="" data-slug="">Select City</option>
                                     
                                 </select>
