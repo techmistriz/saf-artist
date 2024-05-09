@@ -8,9 +8,12 @@
                 <div class="card-title">
                     <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} Member</h3>
                 </div>
-                <div class="card-toolbar">
-                    <a data-toggle="modal" data-target="#myModal" class="btn font-weight-bold ml-2" id="button">Import member</a>
-                </div>
+
+                @if($row == '')
+                    <div class="card-toolbar">
+                        <a data-toggle="modal" data-target="#myModal" class="btn font-weight-bold ml-2" id="button">Import member</a>
+                    </div>
+                @endif
             </div>
             
             <div class="card-body">                

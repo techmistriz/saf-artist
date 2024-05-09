@@ -193,7 +193,7 @@ class GroupMemberController extends Controller
     {
         Excel::import(new GroupMemberImport, $request->file('file'));
         
-        flash('Group member added successfully.')->success();
+        flash('Group members imported successfully from excel sheet.')->success();
         return redirect()->route('group.member.list');
     }
 

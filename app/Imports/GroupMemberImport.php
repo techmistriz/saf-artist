@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\GroupMember;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class GroupMemberImport implements ToModel, WithHeadingRow
 {
@@ -15,22 +16,24 @@ class GroupMemberImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $dob = date('Y-m-d', strtotime($row['dob']));
+        $dob = isset($row['dob']) ? Date::excelToDateTimeObject($row['dob'])->format('Y-m-d') : null;
         // dd($row);
-        return new GroupMember([
-            'name'            => $row['name'],
-            'poc_id'          => $row['poc_id'],
-            'email'           => $row['email'], 
-            'contact'         => $row['contact'],
-            'dob'             => $dob,
-            'stage_name'      => $row['stage_name'],
-            'artist_bio'      => $row['artist_bio'],
-            'instagram_url'   => $row['instagram_url'],
-            'facebook_url'    => $row['facebook_url'],
-            'linkdin_url'     => $row['linkdin_url'],
-            'twitter_url'     => $row['twitter_url'],
-            'website'         => $row['website'],
-            'status'          => $row['status'],
-        ]);
+        if (!empty($row['name'])) {
+            return new GroupMember([
+                'name'            => $row['name'] ?? null,
+                'poc_id'          => $row['poc_id'] ?? null,
+                'email'           => $row['email'] ?? null, 
+                'contact'         => $row['contact'] ?? null,
+                'dob'             => $dob,
+                'stage_name'      => $row['stage_name'] ?? null,
+                'artist_bio'      => $row['artist_bio'] ?? null,
+                'instagram_url'   => $row['instagram_url'] ?? null,
+                'facebook_url'    => $row['facebook_url'] ?? null,
+                'linkdin_url'     => $row['linkdin_url'] ?? null,
+                'twitter_url'     => $row['twitter_url'] ?? null,
+                'website'         => $row['website'] ?? null,
+                'status'          => $row['status'] ?? null,
+            ]);
+        }        
     }
 }
