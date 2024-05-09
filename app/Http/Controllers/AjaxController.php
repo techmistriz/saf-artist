@@ -15,6 +15,7 @@ use App\Models\User;
 use App\Models\City;
 use App\Models\Project;
 use App\Models\ShareRoom;
+use App\Models\Pincode;
 use Illuminate\Support\Facades\Session;
 
 class AjaxController extends Controller
@@ -213,6 +214,41 @@ class AjaxController extends Controller
             'data' => new \stdClass()
         ]);
     }
+
+
+    // public function getPincodeDate(Request $request, $pincode = NULL)
+    // { 
+    //     $validation = \Validator::make($request->all(), [
+    //         // 'name' => 'required',
+    //     ]);
+
+    //     $errors = $validation->errors();
+
+    //     if(count($errors) > 0){
+
+    //         return response()->json([
+    //             'status'    => false,
+    //             'message'   => $errors->first(),
+    //             'data'      => new \stdClass()
+    //         ]);
+    //     }
+
+
+    //     if (!$request->has('pincode') || !$request->filled('pincode')) {
+    //         return ['status' => false, 'message' => 'Member Id not found.', 'data' => null];
+    //     }
+    //     $queryModel = Pincode::query();
+
+    //     if ($request->has('pincode') && $request->filled('pincode')) {
+    //         $queryModel->where('pincode', $request->pincode);
+    //     }
+
+    //     $results = $queryModel->get();
+    //     //dd($results);
+    //     if(!empty($results)) {
+    //         return ['status' => true, 'message' => 'Record found.', 'data' => $results];
+    //     }
+    // }
 
 
 }
