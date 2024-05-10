@@ -194,7 +194,7 @@
                                                         @if($countries->count())
                                                             @foreach($countries as $country)
                                                                 @if($country->std_code != '')
-                                                                    <option value="{{$country->std_code}}" {{ old('country_code', $row->country_code ?? 0) == $country->std_code ? 'selected' : '' }}>{{$country->std_code}}</option>
+                                                                    <option value="{{$country->std_code}}" {{ old('country_code', $row->country_code ?? 0) == $country->std_code ? 'selected' : '' }}>+{{$country->std_code}}</option>
                                                                 @endif
                                                             @endforeach
                                                         @endif
