@@ -22,6 +22,139 @@ use FileUploadHelper;
 trait UserTrait
 {
     /**
+     * Store a {{moduleTitle}}.
+     *
+     * @param  $id
+     * @return Redirect
+     */
+    public function __storeUser(Request $request) {
+
+        $user = new User();
+        // dd($request->all()); 
+        $user->frontend_role_id         = \Auth::user()->frontend_role_id;        
+        $user->category_id              = $request->category_id;
+        $user->curator_name             = $request->curator_name;
+        $user->artist_type_id           = $request->artist_type_id;
+
+        if($request->has('name') && $request->filled('name')) {
+            $user->name   = $request->name;
+        }
+        
+        if($request->has('email') && $request->filled('email')) {
+            $user->email   = $request->email;
+        }
+        
+        if($request->has('contact') && $request->filled('contact')) {
+            $user->contact   = $request->contact;
+        }
+
+        if($request->has('password') && $request->filled('password')) {
+            $user->password     = Hash::make($request->password);
+        }
+        
+        if($request->has('project_id') && $request->filled('project_id')) {
+            $user->project_id   = $request->project_id;
+        }
+        
+        if($request->has('no_of_people_in_group') && $request->filled('no_of_people_in_group')) {
+            $user->no_of_people_in_group     = $request->no_of_people_in_group;
+        }
+        
+        if($request->has('organisation') && $request->filled('organisation')) {
+            $user->organisation     = $request->organisation;
+        }
+
+        $user->gender                   = $request->gender;
+        $user->country_code             = $request->country_code;
+        $user->dob                      = $request->dob;
+        $user->permanent_address        = $request->permanent_address;
+        $user->pa_city_id               = $request->pa_city_id;
+        $user->pa_city_other            = $request->pa_city_other;
+        $user->pa_state_id              = $request->pa_state_id;
+        $user->pa_country_id            = $request->pa_country_id;
+        $user->pa_country_other         = $request->pa_country_other;
+        $user->pa_pincode               = $request->pa_pincode;
+        $user->company_collective       = $request->company_collective;
+        $user->stage_name               = $request->stage_name;
+        $user->artist_bio               = $request->artist_bio;
+        $user->facebook_url             = $request->facebook_url;
+        $user->instagram_url            = $request->instagram_url;
+        $user->linkdin_url              = $request->linkdin_url;
+        $user->twitter_url              = $request->twitter_url;
+        $user->website                  = $request->website;
+        
+        if ($request->hasFile('practice_image_1')) {
+
+            $practice_image_1               = $request->file('practice_image_1');
+            // $practice_image_1_fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_1, $request->input('title'), 900, 900, true);
+            $practice_image_1_fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_1, 'practice_image_1');
+
+            $user->practice_image_1         = $practice_image_1_fileName;
+        }
+
+        if($request->has('practice_credit_1') && $request->filled('practice_credit_1')) {
+            $user->practice_credit_1   = $request->practice_credit_1;
+        }
+
+        if ($request->hasFile('practice_image_2')) {
+
+            $practice_image_2               = $request->file('practice_image_2');
+            // $practice_image_2_fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_2, $request->input('title'), 900, 900, true);
+            $practice_image_2_fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_2, 'practice_image_2');
+            $user->practice_image_2         = $practice_image_2_fileName;
+        }
+
+        if($request->has('practice_credit_2') && $request->filled('practice_credit_2')) {
+            $user->practice_credit_2   = $request->practice_credit_2;
+        }
+
+        if ($request->hasFile('practice_image_3')) {
+
+            $practice_image_3                       = $request->file('practice_image_3');
+            // $practice_image_3_fileName              = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_3, $request->input('title'), 900, 900, true);
+            $practice_image_3_fileName              = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_3, 'practice_image_3');
+
+            $user->practice_image_3                 = $practice_image_3_fileName;
+        }
+
+        if($request->has('practice_credit_3') && $request->filled('practice_credit_3')) {
+            $user->practice_credit_3   = $request->practice_credit_3;
+        }
+
+        if ($request->hasFile('profile_image_1')) {
+
+            $profile_image_1                    = $request->file('profile_image_1');
+            // $profile_image_1_fileName           = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $profile_image_1, $request->input('title'), 900, 900, true);
+            $profile_image_1_fileName           = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $profile_image_1, 'profile_image_1');
+
+            $user->profile_image_1              = $profile_image_1_fileName;
+        }
+
+        if($request->has('profile_credit_1') && $request->filled('profile_credit_1')) {
+            $user->profile_credit_1   = $request->profile_credit_1;
+        }
+
+        if ($request->hasFile('profile_image_2')) {
+
+            $profile_image_2            = $request->file('profile_image_2');
+            // $profile_image_2_fileName   = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $profile_image_2, $request->input('title'), 900, 900, true);
+            $profile_image_2_fileName   = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $profile_image_2, 'profile_image_2');
+            $user->profile_image_2      = $profile_image_2_fileName;
+        }
+
+        if($request->has('profile_credit_2') && $request->filled('profile_credit_2')) {
+            $user->profile_credit_2   = $request->profile_credit_2;
+        }
+
+        $user->has_serendipity_arts     = $request->has_serendipity_arts;
+        $user->year                     = $request->year;
+        $user->other_link               = $request->other_link;
+        $user->troup_size               = $request->troup_size;
+        $user->save();
+
+    }
+
+    /**
      * Update a {{moduleTitle}}.
      *
      * @param  $id

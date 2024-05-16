@@ -136,7 +136,7 @@ class User extends Authenticatable
 
     public function getList($data, $with = [], $where = []){  
 
-    	$userDisciplineIds = \Auth::user()->getUserDisciplineIds();
+    	
 
         $records = $this->handleAjax($data);
         if(isset($with) && !empty($with))
@@ -147,10 +147,6 @@ class User extends Authenticatable
         if(isset($where) && !empty($where))
         {
            $records->where($where);     
-        }
-
-        if($userDisciplineIds !== true && is_array($userDisciplineIds)) {
-        	$records->whereIn('category_id', $userDisciplineIds);
         }
 
         // Added for sequence number

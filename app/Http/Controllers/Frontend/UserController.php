@@ -60,19 +60,68 @@ class UserController extends Controller
      */
     public function index()
     {
-    	$user = \Auth::user();
-    	// $user->sendEmailVerificationNotification();
-    	// \Mail::to($user->email)->send(new \App\Mail\RegisterMailable($user));
-    	// dd(\Helper::decrypt('eyJpdiI6ImhpMFNiZEJuODM5eWJicjhoUzJvUHc9PSIsInZhbHVlIjoiYnZJZ1h0TjN2ZWtWQUtKNTBxUkkyUT09IiwibWFjIjoiZmUzOThmMjgwYjQxYmM5MzI3M2Q0Y2E1ZmE5YmVkYTVkYTMwYjc2ZTU1YTM4NDQ0NTdkMmQyMWExMjE4OTVhOCIsInRhZyI6IiJ9'));
-    	$user_id		= \Auth::user()->id;
-    	$countries 		= Country::where('status', 1)->get();
-        $frontendRoles  = Role::where(['status' => 1, 'type' => 2])->get();
-    	$row 			= User::findOrFail($user_id);
+    	
+        return view('frontend.dashboard');
+    }
+
+    public function fetchData(Request $request, User $user)
+    {
+        $userEmail = Auth::user()->email;
+
+        $data               =   $request->all();
+
+        $db_data            =   $user->getList($data, [], ['email'=> $userEmail]);
+
+        $count              =   $user->getListCount($data,[], ['email'=> $userEmail]);
+
+        $returnArray = array(
+            'data' => $db_data,
+            'meta' => array(
+                'page'          =>      $data['pagination']['page'] ?? 1, 
+                'pages'         =>      $data['pagination']['pages'] ?? 1, 
+                'perpage'       =>      $data['pagination']['perpage'] ?? 10, 
+                'total'         =>      $count, 
+                'sort'          =>      $data['sort']['sort'] ?? 'asc', 
+                'field'         =>      $data['sort']['field'] ?? '_id', 
+            ),
+        );
+
+        return $returnArray;
+    }
+
+    
+
+    /**
+     * Show create form of {{moduleTitle}}.
+     *
+     * @param  null
+     * @return \Illuminate\Http\Response
+     */
+    public function create(User $user)
+    {
+        $user_id        = \Auth::user()->id;
+        $row            = User::findOrFail($user_id);
+
+        $countries      = Country::where('status', 1)->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
         $categories     = Category::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->get();
+        return view('frontend.user.create')
+        ->with('row', $row)
+        ->with('years', $this->years)
+        ->with('countries', $countries)
+        ->with('artistTypes', $artistTypes)
+        ->with('categories', $categories)
+        ->with('curators', $curators);
+    }
 
-        return view('frontend.dashboard')->with('row', $row)->with('years', $this->years)->with('countries', $countries)->with('artistTypes', $artistTypes)->with('categories', $categories)->with('frontendRoles', $frontendRoles)->with('curators', $curators);
+    public function store(UserRequest $request) 
+    {
+
+        $this->__storeUser($request);
+
+        \Flash::success('Your personal details created successfully.');
+        return \Redirect::route('dashboard');
     }
 
     /**
