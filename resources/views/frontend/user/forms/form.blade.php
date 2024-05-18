@@ -17,6 +17,58 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="year" tabindex="null" onchange="getFestival()">
+                                    <option value="">Select Year</option>
+                                    @if( isset($years) && count($years))
+                                        @foreach($years as $year)
+
+                                           <option {{ !empty(old('year')) && old('year') == $year ? 'selected' : ( isset($row->year) && $row->year == $year ? 'selected' : '' ) }} value="{{$year}}">{{$year}}</option>
+
+                                        @endforeach
+                                    @endif
+                                </select>
+                                @error('year')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="festival" tabindex="null" onchange="getProject()">
+                                    <option value="">Select Festival</option>
+                                </select>
+                                @error('festival')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="project_id" tabindex="null" >
+                                    <option value="">Select Project</option>
+                                </select>
+                                @error('project_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Type</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="frontend_role_id" id="frontend_role_id" class="form-control form-control-lg form-control-solid" value="{{Auth::user()->frontendRole->name}}" readonly>
@@ -816,42 +868,6 @@
         }
     }
 
-    function getProjects(_this, selectedId = 0) {
-        var years = $('#year').val();
-
-        if(years){
-            $.ajax({
-                type: "GET",
-                url: "{{ url('projects') }}/?year=" + years,
-                datatype: 'json',
-                success: function (response) {
-                    if(response?.status){
-                        var options = '<option value="">Select Project</option>';
-                        if(response.data.length) {
-                            for (var i = 0; i < response.data.length; i++) {
-
-                                var _selected = '';
-
-                                if(selectedId == response.data[i].id){
-
-                                    _selected = 'selected';
-                                }
-
-                                options += '<option '+_selected+' value="'+response.data[i].id+'">'+response.data[i].name+'</option>';
-                            }
-
-                            $("#project_id").html(options);
-                            $("#project_id").selectpicker('refresh');
-                        }
-                    }
-                }
-            });
-        } else {
-            $("#project_id").html('<option value="">Select Project</option>');
-            $("#project_id").selectpicker('refresh');
-        }
-    }
-
     function checkOtherCountry(_this){
 
         if($(_this).val() == '2'){
@@ -890,14 +906,93 @@
     $(document).ready(function(){
         
         getStates(null, 'pa_country_id', 'pa_state_id', 'State', <?php echo old( 'pa_state_id', $row->pa_state_id ?? 0 )?>);
-
-        getProjects(null, <?php echo old( 'project_id', $row->project_id ?? 0 )?>);
+        getFestival();
     });
 
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
+    function getFestival() {
+
+        var year = $('select[name=year]').val();
+
+        if(year){
+
+            $.ajax({
+                type: "GET",
+                url: "{{ url('festivals') }}/" + year,
+                datatype: 'json',
+                success: function (response) {
+                    if(response?.status){
+                        var options = '<option value="">Select Festival</option>';
+                        if(response.data.length) {
+
+                            var selectedFestival = '{{ $row->festival ?? 0 }}';
+                            for (var i = 0; i < response.data.length; i++) {
+
+                                var _selected = '';
+
+                                if(selectedFestival == response.data[i].festival){
+
+                                    _selected = 'selected';
+                                }
+                                options += '<option '+_selected+' value="'+response.data[i].festival+'">'+response.data[i].festival+'</option>';
+                            }
+
+                            $("select[name='festival']").html(options);
+                            $("select[name='festival']").selectpicker('refresh');
+                            getProject();
+                        }
+                    }
+                }
+            });
+
+        } else {
+
+            $("select[name='festival']").html('<option value="">Select Festival</option>');
+            $("select[name='festival']").selectpicker('refresh');
+        }
+    }
+
+    function getProject() {
+        var festival = $('select[name=festival]').val();
+
+        if (festival) {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('projects') }}/" + festival,
+                datatype: 'json',
+                success: function (response) {
+                    if (response && response.status) {
+                        var options = '<option value="">Select Project</option>';
+                        if (response.data.length) {
+
+                            var selectedId = "{{ old('project_id', $row->project_id ?? 0) }}";
+
+                            for (var i = 0; i < response.data.length; i++) {
+                                var _selected = '';
+
+                                if (selectedId == response.data[i].id) {
+                                    _selected = 'selected';
+                                }
+
+                                options += '<option ' + _selected + ' value="' + response.data[i].id + '">' + response.data[i].name + '</option>';
+                            }
+
+                            $('select[name=project_id]').html(options);
+                            $('select[name=project_id]').selectpicker('refresh');
+                        }
+                    }
+                }
+            });
+        } else {
+            $('select[name=project_id]').html('<option value="">Select Project</option>');
+            $('select[name=project_id]').selectpicker('refresh');
+        }
+    }
+
     
 </script>
 @endpush

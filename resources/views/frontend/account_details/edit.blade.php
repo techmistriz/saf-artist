@@ -528,15 +528,11 @@
         }
     }
 
-
     $(document).ready(function(){
         
         getState();
         
-    });
-
-
-    
+    });    
 
 </script>
 @endpush

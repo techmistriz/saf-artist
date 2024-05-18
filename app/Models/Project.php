@@ -47,7 +47,8 @@ class Project extends MasterModel
         	$searchKey = $data['query']['search'];
          	$records->where(function($query) use ($searchKey){
                 $query->where('name', 'LIKE', '%'.$searchKey.'%')
-                		->orWhere('year', 'LIKE', '%'.$searchKey.'%');
+        		->orWhere('year', 'LIKE', '%'.$searchKey.'%')
+                ->orWhere('festival', 'LIKE', '%'.$searchKey.'%');
             });
         }
 
@@ -72,7 +73,8 @@ class Project extends MasterModel
         	$searchKey = $data['query']['search'];
          	$records->where(function($query) use ($searchKey){
                 $query->where('name', 'LIKE', '%'.$searchKey.'%')
-                      ->orWhere('year', 'LIKE', '%'.$searchKey.'%');
+                ->orWhere('year', 'LIKE', '%'.$searchKey.'%')
+                ->orWhere('festival', 'LIKE', '%'.$searchKey.'%');
             });
         }
 

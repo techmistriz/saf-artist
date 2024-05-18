@@ -94,6 +94,10 @@
             {
                 field: "year",
                 title: "year",
+            },	
+            {
+                field: "festival",
+                title: "festival",
             }, 
             {
                 field: "status",

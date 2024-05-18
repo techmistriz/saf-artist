@@ -125,6 +125,55 @@ class UserController extends Controller
     }
 
     /**
+     * Show show  form of {{moduleTitle}}.
+     *
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show ($id)
+    {
+
+        $row = User::findOrFail($id);
+        //dd($row);
+        return view('frontend.user.show')->with('row', $row);
+    }
+
+    /**
+     * Show edit form of {{moduleTitle}}.
+     *
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id){
+        $row = User::findOrFail($id);
+        $countries      = Country::where('status', 1)->get();
+        $artistTypes    = ArtistType::where('status', 1)->get();
+        $categories     = Category::where('status', 1)->get();
+        $curators       = Curator::where('status', 1)->get();
+        return view('frontend.user.edit')
+        ->with('row', $row)
+        ->with('years', $this->years)
+        ->with('countries', $countries)
+        ->with('artistTypes', $artistTypes)
+        ->with('categories', $categories)
+        ->with('curators', $curators);
+    }
+
+    /**
+     * Update a {{moduleTitle}}.
+     *
+     * @param  $id
+     * @return Redirect
+     */
+    public function update(UserRequest $request, $id){
+
+        $this->__updateProfile($request, $id);
+
+        \Flash::success('Your personal details updated successfully.');
+        return \Redirect::route('dashboard');
+    }
+
+    /**
      * Update a {{moduleTitle}}.
      *
      * @param  $id

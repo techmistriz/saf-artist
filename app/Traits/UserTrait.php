@@ -35,6 +35,9 @@ trait UserTrait
         $user->category_id              = $request->category_id;
         $user->curator_name             = $request->curator_name;
         $user->artist_type_id           = $request->artist_type_id;
+        $user->year                     = $request->year;
+        $user->festival                 = $request->festival;
+        $user->project_id               = $request->project_id;
 
         if($request->has('name') && $request->filled('name')) {
             $user->name   = $request->name;
@@ -150,6 +153,7 @@ trait UserTrait
         $user->year                     = $request->year;
         $user->other_link               = $request->other_link;
         $user->troup_size               = $request->troup_size;
+        // dd($user);
         $user->save();
 
     }
@@ -160,21 +164,9 @@ trait UserTrait
      * @param  $id
      * @return Redirect
      */
-    public function __updateProfile(Request $request, $user_id = NULL) {
+    public function __updateProfile(Request $request, $id) {
 
-        if(empty($user_id)){
-
-            $user_id                        = \Auth::user()->id;
-            $user                           = User::findOrFail($user_id);
-            
-        } else {
-            
-            $user                           = User::findOrFail($user_id);
-
-            if(empty($user)){
-                $user = new User();
-            }
-        }
+        $user                           = User::findOrFail($id);
 
         // dd($request->all());        
         
@@ -296,6 +288,7 @@ trait UserTrait
         $user->year                     = $request->year;
         $user->other_link               = $request->other_link;
         $user->troup_size               = $request->troup_size;
+        //dd($user);
         $user->save();
 
     }

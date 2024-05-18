@@ -27,10 +27,11 @@ class ProjectRequest extends FormRequest
 
     	$id = $this->input('id', 0);
      	return [
-            'name'			=> 'required | ' . Rule::unique('categories')->ignore($id, 'id'),
+            'name'			=> 'required | ' . Rule::unique('projects')->ignore($id, 'id'),
             'year'			=> 'required',
-            'category_id'	=> 'required',
-            // 'status' 		=> 'required'
+            'festival'	    => 'required',
+            'category_id'   => 'required',
+            'status' 		=> 'required'
         ];
     }
 

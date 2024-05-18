@@ -40,7 +40,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['actions', 'category_actions', 'account_actions', 'ticket_actions', 'hotel_actions'];
+    protected $appends = ['actions', 'category_actions', 'account_actions', 'frontend_actions', 'ticket_actions', 'hotel_actions'];
 
     public static $withoutAppends = false;
 
@@ -364,6 +364,32 @@ class User extends Authenticatable
                 '.$view.$edit.'
             </span>';
 
+    }
+
+    function getFrontendActionsAttribute(){
+    
+        $view = '<a href="' . route('user.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+                   <i class="flaticon-eye"></i>
+                </a>';
+        $edit = '<a href="' . route('user.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit personal details">
+                   <i class="flaticon2-pen"></i>
+                </a>';  
+
+        $rolePermission = session('rolePermission');
+
+        if( !array_key_exists('view', ($rolePermission['permissions']['UserController'] ?? []))){
+
+            $view = '';
+        }
+
+        if( !array_key_exists('edit', ($rolePermission['permissions']['UserController'] ?? []))){
+
+            $edit = '';
+        }
+
+        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
+                '.$view.$edit.'
+            </span>';
     }
 
     protected function getArrayableAppends()

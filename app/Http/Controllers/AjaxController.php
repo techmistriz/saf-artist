@@ -100,26 +100,23 @@ class AjaxController extends Controller
             'data' => new \stdClass()
         ]);
     }
+
+
     
-    public function getProject(Request $request)
+    public function getFestival(Request $request, $year = NULL)
     {
 
-        $years 			= $request->input('year', '');
-        $category_id 	= $request->input('category_id', '');
-        $queryModel 	= Project::query();
+        $queryModel = \App\Models\Project::query();
+        $queryModel->where('status', 1);
 
-        if(!empty($years)){
-        	$queryModel->whereIn('year', explode(",", $years));
-        }
-
-        if(!empty($category_id)){
-        	$queryModel->where('category_id', $category_id);
+        if(!empty($year)){
+            $queryModel->where('year', $year);
         }
 
         $results = $queryModel->get();
-
+        //dd($results);
         if($results->count()) {
-            return ['status' => true, 'message' => $years, 'data' => $results];
+            return ['status' => true, 'message' => 'Record found.', 'data' => $results];
         }
 
         return response()->json([
@@ -128,6 +125,29 @@ class AjaxController extends Controller
             'data' => new \stdClass()
         ]);
     }
+
+    public function getProject(Request $request, $festival = NULL)
+    {
+
+        $queryModel = \App\Models\Project::query();
+        $queryModel->where('status', 1);
+
+        if(!empty($festival)){
+            $queryModel->where('festival', $festival);
+        }
+
+        $results = $queryModel->get();
+
+        if($results->count()) {
+            return ['status' => true, 'message' => 'Record found.', 'data' => $results];
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'No data found.',
+            'data' => new \stdClass()
+        ]);
+    }  
 
     public function sendOtp(Request $request)
     {

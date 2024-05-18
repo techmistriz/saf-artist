@@ -122,6 +122,7 @@ class ProjectController extends Controller
         $project->name        	= $request->name;
         $project->year        	= $request->year;
         $project->category_id	= $request->category_id;
+        $project->festival      = $request->festival;
         $project->status      	= $request->input('status', 0);
         $project->save();
 
@@ -152,7 +153,7 @@ class ProjectController extends Controller
     	$categories 	= Category::where('status', 1)->get();
         $row 			= Project::findOrFail($id);
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('categories', $categories)->with('years' , $this->years + ['2023' => '2023']);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('categories', $categories)->with('years' , $this->years);
     }
 
     /**
@@ -167,6 +168,7 @@ class ProjectController extends Controller
         $project->name				= $request->name;
         $project->year        		= $request->year;
         $project->category_id		= $request->category_id;
+        $project->festival          = $request->festival;
         $project->status           	= $request->input('status', 0);
         $project->save();
 

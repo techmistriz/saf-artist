@@ -67,6 +67,9 @@ Route::group(['middleware' => ['verified']], function () {
 	Route::post('/fetch-user-data', [App\Http\Controllers\Frontend\UserController::class, 'fetchData'])->name('fetch.user.data');
 	Route::get('/user/create', [App\Http\Controllers\Frontend\UserController::class, 'create'])->name('user.create');
 	Route::post('/user/store', [App\Http\Controllers\Frontend\UserController::class, 'store'])->name('user.store');
+	Route::get('/user/show/{id}', [App\Http\Controllers\Frontend\UserController::class, 'show'])->name('user.show');
+	Route::get('/user/edit/{id}', [App\Http\Controllers\Frontend\UserController::class, 'edit'])->name('user.edit');
+	Route::put('/user-update/{id}', [App\Http\Controllers\Frontend\UserController::class, 'update'])->name('user.update');
 	// end group-member route
 
 	Route::put('/profile-update', [App\Http\Controllers\Frontend\UserController::class, 'updateProfile'])->name('update.profile');
@@ -136,7 +139,8 @@ Route::get('check-session', [App\Http\Controllers\Cron\CronController::class, 'c
 Route::get('countries', 'App\Http\Controllers\AjaxController@getCountry')->name('ajax.countries');
 Route::get('states/{country_id?}', 'App\Http\Controllers\AjaxController@getState')->name('ajax.states');
 Route::get('cities/{state_id?}', 'App\Http\Controllers\AjaxController@getCity')->name('ajax.cities');
-Route::get('projects', 'App\Http\Controllers\AjaxController@getProject')->name('ajax.projects');
+Route::get('festivals/{year?}', 'App\Http\Controllers\AjaxController@getFestival')->name('ajax.festivals');
+Route::get('projects/{festival?}', 'App\Http\Controllers\AjaxController@getProject')->name('ajax.projects');
 
 Route::post('send-otp', 'App\Http\Controllers\AjaxController@sendOtp')->name('ajax.send.otp');
 Route::get('fetch-member-detail', 'App\Http\Controllers\AjaxController@getMember')->name('ajax.fetch.member.detail');
