@@ -17,19 +17,19 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Year</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="year" tabindex="null" onchange="getFestival()">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="project_year" tabindex="null" onchange="getFestival()">
                                     <option value="">Select Year</option>
                                     @if( isset($years) && count($years))
                                         @foreach($years as $year)
 
-                                           <option {{ !empty(old('year')) && old('year') == $year ? 'selected' : ( isset($row->year) && $row->year == $year ? 'selected' : '' ) }} value="{{$year}}">{{$year}}</option>
+                                           <option {{ !empty(old('project_year')) && old('project_year') == $year ? 'selected' : ( isset($row->project_year) && $row->project_year == $year ? 'selected' : '' ) }} value="{{$year}}">{{$year}}</option>
 
                                         @endforeach
                                     @endif
                                 </select>
-                                @error('year')
+                                @error('project_year')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -916,7 +916,7 @@
 
     function getFestival() {
 
-        var year = $('select[name=year]').val();
+        var year = $('select[name=project_year]').val();
 
         if(year){
 

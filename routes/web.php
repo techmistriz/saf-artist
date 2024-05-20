@@ -62,7 +62,7 @@ Route::get('/term-conditions', '\App\Http\Controllers\HomeController@terms');
 
 Route::group(['middleware' => ['verified']], function () {
 	
-	// start group-member route
+	// start User route
 	Route::get('/dashboard', [App\Http\Controllers\Frontend\UserController::class, 'index'])->name('dashboard');
 	Route::post('/fetch-user-data', [App\Http\Controllers\Frontend\UserController::class, 'fetchData'])->name('fetch.user.data');
 	Route::get('/user/create', [App\Http\Controllers\Frontend\UserController::class, 'create'])->name('user.create');
@@ -70,7 +70,7 @@ Route::group(['middleware' => ['verified']], function () {
 	Route::get('/user/show/{id}', [App\Http\Controllers\Frontend\UserController::class, 'show'])->name('user.show');
 	Route::get('/user/edit/{id}', [App\Http\Controllers\Frontend\UserController::class, 'edit'])->name('user.edit');
 	Route::put('/user-update/{id}', [App\Http\Controllers\Frontend\UserController::class, 'update'])->name('user.update');
-	// end group-member route
+	// end User route
 
 	Route::put('/profile-update', [App\Http\Controllers\Frontend\UserController::class, 'updateProfile'])->name('update.profile');
 	Route::put('/profile-picture-update', [App\Http\Controllers\Frontend\UserController::class, 'updateProfilePicture'])->name('update.profile.picture');
@@ -147,4 +147,14 @@ Route::get('fetch-member-detail', 'App\Http\Controllers\AjaxController@getMember
 // Route::get('fetch-pincode', 'App\Http\Controllers\AjaxController@getPincodeDate')->name('ajax.fetch.pincode');
 
 Route::get('delete-share-room/{id?}', 'App\Http\Controllers\AjaxController@deleteShareRoom')->name('ajax.delete.share.room');
+
+// start User Account Details route
+Route::get('/user/account-details', [App\Http\Controllers\Frontend\UserAccountDetailsController::class, 'index'])->name('user.account.details.index');
+Route::post('/fetch-user-account-details-data', [App\Http\Controllers\Frontend\UserAccountDetailsController::class, 'fetchData'])->name('fetch.user.account.details.data');
+Route::get('/user/account-details/create', [App\Http\Controllers\Frontend\UserAccountDetailsController::class, 'create'])->name('user.account.details.create');
+Route::post('/user/account-details/store', [App\Http\Controllers\Frontend\UserAccountDetailsController::class, 'store'])->name('user.account.details.store');
+Route::get('/user/account-details/show/{id}', [App\Http\Controllers\Frontend\UserAccountDetailsController::class, 'show'])->name('user.account.details.show');
+Route::get('/user/account-details/edit/{id}', [App\Http\Controllers\Frontend\UserAccountDetailsController::class, 'edit'])->name('user.account.details.edit');
+Route::put('/user/account-details-update/{id}', [App\Http\Controllers\Frontend\UserAccountDetailsController::class, 'update'])->name('user.account.details.update');
+// end User Account Details route
 

@@ -38,6 +38,8 @@ trait UserTrait
         $user->year                     = $request->year;
         $user->festival                 = $request->festival;
         $user->project_id               = $request->project_id;
+        $user->festival                 = $request->festival;
+        $user->project_year             = $request->project_year;
 
         if($request->has('name') && $request->filled('name')) {
             $user->name   = $request->name;
@@ -202,6 +204,8 @@ trait UserTrait
             $user->organisation     = $request->organisation;
         }
 
+        $user->festival                 = $request->festival;
+        $user->project_year             = $request->project_year;
         $user->gender                   = $request->gender;
         $user->country_code             = $request->country_code;
         $user->dob                      = $request->dob;
@@ -659,19 +663,71 @@ trait UserTrait
     }
 
     /**
+     * Store a {{moduleTitle}}.
+     *
+     * @param  $id
+     * @return Redirect
+     */
+    public function __storeAccountDetails(Request $request){        
+
+        $userAccountDetail                          = new UserAccountDetail();
+        $userAccountDetail->user_id                 = \Auth::user()->id;
+        $userAccountDetail->name                    = $request->name;
+        $userAccountDetail->permanent_address       = $request->permanent_address;
+        $userAccountDetail->pincode                 = $request->pincode;
+        $userAccountDetail->country_id              = $request->country_id;
+        $userAccountDetail->state_id                = $request->state_id;
+        $userAccountDetail->city_id                 = $request->city_id;
+
+        $userAccountDetail->account_number          = $request->account_number;
+        $userAccountDetail->bank_holder_name        = $request->bank_holder_name;
+        $userAccountDetail->bank_name               = $request->bank_name;
+        $userAccountDetail->branch_address          = $request->branch_address;
+        $userAccountDetail->ifsc_code               = $request->ifsc_code;
+        $userAccountDetail->pancard_link_with_adhar = $request->pancard_link_with_adhar;
+
+        if ($request->hasFile('cancel_cheque_image')) {
+
+            $cancel_cheque_image                = $request->file('cancel_cheque_image');
+            $cancel_cheque_image_fileName       = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $cancel_cheque_image, 'pancard_image', 900, 900, true);
+            $userAccountDetail->cancel_cheque_image             = $cancel_cheque_image_fileName;
+        }
+
+        $userAccountDetail->pancard_number      = $request->pancard_number;
+
+        if ($request->hasFile('pancard_image')) {
+
+            $pancard_image                      = $request->file('pancard_image');
+            $pancard_image_fileName             = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $pancard_image, 'pancard_image', 900, 900, true);
+            $userAccountDetail->pancard_image               = $pancard_image_fileName;
+        }
+
+        $userAccountDetail->has_gst_applicable      = $request->has_gst_applicable;
+        $userAccountDetail->gst_number              = $request->gst_number;
+
+        if ($request->hasFile('gst_certificate_file')) {
+
+            $gst_certificate_file               = $request->file('gst_certificate_file');
+
+            $gst_certificate_file_fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $gst_certificate_file, 'gst_certificate_file');
+
+            $userAccountDetail->gst_certificate_file        = $gst_certificate_file_fileName;
+        }
+
+        $userAccountDetail->save();
+
+    }
+
+    /**
      * Update a {{moduleTitle}}.
      *
      * @param  $id
      * @return Redirect
      */
-    public function __updateAccountDetails(Request $request, $user_id = NULL){
+    public function __updateAccountDetails(Request $request, $id){        
 
-        if(empty($user_id)){
-
-            $user_id    = \Auth::user()->id;
-        }
-
-        $userAccountDetail                          = UserAccountDetail::where('user_id', $user_id)->first();
+        $userAccountDetail                          = UserAccountDetail::findOrFail($id);
+        $userAccountDetail->user_id                 = \Auth::user()->id;
         $userAccountDetail->name                    = $request->name;
         $userAccountDetail->permanent_address       = $request->permanent_address;
         $userAccountDetail->pincode                 = $request->pincode;

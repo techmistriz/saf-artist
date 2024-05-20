@@ -78,45 +78,6 @@
                             <!--end::Text-->
                         </div>
 
-
-                        @if(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Troupe and Group'))
-                       
-                            <div class="d-flex align-items-center pb-9">
-                                <!--begin::Symbol-->
-                                <div class="symbol symbol-45 symbol-light mr-4">
-                                    <span class="symbol-label">
-                                        <i class="flaticon-users icon-xl"></i>
-                                    </span>
-                                </div>
-                                <!--end::Symbol-->
-                                <!--begin::Text-->
-                                <div class="d-flex flex-column flex-grow-1">
-                                    <a href="{{route('group.member.list')}}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Members List</a>
-                                    <span class="text-muted font-weight-bold">Members List</span>
-                                </div>
-                                <!--end::Text-->
-                            </div>
-                                       
-                        @endif
-                        
-
-                        <!--begin::Item-->
-                        <!-- <div class="d-flex align-items-center pb-9"> -->
-                            <!--begin::Symbol-->
-                            <!-- <div class="symbol symbol-45 symbol-light mr-4">
-                                <span class="symbol-label">
-                                    <i class="la la-user-edit icon-xl"></i>
-                                </span>
-                            </div> -->
-                            <!--end::Symbol-->
-                            <!--begin::Text-->
-                            <!-- <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('edit.category.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Project Category Details</a>
-                                <span class="text-muted font-weight-bold">Project Category Details</span>
-                            </div> -->
-                            <!--end::Text-->
-                        <!-- </div> -->
-
                         <div class="d-flex align-items-center pb-9">
                             <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
@@ -128,7 +89,7 @@
 
                             <!--begin::Text-->
                             <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('edit.account.details') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Banking Details</a>
+                                <a href="{{ route('user.account.details.index') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Banking Details</a>
                                 <span class="text-muted font-weight-bold">Banking Details</span>
                             </div>
                             <!--end::Text-->

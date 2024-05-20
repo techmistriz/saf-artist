@@ -16,17 +16,11 @@
                     <div class="card card-custom">
                         <div class="card-header flex-wrap border-0 pt-6 pb-0">
                             <div class="card-title">
-                                @if(isset(Auth::user()->frontendRole->name) && !empty(Auth::user()->frontendRole->name))
-                                    <h3 class="card-label">{{ Auth::user()->frontendRole->name }} Personal Details</h3>
-                                @endif
+                                <h3 class="card-label">Account Details 
                                 <span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
                             </div>
                             <div class="card-toolbar">
-                                <a href="{{ route('user.create') }}" class="btn font-weight-bold ml-2" id="button">
-                                    @if(isset(Auth::user()->frontendRole->name) && !empty(Auth::user()->frontendRole->name))
-                                        Add {{ Auth::user()->frontendRole->name }}
-                                    @endif
-                                </a>
+                                <a href="{{ route('user.account.details.create') }}" class="btn font-weight-bold ml-2" id="button">Add Account Details</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -81,7 +75,7 @@
 
         jQuery(document).ready((function() {
 
-            var url             = '{!! route("fetch.user.data") !!}';
+            var url             = '{!! route("fetch.user.account.details.data") !!}';
             var columnsArray    =   [
                 
                 {
@@ -101,26 +95,26 @@
 
                         return (index + offset);
                     }
-                },
-                {
-                    field: "festival",
-                    title: "festival",
-                },
-                {
-                    field: "project_id",
-                    title: "project",
-                    template: function(t) {
-                        return ( typeof t?.project?.name != 'undefined' && t?.project?.name)? t?.project?.name : 'N/A';
-                    }
-                },
+                }, 
                 {
                     field: "name",
                     title: "Name",
+                },
+                {
+                    field: "country_id",
+                    title: "country",
+                    template: function(t) {
+                        return ( typeof t?.country?.country_name != 'undefined' && t?.country?.country_name)? t?.country?.country_name : 'N/A';
+                    }
                 },  
                 {
-                    field: "email",
-                    title: "Email",
-                },
+                    field: "bank_name",
+                    title: "bank name",
+                },  
+                {
+                    field: "account_number",
+                    title: "account number",
+                }, 
                 {
                     field: "status",
                     title: "status",

@@ -25,6 +25,30 @@
 		                    <div class="col-12">
 
 		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Year: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->project_year ?? 'N/A'}}</label>
+		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->festival ?? 'N/A'}}</label>
+		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->project->name ?? 'N/A'}}</label>
+		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Type: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->frontendRole->name ?? 'N/A'}}</label>
@@ -329,6 +353,43 @@
 		                    </div>
 		                </div>
 		            </div>
+
+		            <div class="card-header" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
+                        <div class="card-title">
+                            <h3 class="card-label">Members Details</h3>
+                        </div>
+                    </div>
+
+                    <div class="card-body" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Sr.No</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                @forelse($members as $key => $value)
+                                    <tr>
+                                        <td class="text-center">{{ $key + 1 }}</td>
+                                        <td>{{ $value->name }}</td>
+                                        <td>{{ $value->email }}</td>
+                                        <td>{{ $value->contact }}</td>
+                                    </tr>
+
+                                @empty
+                                    <tr>
+                                        <td colspan="3" class="text-center text-danger">No Record Found</td>
+                                    </tr>
+
+                                @endforelse
+                            </tbody>
+                        </table>
+                        <!--end: Datatable-->
+                    </div>
 
 		            <div class="card-footer">
 		                <div class="row">

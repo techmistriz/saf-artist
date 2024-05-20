@@ -11,7 +11,7 @@ class UserAccountDetail extends MasterModel
     use HasFactory;
     use SoftDeletes;
 
-    protected $appends = ['actions'];
+    protected $appends = ['actions', 'frontend_actions'];
     protected $guarded = [];
 
     public function getList($data, $with = [], $where = []){  
@@ -76,6 +76,20 @@ class UserAccountDetail extends MasterModel
                 <a href="delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
                    <i class="flaticon2-trash"></i>
                 </a>
+            </span>';
+    }
+
+    function getFrontendActionsAttribute(){
+    
+        $view = '<a href="' . route('user.account.details.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show Artist Account Details">
+                   <i class="flaticon-eye"></i>
+                </a>';
+        $edit = '<a href="' . route('user.account.details.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit Artist Account Details">
+                   <i class="flaticon2-pen"></i>
+                </a>';
+
+        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
+                '.$view.$edit.'
             </span>';
     }
     

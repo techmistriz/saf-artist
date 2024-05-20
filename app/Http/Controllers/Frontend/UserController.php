@@ -70,7 +70,7 @@ class UserController extends Controller
 
         $data               =   $request->all();
 
-        $db_data            =   $user->getList($data, [], ['email'=> $userEmail]);
+        $db_data            =   $user->getList($data, ['project'], ['email'=> $userEmail]);
 
         $count              =   $user->getListCount($data,[], ['email'=> $userEmail]);
 
@@ -134,8 +134,9 @@ class UserController extends Controller
     {
 
         $row = User::findOrFail($id);
-        //dd($row);
-        return view('frontend.user.show')->with('row', $row);
+        $members = User::where('status', 1)->where('poc_id', $row->id)->get();
+       // dd($members);
+        return view('frontend.user.show')->with('row', $row)->with('members', $members);
     }
 
     /**
@@ -196,20 +197,6 @@ class UserController extends Controller
         return \Redirect::route('dashboard');
     }
 
-    /**
-     * Update a {{moduleTitle}}.
-     *
-     * @param  $id
-     * @return Redirect
-     */
-    public function updateProfile(UserRequest $request) {
-
-	 	$this->__updateProfile($request);
-
-    	\Flash::success('Your personal details updated successfully.');
-        return \Redirect::route('dashboard');
-    }
-
     public function editCategoryDetails()
     {
 
@@ -259,42 +246,6 @@ class UserController extends Controller
 
     	\Flash::success('Your category updated successfully.');
         return \Redirect::route('edit.category.details');
-    }
-
-    /**
-     * Update a {{moduleTitle}}.
-     *
-     * @param  $id
-     * @return Redirect
-     */
-
-    public function editAccountDetails()
-    {
-        $user 				= \Auth::user();
-        $user_id 			= $user->id;
-        $countries          = Country::where('status', 1)->get();
-        $row				= UserAccountDetail::where('user_id', $user_id)->first();
-        // dd($row->state_id);
-    	if(empty($row)) {
-    		UserAccountDetail::create(['user_id' => $user_id]);
-    		$row			= UserAccountDetail::where('user_id', $user_id)->first();
-    	}
-
-        return view('frontend.account_details.edit')->with('row', $row)->with('user', $user)->with('countries', $countries);
-    }
-
-    /**
-     * Update a {{moduleTitle}}.
-     *
-     * @param  $id
-     * @return Redirect
-     */
-    public function updateAccountDetails(UserAccountDetailsRequest $request){
-
-    	$this->__updateAccountDetails($request);
-
-    	\Flash::success('Your account details updated successfully.');
-        return \Redirect::route('edit.account.details');
     }
 
     /**
