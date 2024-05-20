@@ -148,7 +148,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Full Name </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" value="{{ $row->name ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Full Name" readonly />
+                                <input type="text" name="name" value="{{ $user->name ?? '' }}" class="form-control form-control-lg form-control-solid"readonly />
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -156,14 +156,14 @@
                         </div>
                     </div>
                     
-                    <div class="col-12" id="dob" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                    <div class="col-12" id="dob" style="{{ isset($user->frontendRole->name) && ($user->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="dob" value="{{ old('dob') ? old('dob') : ( isset($row->dob) ? $row->dob : '') }}" class="form-control form-control-lg form-control-solid kt_datepicker" {{isset($row->dob) ? '':''}} placeholder="Enter DOB" autocomplete="new dob" readonly />
+                                    <input type="text" name="dob" value="{{ $user->dob}}" class="form-control form-control-lg form-control-solid kt_datepicker" readonly />
 
                                     @error('dob')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -192,7 +192,7 @@
                                             @if($countries->count())
                                                 @foreach($countries as $country)
                                                     @if($country->std_code != '')
-                                                        <option value="{{$country->std_code}}" {{ old('country_code', $row->country_code ?? 0) == $country->std_code ? 'selected' : '' }}>+{{$country->std_code}}</option>
+                                                        <option value="{{$country->std_code}}" {{ old('country_code', $user->country_code ?? 0) == $country->std_code ? 'selected' : '' }}>+{{$country->std_code}}</option>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -204,7 +204,7 @@
                                     </div>
 
                                     <div class="col-lg-9 col-md-9 col-sm-9">
-                                        <input type="text" name="contact" oninput="this.value=this.value.replace(/[^0-9]/, '')"  value="{{ $row->contact ?? '' }}" class="form-control form-control-lg form-control-solid" minlength="10" maxlength="10"  placeholder="Enter Contact" readonly/>
+                                        <input type="text" name="contact" oninput="this.value=this.value.replace(/[^0-9]/, '')"  value="{{ $user->contact ?? '' }}" class="form-control form-control-lg form-control-solid" minlength="10" maxlength="10"  placeholder="Enter Contact" readonly/>
                                         @error('contact')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -218,7 +218,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Email </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="email" value="{{ $row->email ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Email" readonly />
+                                <input type="text" name="email" value="{{ $user->email ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Email" readonly />
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

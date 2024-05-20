@@ -361,13 +361,14 @@
                     </div>
 
                     <div class="card-body" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
-                        <table class="table table-bordered">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Sr.No</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Contact</th>
+                                    <th>Action</th>
                                 </tr>
 
                             </thead>
@@ -378,11 +379,24 @@
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->email }}</td>
                                         <td>{{ $value->contact }}</td>
+                                        <td>
+							                <span class="overflow-visible position-relative" style="width: 125px;" data-id="{{ $value->id }}">
+											    <a href="{{ route('group.member.show', $value->id) }}" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+											        <i class="flaticon-eye"></i>
+											    </a>
+											    <a href="{{ route('group.member.edit', $value->id) }}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit member details">
+											        <i class="flaticon2-pen"></i>
+											    </a>
+											    <a href="{{ route('group.member.delete', $value->id) }}" class="btn btn-sm btn-clean btn-icon mr-2" title="Delete member details">
+											        <i class="flaticon2-trash"></i>
+											    </a>
+											</span>
+							            </td>
                                     </tr>
 
                                 @empty
                                     <tr>
-                                        <td colspan="3" class="text-center text-danger">No Record Found</td>
+                                        <td colspan="6" class="text-center text-danger">No Record Found</td>
                                     </tr>
 
                                 @endforelse

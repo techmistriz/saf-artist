@@ -100,14 +100,15 @@ class UserController extends Controller
     public function create(User $user)
     {
         $user_id        = \Auth::user()->id;
-        $row            = User::findOrFail($user_id);
+        $user            = User::findOrFail($user_id);
 
         $countries      = Country::where('status', 1)->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
         $categories     = Category::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->get();
         return view('frontend.user.create')
-        ->with('row', $row)
+        ->with('row', null)
+        ->with('user', $user)
         ->with('years', $this->years)
         ->with('countries', $countries)
         ->with('artistTypes', $artistTypes)
