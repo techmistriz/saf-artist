@@ -41,10 +41,10 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="festival" tabindex="null" onchange="getProject()">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="festival_id" tabindex="null" onchange="getProject()">
                                     <option value="">Select Festival</option>
                                 </select>
-                                @error('festival')
+                                @error('festival_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -148,7 +148,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Full Name </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" value="{{ $user->name ?? '' }}" class="form-control form-control-lg form-control-solid"readonly />
+                                <input type="text" name="name" value="{{Auth::user()->name}}" class="form-control form-control-lg form-control-solid"readonly />
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -163,7 +163,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="dob" value="{{ $user->dob}}" class="form-control form-control-lg form-control-solid kt_datepicker" readonly />
+                                    <input type="text" name="dob" value="{{Auth::user()->dob}}" class="form-control form-control-lg form-control-solid kt_datepicker" readonly />
 
                                     @error('dob')
                                         <div class="invalid-feedback">{{ $message }}</div>
@@ -204,7 +204,7 @@
                                     </div>
 
                                     <div class="col-lg-9 col-md-9 col-sm-9">
-                                        <input type="text" name="contact" oninput="this.value=this.value.replace(/[^0-9]/, '')"  value="{{ $user->contact ?? '' }}" class="form-control form-control-lg form-control-solid" minlength="10" maxlength="10"  placeholder="Enter Contact" readonly/>
+                                        <input type="text" name="contact" oninput="this.value=this.value.replace(/[^0-9]/, '')"  value="{{Auth::user()->contact}}" class="form-control form-control-lg form-control-solid" minlength="10" maxlength="10"  placeholder="Enter Contact" readonly/>
                                         @error('contact')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -218,7 +218,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Email </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="email" value="{{ $user->email ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Email" readonly />
+                                <input type="text" name="email" value="{{Auth::user()->email}}" class="form-control form-control-lg form-control-solid" placeholder="Enter Email" readonly />
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -768,9 +768,8 @@
 </div>
 
 @push('scripts')
-<script type="text/javascript">
-    
 
+<script type="text/javascript">
     function serendipityArtsChangePress(_this){
 
         if($(_this).val() == 'Yes'){
@@ -906,7 +905,6 @@
     $(document).ready(function(){
         
         getStates(null, 'pa_country_id', 'pa_state_id', 'State', <?php echo old( 'pa_state_id', $row->pa_state_id ?? 0 )?>);
-        getFestival();
     });
 
 
@@ -914,6 +912,11 @@
         $('[data-toggle="tooltip"]').tooltip()
     })
 
+    $(document).ready(function(){
+        
+        getFestival();
+        
+    });
     function getFestival() {
 
         var year = $('select[name=project_year]').val();
@@ -929,20 +932,22 @@
                         var options = '<option value="">Select Festival</option>';
                         if(response.data.length) {
 
-                            var selectedFestival = '{{ $row->festival ?? 0 }}';
+                            var selectedId = '{{ $row->festival_id ?? 0 }}';
+
                             for (var i = 0; i < response.data.length; i++) {
 
                                 var _selected = '';
 
-                                if(selectedFestival == response.data[i].festival){
+                                if(selectedId == response.data[i].id){
 
                                     _selected = 'selected';
                                 }
-                                options += '<option '+_selected+' value="'+response.data[i].festival+'">'+response.data[i].festival+'</option>';
+                                //console.log(response.data[i].name);
+                                options += '<option '+_selected+' value="'+response.data[i].id+'">'+response.data[i].name+'</option>';
                             }
 
-                            $("select[name='festival']").html(options);
-                            $("select[name='festival']").selectpicker('refresh');
+                            $("select[name='festival_id']").html(options);
+                            $("select[name='festival_id']").selectpicker('refresh');
                             getProject();
                         }
                     }
@@ -951,18 +956,18 @@
 
         } else {
 
-            $("select[name='festival']").html('<option value="">Select Festival</option>');
-            $("select[name='festival']").selectpicker('refresh');
+            $("select[name='festival_id']").html('<option value="">Select Festival</option>');
+            $("select[name='festival_id']").selectpicker('refresh');
         }
     }
 
     function getProject() {
-        var festival = $('select[name=festival]').val();
+        var festival_id = $('select[name=festival_id]').val();
 
-        if (festival) {
+        if (festival_id) {
             $.ajax({
                 type: "GET",
-                url: "{{ url('projects') }}/" + festival,
+                url: "{{ url('projects') }}/" + festival_id,
                 datatype: 'json',
                 success: function (response) {
                     if (response && response.status) {
@@ -993,6 +998,5 @@
         }
     }
 
-    
 </script>
 @endpush

@@ -99,6 +99,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Project', 'project_id', 'id');
     }
 
+    public function festival()
+    {
+        return $this->belongsTo('App\Models\Festival', 'festival_id', 'id');
+    }
+
     public function PACountry()
     {
         return $this->belongsTo('App\Models\Country', 'pa_country_id', 'id');

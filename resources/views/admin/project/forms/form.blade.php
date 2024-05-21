@@ -13,22 +13,12 @@
             <div class="card-body">
                 <div class="row">
                     
-                    <div class="col-8">
-                        
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" value="{{ old('name', $row->name ?? '') }}" class="form-control" required placeholder="Enter Name"/>
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>                        
+                    <div class="col-6">                        
 
                         <div class="form-group row validated">
-                        	<label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="year" tabindex="null" >
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="year" tabindex="null" onchange="getFestival()">
                                     <option value="">Select Year</option>
                                     @if( isset($years) && count($years))
                                         @foreach($years as $year)
@@ -47,12 +37,16 @@
                         </div>
 
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival Name</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left"> Festival </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="festival" value="{{ old('festival', $row->festival ?? '') }}" class="form-control" required placeholder="Enter Festival Name"/>
-                                @error('festival')
+                                <select class="form-control selectpicker" name="festival_id" tabindex="null" >
+                                    <option value="">Select Festival</option>
+                                </select>
+
+                                @error('festival_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                            
                             </div>
                         </div>
 
@@ -74,6 +68,16 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="name" value="{{ old('name', $row->name ?? '') }}" class="form-control" required placeholder="Enter Name"/>
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -109,7 +113,53 @@
 
 @push('scripts')
 <script type="text/javascript">
-    
+    $(document).ready(function(){
+        
+        getFestival();
+        
+    });
+    function getFestival() {
+
+        var year = $('select[name=year]').val();
+
+        if(year){
+
+            $.ajax({
+                type: "GET",
+                url: "{{ url('festivals') }}/" + year,
+                datatype: 'json',
+                success: function (response) {
+                    if(response?.status){
+                        var options = '<option value="">Select Festival</option>';
+                        if(response.data.length) {
+
+                            var selectedId = '{{ $row->festival_id ?? 0 }}';
+
+                            for (var i = 0; i < response.data.length; i++) {
+
+                                var _selected = '';
+
+                                if(selectedId == response.data[i].id){
+
+                                    _selected = 'selected';
+                                }
+                                //console.log(response.data[i].name);
+                                options += '<option '+_selected+' value="'+response.data[i].id+'">'+response.data[i].name+'</option>';
+                            }
+
+                            $("select[name='festival_id']").html(options);
+                            $("select[name='festival_id']").selectpicker('refresh');
+                        }
+                    }
+                }
+            });
+
+        } else {
+
+            $("select[name='festival_id']").html('<option value="">Select Festival</option>');
+            $("select[name='festival_id']").selectpicker('refresh');
+        }
+    }
 
 </script>
 @endpush

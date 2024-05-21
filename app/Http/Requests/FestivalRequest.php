@@ -5,7 +5,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use App\Rules\ValidHost;;
 
-class ProjectRequest extends FormRequest
+class FestivalRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +26,15 @@ class ProjectRequest extends FormRequest
     {
 
     	$id = $this->input('id', 0);
+        $year       = $this->input('year', 0);
      	return [
-            'name'			=> 'required | ' . Rule::unique('projects')->ignore($id, 'id'),
-            'year'			=> 'required',
-            'festival_id'	    => 'required',
-            'category_id'   => 'required',
-            'status' 		=> 'required'
+            'name' => [
+                'required',
+                Rule::unique('festivals')->ignore($id, 'id')->where(function ($query) use ($year) {
+                    return $query->where('year', $year);
+                }),
+            ],
+            'year' 		=> 'required'
         ];
     }
 

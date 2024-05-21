@@ -81,26 +81,12 @@
                 textAlign: 'center',
             },
             {
-                field: "name",
-                title: "name",
+                field: "year",
+                title: "Year",
             },
             {
-                field: "category_id",
-                title: "category",
-                template: function(t) {
-                    return ( typeof t?.category?.name != 'undefined' && t?.category?.name)? t?.category?.name : 'N/A';
-                }
-            },	
-            {
-                field: "year",
-                title: "year",
-            },	
-            {
-                field: "festival_id",
-                title: "festival",
-                template: function(t) {
-                    return ( typeof t?.festival?.name != 'undefined' && t?.festival?.name)? t?.festival?.name : 'N/A';
-                }
+                field: "name",
+                title: "name",
             }, 
             {
                 field: "status",
@@ -117,7 +103,7 @@
                         }
                         
                     };
-                    return '<span class="label font-weight-bold label-lg ' + status[t?.status]?.class + ' label-inline">' + status[t?.status]?.title + '</span>';
+                    return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
                 },
             },		
             {

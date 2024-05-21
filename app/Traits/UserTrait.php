@@ -36,9 +36,8 @@ trait UserTrait
         $user->curator_name             = $request->curator_name;
         $user->artist_type_id           = $request->artist_type_id;
         $user->year                     = $request->year;
-        $user->festival                 = $request->festival;
         $user->project_id               = $request->project_id;
-        $user->festival                 = $request->festival;
+        $user->festival_id              = $request->festival_id;
         $user->project_year             = $request->project_year;
 
         if($request->has('name') && $request->filled('name')) {
@@ -55,10 +54,6 @@ trait UserTrait
 
         if($request->has('password') && $request->filled('password')) {
             $user->password     = Hash::make($request->password);
-        }
-        
-        if($request->has('project_id') && $request->filled('project_id')) {
-            $user->project_id   = $request->project_id;
         }
         
         if($request->has('no_of_people_in_group') && $request->filled('no_of_people_in_group')) {
@@ -204,7 +199,7 @@ trait UserTrait
             $user->organisation     = $request->organisation;
         }
 
-        $user->festival                 = $request->festival;
+        $user->festival_id              = $request->festival_id;
         $user->project_year             = $request->project_year;
         $user->gender                   = $request->gender;
         $user->country_code             = $request->country_code;

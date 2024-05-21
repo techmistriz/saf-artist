@@ -330,5 +330,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
         });
 
+        Route::group(['prefix' => 'festival', 'middleware' => ['AdminPermissionCheck:FestivalController']], function(){
+
+            // Festival routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'festival.'], function(){
+                Route::get('list/',                     'FestivalController@index')->name('index');
+                Route::post('fetch-data/',              'FestivalController@fetchData')->name('fetch.data');
+                Route::get('create/',                   'FestivalController@create')->name('create');
+                Route::post('store/',                   'FestivalController@store')->name('store');
+                Route::get('show/{id}',                 'FestivalController@show')->name('show');
+                Route::get('edit/{id}',                 'FestivalController@edit')->name('edit');
+                Route::put('update/{id}',               'FestivalController@update')->name('update');
+                Route::get('delete/{id}',               'FestivalController@delete')->name('delete');
+            });
+        });
+
     });
 });

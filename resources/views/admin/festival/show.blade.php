@@ -21,42 +21,26 @@
 		                    <div class="col-6">
 		                        
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Year: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->name}}</label>
+		                            	<label class="col-form-label text-lg-right">{{$row->year}}</label>
 		                                
 		                            </div>
 		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Name: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->year}}</label>
+		                            	<label class="col-form-label text-lg-right">{{$row->name}}</label>
 		                                
 		                            </div>
 		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->festival->name}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->category->name}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Status: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-right">Status: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 
-		                            	<label class="col-form-label text-lg-left">{{ $row->status ? 'Active' : 'Inactive' }}</label>
+		                            	<label class="col-form-label text-lg-right">{{ $row->status ? 'Active' : 'Inactive' }}</label>
 		                            
 		                            </div>
 		                        </div>

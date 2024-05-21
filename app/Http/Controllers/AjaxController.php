@@ -14,6 +14,7 @@ use App\Models\State;
 use App\Models\User;
 use App\Models\City;
 use App\Models\Project;
+use App\Models\Festival;
 use App\Models\ShareRoom;
 use App\Models\Pincode;
 use Illuminate\Support\Facades\Session;
@@ -106,7 +107,7 @@ class AjaxController extends Controller
     public function getFestival(Request $request, $year = NULL)
     {
 
-        $queryModel = \App\Models\Project::query();
+        $queryModel = \App\Models\Festival::query();
         $queryModel->where('status', 1);
 
         if(!empty($year)){
@@ -126,14 +127,14 @@ class AjaxController extends Controller
         ]);
     }
 
-    public function getProject(Request $request, $festival = NULL)
+    public function getProject(Request $request, $festival_id = NULL)
     {
 
         $queryModel = \App\Models\Project::query();
         $queryModel->where('status', 1);
 
-        if(!empty($festival)){
-            $queryModel->where('festival', $festival);
+        if(!empty($festival_id)){
+            $queryModel->where('festival_id', $festival_id);
         }
 
         $results = $queryModel->get();

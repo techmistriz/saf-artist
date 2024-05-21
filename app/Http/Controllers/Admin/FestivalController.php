@@ -4,15 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\Project;
+use App\Models\Festival;
 use Carbon\Carbon;
-use App\Http\Requests\ProjectRequest;
+use App\Http\Requests\FestivalRequest;
 use Hash;
 use Image;
 use ImageUploadHelper;
 
-class ProjectController extends Controller
+class FestivalController extends Controller
 {   
     /*
     |--------------------------------------------------------------------------
@@ -25,18 +24,18 @@ class ProjectController extends Controller
 
     public static $moduleConfig = [
         "routes" => [
-            "listRoute" => 'admin.project.index',
-            "fetchDataRoute" => 'admin.project.fetch.data', 
-            "createRoute" => 'admin.project.create', 
-            "storeRoute" => 'admin.project.store', 
-            "editRoute" => 'admin.project.edit', 
-            "updateRoute" => 'admin.project.update', 
-            "deleteRoute" => 'admin.project.delete'
+            "listRoute" => 'admin.festival.index',
+            "fetchDataRoute" => 'admin.festival.fetch.data', 
+            "createRoute" => 'admin.festival.create', 
+            "storeRoute" => 'admin.festival.store', 
+            "editRoute" => 'admin.festival.edit', 
+            "updateRoute" => 'admin.festival.update', 
+            "deleteRoute" => 'admin.festival.delete'
         ],
-        "moduleTitle" => 'Project',
-        "moduleName" => 'project',
-        "viewFolder" => 'project',
-        "imageUploadFolder" => 'uploads/projects/',
+        "moduleTitle" => 'Festival',
+        "moduleName" => 'festival',
+        "viewFolder" => 'festival',
+        //"imageUploadFolder" => 'uploads/curators/',
     ];
 
 	/**
@@ -73,14 +72,14 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function fetchData(Request $request, Project $Project)
+    public function fetchData(Request $request, Festival $festival)
     {
         
         $data               =   $request->all();
 
-        $db_data            =   $Project->getList($data, ['category', 'festival']);
+        $db_data            =   $festival->getList($data);
 
-        $count 				=  	$Project->getListCount($data);
+        $count 				=  	$festival->getListCount($data);
 
         $returnArray = array(
             'data' => $db_data,
@@ -103,11 +102,9 @@ class ProjectController extends Controller
      * @param  null
      * @return \Illuminate\Http\Response
      */
-    public function create(Project $Project){
+    public function create(Festival $festival){
 
-		$categories 	= Category::where('status', 1)->get();
-
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('categories', $categories)->with('years' , $this->years + ['2023' => '2023']);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('years' , $this->years);
     }
 
     /**
@@ -116,15 +113,13 @@ class ProjectController extends Controller
      * @param  null
      * @return Redirect
      */
-    public function store (ProjectRequest $request){
+    public function store (FestivalRequest $request){
 
-        $project          		= new Project();
-        $project->name        	= $request->name;
-        $project->year        	= $request->year;
-        $project->category_id	= $request->category_id;
-        $project->festival_id   = $request->festival_id;
-        $project->status      	= $request->input('status', 0);
-        $project->save();
+        $festival          = new Festival();
+        $festival->year        = $request->year;
+        $festival->name        = $request->name;
+        $festival->status      = $request->input('status', 0);
+        $festival->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' created successfully');
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
@@ -136,9 +131,9 @@ class ProjectController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show ($id, Project $Project){
+    public function show ($id, Festival $festival){
 
-        $row = Project::findOrFail($id);
+        $row = Festival::findOrFail($id);
         return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
     }
 
@@ -148,12 +143,10 @@ class ProjectController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Project $Project){
+    public function edit($id, Festival $festival){
 
-    	$categories 	= Category::where('status', 1)->get();
-        $row 			= Project::findOrFail($id);
-
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('categories', $categories)->with('years' , $this->years);
+        $row = Festival::findOrFail($id);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('years' , $this->years);
     }
 
     /**
@@ -162,15 +155,13 @@ class ProjectController extends Controller
      * @param  $id
      * @return Redirect
      */
-    public function update(ProjectRequest $request, $id){
+    public function update(FestivalRequest $request, $id){
 
-        $project                  	= Project::findOrFail($id);
-        $project->name				= $request->name;
-        $project->year        		= $request->year;
-        $project->category_id		= $request->category_id;
-        $project->festival_id       = $request->festival_id;
-        $project->status           	= $request->input('status', 0);
-        $project->save();
+        $festival                  = Festival::findOrFail($id);
+        $festival->year                = $request->year;
+        $festival->name                = $request->name;
+        $festival->status              = $request->input('status', 0);
+        $festival->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
@@ -186,7 +177,7 @@ class ProjectController extends Controller
     public function delete($id)
     {
         
-        $row = Project::findOrFail($id);
+        $row = Festival::findOrFail($id);
         $row->delete();
         \Flash::success(self::$moduleConfig['moduleTitle'].' deleted successfully.'); 
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);

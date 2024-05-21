@@ -6,23 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Common\MasterModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends MasterModel
+class Festival extends MasterModel
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $appends = ['actions'];
 
-    public function category()
-    {
-        return $this->belongsTo('App\Models\Category', 'category_id', 'id');
-    }
-
-    public function festival()
-    {
-        return $this->belongsTo('App\Models\Festival', 'festival_id', 'id');
-    }
-    
     public function getList($data, $with = [], $where = []){  
 
         $records = $this->handleAjax($data);
@@ -52,8 +42,7 @@ class Project extends MasterModel
         	$searchKey = $data['query']['search'];
          	$records->where(function($query) use ($searchKey){
                 $query->where('name', 'LIKE', '%'.$searchKey.'%')
-        		->orWhere('year', 'LIKE', '%'.$searchKey.'%')
-                ->orWhere('festival', 'LIKE', '%'.$searchKey.'%');
+                    ->orWhere('year', 'LIKE', '%'.$searchKey.'%');
             });
         }
 
@@ -78,8 +67,7 @@ class Project extends MasterModel
         	$searchKey = $data['query']['search'];
          	$records->where(function($query) use ($searchKey){
                 $query->where('name', 'LIKE', '%'.$searchKey.'%')
-                ->orWhere('year', 'LIKE', '%'.$searchKey.'%')
-                ->orWhere('festival', 'LIKE', '%'.$searchKey.'%');
+                ->orWhere('year', 'LIKE', '%'.$searchKey.'%');
             });
         }
 
@@ -98,7 +86,7 @@ class Project extends MasterModel
                 <a href="delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
                    <i class="flaticon2-trash"></i>
                 </a>
-           	</span>';
+            </span>';
     }
     
 }

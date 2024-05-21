@@ -101,10 +101,13 @@
 
                         return (index + offset);
                     }
-                },
+                },  
                 {
-                    field: "festival",
+                    field: "festival_id",
                     title: "festival",
+                    template: function(t) {
+                        return ( typeof t?.festival?.name != 'undefined' && t?.festival?.name)? t?.festival?.name : 'N/A';
+                    }
                 },
                 {
                     field: "project_id",
