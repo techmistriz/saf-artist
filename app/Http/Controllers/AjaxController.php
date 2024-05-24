@@ -101,22 +101,32 @@ class AjaxController extends Controller
             'data' => new \stdClass()
         ]);
     }
-
-
     
-    public function getFestival(Request $request, $year = NULL)
+    public function getFestival(Request $request, $id = NULL)
     {
-
         $queryModel = \App\Models\Festival::query();
         $queryModel->where('status', 1);
 
-        if(!empty($year)){
-            $queryModel->where('year', $year);
+        if(!empty($request->year)){
+            $queryModel->where('year', $request->year);
         }
+        if (empty($request->festival_id)) {
+            $user_email = Auth::user()->email;
+            $festivalIdArr = User::where('status', 1)->where('email', $user_email)->whereNotNull('festival_id')->get()->pluck('festival_id');
+            //dd($festival_ids);
+
+            // $festivalId = [];
+            // foreach ($users as $user){
+            //     $festivalId[] = $user->festival_id;
+            // }
+
+            if (!empty($festivalIdArr)) {
+                $queryModel->whereNotIn('id', $festivalIdArr);
+            }
+        }        
 
         $results = $queryModel->get();
-        //dd($results);
-        if($results->count()) {
+        if($results) {
             return ['status' => true, 'message' => 'Record found.', 'data' => $results];
         }
 

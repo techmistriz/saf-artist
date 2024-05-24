@@ -115,7 +115,12 @@ class UserController extends Controller
 
     public function store(UserRequest $request) 
     {
+        $existingUser = User::where('festival_id', $request->festival_id)->first();
 
+        if ($existingUser) {
+            \Flash::error('Festival ID already exists for this user.');
+            return redirect()->back();
+        }
         $this->__storeUser($request);
 
         \Flash::success('Your personal details created successfully.');

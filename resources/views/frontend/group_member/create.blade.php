@@ -19,12 +19,13 @@
 
                      	{{ csrf_field() }}
                         @include('frontend.group_member.forms.form')
+                        <input type="hidden" name="poc_id" value="{{ request('poc_id') }}" >
 
                     </form>
 
                     <!-- The Modal -->
             <div class="modal" id="myModal">
-                <div class="modal-dialog">
+                <div class="modal-dialog" style="margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                     <div class="modal-content">
 
                         <form method="POST" action="{{ route('group.members.import') }}" enctype="multipart/form-data">

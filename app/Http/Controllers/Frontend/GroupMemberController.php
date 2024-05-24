@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\GroupMember;
+use App\Models\User;
 use Carbon\Carbon;
 use App\Http\Requests\GroupMemberRequest;
 use App\Imports\GroupMemberImport;
@@ -83,9 +84,12 @@ class GroupMemberController extends Controller
      * @param  null
      * @return \Illuminate\Http\Response
      */
-    public function create(GroupMember $member){
-
-        return view('frontend.group_member.create')->with('row', null);
+    public function create(GroupMember $member)
+    {
+        $userEmail = Auth::user()->email;
+        $parents = User::where(['status' => 1, 'email' => $userEmail])->latest('project_year')->get();
+        //dd($parents);
+        return view('frontend.group_member.create')->with('row', null)->with('parents', $parents);
     }
 
     /**
@@ -101,7 +105,7 @@ class GroupMemberController extends Controller
 
         $member                   = new GroupMember();
         $member->name             = $request->name;
-        $member->poc_id           = Auth::user()->id;
+        $member->poc_id           = $request->poc_id;
         $member->email            = $request->email;
         $member->contact          = $request->contact;
         $member->dob              = $request->dob;
@@ -117,7 +121,7 @@ class GroupMemberController extends Controller
         $member->save();
 
         \Flash::success('Group member created successfully');
-        return \Redirect::route('group.member.list');
+        return \Redirect::route('user.show', $request->poc_id);
     }
 
 
@@ -142,6 +146,7 @@ class GroupMemberController extends Controller
     public function edit($id, GroupMember $member){
 
         $row = GroupMember::findOrFail($id);
+        //dd($row);
         return view('frontend.group_member.edit')->with('row', $row);
     }
 
@@ -154,8 +159,8 @@ class GroupMemberController extends Controller
     public function update(GroupMemberRequest $request, $id){
 
         $member                  = GroupMember::findOrFail($id);
+
         $member->name            = $request->name;
-        $member->poc_id          = Auth::user()->id;
         $member->email           = $request->email;
         $member->contact         = $request->contact;
         $member->dob             = $request->dob;
@@ -170,7 +175,7 @@ class GroupMemberController extends Controller
         $member->save();
 
         \Flash::success('Group member updated successfully.');
-        return \Redirect::route('group.member.list');
+        return \Redirect::route('user.show', $member->poc_id);
     }
 
     /**

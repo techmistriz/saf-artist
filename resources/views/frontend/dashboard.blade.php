@@ -109,12 +109,16 @@
                         return ( typeof t?.festival?.name != 'undefined' && t?.festival?.name)? t?.festival?.name : 'N/A';
                     }
                 },
+                // {
+                //     field: "project_id",
+                //     title: "project",
+                //     template: function(t) {
+                //         return ( typeof t?.project?.name != 'undefined' && t?.project?.name)? t?.project?.name : 'N/A';
+                //     }
+                // },
                 {
-                    field: "project_id",
-                    title: "project",
-                    template: function(t) {
-                        return ( typeof t?.project?.name != 'undefined' && t?.project?.name)? t?.project?.name : 'N/A';
-                    }
+                    field: "project_year",
+                    title: "Year",
                 },
                 {
                     field: "name",

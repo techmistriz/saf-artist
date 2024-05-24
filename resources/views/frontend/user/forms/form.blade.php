@@ -21,13 +21,8 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-custom selectpicker" name="project_year" tabindex="null" onchange="getFestival()">
                                     <option value="">Select Year</option>
-                                    @if( isset($years) && count($years))
-                                        @foreach($years as $year)
-
-                                           <option {{ !empty(old('project_year')) && old('project_year') == $year ? 'selected' : ( isset($row->project_year) && $row->project_year == $year ? 'selected' : '' ) }} value="{{$year}}">{{$year}}</option>
-
-                                        @endforeach
-                                    @endif
+                                    <option value="2024" {{ old('project_year') == '2024' || (isset($row->project_year) && $row->project_year == '2024') ? 'selected' : '' }}>2024</option>
+                                    <option value="2025" {{ old('project_year') == '2025' || (isset($row->project_year) && $row->project_year == '2025') ? 'selected' : '' }}>2025</option>
                                 </select>
                                 @error('project_year')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -52,7 +47,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -65,7 +60,7 @@
                             
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-12">
                         <div class="form-group row validated">
@@ -192,7 +187,7 @@
                                             @if($countries->count())
                                                 @foreach($countries as $country)
                                                     @if($country->std_code != '')
-                                                        <option value="{{$country->std_code}}" {{ old('country_code', $user->country_code ?? 0) == $country->std_code ? 'selected' : '' }}>+{{$country->std_code}}</option>
+                                                        <option value="{{$country->std_code}}" {{ old('country_code', $user->country_code ?? 91) == $country->std_code ? 'selected' : '' }}>+{{$country->std_code}}</option>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -910,29 +905,23 @@
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-    })
-
-    $(document).ready(function(){
-        
-        getFestival();
-        
-    });
+    })    
+    
     function getFestival() {
 
         var year = $('select[name=project_year]').val();
+        var selectedId = "{{ old('festival_id', $row->festival_id ?? 0) }}";
 
         if(year){
 
             $.ajax({
                 type: "GET",
-                url: "{{ url('festivals') }}/" + year,
+                url: "{{ url('festivals') }}?year=" + year + '&festival_id=' + selectedId,
                 datatype: 'json',
                 success: function (response) {
                     if(response?.status){
                         var options = '<option value="">Select Festival</option>';
-                        if(response.data.length) {
-
-                            var selectedId = '{{ $row->festival_id ?? 0 }}';
+                        if(response.data.length) {                            
 
                             for (var i = 0; i < response.data.length; i++) {
 
@@ -948,7 +937,7 @@
 
                             $("select[name='festival_id']").html(options);
                             $("select[name='festival_id']").selectpicker('refresh');
-                            getProject();
+                            //getProject();
                         }
                     }
                 }
@@ -997,6 +986,12 @@
             $('select[name=project_id]').selectpicker('refresh');
         }
     }
+
+    $(document).ready(function(){
+        
+        getFestival();
+        
+    });
 
 </script>
 @endpush

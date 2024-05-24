@@ -29,15 +29,17 @@ trait UserTrait
      */
     public function __storeUser(Request $request) {
 
+        
+
         $user = new User();
         // dd($request->all()); 
+        $user->festival_id              = $request->festival_id;
         $user->frontend_role_id         = \Auth::user()->frontend_role_id;        
         $user->category_id              = $request->category_id;
         $user->curator_name             = $request->curator_name;
         $user->artist_type_id           = $request->artist_type_id;
         $user->year                     = $request->year;
         $user->project_id               = $request->project_id;
-        $user->festival_id              = $request->festival_id;
         $user->project_year             = $request->project_year;
 
         if($request->has('name') && $request->filled('name')) {

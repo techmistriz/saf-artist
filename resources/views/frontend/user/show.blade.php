@@ -354,10 +354,13 @@
 		                </div>
 		            </div>
 
-		            <div class="card-header" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
+		            <div class="card-header flex-wrap border-0 pt-6 pb-0" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
                         <div class="card-title">
                             <h3 class="card-label">Members Details</h3>
                         </div>
+                        <div class="card-toolbar">
+    						<a href="{{ route('group.member.create', ['poc_id' => $row->id]) }}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
+    					</div>
                     </div>
 
                     <div class="card-body" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
