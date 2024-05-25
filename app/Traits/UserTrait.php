@@ -668,7 +668,7 @@ trait UserTrait
     public function __storeAccountDetails(Request $request){        
 
         $userAccountDetail                          = new UserAccountDetail();
-        $userAccountDetail->user_id                 = \Auth::user()->id;
+        $userAccountDetail->user_id                 = $request->user_id;
         $userAccountDetail->name                    = $request->name;
         $userAccountDetail->permanent_address       = $request->permanent_address;
         $userAccountDetail->pincode                 = $request->pincode;

@@ -378,10 +378,14 @@ class User extends Authenticatable
                 </a>';
         $edit = '<a href="' . route('user.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit personal details">
                    <i class="flaticon2-pen"></i>
+                </a>';
+
+        $addbnking = '<a href="' . route('user.account.details.create',  ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Add user account details">
+                   <i class="flaticon2-plus"></i>
                 </a>'; 
 
         return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-                '.$view.$edit.'
+                '.$view.$edit.$addbnking.'
             </span>';
     }
 

@@ -59,13 +59,13 @@ class UserAccountDetailsController extends Controller
 
     public function fetchData(Request $request, UserAccountDetail $account)
     {
-        $user_id = Auth::user()->id;
+        $userEmail = Auth::user()->email;
 
         $data               =   $request->all();
 
-        $db_data            =   $account->getList($data, ['country'], ['user_id'=> $user_id]);
+        $db_data            =   $account->getList($data, ['country'], ['email'=> $userEmail]);
 
-        $count 				=  	$account->getListCount($data, [], ['user_id'=> $user_id]);
+        $count 				=  	$account->getListCount($data, [], ['email'=> $userEmail]);
 
         $returnArray = array(
             'data' => $db_data,
@@ -89,12 +89,13 @@ class UserAccountDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(UserAccountDetail $account){
-        $user_id        = \Auth::user()->id;
-        $row            = User::findOrFail($user_id);
+
+        $user            = User::findOrFail(request('user_id'));
         $countries          = Country::where('status', 1)->get();
         return view('frontend.user_account_details.create')
         ->with('countries', $countries)
-        ->with('row', $row);
+        ->with('user', $user)
+        ->with('row', null);
     }
 
     /**

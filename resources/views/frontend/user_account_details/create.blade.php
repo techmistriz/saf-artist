@@ -41,7 +41,7 @@
                     @include('includes.common.error')
                         
                     <form action="{{ route('user.account.details.store') }}" method="POST" enctype="multipart/form-data">
-
+                        <input type="hidden" name="user_id" value="{{ request('user_id') }}" >
                      	{{ csrf_field() }}
                         @include('frontend.user_account_details.forms.form')
 
