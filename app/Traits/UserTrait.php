@@ -724,7 +724,7 @@ trait UserTrait
     public function __updateAccountDetails(Request $request, $id){        
 
         $userAccountDetail                          = UserAccountDetail::findOrFail($id);
-        $userAccountDetail->user_id                 = \Auth::user()->id;
+        $userAccountDetail->user_id                 = $request->user_id;
         $userAccountDetail->name                    = $request->name;
         $userAccountDetail->permanent_address       = $request->permanent_address;
         $userAccountDetail->pincode                 = $request->pincode;

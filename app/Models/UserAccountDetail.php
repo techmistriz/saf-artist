@@ -14,7 +14,7 @@ class UserAccountDetail extends MasterModel
     protected $appends = ['actions', 'frontend_actions'];
     protected $guarded = [];
 
-    public function getList($data, $with = [], $where = []){  
+    public function getList($data, $with = [], $where = [], $whereIn = []){  
 
         $records = $this->handleAjax($data);
         if(isset($with) && !empty($with))
@@ -27,16 +27,21 @@ class UserAccountDetail extends MasterModel
            $records->where($where);     
         }
 
-        // Added for sequence number
-        $page               =   $data['pagination']['page'] ?? 1;
-        $page               =   $page - 1;
-        $perPage            =   $data['pagination']['perpage'] ?? 10;
-        $page               =   $page * $perPage;
+        if(isset($whereIn) && !empty($whereIn))
+        {
+           $records->whereIn('user_id', $whereIn);     
+        }
 
-        \DB::select(\DB::raw('SET @row := '. $page));
-        $records->selectRaw('@row := @row + 1 as row, '.$this->getTable().'.*');
-        $records->from(\DB::raw(''.$this->getTable().', (SELECT @row := '.$page.') r'));
-        // Added for sequence number
+        // // Added for sequence number
+        // $page               =   $data['pagination']['page'] ?? 1;
+        // $page               =   $page - 1;
+        // $perPage            =   $data['pagination']['perpage'] ?? 10;
+        // $page               =   $page * $perPage;
+
+        // \DB::select(\DB::raw('SET @row := '. $page));
+        // $records->selectRaw('@row := @row + 1 as row, '.$this->getTable().'.*');
+        // $records->from(\DB::raw(''.$this->getTable().', (SELECT @row := '.$page.') r'));
+        // // Added for sequence number
 
         if(!empty($data['query']['search'])){
 

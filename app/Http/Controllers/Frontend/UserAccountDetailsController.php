@@ -46,8 +46,12 @@ class UserAccountDetailsController extends Controller
      */
 
     public function index(Request $request){
-
-        return view('frontend.user_account_details.index');
+        if (request('user_id')) {            
+            return view('frontend.user_account_details.index');
+        }
+        else{
+            return redirect()->route('dashboard');
+        }
     }
 
     /**
@@ -59,13 +63,14 @@ class UserAccountDetailsController extends Controller
 
     public function fetchData(Request $request, UserAccountDetail $account)
     {
-        $userEmail = Auth::user()->email;
+        $user           = User::find(request('user_id'));
+        $userIdArr = User::where('email', $user->email)->pluck('id');
 
         $data               =   $request->all();
 
-        $db_data            =   $account->getList($data, ['country'], ['email'=> $userEmail]);
+        $db_data            =   $account->getList($data, ['country'],[], $userIdArr);
 
-        $count 				=  	$account->getListCount($data, [], ['email'=> $userEmail]);
+        $count 				=  	$account->getListCount($data, [],[], $userIdArr);
 
         $returnArray = array(
             'data' => $db_data,
@@ -112,7 +117,7 @@ class UserAccountDetailsController extends Controller
        $this->__storeAccountDetails($request);
 
         \Flash::success('Your account details created successfully.');
-        return \Redirect::route('user.account.details.index');
+        return redirect()->route('user.account.details.index', ['user_id' => $request->user_id]);
     }
 
 
@@ -154,7 +159,7 @@ class UserAccountDetailsController extends Controller
 
         $this->__updateAccountDetails($request, $id);
         \Flash::success('Your account details updated successfully.');
-        return \Redirect::route('user.account.details.index');
+        return \Redirect::route('user.account.details.index', ['user_id' => $request->user_id]);
     }
 
     /**

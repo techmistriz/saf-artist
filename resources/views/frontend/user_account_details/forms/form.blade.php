@@ -13,11 +13,12 @@
             <div class="card-body">
                 <div class="row">
 
+                    <input type="hidden" name="user_id" value="{{ old('user_id', $row->user_id ?? request('user_id')) }}" >
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Full Name </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" value="{{$user->name}}" class="form-control form-control-lg form-control-solid @error('name') is-invalid @enderror " readonly />
+                                <input type="text" name="name" value="{{ old('name', $row->name ?? $user->name) }}" class="form-control form-control-lg form-control-solid @error('name') is-invalid @enderror" readonly />
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -29,7 +30,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Address</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control form-control-lg form-control-solid @error('permanent_address') is-invalid @enderror  no-summernote-editor" name="permanent_address" id="permanent_address" readonly >{{ $user->permanent_address}}</textarea>
+                                <textarea class="form-control form-control-lg form-control-solid @error('permanent_address') is-invalid @enderror  no-summernote-editor" name="permanent_address" id="permanent_address" readonly >{{ old('permanent_address', $row->permanent_address ?? $user->permanent_address) }}</textarea>
                                 @error('permanent_address')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

@@ -380,7 +380,7 @@ class User extends Authenticatable
                    <i class="flaticon2-pen"></i>
                 </a>';
 
-        $addbnking = '<a href="' . route('user.account.details.create',  ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Add user account details">
+        $addbnking = '<a href="' . route('user.account.details.index',  ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="User Accounts">
                    <i class="flaticon2-plus"></i>
                 </a>'; 
 
