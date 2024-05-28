@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\UserCategoryDetail;
@@ -133,13 +134,15 @@ class UserController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show ($id)
+    public function show($id)
     {
-
         $row = User::findOrFail($id);
-        $members = User::where('status', 1)->where('poc_id', $row->id)->get();
-       // dd($members);
-        return view('frontend.user.show')->with('row', $row)->with('members', $members);
+        $members = User::where('status', 1)->where('poc_id', $row->id)->paginate(10);
+
+        // Pass the CSRF token to the view
+        View::share('csrfToken', csrf_token());
+
+        return view('frontend.user.show', compact('row', 'members'));
     }
 
     /**

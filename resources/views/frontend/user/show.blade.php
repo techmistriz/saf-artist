@@ -1,6 +1,31 @@
 @extends('layouts.frontend')
 
 @section('content')
+<style type="text/css">
+	.style .pagination{
+		font-size: 15px;
+	}
+
+	.page-link{
+		color: #181c32;
+	}
+
+	.page-item.active .page-link {
+    	z-index: 3;
+    	color: #fff;
+    	background-color: #981e3d;
+    	border-color: #981e3d;
+	}
+
+	.page-link:hover {
+    	z-index: 2;
+    	color: #981e3d;
+    	text-decoration: none;
+    	background-color: #ebedf3;
+    	border-color: #e4e6ef;
+	}
+
+</style>
 
 <div class="d-flex flex-column-fluid">
     <!--begin::Container-->
@@ -405,7 +430,11 @@
                                 @endforelse
                             </tbody>
                         </table>
-                        <!--end: Datatable-->
+                        <div class="d-flex justify-content-end style">
+						    {{ $members->links('pagination::bootstrap-4') }}
+						</div>
+
+
                     </div>
 
 		            <div class="card-footer">
