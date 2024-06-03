@@ -144,6 +144,7 @@ Route::get('projects/{festival?}', 'App\Http\Controllers\AjaxController@getProje
 
 Route::post('send-otp', 'App\Http\Controllers\AjaxController@sendOtp')->name('ajax.send.otp');
 Route::get('fetch-member-detail', 'App\Http\Controllers\AjaxController@getMember')->name('ajax.fetch.member.detail');
+Route::get('fetch-user-detail', 'App\Http\Controllers\AjaxController@getUserDetails');
 // Route::get('fetch-pincode', 'App\Http\Controllers\AjaxController@getPincodeDate')->name('ajax.fetch.pincode');
 
 Route::get('delete-share-room/{id?}', 'App\Http\Controllers\AjaxController@deleteShareRoom')->name('ajax.delete.share.room');

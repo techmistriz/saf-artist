@@ -173,7 +173,12 @@ class UserController extends Controller
      * @return Redirect
      */
     public function update(UserRequest $request, $id){
+        $existingUser = User::where('festival_id', $request->festival_id)->first();
 
+        if ($existingUser) {
+            \Flash::error('Festival ID already exists for this user.');
+            return redirect()->back();
+        }
         $this->__updateProfile($request, $id);
 
         \Flash::success('Your personal details updated successfully.');

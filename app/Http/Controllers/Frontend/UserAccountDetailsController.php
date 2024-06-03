@@ -46,12 +46,7 @@ class UserAccountDetailsController extends Controller
      */
 
     public function index(Request $request){
-        if (request('user_id')) {            
-            return view('frontend.user_account_details.index');
-        }
-        else{
-            return redirect()->route('dashboard');
-        }
+        return view('frontend.user_account_details.index');
     }
 
     /**
@@ -63,8 +58,9 @@ class UserAccountDetailsController extends Controller
 
     public function fetchData(Request $request, UserAccountDetail $account)
     {
-        $user           = User::find(request('user_id'));
-        $userIdArr = User::where('email', $user->email)->pluck('id');
+        $userEmail          = Auth::user()->email;
+        // dd($userEmail);
+        $userIdArr          = User::where('email', $userEmail)->pluck('id');
 
         $data               =   $request->all();
 
@@ -93,13 +89,17 @@ class UserAccountDetailsController extends Controller
      * @param  null
      * @return \Illuminate\Http\Response
      */
-    public function create(UserAccountDetail $account){
+    public function create(UserAccountDetail $account)
+    {
 
-        $user            = User::findOrFail(request('user_id'));
-        $countries          = Country::where('status', 1)->get();
+        $userIdArr = UserAccountDetail::where('status', 1)->whereNotNull('user_id')->get()->pluck('user_id');
+        // dd($userIdArr);
+        $userEmail     = Auth::user()->email;
+        $users         = User::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();       
+        $countries     = Country::where('status', 1)->get();
         return view('frontend.user_account_details.create')
         ->with('countries', $countries)
-        ->with('user', $user)
+        ->with('users', $users)
         ->with('row', null);
     }
 
@@ -113,11 +113,11 @@ class UserAccountDetailsController extends Controller
 
     public function store(UserAccountDetailsRequest $request)
     {
-
-       $this->__storeAccountDetails($request);
+        
+        $this->__storeAccountDetails($request);
 
         \Flash::success('Your account details created successfully.');
-        return redirect()->route('user.account.details.index', ['user_id' => $request->user_id]);
+        return redirect()->route('user.account.details.index');
     }
 
 
@@ -140,12 +140,16 @@ class UserAccountDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id, UserAccountDetail $account){
-
-        $countries          = Country::where('status', 1)->get();
         $row = UserAccountDetail::findOrFail($id);
+        $userIdArr = UserAccountDetail::where('status', 1)->whereNotIn('user_id', [$row->user_id])->get()->pluck('user_id');
+        // dd($userIdArr);
+        $userEmail     = Auth::user()->email;
+        $users         = User::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();
+        $countries          = Country::where('status', 1)->get();
 
         return view('frontend.user_account_details.edit')
         ->with('countries', $countries)
+        ->with('users', $users)
         ->with('row', $row);
     }
 
@@ -159,7 +163,7 @@ class UserAccountDetailsController extends Controller
 
         $this->__updateAccountDetails($request, $id);
         \Flash::success('Your account details updated successfully.');
-        return \Redirect::route('user.account.details.index', ['user_id' => $request->user_id]);
+        return \Redirect::route('user.account.details.index');
     }
 
     /**
@@ -175,7 +179,7 @@ class UserAccountDetailsController extends Controller
         $row = UserAccountDetail::findOrFail($id);
         $row->delete();
         \Flash::success('Group member deleted successfully.'); 
-        return \Redirect::route('group.member.list');
+        return \Redirect::route('user.account.details.index');
     }
 
 }

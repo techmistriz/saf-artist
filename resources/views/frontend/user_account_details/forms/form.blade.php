@@ -12,13 +12,30 @@
             
             <div class="card-body">
                 <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Profile</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control selectpicker" name="user_id" tabindex="null" onchange="getUserDetails()" required>
+                                    <option value="" data-slug="">Select User Profile</option>
+                                    @if($users->count())
+                                        @foreach($users as $value)
+                                          <option {{ (old('user_id') ?? optional($row)->user_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                @error('user_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div> 
+                    </div>
 
-                    <input type="hidden" name="user_id" value="{{ old('user_id', $row->user_id ?? request('user_id')) }}" >
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Full Name </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" value="{{ old('name', $row->name ?? $user->name) }}" class="form-control form-control-lg form-control-solid @error('name') is-invalid @enderror" readonly />
+                                <input type="text" name="name" id="name" value="{{ old('name', $row->name ?? '') }}" class="form-control form-control-lg form-control-solid @error('name') is-invalid @enderror" readonly />
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -30,7 +47,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Address</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control form-control-lg form-control-solid @error('permanent_address') is-invalid @enderror  no-summernote-editor" name="permanent_address" id="permanent_address" readonly >{{ old('permanent_address', $row->permanent_address ?? $user->permanent_address) }}</textarea>
+                                <textarea class="form-control form-control-lg form-control-solid @error('permanent_address') is-invalid @enderror  no-summernote-editor" name="permanent_address" id="permanent_address" readonly >{{ old('permanent_address', $row->permanent_address ?? '') }}</textarea>
                                 @error('permanent_address')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -481,6 +498,33 @@
             $("select[name='city_id']").html('<option value="">Select City</option>');
             $("select[name='city_id']").selectpicker('refresh');
         }
+    }
+
+    function getUserDetails() 
+    {
+        var user_id = $('select[name=user_id]').val();
+
+        if(!user_id){
+            return false
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('fetch-user-detail') }}",
+            data: {
+                user_id:user_id
+            },
+            success: function (response) {
+                if (response.status) {
+                    var data = response?.data[0];
+                    $("#name").val(data?.name);
+                    $("#permanent_address").val(data?.permanent_address);
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching user details:', error);
+            }
+        });
     }
 
     $(document).ready(function(){

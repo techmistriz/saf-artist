@@ -246,6 +246,25 @@ class AjaxController extends Controller
         ]);
     }
 
+    public function getUserDetails(Request $request,$user_id = NULL)
+    { 
+
+        if (!$request->has('user_id') || !$request->filled('user_id')) {
+            return ['status' => false, 'message' => 'User Id not found.', 'data' => null];
+        }
+        $queryModel = User::query();
+
+        if ($request->has('user_id') && $request->filled('user_id')) {
+            $queryModel->where('id', $request->user_id);
+        }
+
+        $results = $queryModel->get();
+        //dd($results);
+        if(!empty($results)) {
+            return ['status' => true, 'message' => 'Record found.', 'data' => $results];
+        }
+    }
+
 
     // public function getPincodeDate(Request $request, $pincode = NULL)
     // { 

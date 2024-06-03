@@ -16,6 +16,7 @@ class GroupMemberImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        dd($row);
         $dob = isset($row['dob']) ? Date::excelToDateTimeObject($row['dob'])->format('Y-m-d') : null;
         // dd($row);
         if (!empty($row['name'])) {
