@@ -61,10 +61,10 @@ class UserAccountDetail extends MasterModel
     {
       return $this->belongsTo('App\Models\Country', 'country_id', 'id');
     }
-
+    
     public function profile()
     {
-      return $this->belongsTo('App\Models\User', 'user_id', 'id');
+      return $this->belongsTo('App\Models\UserProfile', 'profile_id', 'id');
     }
 
     public function state()

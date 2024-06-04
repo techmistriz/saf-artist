@@ -8,6 +8,7 @@ use App\Models\UserAccountDetail;
 use App\Models\Country;
 use App\Models\UserProfile;
 use App\Models\User;
+use App\Models\Festival;
 use Carbon\Carbon;
 use App\Http\Requests\UserAccountDetailsRequest;
 use Hash;
@@ -59,12 +60,16 @@ class UserAccountDetailsController extends Controller
 
     public function fetchData(Request $request, UserAccountDetail $account)
     {
+        
         $userEmail          = Auth::user()->email;
         $userIdArr          = User::where('email', $userEmail)->pluck('id');
 
         $data               =   $request->all();
+        
+        // UserProfile::$withoutAppends = true;
+        // Festival::$withoutAppends = true;
 
-        $db_data            =   $account->getList($data, ['profile'],[], $userIdArr);
+        $db_data            =   $account->getList($data, ['profile', 'profile.festival'],[], $userIdArr);
         //dd($db_data);
 
         $count 				=  	$account->getListCount($data, [],[], $userIdArr);

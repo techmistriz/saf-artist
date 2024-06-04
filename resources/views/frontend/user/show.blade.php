@@ -379,7 +379,7 @@
 		                </div>
 		            </div>
 
-		            <div class="card-header flex-wrap border-0 pt-6 pb-0" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
+		            <div class="card-header flex-wrap border-0 pt-6 pb-0" style="{{isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
                         <div class="card-title">
                             <h3 class="card-label">Members Details</h3>
                         </div>
@@ -388,7 +388,7 @@
     					</div>
                     </div>
 
-                    <div class="card-body" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
+                    <div class="card-body" style="{{isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
                         <table class="table">
                             <thead>
                                 <tr>

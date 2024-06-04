@@ -71,11 +71,11 @@
 @endsection
 
 @push('scripts')
-     <script type="text/javascript">
+    <script type="text/javascript">
 
         jQuery(document).ready((function() {
 
-            var url             = '{!! route("fetch.user.account.details.data", ["user_id" => request("user_id")]) !!}';
+            var url             = '{!! route("fetch.user.account.details.data") !!}';
             var columnsArray    =   [
                 
                 {
@@ -97,10 +97,10 @@
                     }
                 },
                 {
-                    field: "user_id",
-                    title: "Profile",
+                    field: "profile_id",
+                    title: "Festival",
                     template: function(t) {
-                        return ( typeof t?.profile?.name != 'undefined' && t?.profile?.name)? t?.profile?.name : 'N/A';
+                        return ( typeof t?.profile?.festival?.name != 'undefined' && t?.profile?.festival?.name)? t?.profile?.festival?.name : 'N/A';
                     }
                 },   
                 {
