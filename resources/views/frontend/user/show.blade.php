@@ -384,7 +384,7 @@
                             <h3 class="card-label">Members Details</h3>
                         </div>
                         <div class="card-toolbar">
-    						<a href="{{ route('group.member.create', ['profile_id' => $row->id]) }}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
+    						<a href="{{ route('profile.member.create', ['profile_id' => $row->id]) }}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
     					</div>
                     </div>
 
@@ -409,13 +409,13 @@
                                         <td>{{ $value->contact }}</td>
                                         <td>
 							                <span class="overflow-visible position-relative" style="width: 125px;" data-id="{{ $value->id }}">
-											    <a href="{{ route('group.member.show', $value->id) }}" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+											    <a href="{{ route('profile.member.show', $value->id) }}" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
 											        <i class="flaticon-eye"></i>
 											    </a>
-											    <a href="{{ route('group.member.edit', $value->id) }}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit member details">
+											    <a href="{{ route('profile.member.edit', $value->id) }}" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit member details">
 											        <i class="flaticon2-pen"></i>
 											    </a>
-											    <a href="{{ route('group.member.delete', $value->id) }}" class="btn btn-sm btn-clean btn-icon mr-2" title="Delete member details">
+											    <a href="{{ route('profile.member.delete', $value->id) }}" class="btn btn-sm btn-clean btn-icon mr-2" title="Delete member details">
 											        <i class="flaticon2-trash"></i>
 											    </a>
 											</span>

@@ -103,17 +103,17 @@ Route::group(['middleware' => ['verified']], function () {
 
 	Route::get('/hotel-booking/details', [App\Http\Controllers\Frontend\UserController::class, 'editHotelBookingDetails'])->name('edit.hotel.booking.details');
 
-	// start group-member route
-	Route::get('/group-member/list', [App\Http\Controllers\Frontend\GroupMemberController::class, 'index'])->name('group.member.list');
-	Route::post('/fetch-group-member-data', [App\Http\Controllers\Frontend\GroupMemberController::class, 'fetchData'])->name('fetch.group.member.data');
-	Route::get('/group-member/create', [App\Http\Controllers\Frontend\GroupMemberController::class, 'create'])->name('group.member.create');
-	Route::post('/store-group-member', [App\Http\Controllers\Frontend\GroupMemberController::class, 'store'])->name('store.group.member');
-	Route::get('/group-member/edit/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'edit'])->name('group.member.edit');
-	Route::put('/group-member-update/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'update'])->name('store.group.update');
-	Route::get('/group-member/show/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'show'])->name('group.member.show');
-	Route::get('/group-member/delete/{id}', [App\Http\Controllers\Frontend\GroupMemberController::class, 'delete'])->name('group.member.delete');
-	Route::post('/group-members/import', [App\Http\Controllers\Frontend\GroupMemberController::class, 'import'])->name('group.members.import');
-	// end group-member route
+	// start profile-member route
+	Route::get('/profile-member/list', [App\Http\Controllers\Frontend\ProfileMemberController::class, 'index'])->name('profile.member.list');
+	Route::post('/fetch-profile-member-data', [App\Http\Controllers\Frontend\ProfileMemberController::class, 'fetchData'])->name('fetch.profile.member.data');
+	Route::get('/profile-member/create', [App\Http\Controllers\Frontend\ProfileMemberController::class, 'create'])->name('profile.member.create');
+	Route::post('/store-profile-member', [App\Http\Controllers\Frontend\ProfileMemberController::class, 'store'])->name('store.profile.member');
+	Route::get('/profile-member/edit/{id}', [App\Http\Controllers\Frontend\ProfileMemberController::class, 'edit'])->name('profile.member.edit');
+	Route::put('/profile-member-update/{id}', [App\Http\Controllers\Frontend\ProfileMemberController::class, 'update'])->name('store.profile.update');
+	Route::get('/profile-member/show/{id}', [App\Http\Controllers\Frontend\ProfileMemberController::class, 'show'])->name('profile.member.show');
+	Route::get('/profile-member/delete/{id}', [App\Http\Controllers\Frontend\ProfileMemberController::class, 'delete'])->name('profile.member.delete');
+	Route::post('/profile-members/import', [App\Http\Controllers\Frontend\ProfileMemberController::class, 'import'])->name('profile.members.import');
+	// end profile-member route
 
 
 	// start ticket-booking route

@@ -59,20 +59,16 @@ class UserAccountDetailsController extends Controller
      */
 
     public function fetchData(Request $request, UserAccountDetail $account)
-    {
-        
-        $userEmail          = Auth::user()->email;
-        $userIdArr          = User::where('email', $userEmail)->pluck('id');
-
-        $data               =   $request->all();
+    {        
+        $userId   = Auth::user()->id;
+        $data     = $request->all();
         
         // UserProfile::$withoutAppends = true;
         // Festival::$withoutAppends = true;
 
-        $db_data            =   $account->getList($data, ['profile', 'profile.festival'],[], $userIdArr);
-        //dd($db_data);
+        $db_data  = $account->getList($data, ['profile', 'profile.festival'],['user_id' => $userId]);
 
-        $count 				=  	$account->getListCount($data, [],[], $userIdArr);
+        $count    = $account->getListCount($data, [],['user_id' => $userId]);
 
         $returnArray = array(
             'data' => $db_data,

@@ -2,12 +2,12 @@
 
 namespace App\Imports;
 
-use App\Models\GroupMember;
+use App\Models\ProfileMember;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class GroupMemberImport implements ToModel, WithHeadingRow
+class ProfileMemberImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -20,7 +20,7 @@ class GroupMemberImport implements ToModel, WithHeadingRow
         $dob = isset($row['dob']) ? Date::excelToDateTimeObject($row['dob'])->format('Y-m-d') : null;
         // dd($row);
         if (!empty($row['name'])) {
-            return new GroupMember([
+            return new ProfileMember([
                 'name'            => $row['name'] ?? null,
                 'poc_id'          => $row['poc_id'] ?? null,
                 'email'           => $row['email'] ?? null, 

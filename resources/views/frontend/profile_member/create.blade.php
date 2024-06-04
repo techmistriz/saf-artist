@@ -15,11 +15,11 @@
 
                     @include('includes.common.error')
                         
-                    <form action="{{ route('store.group.member') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('store.profile.member') }}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="profile_id" value="{{ request('profile_id') }}" >
 
                      	{{ csrf_field() }}
-                        @include('frontend.group_member.forms.form')
+                        @include('frontend.profile_member.forms.form')
 
                     </form>
 
@@ -28,7 +28,7 @@
                         <div class="modal-dialog" style="margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                             <div class="modal-content">
 
-                                <form method="POST" action="{{ route('group.members.import') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('profile.members.import') }}" enctype="multipart/form-data">
                                     @csrf
                                     <!-- Modal Header -->
                                     <div class="modal-header">

@@ -186,7 +186,7 @@
                     <div class="col-lg-4"></div>
                     <div class="col-lg-4 text-center">
                         <button type="submit" class="theme-btn mt-0 mb-0">Submit</button>
-                        <!-- <a class="btn btn-light-danger" href="{{ route('group.member.list') }}">Cancel</a> -->
+                        <!-- <a class="btn btn-light-danger" href="{{ route('profile.member.list') }}">Cancel</a> -->
                     </div>
                 </div>
             </div>

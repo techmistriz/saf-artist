@@ -9,7 +9,7 @@ use App\Models\Curator;
 use App\Models\ArtistType;
 use App\Models\UserProfile;
 use App\Models\User;
-use App\Models\GroupMember;
+use App\Models\ProfileMember;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
@@ -121,7 +121,7 @@ class UserProfileController extends Controller
     public function show($id)
     {
         $row = UserProfile::findOrFail($id);
-        $members = GroupMember::where('status', 1)->where('profile_id', $row->id)->paginate(10);
+        $members = ProfileMember::where('status', 1)->where('profile_id', $row->id)->paginate(10);
 
         return view('frontend.user.show', compact('row', 'members'));
     }

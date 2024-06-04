@@ -96,51 +96,37 @@
                         </div>
 
                         <div class="d-flex align-items-center pb-9">
+                            <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
-                                    <i class="la la-plane  icon-xl"></i>
+                                    <i class="la la-bank  icon-xl"></i>
                                 </span>
                             </div>
+                            <!--end::Symbol-->
+
+                            <!--begin::Text-->
                             <div class="d-flex flex-column flex-grow-1">
-                                <div class="dropdown">
-                                    <a href="#" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder dropdown-toggle" id="ticketDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ticket Booking</a>
-                                    @if(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual'))
-                                        <div class="dropdown-menu" aria-labelledby="ticketDropdown">
-                                            <a class="dropdown-item" href="{{ route('ticket.booking.edit', Auth::user()->id) }}">Edit Ticket Booking</a>
-                                        </div>
-                                    @else
-                                        <div class="dropdown-menu" aria-labelledby="ticketDropdown">
-                                            <a class="dropdown-item" href="{{ route('ticket.booking.create') }}">Add Ticket Booking</a>
-                                            <a class="dropdown-item" href="{{ route('ticket.booking.list') }}">Ticket Booking List</a>
-                                        </div>
-                                    @endif
-                                </div>
-                                <span class="text-muted font-weight-bold">Ticket Booking</span>
+                                <a href="{{ route('ticket.booking.list') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Ticket Details</a>
+                                <span class="text-muted font-weight-bold">Ticket Details</span>
                             </div>
+                            <!--end::Text-->
                         </div>
 
                         <div class="d-flex align-items-center pb-9">
+                            <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
-                                    <i class="la la-plane  icon-xl"></i>
+                                    <i class="la la-bank  icon-xl"></i>
                                 </span>
                             </div>
+                            <!--end::Symbol-->
+
+                            <!--begin::Text-->
                             <div class="d-flex flex-column flex-grow-1">
-                                <div class="dropdown">
-                                    <a class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder dropdown-toggle" id="hotelDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hotel Booking</a>
-                                    @if(isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual'))
-                                        <div class="dropdown-menu" aria-labelledby="ticketDropdown">
-                                            <a class="dropdown-item" href="{{ route('hotel.booking.edit', Auth::user()->id) }}">Edit Hotel Booking</a>
-                                        </div>
-                                    @else
-                                        <div class="dropdown-menu" aria-labelledby="hotelDropdown">
-                                            <a class="dropdown-item" href="{{ route('hotel.booking.create') }}">Add Hotel Booking</a>
-                                            <a class="dropdown-item" href="{{ route('hotel.booking.list') }}">Hotel Booking List</a>
-                                        </div>
-                                    @endif                                    
-                                </div>
-                                <span class="text-muted font-weight-bold">Hotel Booking</span>
+                                <a href="{{ route('hotel.booking.list') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Hotel Details</a>
+                                <span class="text-muted font-weight-bold">Hotel Details</span>
                             </div>
+                            <!--end::Text-->
                         </div>
 
                         <div class="d-flex align-items-center pb-9">

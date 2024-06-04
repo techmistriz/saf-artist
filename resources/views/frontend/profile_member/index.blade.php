@@ -20,7 +20,7 @@
         						<span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
         					</div>
         					<div class="card-toolbar">
-        						<a href="{{ route('group.member.create') }}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
+        						<a href="{{ route('profile.member.create') }}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
         					</div>
         				</div>
         				<div class="card-body">
@@ -75,7 +75,7 @@
 
         jQuery(document).ready((function() {
 
-            var url             = '{!! route("fetch.group.member.data") !!}';
+            var url             = '{!! route("fetch.profile.member.data") !!}';
             var columnsArray    =   [
                 
                 {

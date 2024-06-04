@@ -14,7 +14,7 @@ class UserAccountDetail extends MasterModel
     protected $appends = ['actions', 'frontend_actions'];
     protected $guarded = [];
 
-    public function getList($data, $with = [], $where = [], $whereIn = []){  
+    public function getList($data, $with = [], $where = []){  
 
         $records = $this->handleAjax($data);
         if(isset($with) && !empty($with))
@@ -25,11 +25,6 @@ class UserAccountDetail extends MasterModel
         if(isset($where) && !empty($where))
         {
            $records->where($where);     
-        }
-
-        if(isset($whereIn) && !empty($whereIn))
-        {
-           $records->whereIn('user_id', $whereIn);     
         }
 
         // // Added for sequence number

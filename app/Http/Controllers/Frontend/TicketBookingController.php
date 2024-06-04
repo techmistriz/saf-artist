@@ -65,12 +65,13 @@ class TicketBookingController extends Controller
 
     public function fetchData(Request $request, TicketBooking $ticket)
     {
-        
+        $userId   = Auth::user()->id;
+
         $data               =   $request->all();
 
-        $db_data            =   $ticket->getList($data);
+        $db_data            =   $ticket->getList($data, [], ['user_id' => $userId]);
 
-        $count 				=  	$ticket->getListCount($data);
+        $count 				=  	$ticket->getListCount($data, [], ['user_id' => $userId]);
 
         $returnArray = array(
             'data' => $db_data,

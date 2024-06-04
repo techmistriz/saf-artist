@@ -4,18 +4,18 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\GroupMember;
+use App\Models\ProfileMember;
 use App\Models\User;
 use Carbon\Carbon;
-use App\Http\Requests\GroupMemberRequest;
-use App\Imports\GroupMemberImport;
+use App\Http\Requests\ProfileMemberRequest;
+use App\Imports\ProfileMemberImport;
 use Maatwebsite\Excel\Facades\Excel;
 use Hash;
 use Image;
 use Auth;
 use ImageUploadHelper;
 
-class GroupMemberController extends Controller
+class ProfileMemberController extends Controller
 {   
     
 
@@ -43,7 +43,7 @@ class GroupMemberController extends Controller
 
     public function index(Request $request){
 
-        return view('frontend.group_member.index');
+        return view('frontend.profile_member.index');
     }
 
     /**
@@ -53,7 +53,7 @@ class GroupMemberController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function fetchData(Request $request, GroupMember $member)
+    public function fetchData(Request $request, ProfileMember $member)
     {
         $userId = Auth::user()->id;
 
@@ -84,12 +84,12 @@ class GroupMemberController extends Controller
      * @param  null
      * @return \Illuminate\Http\Response
      */
-    public function create(GroupMember $member)
+    public function create(ProfileMember $member)
     {
         $userEmail = Auth::user()->email;
         $parents = User::where(['status' => 1, 'email' => $userEmail])->latest('project_year')->get();
         //dd($parents);
-        return view('frontend.group_member.create')->with('row', null)->with('parents', $parents);
+        return view('frontend.profile_member.create')->with('row', null)->with('parents', $parents);
     }
 
     /**
@@ -100,10 +100,10 @@ class GroupMemberController extends Controller
      */
     
 
-    public function store(GroupMemberRequest $request)
+    public function store(ProfileMemberRequest $request)
     {
 
-        $member                   = new GroupMember();
+        $member                   = new ProfileMember();
         $member->name             = $request->name;
         $member->user_id          = Auth::user()->id;
         $member->profile_id       = $request->profile_id;
@@ -121,7 +121,7 @@ class GroupMemberController extends Controller
         //dd($member);
         $member->save();
 
-        \Flash::success('Group member created successfully');
+        \Flash::success('Profile member created successfully');
         return \Redirect::route('user.profile.show', $member->profile_id);
     }
 
@@ -132,10 +132,10 @@ class GroupMemberController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show ($id, GroupMember $member){
+    public function show ($id, ProfileMember $member){
 
-        $row = GroupMember::findOrFail($id);
-        return view('frontend.group_member.show ')->with('row', $row);
+        $row = ProfileMember::findOrFail($id);
+        return view('frontend.profile_member.show ')->with('row', $row);
     }
 
     /**
@@ -144,11 +144,11 @@ class GroupMemberController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, GroupMember $member){
+    public function edit($id, ProfileMember $member){
 
-        $row = GroupMember::findOrFail($id);
+        $row = ProfileMember::findOrFail($id);
         //dd($row);
-        return view('frontend.group_member.edit')->with('row', $row);
+        return view('frontend.profile_member.edit')->with('row', $row);
     }
 
     /**
@@ -157,9 +157,9 @@ class GroupMemberController extends Controller
      * @param  $id
      * @return Redirect
      */
-    public function update(GroupMemberRequest $request, $id){
+    public function update(ProfileMemberRequest $request, $id){
 
-        $member                  = GroupMember::findOrFail($id);
+        $member                  = ProfileMember::findOrFail($id);
 
         $member->user_id         = Auth::user()->id;
         $member->profile_id      = $request->profile_id;
@@ -177,7 +177,7 @@ class GroupMemberController extends Controller
         $member->status          = $request->input('status', 0);
         $member->save();
 
-        \Flash::success('Group member updated successfully.');
+        \Flash::success('Profile member updated successfully.');
         return \Redirect::route('user.profile.show', $member->profile_id);
     }
 
@@ -191,18 +191,18 @@ class GroupMemberController extends Controller
     public function delete($id)
     {
         
-        $row = GroupMember::findOrFail($id);
+        $row = ProfileMember::findOrFail($id);
         $row->delete();
-        \Flash::success('Group member deleted successfully.'); 
-        return \Redirect::route('group.member.list');
+        \Flash::success('Profile member deleted successfully.'); 
+        return back();
     }    
 
     public function import(Request $request) 
     {
-        Excel::import(new GroupMemberImport, $request->file('file'));
+        Excel::import(new ProfileMemberImport, $request->file('file'));
         
-        flash('Group members imported successfully from excel sheet.')->success();
-        return redirect()->route('group.member.create');
+        flash('Profile members imported successfully from excel sheet.')->success();
+        return redirect()->route('profile.member.create');
     }
 
 }

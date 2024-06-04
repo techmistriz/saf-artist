@@ -7,7 +7,7 @@ use App\Models\Common\MasterModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
-class GroupMember extends MasterModel
+class ProfileMember extends MasterModel
 {
    use HasFactory;
    use SoftDeletes;
