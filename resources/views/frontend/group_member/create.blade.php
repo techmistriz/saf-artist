@@ -16,7 +16,7 @@
                     @include('includes.common.error')
                         
                     <form action="{{ route('store.group.member') }}" method="POST" enctype="multipart/form-data">
-                        <input type="hidden" name="poc_id" value="{{ request('poc_id') }}" >
+                        <input type="hidden" name="profile_id" value="{{ request('profile_id') }}" >
 
                      	{{ csrf_field() }}
                         @include('frontend.group_member.forms.form')

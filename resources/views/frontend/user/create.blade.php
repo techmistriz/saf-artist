@@ -40,7 +40,7 @@
 
                     @include('includes.common.error')
                         
-                    <form action="{{ route('user.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('user.profile.store') }}" method="POST" enctype="multipart/form-data">
 
                      	{{ csrf_field() }}
                         @include('frontend.user.forms.form')

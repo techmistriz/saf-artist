@@ -40,7 +40,7 @@
 
                     @include('includes.common.error')
                         
-                    <form action="{{ route('user.update', $row->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('user.profile.update', $row->id) }}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="{{$row->id}}">
                         {{ csrf_field() }}

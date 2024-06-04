@@ -16,17 +16,11 @@
                     <div class="card card-custom">
                         <div class="card-header flex-wrap border-0 pt-6 pb-0">
                             <div class="card-title">
-                                @if(isset(Auth::user()->frontendRole->name) && !empty(Auth::user()->frontendRole->name))
-                                    <h3 class="card-label">{{ Auth::user()->frontendRole->name }} Personal Details</h3>
-                                @endif
+                                <h3 class="card-label">Profile Details</h3>
                                 <span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
                             </div>
                             <div class="card-toolbar">
-                                <a href="{{ route('user.create') }}" class="btn font-weight-bold ml-2" id="button">
-                                    @if(isset(Auth::user()->frontendRole->name) && !empty(Auth::user()->frontendRole->name))
-                                        Add {{ Auth::user()->frontendRole->name }}
-                                    @endif
-                                </a>
+                                <a href="{{ route('user.create') }}" class="btn font-weight-bold ml-2" id="button"> Add Profile </a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -51,11 +45,11 @@
                                             Search
                                         </a>
                                     </div>
-                                    <div class="col-md-1">
+                                    <!-- <div class="col-md-1">
                                         <button class="btn btn-default refresh_all">
                                             <i class="flaticon-refresh text-danger"></i>
                                         </button>
-                                    </div>
+                                    </div> -->
 
                                 </div>
                             </div>
@@ -81,7 +75,7 @@
 
         jQuery(document).ready((function() {
 
-            var url             = '{!! route("fetch.user.data") !!}';
+            var url             = '{!! route("fetch.user.profile.data") !!}';
             var columnsArray    =   [
                 
                 {
@@ -123,10 +117,6 @@
                 {
                     field: "name",
                     title: "Name",
-                },  
-                {
-                    field: "email",
-                    title: "Email",
                 },
                 {
                     field: "status",
@@ -147,7 +137,7 @@
                     },
                 },      
                 {
-                    field: "frontend_actions",
+                    field: "actions",
                     title: "actions",
                     sortable: false,
                 }, 

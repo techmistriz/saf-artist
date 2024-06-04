@@ -13,7 +13,7 @@ class GroupMember extends MasterModel
    use SoftDeletes;
 
    protected $appends = ['actions'];
-   protected $table = 'users';
+   protected $table = 'profile_members';
 
    protected $fillable = ['name', 'poc_id', 'email', 'contact', 'dob', 'stage_name', 'artist_bio', 'instagram_url', 'facebook_url', 'linkdin_url', 'twitter_url', 'website', 'status'];
 
@@ -49,7 +49,7 @@ class GroupMember extends MasterModel
             $query->where('name', 'LIKE', '%'.$searchKey.'%')
                ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
                ->orWhere('contact', 'LIKE', '%'.$searchKey.'%')
-               ->orWhereHas('poc', function ($query) use ($searchKey) {
+               ->orWhereHas('user', function ($query) use ($searchKey) {
                   $query->where('name', 'LIKE', '%'.$searchKey.'%');
                });
          });
@@ -57,9 +57,9 @@ class GroupMember extends MasterModel
       return $records->get();
    }
 
-   public function poc()
+   public function user()
    {
-      return $this->belongsTo('App\Models\User', 'poc_id', 'id');
+      return $this->belongsTo('App\Models\User', 'user_id', 'id');
    }
 
    public function getListCount($data, $with = [], $where = []){  
@@ -82,7 +82,7 @@ class GroupMember extends MasterModel
             $query->where('name', 'LIKE', '%'.$searchKey.'%')
                ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
                ->orWhere('contact', 'LIKE', '%'.$searchKey.'%')
-               ->orWhereHas('poc', function ($query) use ($searchKey) {
+               ->orWhereHas('user', function ($query) use ($searchKey) {
                   $query->where('name', 'LIKE', '%'.$searchKey.'%');
                });
          });

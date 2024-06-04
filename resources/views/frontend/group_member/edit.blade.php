@@ -18,6 +18,7 @@
                     <form action="{{ route('store.group.update', $row->id) }}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="{{$row->id}}">
+                        <input type="hidden" name="profile_id" value="{{ $row->profile_id }}" >
                         {{ csrf_field() }}
                         @include('frontend.group_member.forms.form')
                     </form>

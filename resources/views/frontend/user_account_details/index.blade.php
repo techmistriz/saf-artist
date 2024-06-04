@@ -16,11 +16,11 @@
                     <div class="card card-custom">
                         <div class="card-header flex-wrap border-0 pt-6 pb-0">
                             <div class="card-title">
-                                <h3 class="card-label">Account Details 
+                                <h3 class="card-label">Banking Details 
                                 <span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
                             </div>
                             <div class="card-toolbar">
-                                <a href="{{ route('user.account.details.create') }}" class="btn font-weight-bold ml-2" id="button">Add Account Details</a>
+                                <a href="{{ route('user.account.details.create') }}" class="btn font-weight-bold ml-2" id="button">Add Banking Details</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -45,11 +45,11 @@
                                             Search
                                         </a>
                                     </div>
-                                    <div class="col-md-1">
+                                    <!-- <div class="col-md-1">
                                         <button class="btn btn-default refresh_all">
                                             <i class="flaticon-refresh text-danger"></i>
                                         </button>
-                                    </div>
+                                    </div> -->
 
                                 </div>
                             </div>
@@ -95,25 +95,17 @@
 
                         return (index + offset);
                     }
-                }, 
+                },
+                {
+                    field: "user_id",
+                    title: "Profile",
+                    template: function(t) {
+                        return ( typeof t?.profile?.name != 'undefined' && t?.profile?.name)? t?.profile?.name : 'N/A';
+                    }
+                },   
                 {
                     field: "name",
                     title: "Name",
-                },
-                {
-                    field: "country_id",
-                    title: "country",
-                    template: function(t) {
-                        return ( typeof t?.country?.country_name != 'undefined' && t?.country?.country_name)? t?.country?.country_name : 'N/A';
-                    }
-                },  
-                {
-                    field: "bank_name",
-                    title: "bank name",
-                },  
-                {
-                    field: "account_number",
-                    title: "account number",
                 }, 
                 {
                     field: "status",

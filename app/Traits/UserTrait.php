@@ -8,6 +8,7 @@ use App\Models\UserAccountDetail;
 use App\Models\Category;
 use App\Models\AddressProof;
 use App\Models\User;
+use App\Models\UserProfile;
 use Carbon\Carbon;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UserCategoryDetailsRequest;
@@ -27,11 +28,109 @@ trait UserTrait
      * @param  $id
      * @return Redirect
      */
+    public function __storeUserProfile(Request $request) {
+
+        
+
+        $user_profile = new UserProfile();
+
+        $user_profile->festival_id              = $request->festival_id;
+        $user_profile->user_id                  = \Auth::user()->id; 
+        $user_profile->category_id              = $request->category_id;
+        $user_profile->curator_name             = $request->curator_name;
+        $user_profile->artist_type_id           = $request->artist_type_id;
+        $user_profile->project_id               = $request->project_id;
+        $user_profile->project_year             = $request->project_year;
+
+        if($request->has('name') && $request->filled('name')) {
+            $user_profile->name   = $request->name;
+        }
+        
+        if($request->has('email') && $request->filled('email')) {
+            $user_profile->email   = $request->email;
+        }
+        
+        if($request->has('contact') && $request->filled('contact')) {
+            $user_profile->contact   = $request->contact;
+        }
+
+        
+        $user_profile->country_code             = $request->country_code;
+        $user_profile->dob                      = $request->dob;
+        $user_profile->permanent_address        = $request->permanent_address;
+        $user_profile->pa_city_id               = $request->pa_city_id;
+        $user_profile->pa_state_id              = $request->pa_state_id;
+        $user_profile->pa_country_id            = $request->pa_country_id;
+        $user_profile->pa_pincode               = $request->pa_pincode;
+        $user_profile->company_collective       = $request->company_collective;
+        $user_profile->stage_name               = $request->stage_name;
+        $user_profile->artist_bio               = $request->artist_bio;
+        $user_profile->facebook_url             = $request->facebook_url;
+        $user_profile->instagram_url            = $request->instagram_url;
+        $user_profile->linkdin_url              = $request->linkdin_url;
+        $user_profile->twitter_url              = $request->twitter_url;
+        $user_profile->website                  = $request->website;        
+        $user_profile->other_link               = $request->other_link;
+        $user_profile->troup_size               = $request->troup_size;
+        // dd($user_profile);
+        $user_profile->save();
+
+    }
+
+    public function __updateUserProfile(Request $request, $id) {
+
+        
+
+        $user_profile = UserProfile::findOrFail($id);
+
+        $user_profile->festival_id              = $request->festival_id;        
+        $user_profile->user_id                  = \Auth::user()->id;      
+        $user_profile->category_id              = $request->category_id;
+        $user_profile->curator_name             = $request->curator_name;
+        $user_profile->artist_type_id           = $request->artist_type_id;
+        $user_profile->project_id               = $request->project_id;
+        $user_profile->project_year             = $request->project_year;
+
+        if($request->has('name') && $request->filled('name')) {
+            $user_profile->name   = $request->name;
+        }
+        
+        if($request->has('email') && $request->filled('email')) {
+            $user_profile->email   = $request->email;
+        }
+        
+        if($request->has('contact') && $request->filled('contact')) {
+            $user_profile->contact   = $request->contact;
+        }
+
+        
+        $user_profile->country_code             = $request->country_code;
+        $user_profile->dob                      = $request->dob;
+        $user_profile->permanent_address        = $request->permanent_address;
+        $user_profile->pa_city_id               = $request->pa_city_id;
+        $user_profile->pa_state_id              = $request->pa_state_id;
+        $user_profile->pa_country_id            = $request->pa_country_id;
+        $user_profile->pa_pincode               = $request->pa_pincode;
+        $user_profile->company_collective       = $request->company_collective;
+        $user_profile->stage_name               = $request->stage_name;
+        $user_profile->artist_bio               = $request->artist_bio;
+        $user_profile->facebook_url             = $request->facebook_url;
+        $user_profile->instagram_url            = $request->instagram_url;
+        $user_profile->linkdin_url              = $request->linkdin_url;
+        $user_profile->twitter_url              = $request->twitter_url;
+        $user_profile->website                  = $request->website;        
+        $user_profile->other_link               = $request->other_link;
+        $user_profile->troup_size               = $request->troup_size;
+        // dd($user_profile);
+        $user_profile->save();
+
+    }
+
     public function __storeUser(Request $request) {
 
         
 
-        $user = new User();
+        $user = new UserProfile();
         // dd($request->all()); 
         $user->festival_id              = $request->festival_id;
         $user->frontend_role_id         = \Auth::user()->frontend_role_id;        
@@ -668,7 +767,8 @@ trait UserTrait
     public function __storeAccountDetails(Request $request){        
 
         $userAccountDetail                          = new UserAccountDetail();
-        $userAccountDetail->user_id                 = $request->user_id;
+        $userAccountDetail->user_id                 = \Auth::user()->id;
+        $userAccountDetail->profile_id              = $request->profile_id;
         $userAccountDetail->name                    = $request->name;
         $userAccountDetail->permanent_address       = $request->permanent_address;
         $userAccountDetail->pincode                 = $request->pincode;
@@ -724,7 +824,8 @@ trait UserTrait
     public function __updateAccountDetails(Request $request, $id){        
 
         $userAccountDetail                          = UserAccountDetail::findOrFail($id);
-        $userAccountDetail->user_id                 = $request->user_id;
+        $userAccountDetail->user_id                 = \Auth::user()->id;
+        $userAccountDetail->profile_id              = $request->profile_id;
         $userAccountDetail->name                    = $request->name;
         $userAccountDetail->permanent_address       = $request->permanent_address;
         $userAccountDetail->pincode                 = $request->pincode;

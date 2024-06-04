@@ -73,7 +73,7 @@
 		                <div class="row">
 		                    <div class="col-lg-4"></div>
 		                    <div class="col-lg-4 text-center">
-		                        <a class="theme-btn mt-0 mb-0" href="{{ route('user.show', $row->poc_id) }}">Back</a>
+		                        <a class="theme-btn mt-0 mb-0" href="{{ route('user.profile.show', $row->profile_id) }}">Back</a>
 		                    </div>
 		                </div>
 		            </div>

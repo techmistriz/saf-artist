@@ -33,7 +33,7 @@ class UserAccountDetailsRequest extends FormRequest
             'confirm_account_number'	=> 'required|same:account_number',
             // 'bank_holder_number'		=> 'required',
             // 'bank_name'					=> 'required',
-            'user_id'                  => 'required',
+            'profile_id'                  => 'required',
             // 'branch_address' 			=> 'required',
             // 'ifsc_code'					=> 'required',
             // 'cancel_cheque_image' 		=> 'required|mimes:jpeg,png,jpg',

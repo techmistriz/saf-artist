@@ -63,7 +63,7 @@ Route::get('/term-conditions', '\App\Http\Controllers\HomeController@terms');
 Route::group(['middleware' => ['verified']], function () {
 	
 	// start User route
-	Route::get('/dashboard', [App\Http\Controllers\Frontend\UserController::class, 'index'])->name('dashboard');
+	// Route::get('/dashboard', [App\Http\Controllers\Frontend\UserController::class, 'index'])->name('dashboard');
 	Route::post('/fetch-user-data', [App\Http\Controllers\Frontend\UserController::class, 'fetchData'])->name('fetch.user.data');
 	Route::get('/user/create', [App\Http\Controllers\Frontend\UserController::class, 'create'])->name('user.create');
 	Route::post('/user/store', [App\Http\Controllers\Frontend\UserController::class, 'store'])->name('user.store');
@@ -71,6 +71,16 @@ Route::group(['middleware' => ['verified']], function () {
 	Route::get('/user/edit/{id}', [App\Http\Controllers\Frontend\UserController::class, 'edit'])->name('user.edit');
 	Route::put('/user-update/{id}', [App\Http\Controllers\Frontend\UserController::class, 'update'])->name('user.update');
 	// end User route
+
+	// start User Profile route
+	Route::get('/dashboard', [App\Http\Controllers\Frontend\UserProfileController::class, 'index'])->name('dashboard');
+	Route::post('/fetch-user-profile-data', [App\Http\Controllers\Frontend\UserProfileController::class, 'fetchData'])->name('fetch.user.profile.data');
+	Route::get('/user-profile/create', [App\Http\Controllers\Frontend\UserProfileController::class, 'create'])->name('user.profile.create');
+	Route::post('/user-profile/store', [App\Http\Controllers\Frontend\UserProfileController::class, 'store'])->name('user.profile.store');
+	Route::get('/user-profile/show/{id}', [App\Http\Controllers\Frontend\UserProfileController::class, 'show'])->name('user.profile.show');
+	Route::get('/user-profile/edit/{id}', [App\Http\Controllers\Frontend\UserProfileController::class, 'edit'])->name('user.profile.edit');
+	Route::put('/user-profile-update/{id}', [App\Http\Controllers\Frontend\UserProfileController::class, 'update'])->name('user.profile.update');
+	// end User Profile route
 
 	Route::put('/profile-update', [App\Http\Controllers\Frontend\UserController::class, 'updateProfile'])->name('update.profile');
 	Route::put('/profile-picture-update', [App\Http\Controllers\Frontend\UserController::class, 'updateProfilePicture'])->name('update.profile.picture');

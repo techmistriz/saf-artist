@@ -384,7 +384,7 @@
                             <h3 class="card-label">Members Details</h3>
                         </div>
                         <div class="card-toolbar">
-    						<a href="{{ route('group.member.create', ['poc_id' => $row->id]) }}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
+    						<a href="{{ route('group.member.create', ['profile_id' => $row->id]) }}" class="btn font-weight-bold ml-2" id="button">Add Member</a>
     					</div>
                     </div>
 

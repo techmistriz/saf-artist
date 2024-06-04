@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\User;
+use App\Models\UserProfile;
 use App\Models\City;
 use App\Models\Project;
 use App\Models\Festival;
@@ -112,7 +113,7 @@ class AjaxController extends Controller
         }
         if (empty($request->festival_id)) {
             $user_email = Auth::user()->email;
-            $festivalIdArr = User::where('status', 1)->where('email', $user_email)->whereNotNull('festival_id')->get()->pluck('festival_id');
+            $festivalIdArr = UserProfile::where('status', 1)->where('email', $user_email)->whereNotNull('festival_id')->get()->pluck('festival_id');
             //dd($festival_ids);
 
             // $festivalId = [];
@@ -246,16 +247,16 @@ class AjaxController extends Controller
         ]);
     }
 
-    public function getUserDetails(Request $request,$user_id = NULL)
+    public function getUserDetails(Request $request,$profile_id = NULL)
     { 
 
-        if (!$request->has('user_id') || !$request->filled('user_id')) {
+        if (!$request->has('profile_id') || !$request->filled('profile_id')) {
             return ['status' => false, 'message' => 'User Id not found.', 'data' => null];
         }
-        $queryModel = User::query();
+        $queryModel = UserProfile::query();
 
-        if ($request->has('user_id') && $request->filled('user_id')) {
-            $queryModel->where('id', $request->user_id);
+        if ($request->has('profile_id') && $request->filled('profile_id')) {
+            $queryModel->where('id', $request->profile_id);
         }
 
         $results = $queryModel->get();

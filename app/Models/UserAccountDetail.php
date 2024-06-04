@@ -47,7 +47,10 @@ class UserAccountDetail extends MasterModel
 
             $searchKey = $data['query']['search'];
             $records->where(function($query) use ($searchKey){
-                $query->where('name', 'LIKE', '%'.$searchKey.'%');
+                $query->where('name', 'LIKE', '%'.$searchKey.'%')
+                ->orWhereHas('profile', function ($query) use ($searchKey) {
+                  $query->where('project_year', 'LIKE', '%'.$searchKey.'%');
+                });
             });
         }
 
@@ -57,6 +60,11 @@ class UserAccountDetail extends MasterModel
     public function country()
     {
       return $this->belongsTo('App\Models\Country', 'country_id', 'id');
+    }
+
+    public function profile()
+    {
+      return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
     public function state()

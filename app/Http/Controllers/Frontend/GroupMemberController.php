@@ -105,7 +105,8 @@ class GroupMemberController extends Controller
 
         $member                   = new GroupMember();
         $member->name             = $request->name;
-        $member->poc_id           = $request->poc_id;
+        $member->user_id          = Auth::user()->id;
+        $member->profile_id       = $request->profile_id;
         $member->email            = $request->email;
         $member->contact          = $request->contact;
         $member->dob              = $request->dob;
@@ -121,7 +122,7 @@ class GroupMemberController extends Controller
         $member->save();
 
         \Flash::success('Group member created successfully');
-        return \Redirect::route('user.show', $request->poc_id);
+        return \Redirect::route('user.profile.show', $member->profile_id);
     }
 
 
@@ -160,6 +161,8 @@ class GroupMemberController extends Controller
 
         $member                  = GroupMember::findOrFail($id);
 
+        $member->user_id         = Auth::user()->id;
+        $member->profile_id      = $request->profile_id;
         $member->name            = $request->name;
         $member->email           = $request->email;
         $member->contact         = $request->contact;
@@ -175,7 +178,7 @@ class GroupMemberController extends Controller
         $member->save();
 
         \Flash::success('Group member updated successfully.');
-        return \Redirect::route('user.show', $member->poc_id);
+        return \Redirect::route('user.profile.show', $member->profile_id);
     }
 
     /**
@@ -199,7 +202,7 @@ class GroupMemberController extends Controller
         Excel::import(new GroupMemberImport, $request->file('file'));
         
         flash('Group members imported successfully from excel sheet.')->success();
-        return redirect()->route('group.member.list');
+        return redirect()->route('group.member.create');
     }
 
 }

@@ -26,7 +26,7 @@ class GroupMemberRequest extends FormRequest
     {
         $id                 = $this->input('id', 0);
         return [
-            'email'            => 'required|'.Rule::unique('users')->ignore($id, 'id'),
+            'email'            => 'required|'.Rule::unique('profile_members')->ignore($id, 'id'),
             'name'             => 'required',
             'contact'          => 'required',
             'dob'              => 'required',

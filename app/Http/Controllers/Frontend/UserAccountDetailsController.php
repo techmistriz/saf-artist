@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UserAccountDetail;
 use App\Models\Country;
+use App\Models\UserProfile;
 use App\Models\User;
 use Carbon\Carbon;
 use App\Http\Requests\UserAccountDetailsRequest;
@@ -59,12 +60,12 @@ class UserAccountDetailsController extends Controller
     public function fetchData(Request $request, UserAccountDetail $account)
     {
         $userEmail          = Auth::user()->email;
-        // dd($userEmail);
         $userIdArr          = User::where('email', $userEmail)->pluck('id');
 
         $data               =   $request->all();
 
-        $db_data            =   $account->getList($data, ['country'],[], $userIdArr);
+        $db_data            =   $account->getList($data, ['profile'],[], $userIdArr);
+        //dd($db_data);
 
         $count 				=  	$account->getListCount($data, [],[], $userIdArr);
 
@@ -92,14 +93,14 @@ class UserAccountDetailsController extends Controller
     public function create(UserAccountDetail $account)
     {
 
-        $userIdArr = UserAccountDetail::where('status', 1)->whereNotNull('user_id')->get()->pluck('user_id');
+        $userIdArr = UserAccountDetail::where('status', 1)->whereNotNull('profile_id')->get()->pluck('profile_id');
         // dd($userIdArr);
         $userEmail     = Auth::user()->email;
-        $users         = User::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();       
+        $userProfiles         = UserProfile::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();       
         $countries     = Country::where('status', 1)->get();
         return view('frontend.user_account_details.create')
         ->with('countries', $countries)
-        ->with('users', $users)
+        ->with('userProfiles', $userProfiles)
         ->with('row', null);
     }
 
@@ -144,12 +145,12 @@ class UserAccountDetailsController extends Controller
         $userIdArr = UserAccountDetail::where('status', 1)->whereNotIn('user_id', [$row->user_id])->get()->pluck('user_id');
         // dd($userIdArr);
         $userEmail     = Auth::user()->email;
-        $users         = User::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();
+        $userProfiles         = UserProfile::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();
         $countries          = Country::where('status', 1)->get();
 
         return view('frontend.user_account_details.edit')
         ->with('countries', $countries)
-        ->with('users', $users)
+        ->with('userProfiles', $userProfiles)
         ->with('row', $row);
     }
 

@@ -7,7 +7,7 @@
             <div class="card-header">
                 <div class="card-title">
                     @if(isset(Auth::user()->frontendRole->name) && !empty(Auth::user()->frontendRole->name))
-                        <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} {{ Auth::user()->frontendRole->name }} Personal Details</h3>
+                        <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} Profile Details</h3>
                     @endif
                 </div>
             </div>
@@ -351,7 +351,7 @@
                     
                 </div>
 
-                <div class="row" id="members_numbers" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                <div class="row" id="members_numbers" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Troup Size </label>
@@ -365,7 +365,7 @@
                     </div>
                 </div>
 
-                <div class="row" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}" id="payment_troup">
+                <!-- <div class="row" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}" id="payment_troup">
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup</label>
@@ -383,7 +383,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="row">
 
