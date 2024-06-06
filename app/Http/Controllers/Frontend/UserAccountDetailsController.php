@@ -143,7 +143,7 @@ class UserAccountDetailsController extends Controller
      */
     public function edit($id, UserAccountDetail $account){
         $row = UserAccountDetail::findOrFail($id);
-        $userIdArr = UserAccountDetail::where('status', 1)->whereNotIn('user_id', [$row->user_id])->get()->pluck('user_id');
+        $userIdArr = UserAccountDetail::where('status', 1)->whereNotIn('profile_id', [$row->profile_id])->get()->pluck('profile_id');
         // dd($userIdArr);
         $userEmail     = Auth::user()->email;
         $userProfiles         = UserProfile::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();

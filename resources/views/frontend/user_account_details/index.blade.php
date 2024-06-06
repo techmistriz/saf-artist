@@ -100,7 +100,11 @@
                     field: "profile_id",
                     title: "Festival",
                     template: function(t) {
-                        return ( typeof t?.profile?.festival?.name != 'undefined' && t?.profile?.festival?.name)? t?.profile?.festival?.name : 'N/A';
+                        var festival = typeof t?.profile?.festival?.name != 'undefined' && t?.profile?.festival?.name ? `<b>${t?.profile?.festival?.name}</b>` : 'N/A';
+
+                        var year = typeof t?.profile?.project_year != 'undefined' && t?.profile?.project_year ? t?.profile?.project_year : 'N/A';
+                        
+                        return festival + ' (' + year + ')';
                     }
                 },   
                 {

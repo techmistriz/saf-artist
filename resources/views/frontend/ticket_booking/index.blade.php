@@ -88,16 +88,23 @@
                     textAlign: 'center',
                 },
                 {
+                    field: "profile_id",
+                    title: "Festival",
+                    template: function(t) {
+                        var festival = typeof t?.user_profile?.festival?.name != 'undefined' && t?.user_profile?.festival?.name ? `<b>${t?.user_profile?.festival?.name}</b>` : 'N/A';
+
+                        var year = typeof t?.user_profile?.project_year != 'undefined' && t?.user_profile?.project_year ? t?.user_profile?.project_year : 'N/A';
+                        
+                        return festival + ' (' + year + ')';
+                    }
+                },
+                {
                     field: "name",
                     title: "Name",
                 },  
                 {
                     field: "email",
                     title: "Email",
-                },  
-                {
-                    field: "contact",
-                    title: "Contact",
                 },
                 {
                     field: "ticket_status",

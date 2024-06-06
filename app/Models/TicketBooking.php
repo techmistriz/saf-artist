@@ -87,9 +87,19 @@ class TicketBooking extends MasterModel
       return $records;
    }
 
-   public function member() {
+   public function userProfile() {
 
-      return $this->belongsTo('App\Models\User', 'source_id', 'id');
+      return $this->belongsTo('App\Models\UserProfile', 'profile_id', 'id');
+   }
+
+   public function profileMember() {
+
+      return $this->belongsTo('App\Models\ProfileMember', 'profile_member_id', 'id');
+   }
+
+   public function travelPurpose() {
+
+      return $this->belongsTo('App\Models\TravelPurpose', 'travel_purpose_id', 'id');
    }
 
    public function onwardCity() {

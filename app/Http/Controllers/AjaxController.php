@@ -13,6 +13,8 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\User;
 use App\Models\UserProfile;
+use App\Models\TicketBooking;
+use App\Models\ProfileMember;
 use App\Models\City;
 use App\Models\Project;
 use App\Models\Festival;
@@ -123,6 +125,35 @@ class AjaxController extends Controller
 
             if (!empty($festivalIdArr)) {
                 $queryModel->whereNotIn('id', $festivalIdArr);
+            }
+        }        
+
+        $results = $queryModel->get();
+        if($results) {
+            return ['status' => true, 'message' => 'Record found.', 'data' => $results];
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'No data found.',
+            'data' => new \stdClass()
+        ]);
+    }
+
+    public function getProfileMember(Request $request, $id = NULL)
+    {
+        $queryModel = \App\Models\ProfileMember::query();
+        $queryModel->where('status', 1);
+
+        if(!empty($request->profile_id)){
+            $queryModel->where('profile_id', $request->profile_id);
+        }
+        if (empty($request->profile_member_id)) {
+            $profileMemberIdArr = TicketBooking::where('status', 1)->where('profile_id', $request->profile_id)->whereNotNull('profile_member_id')->get()->pluck('profile_member_id');
+            // dd($profileMemberIdArr);
+
+            if (!empty($profileMemberIdArr)) {
+                $queryModel->whereNotIn('id', $profileMemberIdArr);
             }
         }        
 

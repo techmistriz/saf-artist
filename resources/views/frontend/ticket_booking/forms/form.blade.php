@@ -13,22 +13,53 @@
             <div class="card-body">                
                 <div class="row">
 
-                    <div class="col-12" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
+                    <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Member</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Profile</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                <select class="form-control form-control-lg form-control-solid selectpicker" name="member_id" tabindex="null" onchange="getMember()">
-                                    <option value="">Select Member</option>
-                                    @if($members->count())
-                                        @foreach($members as $value)
-                                        
-                                           <option {{ (old('member_id') ?? optional($row)->source_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
-
+                                <select class="form-control selectpicker" name="profile_id" tabindex="null" onchange="userProfile()" required>
+                                    <option value="" data-slug="">Select User Profile</option>
+                                    @if($userProfiles->count())
+                                        @foreach($userProfiles as $value)
+                                          <option {{ (old('profile_id') ?? optional($row)->profile_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->festival->name . ' ('. $value->project_year . ')'}}</option>
                                         @endforeach
                                     @endif
                                 </select>
-                                @error('member_id')
+                                @error('profile_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Purpose of travel</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control selectpicker" name="travel_purpose_id" tabindex="null">
+                                    <option value="">Select purpose of travel</option>
+                                    @if($travelPurposes->count())
+                                        @foreach($travelPurposes as $value)
+                                          <option {{ (old('travel_purpose_id') ?? optional($row)->travel_purpose_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                @error('travel_purpose_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Member</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+
+                                <select class="form-control " name="profile_member_id" tabindex="null">
+                                    <option value="">Select Profile Member</option>
+                                </select>
+                                @error('profile_member_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                                 
@@ -63,7 +94,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Title </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-solid form-control-lg selectpicker" name="salutation" tabindex="null">
+                                <select class="form-control selectpicker" name="salutation" tabindex="null">
                                     <option value="">Select</option>
                                     <option value="Mr" {{ old('salutation') == 'Mr' || (isset($row->salutation) && $row->salutation == 'Mr') ? 'selected' : '' }}>Mr</option>
                                     <option value="Mrs" {{ old('salutation') == 'Mrs' || (isset($row->salutation) && $row->salutation == 'Mrs') ? 'selected' : ''  }}>Mrs</option>
@@ -81,7 +112,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Traveller Name As Per Gov. ID  </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" id="name" value="{{ old('name', $row->name ?? $user->name)}}" class="form-control form-control-solid form-control-lg" placeholder="Enter Traveller Name As Per Gov. ID" readonly/>
+                                <input type="text" name="name" id="name" value="{{ old('name', $row->name ?? '')}}" class="form-control" placeholder="Enter Traveller Name As Per Gov. ID" readonly/>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -93,7 +124,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Age </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="age" value="{{ old('age', $row->age ?? '')}}" class="form-control form-control-solid form-control-lg" placeholder="Enter Age"/>
+                                <input type="text" name="age" value="{{ old('age', $row->age ?? '')}}" class="form-control" placeholder="Enter Age"/>
                                 @error('age')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -105,7 +136,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Contact Number </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="contact" id="contact" value="{{ old('contact', $row->contact ?? $user->contact) }}" class="form-control form-control-solid form-control-lg" placeholder="Enter Contact Number" readonly/>
+                                <input type="text" name="contact" id="contact" value="{{ old('contact', $row->contact ?? '') }}" class="form-control" placeholder="Enter Contact Number" readonly/>
                                 @error('contact')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -117,7 +148,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Email ID </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="email" id="email" value="{{ old('email', $row->email ?? $user->email) }}" class="form-control form-control-solid form-control-lg" placeholder="Enter Email" readonly/>
+                                <input type="text" name="email" id="email" value="{{ old('email', $row->email ?? '') }}" class="form-control" placeholder="Enter Email" readonly/>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -224,7 +255,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Do you have work visa for India</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="work_visa" tabindex="null" onchange="visaField()">
-                                    <!-- <option value="">Do you have work visa for India</option> -->
+                                    <option value="">Select</option>
                                     <option value="Yes" {{ old('work_visa') == 'Yes' || (isset($row->work_visa) && $row->work_visa == 'Yes') ? 'selected' : '' }}>Yes</option>
                                     <option value="No" {{ old('work_visa') == 'No' || (isset($row->work_visa) && $row->work_visa == 'No') ? 'selected' : ''  }}>No</option>
                                 </select>
@@ -328,7 +359,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="onward_date" id="onward_date" value="{{ old('onward_date', $row->onward_date ?? '') }}" class="form-control form-control-solid form-control-lg kt_datepicker" placeholder="Enter Onward Date" />
+                                    <input type="text" name="onward_date" id="onward_date" value="{{ old('onward_date', $row->onward_date ?? '') }}" class="form-control kt_datepicker" placeholder="Enter Onward Date" />
 
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -348,7 +379,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward (Mention City) </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="onward_city_id" id="onward_city_id" class="form-control form-control-solid form-control-lg form-control-lg form-control-custom selectpicker @error('onward_city_id') is-invalid @enderror" data-live-search="true" onchange="checkOtherCity(this, 'onward-city-other')">
+                                <select name="onward_city_id" id="onward_city_id" class="form-control form-control-lg form-control-custom selectpicker @error('onward_city_id') is-invalid @enderror" data-live-search="true" onchange="checkOtherCity(this, 'onward-city-other')">
                                     <option value="">Select</option>
 
                                     @if($cities->count())
@@ -370,7 +401,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward (Mention City)</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                <input type="text" name="onward_city" value="{{ old('onward_city', $row->onward_city ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter Onward (Mention City)" />
+                                <input type="text" name="onward_city" value="{{ old('onward_city', $row->onward_city ?? '') }}" class="form-control" placeholder="Enter Onward (Mention City)" />
 
                                 @error('onward_city')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -385,7 +416,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="return_date" id="return_date" value="{{ old('return_date', $row->return_date ?? '') }}" class="form-control form-control-solid form-control-lg kt_datepicker" placeholder="Enter Return Date" />
+                                    <input type="text" name="return_date" id="return_date" value="{{ old('return_date', $row->return_date ?? '') }}" class="form-control kt_datepicker" placeholder="Enter Return Date" />
 
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -405,7 +436,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return City </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="return_city_id" id="return_city_id" class="form-control form-control-solid form-control-lg form-control-lg form-control-custom selectpicker @error('return_city_id') is-invalid @enderror" data-live-search="true" onchange="checkOtherCity(this, 'return-city-other')">
+                                <select name="return_city_id" id="return_city_id" class="form-control form-control-lg form-control-custom selectpicker @error('return_city_id') is-invalid @enderror" data-live-search="true" onchange="checkOtherCity(this, 'return-city-other')">
                                     <option value="">Select</option>
 
                                     @if($cities->count())
@@ -427,7 +458,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return City</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                <input type="text" name="return_city" value="{{ old('return_city', $row->return_city ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter Return City"/>
+                                <input type="text" name="return_city" value="{{ old('return_city', $row->return_city ?? '') }}" class="form-control" placeholder="Enter Return City"/>
 
                                 @error('return_city')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -440,7 +471,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Remarks<i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="Tooltip on right"></i></label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control form-control-solid form-control-lg no-summernote-editor" name="artist_remarks" id="artist_remarks" placeholder="Enter artist remarks">{{ old('artist_remarks', $row->artist_remarks ?? '') }}</textarea>
+                                <textarea class="form-control no-summernote-editor" name="artist_remarks" id="artist_remarks" placeholder="Enter artist remarks">{{ old('artist_remarks', $row->artist_remarks ?? '') }}</textarea>
                                 @error('artist_remarks')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -580,7 +611,8 @@
 
         $(document).ready(function(){
         
-            travellerField();            
+            travellerField();
+            userProfile();            
         });
         function travellerField() {
 
@@ -633,41 +665,79 @@
 
         // end field hide 
 
-        function getMember() {
+        function userProfile()
+        {
+            getUserDetails();
+            getProfileMember();
+        }
 
-            var member_id = $('select[name=member_id]').val();
+        function getProfileMember() {
 
-            if (member_id) {
+            var profile_id = $('select[name=profile_id]').val();
+            var selectedId = "{{ old('profile_member_id', $row->profile_member_id ?? 0) }}";
+
+            if(profile_id){
+
                 $.ajax({
-                    type: 'GET',
-                    url: "{{ route('ajax.fetch.member.detail') }}",
-                    data: {
-                        member_id:member_id
-                    },
+                    type: "GET",
+                    url: "{{ url('profile-members') }}?profile_id=" + profile_id + '&profile_member_id=' + selectedId,
+                    datatype: 'json',
                     success: function (response) {
-                        if (response.status) {
-                            var data = response?.data[0];
-                            $("#name").val(data?.name);
-                            $("#contact").val(data?.contact);
-                            $("#email").val(data?.email);
+                        if(response?.status){
+                            var options = '<option value="">Select Profile Member</option>';
+                            if(response.data.length) {                            
+
+                                for (var i = 0; i < response.data.length; i++) {
+
+                                    var _selected = '';
+
+                                    if(selectedId == response.data[i].id){
+
+                                        _selected = 'selected';
+                                    }
+                                    options += '<option '+_selected+' value="'+response.data[i].id+'">'+response.data[i].name+'</option>';
+                                }
+                                $("select[name='profile_member_id']").html(options);
+                                $("select[name='profile_member_id']").selectpicker('refresh');
+                            }
                         }
-                    },
-                    error: function (error) {
-                        console.error('Error fetching member details:', error);
                     }
                 });
+
+            } else {
+
+                $("select[name='profile_member_id']").html('<option value="">Select Profile Member</option>');
+                $("select[name='profile_member_id']").selectpicker('refresh');
             }
         }
 
-        // function checkOtherCity(_this, selector = ''){
+        function getUserDetails() {
 
-        //     if($(_this).val() == '16'){
-        //         $("." + selector).show();
-        //     } else {
+            var profile_id = $('select[name=profile_id]').val();
 
-        //         $("." + selector).hide();
-        //     }
-        // }
+            if(!profile_id){
+                return false
+            }
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('fetch-user-detail') }}",
+                data: {
+                    profile_id:profile_id
+                },
+                success: function (response) {
+                    if (response.status) {
+                        var data = response?.data[0];
+                        $("#name").val(data?.name);
+                        $("#email").val(data?.email);
+                        $("#contact").val(data?.contact);
+                    }
+                },
+                error: function (error) {
+                    console.error('Error fetching user details:', error);
+                }
+            });
+        }
 
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()

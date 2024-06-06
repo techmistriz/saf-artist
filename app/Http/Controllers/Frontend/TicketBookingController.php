@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TicketBooking;
-use App\Models\User;
+use App\Models\ProfileMember;
+use App\Models\UserProfile;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Project;
-use App\Models\TravelMode;
+use App\Models\TravelPurpose;
 use App\Models\MetroCity;
 use App\Models\Role;
 use Carbon\Carbon;
@@ -69,7 +70,7 @@ class TicketBookingController extends Controller
 
         $data               =   $request->all();
 
-        $db_data            =   $ticket->getList($data, [], ['user_id' => $userId]);
+        $db_data            =   $ticket->getList($data, ['userProfile.festival'], ['user_id' => $userId]);
 
         $count 				=  	$ticket->getListCount($data, [], ['user_id' => $userId]);
 
@@ -97,21 +98,17 @@ class TicketBookingController extends Controller
     public function create(TicketBooking $ticket)
     {
         $user               = \Auth::user();
-        $userId            = $user->id;
-        $members = User::where('status', 1)
-            ->where('poc_id', $userId)
-            ->whereNotIn('id', function($query) {
-                $query->select('source_id')
-                    ->from('ticket_bookings');
-            })
-            ->get();
+        $userIdArr = TicketBooking::where('status', 1)->whereNotNull('profile_id')->get()->pluck('profile_id');
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
         
         $countries          = Country::where('status', 1)->get();
+        $travelPurposes     = TravelPurpose::where('status', 1)->get();
         $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
-        $travelModes        = TravelMode::where('status', 1)->get();
-        $projects           = Project::where('status', 1)->get();  //->where('year', date('Y'))
+        $projects           = Project::where('status', 1)->get();
 
-        return view('frontend.ticket_booking.create')->with('row', null)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members, 'user' => $user]);
+        return view('frontend.ticket_booking.create')
+        ->with('row', null)
+        ->with(['countries' => $countries, 'cities' => $cities, 'projects' => $projects, 'userProfiles' => $userProfiles, 'travelPurposes' => $travelPurposes]);
     }
 
     /**
@@ -159,30 +156,24 @@ class TicketBookingController extends Controller
             $ticket->adhaarcard_driving  = $fileName;
         }
 
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
-
-            $ticket->source_id   = Auth::user()->id;
-        }else{            
-            $ticket->source_id   = $request->member_id;
-        }
-
-        $ticket->name                                 = $request->name;
-        $ticket->project_ids                          = $request->project_ids;
-        $ticket->salutation                           = $request->salutation;
-        $ticket->age                                  = $request->age;
-        $ticket->email                                = $request->email;
-        $ticket->contact                              = $request->contact;
-        // $ticket->onward_city_id                       = $request->onward_city_id;
-        $ticket->onward_city                          = $request->onward_city;
-        // $ticket->return_city_id                       = $request->return_city_id;
-        $ticket->return_city                          = $request->return_city;
-        $ticket->artist_remarks                       = $request->artist_remarks;
-        $ticket->international_or_domestic            = $request->international_or_domestic;
-        $ticket->work_visa                            = $request->work_visa;
-        $ticket->onward_date                          = $request->onward_date;
-        $ticket->return_date                          = $request->return_date;
-        $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Group'];
-        // dd($ticket);
+        $ticket->user_id                      = Auth::user()->id;
+        $ticket->profile_id                   = $request->profile_id;
+        $ticket->profile_member_id            = $request->profile_member_id;
+        $ticket->travel_purpose_id            = $request->travel_purpose_id;
+        $ticket->name                         = $request->name;
+        $ticket->project_ids                  = $request->project_ids;
+        $ticket->salutation                   = $request->salutation;
+        $ticket->age                          = $request->age;
+        $ticket->email                        = $request->email;
+        $ticket->contact                      = $request->contact;
+        $ticket->onward_city                  = $request->onward_city;
+        $ticket->return_city                  = $request->return_city;
+        $ticket->artist_remarks               = $request->artist_remarks;
+        $ticket->international_or_domestic    = $request->international_or_domestic;
+        $ticket->work_visa                    = $request->work_visa;
+        $ticket->onward_date                  = $request->onward_date;
+        $ticket->return_date                  = $request->return_date;
+        $ticket->ticket_status                = $this->TICKET_STATUS['Added by Group'];
         $ticket->save();
 
         \Flash::success('Ticket booking created successfully');
@@ -211,16 +202,18 @@ class TicketBookingController extends Controller
     public function edit($id, TicketBooking $ticket){
 
         $row = TicketBooking::findOrFail($id);
+        $user               = \Auth::user();
+        $userIdArr = TicketBooking::where('status', 1)->whereNotIn('profile_id', [$row->profile_id])->get()->pluck('profile_id');
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
+        
         $countries          = Country::where('status', 1)->get();
+        $travelPurposes     = TravelPurpose::where('status', 1)->get();
         $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
-        $travelModes        = TravelMode::where('status', 1)->get();
-        $projects           = Project::where('status', 1)->get();  //->where('year', date('Y'))
+        $projects           = Project::where('status', 1)->get();
 
-        $user              = \Auth::user();
-        $userId             = $user->id;
-        $members            = User::where('status', 1)->where('poc_id', $userId)->get();
-
-        return view('frontend.ticket_booking.edit')->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members, 'user' => $user]);
+        return view('frontend.ticket_booking.edit')
+        ->with('row', $row)
+        ->with(['countries' => $countries, 'cities' => $cities, 'projects' => $projects, 'userProfiles' => $userProfiles, 'travelPurposes' => $travelPurposes]);
     }
 
     /**
@@ -254,41 +247,30 @@ class TicketBookingController extends Controller
             $adhaarcard_driving         = $request->file('adhaarcard_driving');
             $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
             $ticket->adhaarcard_driving  = $fileName;
-        }
+        }        
 
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
-
-            $ticket->source_id   = Auth::user()->id;
-        }else{            
-            $ticket->source_id   = $request->member_id;
-        }
-
-        $ticket->name                                 = $request->name;
-        $ticket->project_ids                          = $request->project_ids;
-        $ticket->salutation                           = $request->salutation;
-        $ticket->age                                  = $request->age;
-        $ticket->email                                = $request->email;
-        $ticket->contact                              = $request->contact;
-        // $ticket->onward_city_id                       = $request->onward_city_id;
-        $ticket->onward_city                          = $request->onward_city;
-        // $ticket->return_city_id                       = $request->return_city_id;
-        $ticket->return_city                          = $request->return_city;
-        $ticket->artist_remarks                       = $request->artist_remarks;
-        $ticket->international_or_domestic            = $request->international_or_domestic;
-        $ticket->work_visa                            = $request->work_visa;
-        $ticket->onward_date                          = $request->onward_date;
-        $ticket->return_date                          = $request->return_date;
-        $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Group'];
-        //dd($ticket);
+        $ticket->user_id                      = Auth::user()->id;
+        $ticket->profile_id                   = $request->profile_id;
+        $ticket->profile_member_id            = $request->profile_member_id;
+        $ticket->travel_purpose_id            = $request->travel_purpose_id;
+        $ticket->name                         = $request->name;
+        $ticket->project_ids                  = $request->project_ids;
+        $ticket->salutation                   = $request->salutation;
+        $ticket->age                          = $request->age;
+        $ticket->email                        = $request->email;
+        $ticket->contact                      = $request->contact;
+        $ticket->onward_city                  = $request->onward_city;
+        $ticket->return_city                  = $request->return_city;
+        $ticket->artist_remarks               = $request->artist_remarks;
+        $ticket->international_or_domestic    = $request->international_or_domestic;
+        $ticket->work_visa                    = $request->work_visa;
+        $ticket->onward_date                  = $request->onward_date;
+        $ticket->return_date                  = $request->return_date;
+        $ticket->ticket_status                = $this->TICKET_STATUS['Added by Group'];
         $ticket->save();
 
         \Flash::success('Ticket booking updated successfully.');
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
-
-            return \Redirect::route('ticket.booking.edit', $ticket->id);
-        }else{            
-            return \Redirect::route('ticket.booking.list');
-        } 
+        return \Redirect::route('ticket.booking.list');
     }
 
     /**
