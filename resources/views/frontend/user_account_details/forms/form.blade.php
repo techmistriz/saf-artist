@@ -254,7 +254,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">PAN Card (Image) </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
-                                <div class="image-input image-input-outline" id="pancard_image" style="background-image: url({{asset('media/users/blank.png')}})">
+                                <div class="image-input image-input-outline" id="pancard_image" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
                                     @if(isset($row->pancard_image) && !empty($row->pancard_image))
                                         <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->pancard_image)}})"></div>

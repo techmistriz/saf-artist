@@ -13,25 +13,54 @@
             <div class="card-body">                
                 <div class="row">
 
-                    <div class="col-12" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
-                        <div class="form-group row validated" >
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Member</label>
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Profile</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                <select class="form-control form-control-solid form-control-lg selectpicker @error('member_id') is-invalid @enderror" name="member_id" tabindex="null">
-                                    <option value="">Select Member</option>
-                                    @if($members->count())
-                                        @foreach($members as $value)
-
-                                           <option {{ old('member_id', $row->member_id ?? 0) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
-
+                                <select class="form-control selectpicker" name="profile_id" tabindex="null" onchange="getProfileMember()" required>
+                                    <option value="" data-slug="">Select User Profile</option>
+                                    @if($userProfiles->count())
+                                        @foreach($userProfiles as $value)
+                                          <option {{ (old('profile_id') ?? optional($row)->profile_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->festival->name . ' ('. $value->project_year . ')'}}</option>
                                         @endforeach
                                     @endif
                                 </select>
-                                @error('member_id')
+                                @error('profile_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Purpose of travel</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control selectpicker" name="travel_purpose_id" tabindex="null">
+                                    <option value="">Select purpose of travel</option>
+                                    @if($travelPurposes->count())
+                                        @foreach($travelPurposes as $value)
+                                          <option {{ (old('travel_purpose_id') ?? optional($row)->travel_purpose_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->name}}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                                @error('travel_purpose_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Member</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control selectpicker" name="profile_member_ids[]" tabindex="null" multiple>
+                                    <option value="">Select Profile Member</option>
+                                </select>
+                                @error('profile_member_ids')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror                                
                             </div>
                         </div>
                     </div>
@@ -40,7 +69,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Accomodation Required</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-solid form-control-lg form-control-lg form-control-solid selectpicker" name="accomodation" tabindex="null" onchange="hideField()">
+                                <select class="form-control selectpicker" name="accomodation" tabindex="null" onchange="hideField()">
                                     <option value="">Select</option>
                                     <option value="Yes" {{ old('accomodation') == 'Yes' || (isset($row->accomodation) && $row->accomodation == 'Yes') ? 'selected' : '' }}>Yes</option>
                                     <option value="No" {{ old('accomodation') == 'No' || (isset($row->accomodation) && $row->accomodation == 'No') ? 'selected' : '' }}>No</option>
@@ -60,7 +89,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="check_in_date" id="check_in_date" value="{{ old('check_in_date', $row->check_in_date ?? '') }}" class="form-control form-control-solid form-control-lg kt_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
+                                    <input type="text" name="check_in_date" id="check_in_date" value="{{ old('check_in_date', $row->check_in_date ?? '') }}" class="form-control  kt_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-calendar-check-o"></i>
@@ -79,7 +108,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="check_out_date" id="check_out_date" value="{{ old('check_out_date', $row->check_out_date ?? '') }}" class="form-control form-control-solid form-control-lg kt_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
+                                    <input type="text" name="check_out_date" id="check_out_date" value="{{ old('check_out_date', $row->check_out_date ?? '') }}" class="form-control  kt_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
 
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -97,7 +126,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Total Room Nights</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="total_room_nights" id="total_room_nights" value="{{ old('total_room_nights', $row->total_room_nights ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter Details" readonly="" />
+                                <input type="text" name="total_room_nights" id="total_room_nights" value="{{ old('total_room_nights', $row->total_room_nights ?? '') }}" class="form-control " placeholder="Enter Details" readonly="" />
                                 @error('total_room_nights')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -107,7 +136,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Remarks</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control form-control-solid form-control-lg no-summernote-editor" name="artist_remarks" id="artist_remarks" placeholder="Enter Remarks">{{ old('artist_remarks', $row->artist_remarks ?? '') }}</textarea>
+                                <textarea class="form-control  no-summernote-editor" name="artist_remarks" id="artist_remarks" placeholder="Enter Remarks">{{ old('artist_remarks', $row->artist_remarks ?? '') }}</textarea>
                                 @error('artist_remarks')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -185,6 +214,40 @@
             $('#field_hide').show();
         }
     } 
+
+    function getProfileMember() {
+        var profile_id = $('select[name=profile_id]').val();
+        var selectedIds = {!! json_encode(old('profile_member_ids', $row->profile_member_ids ?? [])) !!};
+
+        if(profile_id) {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('hotel-profile-members') }}?profile_id=" + profile_id + '&profile_member_id=' + selectedIds,
+                datatype: 'json',
+                success: function (response) {
+                    if(response?.status) {
+                        var options = '<option value="">Select Profile Member</option>';
+                        if(response.data.length) {                            
+
+                            for (var i = 0; i < response.data.length; i++) {
+                                var _selected = selectedIds.includes(response.data[i].id.toString()) ? 'selected' : '';
+                                options += '<option ' + _selected + ' value="' + response.data[i].id + '">' + response.data[i].name + '</option>';
+                            }
+                            $("select[name='profile_member_ids[]']").html(options);
+                            $("select[name='profile_member_ids[]']").selectpicker('refresh');
+                        }
+                    }
+                }
+            });
+        } else {
+            $("select[name='profile_member_ids[]']").html('<option value="">Select Profile Member</option>');
+            $("select[name='profile_member_ids[]']").selectpicker('refresh');
+        }
+    }
+
+    $(document).ready(function(){
+        getProfileMember();            
+    });
 
 </script>
 @endpush

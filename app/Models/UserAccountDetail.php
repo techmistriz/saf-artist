@@ -43,6 +43,9 @@ class UserAccountDetail extends MasterModel
             $searchKey = $data['query']['search'];
             $records->where(function($query) use ($searchKey){
                 $query->where('name', 'LIKE', '%'.$searchKey.'%')
+                ->orWhereHas('profile.festival', function ($query) use ($searchKey) {
+                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
+                })
                 ->orWhereHas('profile', function ($query) use ($searchKey) {
                   $query->where('project_year', 'LIKE', '%'.$searchKey.'%');
                 });

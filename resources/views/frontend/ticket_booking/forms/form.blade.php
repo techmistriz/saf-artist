@@ -55,14 +55,12 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Member</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                <select class="form-control " name="profile_member_id" tabindex="null">
+                                <select class="form-control selectpicker" name="profile_member_ids[]" tabindex="null" multiple>
                                     <option value="">Select Profile Member</option>
                                 </select>
-                                @error('profile_member_id')
+                                @error('profile_member_ids')
                                     <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                
+                                @enderror                                
                             </div>
                         </div>
                     </div>
@@ -72,7 +70,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Name </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                <select class="form-control form-control-lg form-control-solid selectpicker" name="project_ids[]" tabindex="null" multiple data-live-search="true">
+                                <select class="form-control selectpicker" name="project_ids[]" tabindex="null" multiple data-live-search="true">
                                     <option value="">Select Project</option>
                                     @if($projects->count())
                                         @foreach($projects as $value)
@@ -178,7 +176,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Front Side Image) </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
-                                <div class="image-input image-input-outline" id="front_side_passport" style="background-image: url({{asset('media/users/blank.png')}})">
+                                <div class="image-input image-input-outline" id="front_side_passport" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
                                     @if(isset($row->front_side_passport) && !empty($row->front_side_passport))
                                         <div class="image-input-wrapper" style="background-image: url({{asset('uploads/passports/'.$row->front_side_passport)}})"></div>
@@ -217,7 +215,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Back Side Image) </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
-                                <div class="image-input image-input-outline" id="back_side_passport" style="background-image: url({{asset('media/users/blank.png')}})">
+                                <div class="image-input image-input-outline" id="back_side_passport" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
                                     @if(isset($row->back_side_passport) && !empty($row->back_side_passport))
                                         <div class="image-input-wrapper" style="background-image: url({{asset('uploads/passports/'.$row->back_side_passport)}})"></div>
@@ -272,7 +270,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Visa </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
-                                <div class="image-input image-input-outline" id="upload_visa" style="background-image: url({{asset('media/users/blank.png')}})">
+                                <div class="image-input image-input-outline" id="upload_visa" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
                                     @if(isset($row->upload_visa) && !empty($row->upload_visa))
                                         <div class="image-input-wrapper" style="background-image: url({{asset('uploads/work_visas/'.$row->upload_visa)}})"></div>
@@ -320,7 +318,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Adhaar card or Driving License </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
-                                <div class="image-input image-input-outline" id="adhaarcard_driving" style="background-image: url({{asset('media/users/blank.png')}})">
+                                <div class="image-input image-input-outline" id="adhaarcard_driving" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
                                     @if(isset($row->adhaarcard_driving) && !empty($row->adhaarcard_driving))
                                         <div class="image-input-wrapper" style="background-image: url({{asset('uploads/adhaarcard_drivings/'.$row->adhaarcard_driving)}})"></div>
@@ -672,44 +670,35 @@
         }
 
         function getProfileMember() {
-
             var profile_id = $('select[name=profile_id]').val();
-            var selectedId = "{{ old('profile_member_id', $row->profile_member_id ?? 0) }}";
+            var selectedIds = {!! json_encode(old('profile_member_ids', $row->profile_member_ids ?? [])) !!};
 
-            if(profile_id){
-
+            if(profile_id) {
                 $.ajax({
                     type: "GET",
-                    url: "{{ url('profile-members') }}?profile_id=" + profile_id + '&profile_member_id=' + selectedId,
+                    url: "{{ url('ticket-profile-members') }}?profile_id=" + profile_id + '&profile_member_id=' + selectedIds,
                     datatype: 'json',
                     success: function (response) {
-                        if(response?.status){
+                        if(response?.status) {
                             var options = '<option value="">Select Profile Member</option>';
                             if(response.data.length) {                            
 
                                 for (var i = 0; i < response.data.length; i++) {
-
-                                    var _selected = '';
-
-                                    if(selectedId == response.data[i].id){
-
-                                        _selected = 'selected';
-                                    }
-                                    options += '<option '+_selected+' value="'+response.data[i].id+'">'+response.data[i].name+'</option>';
+                                    var _selected = selectedIds.includes(response.data[i].id.toString()) ? 'selected' : '';
+                                    options += '<option ' + _selected + ' value="' + response.data[i].id + '">' + response.data[i].name + '</option>';
                                 }
-                                $("select[name='profile_member_id']").html(options);
-                                $("select[name='profile_member_id']").selectpicker('refresh');
+                                $("select[name='profile_member_ids[]']").html(options);
+                                $("select[name='profile_member_ids[]']").selectpicker('refresh');
                             }
                         }
                     }
                 });
-
             } else {
-
-                $("select[name='profile_member_id']").html('<option value="">Select Profile Member</option>');
-                $("select[name='profile_member_id']").selectpicker('refresh');
+                $("select[name='profile_member_ids[]']").html('<option value="">Select Profile Member</option>');
+                $("select[name='profile_member_ids[]']").selectpicker('refresh');
             }
         }
+
 
         function getUserDetails() {
 

@@ -45,11 +45,11 @@
         									Search
         								</a>
         							</div>
-        							<div class="col-md-1">
+        							<!-- <div class="col-md-1">
         								<button class="btn btn-default refresh_all">
         									<i class="flaticon-refresh text-danger"></i>
         								</button>
-        							</div>
+        							</div> -->
 
         						</div>
         					</div>

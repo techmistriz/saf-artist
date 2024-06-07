@@ -5,14 +5,8 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\HotelBooking;
-use App\Models\User;
-use App\Models\Country;
-use App\Models\State;
-use App\Models\City;
-use App\Models\Role;
-use App\Models\Project;
-use App\Models\TravelMode;
-use App\Models\MetroCity;
+use App\Models\UserProfile;
+use App\Models\TravelPurpose;
 use Carbon\Carbon;
 use App\Http\Requests\HotelBookingRequest;
 use Hash;
@@ -64,12 +58,13 @@ class HotelBookingController extends Controller
 
     public function fetchData(Request $request, HotelBooking $hotel)
     {
-        
+        $userId   = Auth::user()->id;
+
         $data               =   $request->all();
 
-        $db_data            =   $hotel->getList($data);
+        $db_data            =   $hotel->getList($data, ['userProfile.festival'], ['user_id' => $userId]);
 
-        $count 				=  	$hotel->getListCount($data);
+        $count 				=  	$hotel->getListCount($data, [], ['user_id' => $userId]);
 
         $returnArray = array(
             'data' => $db_data,
@@ -94,16 +89,15 @@ class HotelBookingController extends Controller
      */
     public function create(HotelBooking $hotel)
     {
-        $userId = Auth::user()->id;
-        $members = User::where('status', 1)
-            ->where('poc_id', $userId)
-            ->whereNotIn('id', function($query) {
-                $query->select('source_id')
-                    ->from('hotel_bookings');
-            })
-            ->get();
+        $user               = \Auth::user();
+        $userIdArr = HotelBooking::where('status', 1)->whereNotNull('profile_id')->get()->pluck('profile_id');
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
+        $travelPurposes     = TravelPurpose::where('status', 1)->get();
 
-        return view('frontend.hotel_booking.create')->with('row', null)->with('members', $members);
+        return view('frontend.hotel_booking.create')
+        ->with('row', null)
+        ->with('travelPurposes', $travelPurposes)
+        ->with('userProfiles', $userProfiles);
     }
 
     /**
@@ -116,22 +110,17 @@ class HotelBookingController extends Controller
 
     public function store(HotelBookingRequest $request)
     {
-        $hotel                                       = new HotelBooking();
-
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
-
-            $hotel->source_id   = Auth::user()->id;
-        }else{            
-            $hotel->source_id   = $request->member_id;
-        }
-
-
-        $hotel->accomodation                         = $request->accomodation;
-        $hotel->check_in_date                        = $request->check_in_date;
-        $hotel->check_out_date                       = $request->check_out_date;
-        $hotel->total_room_nights                    = $request->total_room_nights;
-        $hotel->artist_remarks                       = $request->artist_remarks;
-        $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Group'];
+        $hotel                           = new HotelBooking();
+        $hotel->user_id                  = Auth::user()->id;
+        $hotel->profile_id               = $request->profile_id;
+        $hotel->profile_member_ids       = $request->profile_member_ids;
+        $hotel->travel_purpose_id        = $request->travel_purpose_id;
+        $hotel->accomodation             = $request->accomodation;
+        $hotel->check_in_date            = $request->check_in_date;
+        $hotel->check_out_date           = $request->check_out_date;
+        $hotel->total_room_nights        = $request->total_room_nights;
+        $hotel->artist_remarks           = $request->artist_remarks;
+        $hotel->hotel_status             = $this->HOTEL_STATUS['Added by Group'];
         $hotel->save();
 
         \Flash::success(' Hotel booking created successfully');
@@ -161,10 +150,15 @@ class HotelBookingController extends Controller
 
         $row = HotelBooking::findOrFail($id);
 
-        $userId = Auth::user()->id;
-        $members            = User::where('status', 1)->where('poc_id', $userId)->get();
+        $user               = \Auth::user();
+        $userIdArr = HotelBooking::where('status', 1)->whereNotIn('profile_id', [$row->profile_id])->get()->pluck('profile_id');
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
+        $travelPurposes     = TravelPurpose::where('status', 1)->get();
 
-        return view('frontend.hotel_booking.edit')->with('row', $row)->with('members', $members);
+        return view('frontend.hotel_booking.edit')
+        ->with('row', $row)
+        ->with('travelPurposes', $travelPurposes)
+        ->with('userProfiles', $userProfiles);
     }
 
     /**
@@ -175,30 +169,21 @@ class HotelBookingController extends Controller
      */
     public function update(HotelBookingRequest $request, $id){
 
-        $hotel                  = HotelBooking::findOrFail($id);
-        
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
-
-            $hotel->source_id   = Auth::user()->id;
-        }else{            
-            $hotel->source_id   = $request->member_id;
-        }
-
-        $hotel->accomodation                         = $request->accomodation;
-        $hotel->check_in_date                        = $request->check_in_date;
-        $hotel->check_out_date                       = $request->check_out_date;
-        $hotel->total_room_nights                    = $request->total_room_nights;
-        $hotel->artist_remarks                       = $request->artist_remarks;
-        $hotel->hotel_status                         = $this->HOTEL_STATUS['Added by Group'];
+        $hotel                       = HotelBooking::findOrFail($id);        
+        $hotel->user_id              = Auth::user()->id;
+        $hotel->profile_id           = $request->profile_id;
+        $hotel->profile_member_ids   = $request->profile_member_ids;
+        $hotel->travel_purpose_id    = $request->travel_purpose_id;
+        $hotel->accomodation         = $request->accomodation;
+        $hotel->check_in_date        = $request->check_in_date;
+        $hotel->check_out_date       = $request->check_out_date;
+        $hotel->total_room_nights    = $request->total_room_nights;
+        $hotel->artist_remarks       = $request->artist_remarks;
+        $hotel->hotel_status         = $this->HOTEL_STATUS['Added by Group'];
         $hotel->save();
 
         \Flash::success('Hotel booking updated successfully.');
-        if (isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual')) {
-
-            return \Redirect::route('hotel.booking.edit', $hotel->id);
-        }else{            
-            return \Redirect::route('hotel.booking.list');
-        }        
+        return \Redirect::route('hotel.booking.list');        
     }
 
     /**

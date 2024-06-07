@@ -158,7 +158,7 @@ class TicketBookingController extends Controller
 
         $ticket->user_id                      = Auth::user()->id;
         $ticket->profile_id                   = $request->profile_id;
-        $ticket->profile_member_id            = $request->profile_member_id;
+        $ticket->profile_member_ids           = $request->profile_member_ids;
         $ticket->travel_purpose_id            = $request->travel_purpose_id;
         $ticket->name                         = $request->name;
         $ticket->project_ids                  = $request->project_ids;
@@ -174,6 +174,8 @@ class TicketBookingController extends Controller
         $ticket->onward_date                  = $request->onward_date;
         $ticket->return_date                  = $request->return_date;
         $ticket->ticket_status                = $this->TICKET_STATUS['Added by Group'];
+
+        // dd($ticket);
         $ticket->save();
 
         \Flash::success('Ticket booking created successfully');
@@ -251,7 +253,7 @@ class TicketBookingController extends Controller
 
         $ticket->user_id                      = Auth::user()->id;
         $ticket->profile_id                   = $request->profile_id;
-        $ticket->profile_member_id            = $request->profile_member_id;
+        $ticket->profile_member_ids           = $request->profile_member_ids;
         $ticket->travel_purpose_id            = $request->travel_purpose_id;
         $ticket->name                         = $request->name;
         $ticket->project_ids                  = $request->project_ids;

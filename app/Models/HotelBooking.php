@@ -17,8 +17,7 @@ class HotelBooking extends MasterModel
    public function setCheckInDateAttribute($value)
    {
       if (!empty($value)) {
-         $this->attributes['check_in_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');  
-
+         $this->attributes['check_in_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
       }
    }   
 
@@ -58,6 +57,17 @@ class HotelBooking extends MasterModel
       }
    }
 
+   public function setProfileMemberIdsAttribute($value)
+   {
+       $this->attributes['profile_member_ids'] = json_encode($value);
+   }
+
+   public function getProfileMemberIdsAttribute($value)
+   {
+       $v = json_decode($value) ?? [];
+       return !is_array($v) ? [] : $v;
+   }
+
    public function getList($data, $with = [], $where = []){  
 
       $records = $this->handleAjax($data);
@@ -75,17 +85,41 @@ class HotelBooking extends MasterModel
 
       $searchKey = $data['query']['search'];
          $records->where(function($query) use ($searchKey){
-            $query->where('name', 'LIKE', '%'.$searchKey.'%')
-               ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
-               ->orWhere('contact', 'LIKE', '%'.$searchKey.'%');
+            $query->WhereHas('travelPurpose', function ($query) use ($searchKey) {
+                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
+               })
+               ->orWhereHas('userProfile.festival', function ($query) use ($searchKey) {
+                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
+               })
+               ->orWhereHas('profile', function ($query) use ($searchKey) {
+                  $query->where('project_year', 'LIKE', '%'.$searchKey.'%');
+               });
          });
       }
       return $records->get();
    }
 
-   public function member() {
+   public function userProfile() {
 
-      return $this->belongsTo('App\Models\User', 'source_id', 'id');
+      return $this->belongsTo('App\Models\UserProfile', 'profile_id', 'id');
+   }
+
+   public function profileMember()
+   {
+      if (empty($this->profile_member_ids) || $this->profile_member_ids == 'null') {
+         return [];
+      }
+
+      $records = ProfileMember::whereIn('id', $this->profile_member_ids)->get()->map(function ($profile_member) {
+         return $profile_member->name;
+      })->toArray();
+
+      return $records;
+   }
+
+   public function travelPurpose() {
+
+      return $this->belongsTo('App\Models\TravelPurpose', 'travel_purpose_id', 'id');
    }
 
    public function getListCount($data, $with = [], $where = []){  
@@ -107,7 +141,16 @@ class HotelBooking extends MasterModel
          $records->where(function($query) use ($searchKey){
             $query->where('name', 'LIKE', '%'.$searchKey.'%')
                ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
-               ->orWhere('contact', 'LIKE', '%'.$searchKey.'%');
+               ->orWhere('contact', 'LIKE', '%'.$searchKey.'%')
+               ->orWhereHas('travelPurpose', function ($query) use ($searchKey) {
+                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
+               })
+               ->orWhereHas('userProfile.festival', function ($query) use ($searchKey) {
+                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
+               })
+               ->orWhereHas('profile', function ($query) use ($searchKey) {
+                  $query->where('project_year', 'LIKE', '%'.$searchKey.'%');
+               });
          });
       }
 

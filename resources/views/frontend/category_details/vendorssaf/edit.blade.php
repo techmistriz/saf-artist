@@ -129,7 +129,7 @@
 			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Brand Logo </label>
 			                            <div class="col-lg-9 col-md-9 col-sm-12">
 			                                
-			                            	<div class="image-input image-input-outline" id="brand_logo" style="background-image: url({{asset('media/users/blank.png')}})">
+			                            	<div class="image-input image-input-outline" id="brand_logo" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
 			                            		@if(isset($row->brand_logo) && !empty($row->brand_logo))
 													<div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->brand_logo)}})"></div>
@@ -167,7 +167,7 @@
 			                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">High res images of the product</label>
 			                            <div class="col-lg-9 col-md-9 col-sm-12">
 			                                
-			                            	<div class="image-input image-input-outline" id="high_res_images_of_the_product_1" style="background-image: url({{asset('media/users/blank.png')}})">
+			                            	<div class="image-input image-input-outline" id="high_res_images_of_the_product_1" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
 			                            		@if(isset($row->high_res_images_of_the_product_1) && !empty($row->high_res_images_of_the_product_1))
 													<div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->high_res_images_of_the_product_1)}})"></div>
@@ -192,7 +192,7 @@
 			                            		@endif
 											</div>
 
-											<div class="image-input image-input-outline" id="high_res_images_of_the_product_2" style="background-image: url({{asset('media/users/blank.png')}})">
+											<div class="image-input image-input-outline" id="high_res_images_of_the_product_2" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
 			                            		@if(isset($row->high_res_images_of_the_product_2) && !empty($row->high_res_images_of_the_product_2))
 													<div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->high_res_images_of_the_product_2)}})"></div>
@@ -217,7 +217,7 @@
 			                            		@endif
 											</div>
 
-											<div class="image-input image-input-outline" id="high_res_images_of_the_product_3" style="background-image: url({{asset('media/users/blank.png')}})">
+											<div class="image-input image-input-outline" id="high_res_images_of_the_product_3" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
 			                            		@if(isset($row->high_res_images_of_the_product_3) && !empty($row->high_res_images_of_the_product_3))
 													<div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->high_res_images_of_the_product_3)}})"></div>

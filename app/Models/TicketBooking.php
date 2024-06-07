@@ -25,6 +25,17 @@ class TicketBooking extends MasterModel
       return !is_array($v) ? [] : $v;
    }
 
+   public function setProfileMemberIdsAttribute($value)
+   {
+       $this->attributes['profile_member_ids'] = json_encode($value);
+   }
+
+   public function getProfileMemberIdsAttribute($value)
+   {
+       $v = json_decode($value) ?? [];
+       return !is_array($v) ? [] : $v;
+   }
+
    public function setReturnDateAttribute($value)
    {
       $this->attributes['return_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
@@ -68,7 +79,16 @@ class TicketBooking extends MasterModel
          $records->where(function($query) use ($searchKey){
             $query->where('name', 'LIKE', '%'.$searchKey.'%')
                ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
-               ->orWhere('contact', 'LIKE', '%'.$searchKey.'%');
+               ->orWhere('contact', 'LIKE', '%'.$searchKey.'%')
+               ->orWhereHas('travelPurpose', function ($query) use ($searchKey) {
+                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
+               })
+               ->orWhereHas('userProfile.festival', function ($query) use ($searchKey) {
+                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
+               })
+               ->orWhereHas('profile', function ($query) use ($searchKey) {
+                  $query->where('project_year', 'LIKE', '%'.$searchKey.'%');
+               });
          });
       }
       return $records->get();
@@ -92,9 +112,17 @@ class TicketBooking extends MasterModel
       return $this->belongsTo('App\Models\UserProfile', 'profile_id', 'id');
    }
 
-   public function profileMember() {
+   public function profileMember()
+   {
+      if (empty($this->profile_member_ids) || $this->profile_member_ids == 'null') {
+         return [];
+      }
 
-      return $this->belongsTo('App\Models\ProfileMember', 'profile_member_id', 'id');
+      $records = ProfileMember::whereIn('id', $this->profile_member_ids)->get()->map(function ($profile_member) {
+         return $profile_member->name;
+      })->toArray();
+
+      return $records;
    }
 
    public function travelPurpose() {
@@ -131,7 +159,16 @@ class TicketBooking extends MasterModel
          $records->where(function($query) use ($searchKey){
             $query->where('name', 'LIKE', '%'.$searchKey.'%')
                ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
-               ->orWhere('contact', 'LIKE', '%'.$searchKey.'%');
+               ->orWhere('contact', 'LIKE', '%'.$searchKey.'%')
+               ->orWhereHas('travelPurpose', function ($query) use ($searchKey) {
+                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
+               })
+               ->orWhereHas('userProfile.festival', function ($query) use ($searchKey) {
+                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
+               })
+               ->orWhereHas('profile', function ($query) use ($searchKey) {
+                  $query->where('project_year', 'LIKE', '%'.$searchKey.'%');
+               });
          });
       }
 

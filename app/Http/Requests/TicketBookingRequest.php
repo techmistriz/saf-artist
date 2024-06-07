@@ -26,9 +26,11 @@ class TicketBookingRequest extends FormRequest
     {
         $id                 = $this->input('id', 0);
         return [
-            'email'            => 'required|'.Rule::unique('ticket_bookings')->ignore($id, 'id'),
-            'name'             => 'required',
-            'contact'          => 'required',
+            'email'               => 'required',
+            'name'                => 'required',
+            'contact'             => 'required',
+            'travel_purpose_id'   => 'required',
+            'profile_id'          => 'required',
             // 'dob'              => 'required',
         ];
     }

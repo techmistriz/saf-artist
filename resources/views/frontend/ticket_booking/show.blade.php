@@ -41,7 +41,7 @@
 		                        <div class="form-group row validated" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : ''}}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Member: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->profileMember->name ?? 'N/A'}}</label>
+		                            	<label class="col-form-label text-lg-left">{{ implode(', ', $row->profileMember() ?? 'N/A') }}</label>
 		                                
 		                            </div>
 		                        </div>
@@ -135,7 +135,7 @@
 								<div class="form-group row validated" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic' ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Passport (Front Side Image): </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
+		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
                                             @if(isset($row->front_side_passport) && !empty($row->front_side_passport))
                                                 <div class="image-input-wrapper" style="background-image: url({{asset('uploads/passports/'.$row->front_side_passport)}})"></div>
                                             @else
@@ -149,7 +149,7 @@
 
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Passport (Back Side Image): </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
+		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
                                             @if(isset($row->back_side_passport) && !empty($row->back_side_passport))
                                                 <div class="image-input-wrapper" style="background-image: url({{asset('uploads/passports/'.$row->back_side_passport)}})"></div>
                                             @else
@@ -163,7 +163,7 @@
 
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Visa</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
+		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
                                             @if(isset($row->upload_visa) && !empty($row->upload_visa))
                                                 <div class="image-input-wrapper" style="background-image: url({{asset('uploads/work_visas/'.$row->upload_visa)}})"></div>
                                             @else
@@ -177,7 +177,7 @@
 
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Adhaar card or Driving License</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
+		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
                                             @if(isset($row->adhaarcard_driving) && !empty($row->adhaarcard_driving))
                                                 <div class="image-input-wrapper" style="background-image: url({{asset('uploads/adhaarcard_drivings/'.$row->adhaarcard_driving)}})"></div>
                                             @else

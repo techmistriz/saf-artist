@@ -26,10 +26,11 @@ class HotelBookingRequest extends FormRequest
     {
         $id                 = $this->input('id', 0);
         return [
-            'accomodation'            => 'required',
-            // 'check_in_date'             => 'required',
-            // 'check_out_date'          => 'required',
-            // 'dob'              => 'required',
+            'accomodation'          => 'required',
+            'check_in_date'         => 'required',
+            'check_out_date'        => 'required',
+            'travel_purpose_id'     => 'required',
+            'profile_id'            => 'required',
         ];
     }
 

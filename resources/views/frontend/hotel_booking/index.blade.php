@@ -45,11 +45,11 @@
         									Search
         								</a>
         							</div>
-        							<div class="col-md-1">
+        							<!-- <div class="col-md-1">
         								<button class="btn btn-default refresh_all">
         									<i class="flaticon-refresh text-danger"></i>
         								</button>
-        							</div>
+        							</div> -->
 
         						</div>
         					</div>
@@ -88,16 +88,19 @@
                     textAlign: 'center',
                 },
                 {
+                    field: "profile_id",
+                    title: "Festival",
+                    template: function(t) {
+                        var festival = typeof t?.user_profile?.festival?.name != 'undefined' && t?.user_profile?.festival?.name ? `<b>${t?.user_profile?.festival?.name}</b>` : 'N/A';
+
+                        var year = typeof t?.user_profile?.project_year != 'undefined' && t?.user_profile?.project_year ? t?.user_profile?.project_year : 'N/A';
+                        
+                        return festival + ' (' + year + ')';
+                    }
+                },
+                {
                     field: "accomodation",
                     title: "accomodation",
-                },  
-                {
-                    field: "check_in_date",
-                    title: "check in date",
-                },  
-                {
-                    field: "check_out_date",
-                    title: "check out date",
                 },
                 {
                     field: "hotel_status",
