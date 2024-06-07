@@ -208,15 +208,27 @@ class UserProfile extends MasterModel
     }
 
     function getActionsAttribute(){
-    
-        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-                <a href="'. route('user.profile.show', $this->id) .'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
-                   <i class="flaticon-eye"></i>
+        $user = auth()->user();
+        $addMemberButton = '';
+
+        if (isset($user->frontendRole->name) && ($user->frontendRole->name != 'Individual')) {
+            $addMemberButton = '
+                <a href="' . route('profile.member.create', ['profile_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Add member">
+                    <i class="flaticon2-plus"></i>
+                </a>';
+        }
+
+        return '
+            <span class="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
+                <a href="' . route('user.profile.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+                    <i class="flaticon-eye"></i>
                 </a>
                 <a href="' . route('user.profile.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
-                   <i class="flaticon2-pen"></i>
-                </a>
-            </span>';
+                    <i class="flaticon2-pen"></i>
+                </a>'
+                . $addMemberButton . 
+            '</span>';
     }
+
 	    
 }

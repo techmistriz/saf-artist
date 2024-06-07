@@ -24,6 +24,9 @@
     	background-color: #ebedf3;
     	border-color: #e4e6ef;
 	}
+	#memberList{
+		border-top: 1px solid #ebedf3;
+	}
 
 </style>
 
@@ -43,6 +46,9 @@
 		                        <h3 class="card-label">Show {{ Auth::user()->frontendRole->name }} Details</h3>
 		                    @endif
 		                </div>
+		                <div class="card-toolbar" style="{{isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
+    						<a href="#memberList" class="btn font-weight-bold ml-2" id="button">Member List</a>
+    					</div>
 		            </div>
 		            
 		            <div class="card-body">
@@ -379,7 +385,7 @@
 		                </div>
 		            </div>
 
-		            <div class="card-header flex-wrap border-0 pt-6 pb-0" style="{{isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
+		            <div class="card-header" id="memberList" style="{{isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
                         <div class="card-title">
                             <h3 class="card-label">Members Details</h3>
                         </div>
