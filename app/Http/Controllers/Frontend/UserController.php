@@ -185,6 +185,26 @@ class UserController extends Controller
         return \Redirect::route('dashboard');
     }
 
+    public function loginUserProfileUpdate(Request $request)
+    {
+        $user_id                        = \Auth::user()->id;
+        $user                           = User::findOrFail($user_id);
+
+        if ($request->hasFile('profile_image')) {
+
+            $profile_image              = $request->file('profile_image');
+            $profile_image_fileName     = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $profile_image, $request->input('name'), 900, 900, true);
+            $user->profile_image_1      = $profile_image_fileName;
+        }
+        
+        $user->name            = $request->name;
+        $user->contact         = $request->contact;
+        $user->save();
+
+        \Flash::success('Profile updated successfully.');
+        return \Redirect::route('dashboard');
+    }
+
     /**
      * Update a {{moduleTitle}}.
      *

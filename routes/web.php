@@ -70,6 +70,7 @@ Route::group(['middleware' => ['verified']], function () {
 	Route::get('/user/show/{id}', [App\Http\Controllers\Frontend\UserController::class, 'show'])->name('user.show');
 	Route::get('/user/edit/{id}', [App\Http\Controllers\Frontend\UserController::class, 'edit'])->name('user.edit');
 	Route::put('/user-update/{id}', [App\Http\Controllers\Frontend\UserController::class, 'update'])->name('user.update');
+	Route::post('/login-user-profile-update/{id}', [App\Http\Controllers\Frontend\UserController::class, 'loginUserProfileUpdate'])->name('login.user.profile.update');
 	// end User route
 
 	// start User Profile route

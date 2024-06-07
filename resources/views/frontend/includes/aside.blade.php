@@ -26,43 +26,35 @@
                     <div class="d-flex flex-column flex-center">
                         <!--begin::Symbol-->
 
-                        <form action="{{ route('update.profile.picture') }}" method="POST" enctype="multipart/form-data" id="profile-picture-form" class="profile-img-form">
-				            <input type="hidden" name="_method" value="PUT">
-				            {{ csrf_field() }}
+                        <div class="image-input image-input-outline image-input-circle" id="profile_image" style="background-image: url({{asset('media/users/blank.png')}})">
 
-							<div class="image-input image-input-outline image-input-circle" id="profile_image" style="background-image: url({{asset('media/users/blank.png')}})">
+                            @if(!empty(Auth::user()->profile_image_1))
+                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.Auth::user()->profile_image_1)}})"></div>
+                            @else
+                                <div class="image-input-wrapper profile_image_1_base64"></div>
+                            @endif
 
-	                    		@if(!empty(Auth::user()->profile_image_1))
-									<div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.Auth::user()->profile_image_1)}})"></div>
-	                    		@else
-	                    			<div class="image-input-wrapper profile_image_1_base64"></div>
-	                    		@endif
+                            <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
+                                <i class="fa fa-pen" data-toggle="modal" data-target="#userModal"></i>
+                            </label>
+                        </div>
 
-								<label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
-									<i class="fa fa-pen icon-sm"></i>
-									<input type="file" name="profile_image" accept=".png, .jpg, .jpeg"/>
-								</label>
-							</div>
-						</form>
-
-                        <!--end::Symbol-->
+                        <!--end::Symbol-->                        
                         <!--begin::Username-->
-                        <a href="{{ route('dashboard') }}" class="card-title font-weight-bolder text-dark-75 text-hover-primary font-size-h4 m-0 pt-7 pb-1">{{ Auth::user()->name }}</a>
+                        <a href="{{ route('dashboard') }}" class="font-weight-bolder text-dark-75 text-hover-primary font-size-h4">{{ Auth::user()->name }}</a>
+                        <div class="font-weight-bolder text-dark-75 m-0">{{ Auth::user()->frontendRole->name }}</div>
                         <!--end::Username-->
                         <!--begin::Info-->
                         <div class="font-weight-bold text-dark-50 font-size-sm">{{ Auth::user()->email }}</div>
-                        <div class="font-weight-bold text-dark-50 font-size-sm pb-5">{{ Auth::user()->getAge() }}</div>
-                        <div class="pb-6">                           
-                            <a href="#" class="theme-btn mt-0 mb-0" style="padding: 12px 9px;">Submit for Review</a>
-                        </div>
+                        
                         <!--end::Info-->
                     </div>
                     <!--end::Header-->
                     <!--begin::Body-->
-                    <div class="pt-1">
+                    <div class="pt-5">
                         
                         <!--begin::Item-->
-                        <div class="d-flex align-items-center pb-9">
+                        <div class="d-flex align-items-center pb-8">
                             <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
@@ -78,7 +70,7 @@
                             <!--end::Text-->
                         </div>
 
-                        <div class="d-flex align-items-center pb-9">
+                        <div class="d-flex align-items-center pb-8">
                             <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
@@ -95,7 +87,7 @@
                             <!--end::Text-->
                         </div>
 
-                        <div class="d-flex align-items-center pb-9">
+                        <div class="d-flex align-items-center pb-8">
                             <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
@@ -112,7 +104,7 @@
                             <!--end::Text-->
                         </div>
 
-                        <div class="d-flex align-items-center pb-9">
+                        <div class="d-flex align-items-center pb-8">
                             <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
@@ -129,7 +121,7 @@
                             <!--end::Text-->
                         </div>
 
-                        <div class="d-flex align-items-center pb-9">
+                        <div class="d-flex align-items-center pb-8">
                             <!--begin::Symbol-->
                             <div class="symbol symbol-45 symbol-light mr-4">
                                 <span class="symbol-label">
@@ -165,23 +157,144 @@
     <!--end::Nav Panel Widget 2-->
     
 </div>
+
+<!-- The Modal -->
+<div class="modal" id="userModal">
+    <div class="row">
+        <div class="col-md-6" style="margin: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <div class="modal-content">
+                <form action="{{ route('login.user.profile.update', Auth::user()->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="id" value="{{Auth::user()->id}}">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit User Profile</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Full Name:</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <input type="text" name="name" value="{{ old('name', Auth::user()->name ?? '') }}" class="form-control" required placeholder="Enter Full Name"/>
+                                        @error('name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Contact </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <input type="text" name="contact" value="{{Auth::user()->contact}}" class="form-control" required placeholder="Enter Contact" maxlength="10" />
+                                        @error('contact')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12">
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Email </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <input type="text" name="email" value="{{Auth::user()->email}}" class="form-control form-control-lg form-control-solid" placeholder="Enter Email" readonly />
+                                        @error('email')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Image</label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        
+                                        <div class="image-input image-input-outline" id="profile_image_1" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
+
+                                            @if(isset(Auth::user()->profile_image_1) && !empty(Auth::user()->profile_image_1))
+                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.Auth::user()->profile_image_1)}})"></div>
+                                            @else
+                                                <div class="image-input-wrapper profile_image_1_base64"></div>
+                                            @endif
+
+                                            <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
+                                                <i class="fa fa-pen icon-sm text-muted"></i>
+                                                <input type="file" name="profile_image_1" accept=".png, .jpg, .jpeg"/>
+                                                <input type="hidden" name="profile_image_1_remove"/>
+                                            </label>
+
+                                            @if(isset(Auth::user()->profile_image_1) && !empty(Auth::user()->profile_image_1))
+                                                <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove">
+                                                    <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                                </span>
+                                            @else
+                                                <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel">
+                                                    <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                                </span>
+                                            @endif
+                                        </div>
+
+                                        @error('profile_image_1')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror                                    
+                                    </div>
+                                    <span style="margin-left: 190px;">Use 300 X 300 size image</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="submit" name="submit" class="theme-btn mt-0 mb-0" >Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>                            
+</div>
 @push('scripts')
 <script type="text/javascript">
 
-	// START profile_image
-    var profile_image = new KTImageInput('profile_image');
-	profile_image.on('change', function(imageInput) {
-		
-		document.getElementById('profile-picture-form').submit();
-
-	});
-
-	// END profile_image
-
     $('.nav-toggle').click(function() {
-    $(this).toggleClass('active');
-    $('.offcanvas-mobile').toggleClass('open');
-});
+        $(this).toggleClass('active');
+        $('.offcanvas-mobile').toggleClass('open');
+    });
+
+    // START profile_image_1
+    var profile_image_1 = new KTImageInput('profile_image_1');
+
+    profile_image_1.on('cancel', function(imageInput) {
+        swal.fire({
+            title: 'Image successfully canceled !',
+            type: 'success',
+            buttonsStyling: false,
+            confirmButtonText: 'Okay!',
+            confirmButtonClass: 'btn btn-primary font-weight-bold'
+        });
+    });
+
+    profile_image_1.on('change', function(imageInput) {
+        
+    });
+
+    profile_image_1.on('remove', function(imageInput) {
+        swal.fire({
+            title: 'Image successfully removed !',
+            type: 'error',
+            buttonsStyling: false,
+            confirmButtonText: 'Got it!',
+            confirmButtonClass: 'btn btn-primary font-weight-bold'
+        });
+    });
+    // END profile_image_1
 
 </script>
 @endpush
