@@ -8,7 +8,7 @@ Dear {{$user->name}},
 @component('mail::table')
 <table>
 	<tr><td>User Name: </td><td>{{$user->email ?? ''}} </td></tr>
-	<tr><td>Password: </td><td>{{ \Helper::decrypt($user->password_plane ?? '') }} </td></tr>
+	<tr><td>Password: </td><td>{{ $user->password_plane ?? '' }} </td></tr>
 </table>
 @endcomponent
 

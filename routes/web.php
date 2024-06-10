@@ -25,6 +25,18 @@ Route::get('/clear-cache', function() {
 
 });
 
+Route::get('/test-mail', function() {
+    // dd(env('MAIL_HOST'));
+    try {
+        $user = \App\Models\User::first();           
+        $email = 'developer@techmistriz.com';
+        \Mail::to($email)->send(new \App\Mail\RegisterMailable($user));
+
+    } catch (Exception $e) {
+        dd($e);
+    }
+});
+
 Route::get('/clear-flush', function() {
 
     Artisan::call('cache:flush');
