@@ -752,7 +752,7 @@
                         <input type="hidden" name="is_freeze" id="isFreeze" value="0">
                         <div class="col-lg-12 text-center">
                             <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="button" class="theme-btn mt-0 mb-0 saveFreeze">Save & Freeze</button>
+                            <button type="submit" class="theme-btn mt-0 mb-0 saveFreeze">Submit for review</button>
                         </div>
                     @else
                         <div class="col-lg-12">
