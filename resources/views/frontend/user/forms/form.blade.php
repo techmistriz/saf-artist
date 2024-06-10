@@ -1,5 +1,9 @@
 @include('flash::message')
-
+<!-- <style type="text/css">
+    .card-custom {
+        pointer-events: none;
+    }
+</style> -->
 <div class="row">
     <div class="col-md-12">
         
@@ -745,10 +749,10 @@
             </div>
             <div class="card-footer">
                 <div class="row">
-                    @if(\Auth::user()->is_freeze == 0)
-                    <div class="col-lg-4"></div>
-                    <div class="col-lg-4 text-center">
-                        <button type="submit" class="theme-btn mt-0 mb-0">Submit</button>
+                    @if($row->is_freeze == 0)
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="theme-btn mt-0 mb-0 saveFreeze">Save & Freeze</button>
                     </div>
                     @else
                         <div class="col-lg-12">
@@ -765,6 +769,9 @@
 @push('scripts')
 
 <script type="text/javascript">
+    $('.saveFreeze').click(function() {
+        $('#isFreeze').val(1)
+    })
     function serendipityArtsChangePress(_this){
 
         if($(_this).val() == 'Yes'){

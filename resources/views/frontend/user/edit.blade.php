@@ -43,6 +43,7 @@
                     <form action="{{ route('user.profile.update', $row->id) }}" method="POST" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="id" value="{{$row->id}}">
+                        <input type="text" name="is_freeze" id="isFreeze" value="{{ $row->is_freeze == 1 ? 1 : 0 }}">
                         {{ csrf_field() }}
                         @include('frontend.user.forms.form')
                     </form>
