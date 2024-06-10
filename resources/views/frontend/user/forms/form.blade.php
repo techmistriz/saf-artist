@@ -748,8 +748,8 @@
             </div>
             <div class="card-footer">
                 <div class="row">
-                    @if(!isset($row) || $row->is_freeze == 0)
-                        <input type="hidden" name="is_freeze" id="isFreeze" value="0">
+                    @if(!isset($row) || $row->profile_status == 1)
+                        <input type="hidden" name="profile_status" id="freeze" value="1">
                         <div class="col-lg-12 text-center">
                             <button type="submit" class="btn btn-primary">Save</button>
                             <button type="submit" class="theme-btn mt-0 mb-0 saveFreeze">Submit for review</button>
@@ -769,7 +769,7 @@
 
 <script type="text/javascript">
     $('.saveFreeze').click(function() {
-        $('#isFreeze').val(1)
+        $('#freeze').val(2)
     })
     function serendipityArtsChangePress(_this){
 

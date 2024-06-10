@@ -34,7 +34,7 @@ trait UserTrait
 
         $user_profile = new UserProfile();
 
-        $user_profile->is_freeze                = $request->is_freeze;
+        $user_profile->profile_status                = $request->profile_status;
         $user_profile->festival_id              = $request->festival_id;
         $user_profile->user_id                  = \Auth::user()->id; 
         $user_profile->category_id              = $request->category_id;
@@ -81,11 +81,11 @@ trait UserTrait
     public function __updateUserProfile(Request $request, $id) {
 
         
-        // dd($request->is_freeze);
+        // dd($request->profile_status);
 
         $user_profile = UserProfile::findOrFail($id);
 
-        $user_profile->is_freeze                = $request->is_freeze;
+        $user_profile->profile_status           = $request->profile_status;
         $user_profile->festival_id              = $request->festival_id;        
         $user_profile->user_id                  = \Auth::user()->id;      
         $user_profile->category_id              = $request->category_id;

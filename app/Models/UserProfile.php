@@ -207,28 +207,34 @@ class UserProfile extends MasterModel
         
     }
 
-    function getActionsAttribute(){
+    public function getActionsAttribute()
+    {
         $user = auth()->user();
         $addMemberButton = '';
 
         if (isset($user->frontendRole->name) && ($user->frontendRole->name != 'Individual')) {
             $addMemberButton = '
                 <a href="' . route('profile.member.create', ['profile_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Add member">
-                    <i class="flaticon2-plus"></i>
+                    <i class="flaticon2-avatar"></i>
+                </a>';
+        }
+
+        $editDetailButton = '';
+        if ($this->profile_status == 1) {
+            $editDetailButton = '
+                <a href="' . route('user.profile.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+                    <i class="flaticon2-pen"></i>
                 </a>';
         }
 
         return '
-            <span class="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
+            <span style="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
                 <a href="' . route('user.profile.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
                     <i class="flaticon-eye"></i>
-                </a>
-                <a href="' . route('user.profile.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
-                    <i class="flaticon2-pen"></i>
                 </a>'
-                . $addMemberButton . 
+                . $editDetailButton .
+                $addMemberButton . 
             '</span>';
     }
-
 	    
 }

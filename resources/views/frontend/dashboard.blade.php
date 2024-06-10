@@ -102,18 +102,7 @@
                     template: function(t) {
                         return ( typeof t?.festival?.name != 'undefined' && t?.festival?.name)? t?.festival?.name : 'N/A';
                     }
-                },
-                // {
-                //     field: "project_id",
-                //     title: "project",
-                //     template: function(t) {
-                //         return ( typeof t?.project?.name != 'undefined' && t?.project?.name)? t?.project?.name : 'N/A';
-                //     }
-                // },
-                {
-                    field: "project_year",
-                    title: "Year",
-                },
+                },                
                 {
                     field: "name",
                     title: "Name",
@@ -134,6 +123,27 @@
                             
                         };
                         return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
+                    },
+                },
+                {
+                    field: "profile_status",
+                    title: "Ticket Status",
+                    template: function(t) {
+                        var profile_status = {
+                            1: {
+                                'title': 'PENDING',
+                                'class': ' label-light-danger'
+                            },
+                            2: {
+                                'title': 'IN REVIEW',
+                                'class': ' label-light-warning'
+                            },                        
+                            3: {
+                                'title': 'FREEZE',
+                                'class': ' label-light-success'
+                            },                            
+                        };
+                        return '<span class="label font-weight-bold label-lg ' + profile_status[t?.profile_status].class + ' label-inline">' + profile_status[t?.profile_status].title + '</span>';
                     },
                 },      
                 {
