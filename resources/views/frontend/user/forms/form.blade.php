@@ -17,8 +17,7 @@
             </div>
             
             <div class="card-body">
-                <div class="row">
-
+                <div class="row">                    
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Year</label>
@@ -331,7 +330,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pincode </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="pa_pincode" value="{{ old('pa_pincode') ? old('pa_pincode') :( isset($row->pa_pincode) ? $row->pa_pincode : '') }}" class="form-control form-control-lg form-control-solid"  minlength="6" maxlength="6"  placeholder="Enter Pincode"/>
+                                <input type="text" name="pa_pincode" value="{{ old('pa_pincode', $row->pa_pincode ?? '') }}" class="form-control form-control-lg form-control-solid"  minlength="6" maxlength="6"  placeholder="Enter Pincode"/>
                                 @error('pa_pincode')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -749,21 +748,21 @@
             </div>
             <div class="card-footer">
                 <div class="row">
-                    @if($row->is_freeze == 0)
-                    <div class="col-lg-12 text-center">
-                        <button type="submit" class="btn btn-primary">Save</button>
-                        <button type="submit" class="theme-btn mt-0 mb-0 saveFreeze">Save & Freeze</button>
-                    </div>
+                    @if(!isset($row) || $row->is_freeze == 0)
+                        <input type="hidden" name="is_freeze" id="isFreeze" value="0">
+                        <div class="col-lg-12 text-center">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="theme-btn mt-0 mb-0 saveFreeze">Save & Freeze</button>
+                        </div>
                     @else
                         <div class="col-lg-12">
-                            <p class="text-center text-danger small italic">Your account has been freeze by admin hence you are not able to update any of details.</p>
+                            <p class="text-center text-danger small italic">Your account has been frozen by admin, hence you are not able to update any details.</p>
                         </div>
                     @endif
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 @push('scripts')
