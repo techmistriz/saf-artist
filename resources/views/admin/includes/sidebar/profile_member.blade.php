@@ -1,4 +1,4 @@
-<li class="menu-item menu-item-submenu {{ $helper->isActivate(['admin.artist_member.index', 'admin.artist_member.edit']) }}" aria-haspopup="true" data-menu-toggle="hover">
+<li class="menu-item menu-item-submenu {{ $helper->isActivate(['admin.profile_member.index', 'admin.profile_member.edit']) }}" aria-haspopup="true" data-menu-toggle="hover">
     <a href="javascript:;" class="menu-link menu-toggle">
         <span class="svg-icon menu-icon">
             <!--begin::Svg Icon | path:/metronic/theme/html/demo1/dist/assets/media/svg/icons/Design/Bucket.svg-->
@@ -11,7 +11,7 @@
             </svg>
             <!--end::Svg Icon-->
         </span>
-        <span class="menu-text">Artist/Member</span>
+        <span class="menu-text">Profile Member</span>
         <i class="menu-arrow"></i>
     </a>
     <div class="menu-submenu">
@@ -19,11 +19,11 @@
         <ul class="menu-subnav">
             <li class="menu-item menu-item-parent" aria-haspopup="true">
                 <span class="menu-link">
-                    <span class="menu-text">Artist/Member</span>
+                    <span class="menu-text">Profile Member</span>
                 </span>
             </li>
-            <li class="menu-item {{ $helper->isActivate(['admin.artist_member.index']) }}" aria-haspopup="true">
-                <a href="{{route('admin.artist_member.index')}}" class="menu-link">
+            <li class="menu-item {{ $helper->isActivate(['admin.profile_member.index']) }}" aria-haspopup="true">
+                <a href="{{route('admin.profile_member.index')}}" class="menu-link">
                     <i class="menu-bullet menu-bullet-dot">
                         <span></span>
                     </i>

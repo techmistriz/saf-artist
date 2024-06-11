@@ -247,19 +247,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
         });
 
-        Route::group(['prefix' => 'artist-member', 'middleware' => ['AdminPermissionCheck:ArtistMemberController']], function(){
+        Route::group(['prefix' => 'profile-member', 'middleware' => ['AdminPermissionCheck:ProfileMemberController']], function(){
 
-            //ArtistMember routes
-            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'artist_member.'], function(){
-                Route::get('list/',              'ArtistMemberController@index')->name('index');
-                Route::post('fetch-data/',       'ArtistMemberController@fetchData')->name('fetch.data');
-                Route::get('create/',            'ArtistMemberController@create')->name('create');
-                Route::post('store/',            'ArtistMemberController@store')->name('store');
-                Route::get('show/{id}',          'ArtistMemberController@show')->name('show');
-                Route::get('edit/{id}',          'ArtistMemberController@edit')->name('edit');
-                Route::put('update/{id}',        'ArtistMemberController@update')->name('update');
-                Route::get('delete/{id}',        'ArtistMemberController@delete')->name('delete');
-                Route::post('export/',           'ArtistMemberController@export')->name('export');
+            //ProfileMember routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'profile_member.'], function(){
+                Route::get('list/',              'ProfileMemberController@index')->name('index');
+                Route::post('fetch-data/',       'ProfileMemberController@fetchData')->name('fetch.data');
+                Route::get('create/',            'ProfileMemberController@create')->name('create');
+                Route::post('store/',            'ProfileMemberController@store')->name('store');
+                Route::get('show/{id}',          'ProfileMemberController@show')->name('show');
+                Route::get('edit/{id}',          'ProfileMemberController@edit')->name('edit');
+                Route::put('update/{id}',        'ProfileMemberController@update')->name('update');
+                Route::get('delete/{id}',        'ProfileMemberController@delete')->name('delete');
+                Route::post('export/',           'ProfileMemberController@export')->name('export');
             });
         });
 

@@ -57,9 +57,9 @@ class ProfileMember extends MasterModel
       return $records->get();
    }
 
-   public function user()
+   public function userProfile()
    {
-      return $this->belongsTo('App\Models\User', 'user_id', 'id');
+      return $this->belongsTo('App\Models\UserProfile', 'profile_id', 'id');
    }
 
    public function getListCount($data, $with = [], $where = []){  

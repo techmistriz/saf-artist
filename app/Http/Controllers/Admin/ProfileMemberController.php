@@ -4,33 +4,32 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ArtistMember;
+use App\Http\Requests\ProfileMemberRequest;
+use App\Models\ProfileMember;
 use App\Models\User;
 use Carbon\Carbon;
 use Hash;
 use Image;
 use ImageUploadHelper;
 use FileUploadHelper;
-use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\ExportArtistMember;
 
-class ArtistMemberController extends Controller
+class ProfileMemberController extends Controller
 {   
     
 
     public static $moduleConfig = [
         "routes" => [
-            "listRoute" => 'admin.artist_member.index',
-            "fetchDataRoute" => 'admin.artist_member.fetch.data', 
-            "createRoute" => 'admin.artist_member.create', 
-            "storeRoute" => 'admin.artist_member.store', 
-            "editRoute" => 'admin.artist_member.edit', 
-            "updateRoute" => 'admin.artist_member.update', 
-            "deleteRoute" => 'admin.artist_member.delete', 
+            "listRoute" => 'admin.profile_member.index',
+            "fetchDataRoute" => 'admin.profile_member.fetch.data', 
+            "createRoute" => 'admin.profile_member.create', 
+            "storeRoute" => 'admin.profile_member.store', 
+            "editRoute" => 'admin.profile_member.edit', 
+            "updateRoute" => 'admin.profile_member.update', 
+            "deleteRoute" => 'admin.profile_member.delete', 
         ],
-        "moduleTitle" => 'Artist Member',
-        "moduleName" => 'artist_member',
-        "viewFolder" => 'artist_member',
+        "moduleTitle" => 'Profile Member',
+        "moduleName" => 'profile_member',
+        "viewFolder" => 'profile_member',
     ];
 
     /**
@@ -69,14 +68,14 @@ class ArtistMemberController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function fetchData(Request $request, ArtistMember $artistMember)
+    public function fetchData(Request $request, ProfileMember $profileMember)
     {
         
         $data               =   $request->all();
 
-        $db_data            =   $artistMember->getList($data, ['frontendRole', 'poc'],['poc_id'=> NULL]);
+        $db_data            =   $profileMember->getList($data, ['userProfile']);
 
-        $count              =   $artistMember->getListCount($data,[],['poc_id'=> NULL]);
+        $count              =   $profileMember->getListCount($data);
 
         $returnArray = array(
             'data' => $db_data,
@@ -94,18 +93,10 @@ class ArtistMemberController extends Controller
     }
 
 
-    public function show ($id, ArtistMember $artistMember){
+    public function show ($id, ProfileMember $profileMember){
 
-        $row = ArtistMember::findOrFail($id);
+        $row = ProfileMember::findOrFail($id);
         return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
-    }
-
-    public function export(Request $request)
-    {
-        $category_ids = $request->input('category_ids');
-        $individual_ids = $request->input('individual_ids');
-
-        return Excel::download(new ExportArtistMember($category_ids, $individual_ids), 'artist_member.xlsx');
     }
 
 }

@@ -13,31 +13,6 @@
                             <h3 class="card-label">{{$moduleConfig['moduleTitle']}} 
                             <span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
                         </div>
-                        <div class="card-toolbar">
-                            <!--begin::Dropdown-->
-                            <form action="{{ route('admin.artist_member.export') }}" method="POST" style="display: flex;">
-                                @csrf()
-                                <div class="side-select" style="width: 250px">
-                                    <select name="individual_ids[]" class="form-control selectpicker" data-actions-box="true" multiple="">
-                                        @foreach($individuals as $key => $val)
-                                            <option value="{{ $val->id}}"> 
-                                                {{ $val->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="side-select" style="width: 250px">
-                                    <select name="category_ids[]" class="form-control selectpicker" data-actions-box="true" multiple="">
-                                        @foreach($disciplines as $key => $val)
-                                            <option value="{{ $val->id}}"> 
-                                                {{ $val->name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-light-info font-weight-bold ml-2"> Export</button>
-                            </form>
-                        </div>
                     </div>
                     <div class="card-body">
                         
@@ -110,30 +85,12 @@
 
                     return (index + offset);
                 }
-            },            
-            {
-                field: "frontend_role_id",
-                title: "Artist Type",
-                template: function (t) {
-                    var artistType = (t.frontend_role && t.frontend_role.name) ? t.frontend_role.name : 'N/A';  // Added a check for t.frontend_role
-                    var artistTypeClass = '';
-
-                    if (artistType === 'Individual') {
-                        artistTypeClass = 'label-primary';
-                    } else if (artistType === 'N/A') {
-                        artistTypeClass = 'label-danger';
-                    } else {
-                        artistTypeClass = 'label-success';
-                    }
-
-                    return '<span class="label font-weight-bold label-lg ' + artistTypeClass + ' label-inline">' + artistType + '</span>';
-                },
             },
             {
-                field: "poc_id",
+                field: "profile_id",
                 title: "Parent",
                 template: function(t) {
-                    return ( typeof t?.poc?.name != 'undefined' && t?.poc?.name)? t?.poc?.name : 'N/A';
+                    return ( typeof t?.user_profile?.name != 'undefined' && t?.user_profile?.name)? t?.user_profile?.name : 'N/A';
                 }
             },
             {

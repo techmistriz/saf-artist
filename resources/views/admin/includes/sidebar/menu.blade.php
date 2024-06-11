@@ -29,6 +29,10 @@
                 @include('admin/includes/sidebar/user_profile')
             @endif
 
+            @if(\Helper::checkPermisson('ProfileMemberController', $rolePermissionArr))
+                @include('admin/includes/sidebar/profile_member')
+            @endif
+
             @if(\Helper::isSuperAdmin('FaqController', $rolePermissionArr))
                 @include('admin/includes/sidebar/faq')
             @endif

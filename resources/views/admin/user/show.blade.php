@@ -275,67 +275,6 @@
                         </div>
                     </div>
 
-                    <div class="card-header">
-                        <div class="card-title">
-                            <h3 class="card-label">Project Category Details</h3>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered">
-                                        <tbody>
-                                            <tr>
-                                                <th width="50%">Synopsis/ Description of the performance</th>
-                                                <td>{{ $userCategoryDetails->synopsis_description_of_the_performance }}</td>
-                                            </tr>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-header" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
-                        <div class="card-title">
-                            <h3 class="card-label">Members Details</h3>
-                        </div>
-                    </div>
-
-                    <div class="card-body" style="{{isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Sr.No</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Contact</th>
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                @forelse($members as $key => $value)
-                                    <tr>
-                                        <td class="text-center">{{ $key + 1 }}</td>
-                                        <td>{{ $value->name }}</td>
-                                        <td>{{ $value->email }}</td>
-                                        <td>{{ $value->contact }}</td>
-                                    </tr>
-
-                                @empty
-                                    <tr>
-                                        <td colspan="3" class="text-center text-danger">No Record Found</td>
-                                    </tr>
-
-                                @endforelse
-                            </tbody>
-                        </table>
-                        <!--end: Datatable-->
-                    </div>
-
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-lg-4"></div>
