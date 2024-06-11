@@ -40,7 +40,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['actions', 'category_actions', 'account_actions', 'frontend_actions', 'ticket_actions', 'hotel_actions'];
+    protected $appends = ['actions'];
 
     public static $withoutAppends = false;
 
@@ -238,151 +238,15 @@ class User extends Authenticatable
     }
 
     function getActionsAttribute(){
-    
-    	$view = '<a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
-                   <i class="flaticon-eye"></i>
-                </a>';
-        $edit = '<a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit personal details">
-                   <i class="flaticon2-pen"></i>
-                </a>';	
-
-        $rolePermission = session('rolePermission');
-
-    	if( !array_key_exists('view', ($rolePermission['permissions']['UserController'] ?? []))){
-
-    		$view = '';
-    	}
-
-    	if( !array_key_exists('edit', ($rolePermission['permissions']['UserController'] ?? []))){
-
-    		$edit = '';
-    	}
-
-        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-                '.$view.$edit.'
-           	</span>';
-    }
-
-    function getCategoryActionsAttribute(){
-    	
-       	$view = '<a href="show-category-details/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show displine details">
-                   <i class="flaticon-eye"></i>
-                </a>';
-        $edit = '<a href="edit-category-details/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit displine details">
-                   <i class="flaticon2-pen"></i>
-                </a>';	
-
-        $rolePermission = session('rolePermission');
-        
-    	if( !array_key_exists('view', ($rolePermission['permissions']['UserController'] ?? []))){
-
-    		$view = '';
-    	}
-
-    	if( !array_key_exists('edit', ($rolePermission['permissions']['UserController'] ?? []))){
-
-    		$edit = '';
-    	}
-
-        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-                '.$view.$edit.'
-           	</span>';
-
-    }
-
-    function getAccountActionsAttribute(){
-
-       	$view = '<a href="show-account-details/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show Banking details">
-                   <i class="flaticon-eye"></i>
-                </a>';
-        $edit = '<a href="edit-account-details/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit Banking details">
-                   <i class="flaticon2-pen"></i>
-                </a>';	
-
-        $rolePermission = session('rolePermission');
-        
-    	if( !array_key_exists('view', ($rolePermission['permissions']['UserController'] ?? []))){
-
-    		$view = '';
-    	}
-
-    	if( !array_key_exists('edit', ($rolePermission['permissions']['UserController'] ?? []))){
-
-    		$edit = '';
-    	}
-
-        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-                '.$view.$edit.'
-           	</span>';
-
-    }
-
-    function getTicketActionsAttribute(){
-
-        $view = '<a href="' . route('admin.ticket_booking.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show ticket booking details">
-                   <i class="flaticon-eye"></i>
-                </a>';
-        $edit = '<a href="' . route('admin.ticket_booking.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit ticket booking details">
-                    <i class="flaticon2-pen"></i>
-                </a>';  
-
-        $rolePermission = session('rolePermission');
-        
-        if( !array_key_exists('view', ($rolePermission['permissions']['UserController'] ?? []))){
-
-            $view = '';
-        }
-
-        if( !array_key_exists('edit', ($rolePermission['permissions']['UserController'] ?? []))){
-
-            $edit = '';
-        }
-
-        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-                '.$view.$edit.'
-            </span>';
-
-    }
-
-    function getHotelActionsAttribute(){
-
-        $view = '<a href="' . route('admin.hotel_booking.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show hotel booking details">
-                   <i class="flaticon-eye"></i>
-                </a>';
-        $edit = '<a href="' . route('admin.hotel_booking.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit hotel booking details">
-                    <i class="flaticon2-pen"></i>
-                </a>';  
-
-        $rolePermission = session('rolePermission');
-        
-        if( !array_key_exists('view', ($rolePermission['permissions']['UserController'] ?? []))){
-
-            $view = '';
-        }
-
-        if( !array_key_exists('edit', ($rolePermission['permissions']['UserController'] ?? []))){
-
-            $edit = '';
-        }
-
-        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-                '.$view.$edit.'
-            </span>';
-
-    }
-
-    function getFrontendActionsAttribute(){
-    
-        $view = '<a href="' . route('user.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
-                   <i class="flaticon-eye"></i>
-                </a>';
-        $edit = '<a href="' . route('user.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit personal details">
-                   <i class="flaticon2-pen"></i>
-                </a>';
-
-        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-                '.$view.$edit.'
-            </span>';
+   
+      return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
+         <a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+            <i class="flaticon-eye"></i>
+         </a>
+         <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+            <i class="flaticon2-pen"></i>
+         </a>         
+      </span>';
     }
 
     protected function getArrayableAppends()

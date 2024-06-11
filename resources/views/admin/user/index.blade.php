@@ -85,8 +85,7 @@
 
 @endsection
 
-@if($userRoleCode == 'SUPER_ADMIN')
-	@push('scripts')
+@push('scripts')
 		<script type="text/javascript">
 
 		    jQuery(document).ready((function() {
@@ -116,7 +115,7 @@
 		                field: "frontend_role_id",
 		                title: "User Type",
 		                template: function (t) {
-		                    var artistType = (t.frontend_role && t.frontend_role.name) ? t.frontend_role.name : 'N/A';  // Added a check for t.frontend_role
+		                    var artistType = (t.frontend_role && t.frontend_role.name) ? t.frontend_role.name : 'N/A';
 		                    var artistTypeClass = '';
 
 		                    if (artistType === 'Individual') {
@@ -172,27 +171,7 @@
 		            },		
 		            {
 		                field: "actions",
-		                title: "Edit Artist",
-		                sortable: false,
-		            }, 	
-		            {
-		                field: "category_actions",
-		                title: "Edit Displine",
-		                sortable: false,
-		            }, 		
-		            {
-		                field: "account_actions",
-		                title: "Edit Banking",
-		                sortable: false,
-		            },  		
-		            {
-		                field: "ticket_actions",
-		                title: "Edit Ticket",
-		                sortable: false,
-		            },  		
-		            {
-		                field: "hotel_actions",
-		                title: "Edit Hotel",
+		                title: "action",
 		                sortable: false,
 		            },	
 		        ];
@@ -230,173 +209,3 @@
 
 		</script>
 	@endpush
-@endif
-
-@if($userRoleCode == 'ACCOUNT')
-	@push('scripts')
-		<script type="text/javascript">
-
-		    jQuery(document).ready((function() {
-
-				var url 			= '{!! route($moduleConfig['routes']['fetchDataRoute']) !!}';
-				var columnsArray 	=	[
-		            
-		            {
-		                field: 'row',
-		                title: '#',
-		                sortable: 'asc',
-		                width: 30,
-		                type: 'number',
-		                selector: false,
-		                textAlign: 'center',
-		            },
-		            {
-		                field: "name",
-		                title: "name",
-		            }, 
-		            {
-		                field: "email",
-		                title: "email"
-		            },
-		            {
-		                field: "contact",
-		                title: "contact"
-		            },
-		            
-		            {
-		                field: "category",
-		                title: "category",
-		                template: function(t) {
-		                    return ( typeof t?.category?.name != 'undefined' && t?.category?.name)? t?.category?.name : 'N/A';
-		                }
-		            },	
-		            {
-		                field: "status",
-		                title: "status",
-		                template: function(t) {
-		                    var status = {
-		                        0: {
-		                            'title': 'Inactive',
-		                            'class': ' label-light-danger'
-		                        },
-		                        1: {
-		                            'title': 'Active',
-		                            'class': ' label-light-success'
-		                        }
-		                        
-		                    };
-		                    return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
-		                },
-		            }, 		
-		            {
-		                field: "account_actions",
-		                title: "Edit Banking",
-		                sortable: false,
-		            }, 	
-		        ];
-			    var table_id	=	'kt_datatable';
-			    const t = KTDatatableRemoteAjaxDemo.init(url, columnsArray,  table_id,	null);
-
-			    $(".search_text").on("change", function() {
-		    		
-		    		t.search($(this).val().toLowerCase(),'search');
-		    		
-			    });
-
-			    $(".refresh_all").on("click", function() {
-		    		window.location.reload();
-
-		    	});
-
-			}));
-
-		</script>
-	@endpush
-@endif
-
-@if($userRoleCode == 'PROGRAMMING')
-	@push('scripts')
-		<script type="text/javascript">
-
-		    jQuery(document).ready((function() {
-
-				var url 			= '{!! route($moduleConfig['routes']['fetchDataRoute']) !!}';
-				var columnsArray 	=	[
-		            
-		            {
-		                field: 'row',
-		                title: '#',
-		                sortable: 'asc',
-		                width: 30,
-		                type: 'number',
-		                selector: false,
-		                textAlign: 'center',
-		            },
-		            {
-		                field: "name",
-		                title: "name",
-		            }, 
-		            {
-		                field: "email",
-		                title: "email"
-		            },
-		            {
-		                field: "contact",
-		                title: "contact"
-		            },
-		            
-		            {
-		                field: "category",
-		                title: "category",
-		                template: function(t) {
-		                    return ( typeof t?.category?.name != 'undefined' && t?.category?.name)? t?.category?.name : 'N/A';
-		                }
-		            },	
-		            {
-		                field: "status",
-		                title: "status",
-		                template: function(t) {
-		                    var status = {
-		                        0: {
-		                            'title': 'Inactive',
-		                            'class': ' label-light-danger'
-		                        },
-		                        1: {
-		                            'title': 'Active',
-		                            'class': ' label-light-success'
-		                        }
-		                        
-		                    };
-		                    return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
-		                },
-		            },	
-		            {
-		                field: "actions",
-		                title: "Edit Artist",
-		                sortable: false,
-		            },
-		            {
-		                field: "category_actions",
-		                title: "Edit Displine",
-		                sortable: false,
-		            }, 
-		        ];
-			    var table_id	=	'kt_datatable';
-			    const t = KTDatatableRemoteAjaxDemo.init(url, columnsArray,  table_id,	null);
-
-			    $(".search_text").on("change", function() {
-		    		
-		    		t.search($(this).val().toLowerCase(),'search');
-		    		
-			    });
-
-			    $(".refresh_all").on("click", function() {
-		    		window.location.reload();
-
-		    	});
-
-			}));
-
-		</script>
-	@endpush
-@endif

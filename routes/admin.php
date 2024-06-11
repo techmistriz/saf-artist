@@ -46,12 +46,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::put('update/{id}',               'UserController@update')->name('update');
                 Route::get('delete/{id}',               'UserController@delete')->name('delete');
                 Route::post('export/',                   'UserController@export')->name('export');
-                Route::get('edit-category-details/{id}',	'UserController@editCategoryDetails')->name('edit.category.details');
-                Route::get('show-category-details/{id}',	'UserController@showCategoryDetails')->name('show.category.details');
-                Route::put('edit-category-details/{id}',	'UserController@updateCategoryDetails')->name('update.category.details');
-                Route::get('edit-account-details/{id}',		'UserController@editAccountDetails')->name('edit.account.details');
-                Route::put('edit-account-details/{id}',		'UserController@updateAccountDetails')->name('update.account.details');
-                Route::get('show-account-details/{id}',		'UserController@showAccountDetails')->name('show.account.details');
                 Route::get('update-freeze-status/{id}',		'UserController@updateFreezeStatus')->name('update.freeze.status');
             });
         });
@@ -342,6 +336,23 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::get('edit/{id}',                 'FestivalController@edit')->name('edit');
                 Route::put('update/{id}',               'FestivalController@update')->name('update');
                 Route::get('delete/{id}',               'FestivalController@delete')->name('delete');
+            });
+        });
+
+        Route::group(['prefix' => 'user-profile', 'middleware' => ['AdminPermissionCheck:UserProfileController']], function(){
+
+            // User routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'user_profile.'], function(){
+                Route::get('list/',                 'UserProfileController@index')->name('index');
+                Route::post('fetch-data/',          'UserProfileController@fetchData')->name('fetch.data');
+                Route::get('create/',               'UserProfileController@create')->name('create');
+                Route::post('store/',               'UserProfileController@store')->name('store');
+                Route::get('show/{id}',             'UserProfileController@show')->name('show');
+                Route::get('edit/{id}',             'UserProfileController@edit')->name('edit');
+                Route::put('update/{id}',           'UserProfileController@update')->name('update');
+                Route::get('delete/{id}',           'UserProfileController@delete')->name('delete');
+                Route::post('export/',               'UserProfileController@export')->name('export');
+                Route::get('update-freeze-status/{id}', 'UserProfileController@updateFreezeStatus')->name('update.freeze.status');
             });
         });
 

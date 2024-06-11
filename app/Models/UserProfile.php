@@ -19,7 +19,7 @@ class UserProfile extends MasterModel
      */
     protected $guarded = [];    
 
-    protected $appends = ['actions'];
+    protected $appends = ['actions', 'frontend_actions'];
 
     public static $withoutAppends = false;
 
@@ -207,7 +207,7 @@ class UserProfile extends MasterModel
         
     }
 
-    public function getActionsAttribute()
+    public function getFrontendActionsAttribute()
     {
         $user = auth()->user();
         $addMemberButton = '';
@@ -235,6 +235,18 @@ class UserProfile extends MasterModel
                 . $editDetailButton .
                 $addMemberButton . 
             '</span>';
+    }
+
+    function getActionsAttribute(){
+   
+      return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
+         <a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+            <i class="flaticon-eye"></i>
+         </a>
+         <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+            <i class="flaticon2-pen"></i>
+         </a>         
+      </span>';
     }
 	    
 }

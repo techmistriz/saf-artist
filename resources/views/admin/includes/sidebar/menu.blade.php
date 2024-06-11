@@ -25,11 +25,9 @@
                 @include('admin/includes/sidebar/user')
             @endif
 
-            <!-- if(\Helper::checkPermisson('TicketBookingController', $rolePermissionArr))
-                include('admin/includes/sidebar/ticket_booking')
-            endif -->
-
-           
+            @if(\Helper::checkPermisson('UserProfileController', $rolePermissionArr))
+                @include('admin/includes/sidebar/user_profile')
+            @endif
 
             @if(\Helper::isSuperAdmin('FaqController', $rolePermissionArr))
                 @include('admin/includes/sidebar/faq')
