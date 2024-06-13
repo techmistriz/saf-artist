@@ -752,7 +752,7 @@
                         <input type="hidden" name="profile_status" id="freeze" value="1">
                         <div class="col-lg-12 text-center">
                             <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="submit" class="theme-btn mt-0 mb-0 saveFreeze">Submit for review</button>
+                            <a data-toggle="modal" data-target="#confirmModal" class="theme-btn mt-0 mb-0  " id="saveFreeze">Submit for review</a>
                         </div>
                     @else
                         <div class="col-lg-12">
@@ -765,10 +765,26 @@
     </div>
 </div>
 
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center flex-column">
+                <h3 class="modal-title w-100">Please confirm your submission.</h3>
+                <p>If you freeze your profile then you are not edit profile.</p>                
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @push('scripts')
 
 <script type="text/javascript">
-    $('.saveFreeze').click(function() {
+    $('#saveFreeze').click(function() {
         $('#freeze').val(2)
     })
     function serendipityArtsChangePress(_this){

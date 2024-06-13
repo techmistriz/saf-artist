@@ -99,8 +99,8 @@ class TicketBookingController extends Controller
     {
         $user               = \Auth::user();
         $userIdArr = TicketBooking::where('status', 1)->whereNotNull('profile_id')->get()->pluck('profile_id');
-        //$userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
-        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
+        //$userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
         
         $countries          = Country::where('status', 1)->get();
         $travelPurposes     = TravelPurpose::where('status', 1)->get();
@@ -122,13 +122,6 @@ class TicketBookingController extends Controller
 
     public function store(TicketBookingRequest $request)
     {
-        // $pocId = Auth::user()->id;
-        // $allowticket = Auth::user()->max_allowed_ticket;
-        // $existingticketsCount = TicketBooking::where('poc_id', $pocId)->count();
-        // if ($existingticketsCount >= $allowticket) {
-        //     \Flash::error('You have allowed to add only'. ' '. $allowticket. ' '. 'tickets.');
-        //     return \Redirect::back()->withInput();
-        // }
 
         $ticket                                       = new TicketBooking();
 

@@ -190,11 +190,11 @@ class UserController extends Controller
         $user_id                        = \Auth::user()->id;
         $user                           = User::findOrFail($user_id);
 
-        if ($request->hasFile('profile_image')) {
+        if ($request->hasFile('profile_image_1')) {
 
-            $profile_image              = $request->file('profile_image');
-            $profile_image_fileName     = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $profile_image, $request->input('name'), 900, 900, true);
-            $user->profile_image_1      = $profile_image_fileName;
+            $profile_image_1              = $request->file('profile_image_1');
+            $profile_image_1_fileName     = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $profile_image_1, $request->input('name'), 900, 900, true);
+            $user->profile_image_1      = $profile_image_1_fileName;
         }
         
         $user->name            = $request->name;
