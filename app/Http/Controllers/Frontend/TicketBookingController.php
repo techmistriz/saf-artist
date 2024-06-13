@@ -28,7 +28,7 @@ class TicketBookingController extends Controller
         "passportUploadFolder" => 'uploads/passports/',
         "visaUploadFolder" => 'uploads/work_visas/',
         "adhaarcardDrivingUploadFolder" => 'uploads/adhaarcard_drivings/',
-    ];
+    ]; 
 
 	/**
      * Constructor Method.
@@ -99,7 +99,8 @@ class TicketBookingController extends Controller
     {
         $user               = \Auth::user();
         $userIdArr = TicketBooking::where('status', 1)->whereNotNull('profile_id')->get()->pluck('profile_id');
-        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
+        //$userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
         
         $countries          = Country::where('status', 1)->get();
         $travelPurposes     = TravelPurpose::where('status', 1)->get();
