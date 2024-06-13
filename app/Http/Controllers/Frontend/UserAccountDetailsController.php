@@ -97,7 +97,8 @@ class UserAccountDetailsController extends Controller
         $userIdArr = UserAccountDetail::where('status', 1)->whereNotNull('profile_id')->get()->pluck('profile_id');
         // dd($userIdArr);
         $userEmail     = Auth::user()->email;
-        $userProfiles         = UserProfile::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();       
+        //$userProfiles  = UserProfile::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();    
+        $userProfiles  = UserProfile::where('status', 1)->where('email', $userEmail)->get();
         $countries     = Country::where('status', 1)->get();
         return view('frontend.user_account_details.create')
         ->with('countries', $countries)
