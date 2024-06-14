@@ -2,16 +2,13 @@
 
 @section('content')
 
-
-
 <div class="container container-fluid pb-6">    
     <div class="card border-0">
         <nav class="main-navbar">
         <a href="{{URL::to('/')}}"><img src="{{url('/image/Logo-SVG.svg')}}" alt="Image"/ class="head-logo"></a>
                 <ul class="navbar-menu">
+                    <li><a href="{{route('home')}}">Home</a></li>
                     <li><a href="{{route('faq.details')}}">FAQs</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
                 </ul>
             <button class="navbar-toggler" onclick="toggleMobileMenu()">
                 <span class="navbar-toggler-icon" id="mobileIcon">
@@ -23,13 +20,10 @@
     </div>
 
     <div class="navbar-mobile-menu" id="mobileMenu">
+        <a href="{{route('home')}}">Home</a>
         <a href="{{route('faq.details')}}">FAQs</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
     </div>
 </div>
-
-
 <script>
   function toggleMobileMenu() {
     var mobileMenu = document.getElementById("mobileMenu");

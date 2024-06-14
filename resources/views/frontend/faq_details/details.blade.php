@@ -1,7 +1,37 @@
 @extends('layouts.frontend')
 @section('content')
 
+<div class="container container-fluid pb-6">    
+    <div class="card border-0">
+        <nav class="main-navbar">
+        <a href="{{URL::to('/')}}"><img src="{{url('/image/Logo-SVG.svg')}}" alt="Image"/ class="head-logo"></a>
+                <ul class="navbar-menu">
+                    <li><a href="{{route('home')}}">Home</a></li>
+                    <li><a href="{{route('faq.details')}}">FAQs</a></li>
+                </ul>
+            <button class="navbar-toggler" onclick="toggleMobileMenu()">
+                <span class="navbar-toggler-icon" id="mobileIcon">
+                    <span class="first"></span>
+                    <span class="second"></span>
+                    <span class="third"></span></span>
+            </button>
+        </nav>
+    </div>
 
+    <div class="navbar-mobile-menu" id="mobileMenu">
+        <a href="{{route('home')}}">Home</a>
+        <a href="{{route('faq.details')}}">FAQs</a>
+    </div>
+</div>
+
+<script>
+  function toggleMobileMenu() {
+    var mobileMenu = document.getElementById("mobileMenu");
+    var menuIco = document.getElementById("mobileIcon");
+    mobileMenu.classList.toggle("active"); 
+    menuIco.classList.toggle("on");
+  }
+</script>
 
 
 <div class="d-flex flex-column-fluid">
