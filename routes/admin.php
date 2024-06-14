@@ -398,8 +398,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
             // User routes
             Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'banking_details.'], function(){
                 Route::get('list/',                 'BankingDetailsController@index')->name('index');
-               Route::post('fetch-data/{user_id?}', 'BankingDetailsController@fetchData')->name('fetch.data');
-
+               Route::post('fetch-data/', 'BankingDetailsController@fetchData')->name('fetch.data');
                 Route::get('create/',               'BankingDetailsController@create')->name('create');
                 Route::post('store/',               'BankingDetailsController@store')->name('store');
                 Route::get('show/{id}',             'BankingDetailsController@show')->name('show');

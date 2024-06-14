@@ -43,6 +43,19 @@
 									</button>
 								</div>
 
+								<div class="col-md-4"></div>
+								<div class="col-md-3">
+									<div class="form-group row validated">
+			                            <select id="user_id" class="form-control selectpicker" onchange="filterUsers(this)">
+		                                    <option>Select User</option>
+		                                    @if($users->count())
+		                                        @foreach($users as $value)
+		                                            <option value="{{$value->id}}" {{ old('user_id', request('user_id') ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
+		                                        @endforeach
+		                                    @endif
+		                                </select>
+			                        </div>
+								</div>
 							</div>
 						</div>
 						<!--end: Search Form-->
@@ -65,13 +78,8 @@
 	<script type="text/javascript">
 
 	    jQuery(document).ready((function() {
-	    	if(isset($userId) && !empty($userId)){
-	    		var user_id = {{ $userId }};
-				var url = '{!! route($moduleConfig["routes"]["fetchDataRoute"]) !!}' + '/' + user_id;
-	    	}else{
-	    		var url = '{!! route($moduleConfig["routes"]["fetchDataRoute"]) !!}';
-	    	}
-				
+			var user_id = {{ request('user_id', 0)}};
+			var url = '{!! route($moduleConfig["routes"]["fetchDataRoute"]) !!}' + '?user_id=' + user_id;
 
 			var columnsArray 	=	[
 	            
@@ -165,5 +173,9 @@
 
 	    }));
 
+	    function filterUsers(__this) {
+		    var user_id = __this.value;
+		    window.location.href = "?user_id=" + user_id;
+		}
     </script>
 @endpush

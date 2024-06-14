@@ -237,8 +237,18 @@ class User extends Authenticatable
         
     }
 
-    function getActionsAttribute() {
-    return '
+    function getActionsAttribute() 
+    {
+        // $user = User::where('status', 1)->get();
+        // $profileMemberList = '';
+
+        // if (isset($user->frontendRole->name) && ($user->frontendRole->name != 'Individual')) {
+        //     $profileMemberList = '
+        //         <a href="' . route('admin.profile_member.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Profile Member List">
+        //             <i class="flaticon2-avatar"></i>
+        //         </a>';
+        // }
+        return '
         <span class="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
             <a href="show/' . $this->id . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
                 <i class="flaticon-eye"></i>
@@ -246,10 +256,10 @@ class User extends Authenticatable
             <a href="edit/' . $this->id . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
                 <i class="flaticon2-pen"></i>
             </a>
-            <a href="' . route('admin.user_profile.index', ['userId' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="User Profile">
+            <a href="' . route('admin.user_profile.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="User Profile List">
                 <i class="flaticon2-user"></i>
             </a>
-            <a href="' . route('admin.profile_member.index', ['userId' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Profile Member">
+            <a href="' . route('admin.profile_member.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Profile Member List">
                 <i class="flaticon2-avatar"></i>
             </a>
         </span>';

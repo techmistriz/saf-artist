@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\BankingDetails;
+use App\Models\UserAccountDetail;
 use App\Models\Country;
 use App\Models\UserProfile;
 use App\Models\User;
 use App\Models\Festival;
 use Carbon\Carbon;
-use App\Http\Requests\BankingDetailsRequest;
+use App\Http\Requests\UserAccountDetailsRequest;
 use Hash;
 use Image;
 use Auth;
 use ImageUploadHelper;
+use App\Traits\UserTrait;
 
 class BankingDetailsController extends Controller
 {   
@@ -27,6 +28,8 @@ class BankingDetailsController extends Controller
     | This controller handles create, update, delete and show list of {{moduleTitle}}.
     |
     */
+    
+    use UserTrait;
 
     public static $moduleConfig = [
         "routes" => [
@@ -78,12 +81,12 @@ class BankingDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function fetchData(Request $request, BankingDetails $ticket)
+    public function fetchData(Request $request, UserAccountDetail $ticket)
     {
         
         $data               =   $request->all();
 
-        $db_data            =   $ticket->getList($data,['member', 'project']);
+        $db_data            =   $ticket->getList($data,['profile', 'profile.festival']);
 
         $count 				=  	$ticket->getListCount($data);
 
@@ -108,7 +111,7 @@ class BankingDetailsController extends Controller
      * @param  null
      * @return \Illuminate\Http\Response
      */
-    // public function create(BankingDetails $ticket)
+    // public function create(UserAccountDetail $ticket)
     // {
     //     $userId = Auth::user()->id;
     //     $members = User::where('status', 1)
@@ -135,9 +138,9 @@ class BankingDetailsController extends Controller
      */
     
 
-    // public function store(BankingDetailsRequest $request)
+    // public function store(UserAccountDetailsRequest $request)
     // {
-    //     $ticket                                       = new BankingDetails();
+    //     $ticket                                       = new UserAccountDetail();
 
     //     if ($request->hasFile('upload_passport')) {
     //         $upload_passport         = $request->file('upload_passport');
@@ -180,9 +183,9 @@ class BankingDetailsController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function show ($id, BankingDetails $ticket){
+    public function show ($id, UserAccountDetail $ticket){
 
-        $row = BankingDetails::findOrFail($id);
+        $row = UserAccountDetail::findOrFail($id);
         return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
     }
 
@@ -192,9 +195,9 @@ class BankingDetailsController extends Controller
      * @param  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, BankingDetails $ticket)
+    public function edit($id, UserAccountDetail $ticket)
     {        
-        $row = BankingDetails::findOrFail($id);
+        $row = UserAccountDetail::findOrFail($id);
         $userIdArr = UserAccountDetail::where('status', 1)->whereNotIn('profile_id', [$row->profile_id])->get()->pluck('profile_id');
         // dd($userIdArr);
         $userEmail     = Auth::user()->email;
@@ -210,11 +213,11 @@ class BankingDetailsController extends Controller
      * @param  $id
      * @return Redirect
      */
-    public function update(BankingDetailsRequest $request, $id){
+    public function update(UserAccountDetailsRequest $request, $id){
 
         $this->__updateAccountDetails($request, $id);
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
-        return \Redirect::route('admin.user.index');
+         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
     }
 
     /**

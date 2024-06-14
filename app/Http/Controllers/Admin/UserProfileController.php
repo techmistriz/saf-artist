@@ -63,18 +63,21 @@ class UserProfileController extends Controller
      */
     public function index(Request $request)
     {
-        $userId = $request->userId;
-
-       return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('userId', $userId);
+        $users       = User::where('status', 1)->get();
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('users', $users);
     }
 
     public function fetchData(Request $request, UserProfile $user_profile)
     {
         $data     = $request->all();
+        
+        $whereArr = [];
+        if ($request->user_id) {
+            $whereArr = ['user_id' => $request->user_id];
+        }
+        $db_data  = $user_profile->getList($data, ['project', 'festival', 'user'], $whereArr);
 
-        $db_data  = $user_profile->getList($data, ['project', 'festival', 'user'], ['user_id' => $request->user_id]);
-
-        $count    = $user_profile->getListCount($data, [], ['user_id' => $request->user_id]);
+        $count    = $user_profile->getListCount($data, [], $whereArr);
 
         $returnArray = array(
             'data' => $db_data,

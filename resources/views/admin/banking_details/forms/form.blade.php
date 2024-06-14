@@ -20,221 +20,43 @@
             </div>
             
             <div class="card-body">
-                <div class="row">                    
+                <div class="row">
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Year</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Profile</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="project_year" tabindex="null" onchange="getFestival()">
-                                    <option value="">Select Year</option>
-                                    <option value="2024" {{ old('project_year') == '2024' || (isset($row->project_year) && $row->project_year == '2024') ? 'selected' : '' }}>2024</option>
-                                    <option value="2025" {{ old('project_year') == '2025' || (isset($row->project_year) && $row->project_year == '2025') ? 'selected' : '' }}>2025</option>
-                                </select>
-                                @error('project_year')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="festival_id" tabindex="null" onchange="getProject()">
-                                    <option value="">Select Festival</option>
-                                </select>
-                                @error('festival_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="project_id" tabindex="null" >
-                                    <option value="">Select Project</option>
-                                </select>
-                                @error('project_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <!-- <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Type</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                
-                                @error('frontend_role_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div> -->
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category <i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="Tooltip on right"></i></label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
-                                    <option value="">Select Category</option>
-                                    @if($categories->count())
-                                        @foreach($categories as $value)
-                                            <option value="{{$value->id}}" {{ old('category_id', $row->category_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
+                                <select class="form-control selectpicker" name="profile_id" tabindex="null" onchange="getUserDetails()" required>
+                                    <option value="" data-slug="">Select User Profile</option>
+                                    @if($userProfiles->count())
+                                        @foreach($userProfiles as $value)
+                                          <option {{ (old('profile_id') ?? optional($row)->profile_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->festival->name . ' ('. $value->project_year . ')'}}</option>
                                         @endforeach
                                     @endif
-                                </select>                                            
-                                @error('category_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name of Curators </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
-                                    <option value="">Select Curator</option>
-
-                                    @if($curators->count())
-                                        @foreach($curators as $value)
-                                            <option value="{{$value->name}}" {{ old('curator_name', $row->curator_name ?? '') == $value->name ? 'selected' : '' }}>{{$value->name}}</option>
-                                        @endforeach
-                                    @endif
-                                    
-                                </select>                                            
-                                @error('curator_name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Type</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="artist_type_id" id="artist_type_id" class="form-control form-control-lg form-control-custom selectpicker @error('artist_type_id') is-invalid @enderror">
-                                    <option value="">Select Artist Type</option>
-
-                                    @if($artistTypes->count())
-                                        @foreach($artistTypes as $value)
-                                            <option value="{{$value->id}}" {{ old('artist_type_id', $row->artist_type_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
-                                        @endforeach
-                                    @endif
-
                                 </select>
-                                @error('artist_type_id')
+                                @error('profile_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            
                             </div>
-                        </div>
+                        </div> 
                     </div>
 
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Full Name </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" value="{{Auth::user()->name}}" class="form-control form-control-lg form-control-solid"readonly />
+                                <input type="text" name="name" id="name" value="{{ old('name', $row->name ?? '') }}" class="form-control form-control-lg form-control-solid @error('name') is-invalid @enderror" readonly />
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="col-12" id="dob" style="{{ isset($user->frontendRole->name) && ($user->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
-                        
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                <div class="input-group date">
-                                    <input type="text" name="dob" value="{{Auth::user()->dob}}" class="form-control form-control-lg form-control-solid kt_datepicker" readonly />
-
-                                    @error('dob')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="la la-calendar-check-o"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Contact </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Address</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 col-sm-3">
-                                        <select name="country_code" id="country_code" class="form-control form-control-lg form-control-solid form-control-custom selectpicker @error('country_code') is-invalid @enderror">
-                                            <option value="">Select</option>
-
-                                            @if($countries->count())
-                                                @foreach($countries as $country)
-                                                    @if($country->std_code != '')
-                                                        <option value="{{$country->std_code}}" {{ old('country_code', $user->country_code ?? 91) == $country->std_code ? 'selected' : '' }}>+{{$country->std_code}}</option>
-                                                    @endif
-                                                @endforeach
-                                            @endif
-
-                                        </select>
-                                        @error('country_code')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-
-                                    <div class="col-lg-9 col-md-9 col-sm-9">
-                                        <input type="text" name="contact" oninput="this.value=this.value.replace(/[^0-9]/, '')"  value="{{Auth::user()->contact}}" class="form-control form-control-lg form-control-solid" minlength="10" maxlength="10"  placeholder="Enter Contact" readonly/>
-                                        @error('contact')
-                                            <div class="invalid-feedback">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Email </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="email" value="{{Auth::user()->email}}" class="form-control form-control-lg form-control-solid" placeholder="Enter Email" readonly />
-                                @error('email')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Address </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control form-control-lg form-control-solid no-summernote-editor" name="permanent_address" id="permanent_address" placeholder="Enter Address">{{ old('permanent_address', $row->permanent_address ?? '') }}</textarea>
+                                <textarea class="form-control form-control-lg form-control-solid @error('permanent_address') is-invalid @enderror  no-summernote-editor" name="permanent_address" id="permanent_address" readonly >{{ old('permanent_address', $row->permanent_address ?? '') }}</textarea>
                                 @error('permanent_address')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -242,167 +64,74 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Country </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pincode</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="pa_country_id" id="pa_country_id" class="form-control form-control-lg form-control-custom selectpicker @error('pa_country_id') is-invalid @enderror" onchange="getStates(this, 'pa_country_id', 'pa_state_id', 'State'); checkOtherCountry(this)">
-                                    <option value="">Select Country</option>
+                                <input type="text" name="pincode" value="{{ old('pincode', $row->pincode ?? '') }}" class="form-control form-control-lg form-control-solid @error('pincode') is-invalid @enderror " placeholder="Enter Pincode" required/>
+                                @error('pincode')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Country</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control selectpicker" name="country_id" tabindex="null" onchange="getState()">
+                                    <option value="" data-slug="">Select Country</option>
                                     @if($countries->count())
-                                        @foreach($countries as $country)
-                                            <option value="{{$country->id}}" {{ old('pa_country_id', $row->pa_country_id ?? 0) == $country->id ? 'selected' : '' }}>{{$country->country_name}}</option>
+                                        @foreach($countries as $value)
+                                          <option {{ (old('country_id') ?? optional($row)->country_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->country_name}}</option>
                                         @endforeach
                                     @endif
-
                                 </select>
-                                @error('pa_country_id')
+                                @error('country_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            
                             </div>
-                        </div>
-                    </div>
+                        </div> 
+                    </div>      
 
-                    <div class="col-12 pa-country-other" style="display: {{ old('pa_country_id', $row->pa_country_id ?? 0) == 2 ? '' : 'none'; }}">
+                    <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Country - Other </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">State</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                <input type="text" name="pa_country_other" value="{{ old('pa_country_other', $row->pa_country_other ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter Country - Other" />
-
-                                @error('pa_country_other')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 state-wrapper" style="display: {{ old('pa_country_id', $row->pa_country_id ?? 0) == 2 ? 'none' : ''; }}">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">State </label>
-                                <div class="col-lg-9 col-md-9 col-sm-12">
-                                
-                                <select name="pa_state_id" id="pa_state_id" class="form-control form-control-lg form-control-custom selectpicker @error('pa_state_id') is-invalid @enderror" data-live-search="true" onchange="getCities(this, 'pa_state_id', 'pa_city_id', 'City')">
-                                    <option value="">Select State</option>
-
+                                <select class="form-control selectpicker" name="state_id" tabindex="null" onchange="getCity()">
+                                    <option value="" data-slug="">Select State</option>
+                                   
                                 </select>
-
-                                @error('pa_state_id')
+                                @error('state_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            
                             </div>
-                        </div>
-                    </div>
+                        </div> 
+                    </div>  
                     
-                    <div class="col-12 state-wrapper" style="display: {{ old('pa_country_id', $row->pa_country_id ?? 0) == 2 ? 'none' : ''; }}">
+                    <div class="col-12 state-wrapper">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">City</label>
-                                <div class="col-lg-9 col-md-9 col-sm-12">
-                               
-                                <select name="pa_city_id" id="pa_city_id" class="form-control form-control-lg form-control-custom selectpicker @error('pa_city_id') is-invalid @enderror" data-live-search="true" onchange="checkOtherCity(this, 'pa-city-other')">
-                                    <option value="">Select City</option>
-
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control selectpicker" name="city_id" tabindex="null">
+                                    <option value="" data-slug="">Select City</option>
+                                    
                                 </select>
-
-                                @error('pa_city_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 pa-city-other" style="display: {{ old('pa_city_id', $row->pa_city_id ?? 0) == 7934 ? '' : 'none'; }}">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">City - Other </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                <input type="text" name="pa_city_other" value="{{ old('pa_city_other', $row->pa_city_other ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter City - Other" />
-
-                                @error('pa_city_other')
+                                @error('city_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                        </div>
+                        </div> 
                     </div>
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pincode </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">account number</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="pa_pincode" value="{{ old('pa_pincode', $row->pa_pincode ?? '') }}" class="form-control form-control-lg form-control-solid"  minlength="6" maxlength="6"  placeholder="Enter Pincode"/>
-                                @error('pa_pincode')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12" id="company_collective" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective (If Applicable) </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control form-control-lg form-control-solid no-summernote-editor" name="company_collective" id="company_collective" placeholder="Enter Company/Collective">{{ old('company_collective', $row->company_collective ?? '') }}</textarea>
-                                @error('company_collective')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-
-                <div class="row" id="members_numbers" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Troup Size </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="number" name="troup_size" value="{{ $row->troup_size ?? '' }}" class="form-control form-control-lg form-control-solid" placeholder="Enter Troup Size" />
-                                @error('troup_size')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- <div class="row" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}" id="payment_troup">
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-solid form-control-lg form-control-lg form-control-solid selectpicker" name="payment_troup" tabindex="null">
-                                    <option value="">Select Payment of the Troup</option>
-                                    <option value="Single Account" {{ old('payment_troup') == 'Single Account' || (isset($row->payment_troup) && $row->payment_troup == 'Single Account') ? 'selected' : '' }}>Single Account</option>
-                                    <option value="Individual Account" {{ old('payment_troup') == 'Individual Account' || (isset($row->payment_troup) && $row->payment_troup == 'Individual Account') ? 'selected' : '' }}>Individual Account</option>
-                                </select>
-
-                                @error('payment_troup')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
-                <div class="row">
-
-                    <div class="col-12">
-                        <h4 class="card-label">For marketing and social media purpose</h4><hr>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Stage Name <i>(If Any)</i> </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control form-control-lg form-control-solid no-summernote-editor" name="stage_name" id="stage_name" placeholder="Enter Stage Name" maxlength="150">{{ old('stage_name') ? old('stage_name') : ( isset($row->stage_name) ? $row->stage_name : '') }}</textarea>
-                                @error('stage_name')
+                                <input type="text" name="account_number" oninput="this.value=this.value.replace(/[^0-9]/, '')" minlength="10" maxlength="20" value="{{ old('account_number') ? old('account_number') :( isset($row->account_number) ? $row->account_number : '') }}" class="form-control form-control-lg form-control-solid @error('account_number') is-invalid @enderror " placeholder="Enter account number"/>
+                                @error('account_number')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -412,10 +141,10 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Bio <i>(150 words only) </i> </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Re-enter account number</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control form-control-lg form-control-solid no-summernote-editor" name="artist_bio" id="artist_bio" placeholder="Enter Artist Bio" maxlength="150">{{ old('artist_bio') ? old('artist_bio') : ( isset($row->artist_bio) ? $row->artist_bio : '') }}</textarea>
-                                @error('artist_bio')
+                                <input type="text" name="confirm_account_number" oninput="this.value=this.value.replace(/[^0-9]/, '')" minlength="10" maxlength="20" value="{{ old('confirm_account_number') ? old('confirm_account_number') :( isset($row->confirm_account_number) ? $row->confirm_account_number : '') }}" class="form-control form-control-lg form-control-solid @error('confirm_account_number') is-invalid @enderror " placeholder="Enter confirm account number"/>
+                                @error('confirm_account_number')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -425,10 +154,10 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Instagram Profile Link </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Bank holder name (As per bank records)</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="instagram_url" value="{{ old('instagram_url') ? old('instagram_url') :( isset($row->instagram_url) ? $row->instagram_url : '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Instagram Profile Link"/>
-                                @error('instagram_url')
+                                <input type="text" name="bank_holder_name" value="{{ old('bank_holder_name') ? old('bank_holder_name') :( isset($row->bank_holder_name) ? $row->bank_holder_name : '') }}" class="form-control form-control-lg form-control-solid @error('bank_holder_name') is-invalid @enderror " placeholder="Enter Bank Holder name (As per bank records)"/>
+                                @error('bank_holder_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -438,36 +167,10 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Facebook Profile Link </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">bank name</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="facebook_url" value="{{ old('facebook_url') ? old('facebook_url') :( isset($row->facebook_url) ? $row->facebook_url : '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Facebook Profile Link"/>
-                                @error('facebook_url')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>                                
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Linkdin Profile Link </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="linkdin_url" value="{{ old('linkdin_url') ? old('linkdin_url') :( isset($row->linkdin_url) ? $row->linkdin_url : '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Linkdin Profile Link"/>
-                                @error('linkdin_url')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>                               
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Twitter Profile Link </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="twitter_url" value="{{ old('twitter_url') ? old('twitter_url') :( isset($row->twitter_url) ? $row->twitter_url : '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Twitter Profile Link"/>
-                                @error('twitter_url')
+                                <input type="text" name="bank_name" value="{{ old('bank_name') ? old('bank_name') :( isset($row->bank_name) ? $row->bank_name : '') }}" class="form-control form-control-lg form-control-solid @error('bank_name') is-invalid @enderror " placeholder="Enter bank name"/>
+                                @error('bank_name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -477,51 +180,46 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Website <i>(If any)</i> </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">branch address</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="website" value="{{ old('website') ? old('website') :( isset($row->website) ? $row->website : '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Website"/>
-                                @error('website')
+                                <input type="text" name="branch_address" value="{{ old('branch_address') ? old('branch_address') :( isset($row->branch_address) ? $row->branch_address : '') }}" class="form-control form-control-lg form-control-solid @error('branch_address') is-invalid @enderror " placeholder="Enter branch address"/>
+                                @error('branch_address')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row" id="hide_field" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
-
-                    <div class="col-12">
-                        <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>
-                    </div>
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Image 1</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">IFSC code</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="ifsc_code" value="{{ old('ifsc_code') ? old('ifsc_code') :( isset($row->ifsc_code) ? $row->ifsc_code : '') }}" class="form-control form-control-lg form-control-solid @error('ifsc_code') is-invalid @enderror " placeholder="Enter ifsc code"/>
+                                @error('ifsc_code')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cancelled Cheque (Image optional)</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
-                                <input type="file" name="practice_image_1"  class="form-control form-control-lg form-control-solid @error('practice_image_1') is-invalid @enderror " />
-                                <p class="text-muted small">( 5 MB to 10MB and 300 dpi )</p>
-                                
+                                <input type="file" name="cancel_cheque_image"  class="form-control form-control-lg form-control-solid @error('cancel_cheque_image') is-invalid @enderror " />
+
                                 Uploaded File: 
-                                @if($row && $row->practice_image_1)
-                                    <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_1) }}">{{$row->practice_image_1}}</a>
+                                @if($row && $row->cancel_cheque_image)
+                                    <a target="_blank" href="{{ asset('uploads/users/'.$row->cancel_cheque_image) }}">{{$row->cancel_cheque_image}}</a>
                                 @else
-                                    N/A
+                                N/A
                                 @endif
 
-                                @error('practice_image_1')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 1</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="practice_credit_1" value="{{ old('practice_credit_1', $row->practice_credit_1 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Practice Credit 1"/>
-                                @error('practice_credit_1')
+                                @error('cancel_cheque_image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -531,200 +229,122 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Image 2</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">PAN Card Number</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="pancard_number" value="{{ old('pancard_number') ? old('pancard_number') :( isset($row->pancard_number) ? $row->pancard_number : '') }}" class="form-control form-control-lg form-control-solid @error('pancard_number') is-invalid @enderror " placeholder="Enter pancard number"/>
+                                @error('pancard_number')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Is your pancard linked with adhar?</label>
+                            <div class="col-form-label col-lg-9 col-md-9 col-sm-12">
+                                <div class="checkbox-inline">
+                                    <label class="checkbox">
+                                        <input type="checkbox" name="pancard_link_with_adhar" value="1" {{(old('pancard_link_with_adhar', $row->pancard_link_with_adhar ?? '') == '1') ? 'checked' : '' }} required="" />
+                                        <span></span>
+                                    </label>
+                                </div>
+
+                                @error('pancard_link_with_adhar')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">PAN Card (Image) </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
-                                <input type="file" name="practice_image_2"  class="form-control form-control-lg form-control-solid @error('practice_image_2') is-invalid @enderror " />
-                                <p class="text-muted small">( 5 MB to 10MB and 300 dpi )</p>
-                                
-                                Uploaded File: 
-                                @if($row && $row->practice_image_2)
-                                    <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_2) }}">{{$row->practice_image_2}}</a>
-                                @else
-                                    N/A
-                                @endif
+                                <div class="image-input image-input-outline" id="pancard_image" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
 
-                                @error('practice_image_2')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 2</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="practice_credit_2" value="{{ old('practice_credit_2', $row->practice_credit_2 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Practice Credit 2"/>
-                                @error('practice_credit_2')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Image 3</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                
-                                <input type="file" name="practice_image_3"  class="form-control form-control-lg form-control-solid @error('practice_image_3') is-invalid @enderror " />
-                                <p class="text-muted small">( 5 MB to 10MB and 300 dpi )</p>
-                                
-                                Uploaded File: 
-                                @if($row && $row->practice_image_3)
-                                    <a target="_blank" href="{{ asset('uploads/users/'.$row->practice_image_3) }}">{{$row->practice_image_3}}</a>
-                                @else
-                                    N/A
-                                @endif
-
-                                @error('practice_image_3')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 3</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="practice_credit_3" value="{{ old('practice_credit_3', $row->practice_credit_3 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Practice Credit 3"/>
-                                @error('practice_credit_3')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-                                
-                    <div class="col-12">
-                        <h5 class="card-label">Please upload 2 high resolution profile images (For your festival ID and promotion)</h5><hr>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Image 1</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                
-                                <input type="file" name="profile_image_1"  class="form-control form-control-lg form-control-solid @error('profile_image_1') is-invalid @enderror " />
-                                <p class="text-muted small">( Please save file name as the Credit name )</p>
-                                Uploaded File: 
-                                @if($row && $row->profile_image_1)
-                                    <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_1) }}">{{$row->profile_image_1}}</a>
-                                @else
-                                    N/A
-                                @endif
-
-                                @error('profile_image_1')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Credit 1</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="profile_credit_1" value="{{ old('profile_credit_1', $row->profile_credit_1 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Profile Credit 1"/>
-                                @error('profile_credit_1')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Image 2</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="file" name="profile_image_2"  class="form-control form-control-lg form-control-solid @error('profile_image_2') is-invalid @enderror " />
-                                <p class="text-muted small">( Please save file name as the Credit name )</p>
-                                Uploaded File: 
-                                @if($row && $row->profile_image_2)
-                                    <a target="_blank" href="{{ asset('uploads/users/'.$row->profile_image_2) }}">{{$row->profile_image_2}}</a>
-                                @else
-                                    N/A
-                                @endif
-
-                                @error('profile_image_2')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror                                                
-                            </div>
-                        </div>                                        
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Credit 2</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="profile_credit_2" value="{{ old('profile_credit_2', $row->profile_credit_2 ?? '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Profile Credit 2"/>
-                                @error('profile_credit_2')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Have you been associated with Serendipity Arts in the past ? </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-solid selectpicker" name="has_serendipity_arts" tabindex="null" onchange="serendipityArtsChangePress(this)">
-                                    <option value="">Select</option>
-                                    <option value="Yes" {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? 'selected' : '' }}>Yes</option>
-                                    <option value="No" {{ old('has_serendipity_arts') == 'No' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'No') ? 'selected' : ''  }}>No</option>
-                                </select>
-
-                                @error('has_serendipity_arts')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work <i>(If any)</i> </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="other_link" value="{{ old('other_link') ? old('other_link') :( isset($row->other_link) ? $row->other_link : '') }}" class="form-control form-control-lg form-control-solid"  placeholder="Enter Link with videos of your work"/>
-                                @error('other_link')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 has-year" style="display: {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? '' : 'none' }};">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-solid selectpicker" name="year[]" id="year" tabindex="null" multiple="">
-                                    <option value="">Select Year</option>
-                                    @if( isset($years) && count($years))
-                                        @foreach($years as $year)
-
-                                           <option {{ in_array($year, old('year', $row->year ?? [] )) ? 'selected' : '' }} value="{{$year}}">{{$year}}</option>
-
-                                        @endforeach
+                                    @if(isset($row->pancard_image) && !empty($row->pancard_image))
+                                        <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->pancard_image)}})"></div>
+                                    @else
+                                        <div class="image-input-wrapper pancard_image_base64"></div>
                                     @endif
-                                </select>
 
-                                @error('year')
+                                    <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
+                                        <i class="fa fa-pen icon-sm text-muted"></i>
+                                        <input type="file" name="pancard_image" accept=".png, .jpg, .jpeg"/>
+                                        <input type="hidden" name="pancard_image_remove"/>
+                                    </label>
+
+                                    @if(isset($row->pancard_image) && !empty($row->pancard_image))
+                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove">
+                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                        </span>
+                                    @else
+                                        <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel">
+                                            <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                @error('pancard_image')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">GST Applicable</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-solid @error('has_gst_applicable') is-invalid @enderror  selectpicker" name="has_gst_applicable" tabindex="null" onchange="hasGSTApplicable(this)">
+                                    <option value="">Select</option>
+                                    <option value="Yes" {{(old('has_gst_applicable') == 'Yes' || (!isset($row->has_gst_applicable) || empty($row->has_gst_applicable)) ) ? 'selected' : ( isset($row->has_gst_applicable) && $row->has_gst_applicable == 'Yes' ? 'selected' : '')}}>Yes</option>
+                                    <option value="No" {{(old('has_gst_applicable') == 'No' || (!isset($row->has_gst_applicable) || empty($row->has_gst_applicable)) ) ? 'selected' : ( isset($row->has_gst_applicable) && $row->has_gst_applicable == 'No' ? 'selected' : '')}}>No</option>
+                                </select>
+
+                                @error('has_gst_applicable')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 has-gst-applicable" style="display: {{ old('has_gst_applicable', $row->has_gst_applicable ?? 'No') == 'Yes' ? '' : 'none'; }}">
+
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">GST Number</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="gst_number" value="{{ old('gst_number') ? old('gst_number') :( isset($row->gst_number) ? $row->gst_number : '') }}" class="form-control form-control-lg form-control-solid @error('gst_number') is-invalid @enderror " placeholder="Enter GST Number"/>
+                                @error('gst_number')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">gst certificate </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="file" name="gst_certificate_file"  class="form-control form-control-lg form-control-solid @error('gst_certificate_file') is-invalid @enderror " />
+                                Uploaded File: 
+                                @if($row && $row->gst_certificate_file)
+                                    <a target="_blank" href="{{ asset('uploads/users/'.$row->gst_certificate_file) }}">{{$row->gst_certificate_file}}</a>
+                                @else
+                                N/A
+                                @endif
+                               
+                                @error('gst_certificate_file')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        
+                        </div>
+                    </div>
 
                     <div class="col-12">
                         <div class="form-group row validated">
@@ -746,7 +366,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -766,206 +385,60 @@
 
 @push('scripts')
 <script type="text/javascript">
+    
+    //START pancard_image
+    var pancard_image = new KTImageInput('pancard_image');
 
-	function serendipityArtsChangePress(_this){
+    pancard_image.on('cancel', function(imageInput) {
+        swal.fire({
+            title: 'Image successfully canceled !',
+            type: 'success',
+            buttonsStyling: false,
+            confirmButtonText: 'Okay!',
+            confirmButtonClass: 'btn btn-primary font-weight-bold'
+        });
+    });
+
+    pancard_image.on('change', function(imageInput) {
+        
+    });
+
+    pancard_image.on('remove', function(imageInput) {
+        swal.fire({
+            title: 'Image successfully removed !',
+            type: 'error',
+            buttonsStyling: false,
+            confirmButtonText: 'Got it!',
+            confirmButtonClass: 'btn btn-primary font-weight-bold'
+        });
+    });
+    //END pancard_image
+
+    function hasGSTApplicable(_this){
 
         if($(_this).val() == 'Yes'){
-            $(".has-year").show();
+            $(".has-gst-applicable").show();
         } else {
 
-            $(".has-year").hide();
+            $(".has-gst-applicable").hide();
         }
     }
 
-    function samAsPermanentFun(_this){
-
-        if($(_this).is(':checked')){
-            $(".current_address_wrapper").hide();
-        } else {
-
-            $(".current_address_wrapper").show();
-        }
-    }
-
-    function getStates(_this, source_id, target_id, title = '', selectedId = 0) {
-        
-        var country_id = $('#'+source_id).val();
-
-        if(country_id){
+    function getState() {
+        //console.log('getState Called');
+        var country_id = $('select[name=country_id]').val();
+        //console.log('country_id', country_id);
+        if (country_id) {
             $.ajax({
                 type: "GET",
                 url: "{{ url('states') }}/" + country_id,
-                datatype: 'json',
-                success: function (response) {
-                    if(response?.status){
-                        var options = '<option value="">Select '+title+'</option>';
-                        if(response.data.length) {
-                            for (var i = 0; i < response.data.length; i++) {
-
-                                var _selected = '';
-
-                                if(selectedId == response.data[i].id){
-
-                                    _selected = 'selected';
-                                }
-
-                                options += '<option '+_selected+' value="'+response.data[i].id+'">'+response.data[i].state_name+'</option>';
-                            }
-
-                            $("#"+target_id).html(options);
-                            $("#"+target_id).selectpicker('refresh');
-
-                            if(selectedId){
-                                getCities(null, 'pa_state_id', 'pa_city_id', 'State', <?php echo old( 'pa_city_id', $row->pa_city_id ?? 0 )?>);
-                            }
-                        }
-                    }
-                }
-            });
-        } else {
-            $("#"+target_id).html('<option value="">Select '+title+'</option>');
-            $("#"+target_id).selectpicker('refresh');
-        }
-    }
-
-    function getCities(_this, source_id, target_id, title = '', selectedId = 0) {
-
-        var state_id = $('#'+source_id).val();
-        if (state_id){
-            $.ajax({
-                type: "GET",
-                url: "{{ url('cities') }}/" + state_id,
-                datatype: 'json',
-                success: function (response) {
-                    if(response?.status){
-                        var options = '<option value="">Select '+title+'</option>';
-                        if(response.data.length){
-                            for (var i = 0; i < response.data.length; i++) {
-
-                                var _selected = '';
-
-                                if(selectedId == response.data[i].id){
-
-                                    _selected = 'selected';
-                                }
-
-                                options += '<option '+_selected+' value="'+response.data[i].id+'">'+response.data[i].city_name+'</option>';
-                            }
-
-                            $("#"+target_id).html(options);
-                            $("#"+target_id).selectpicker('refresh');
-                        }
-                    }
-                }
-            });
-        } else {
-            $("#"+target_id).html('<option value="">Select '+title+'</option>');
-            $("#"+target_id).selectpicker('refresh');
-        }
-    }
-
-    function checkOtherCountry(_this){
-
-        if($(_this).val() == '2'){
-            $(".state-wrapper").hide();
-            $("#pa_state_id").val('');
-            $("#pa_state_id").selectpicker('refresh');
-
-            $(".city-wrapper").hide();
-            $("#pa_city_id").val('');
-            $("#pa_city_id").selectpicker('refresh');
-
-            $(".pa-country-other").show();
-        } else {
-
-            $(".state-wrapper").show();
-            $(".city-wrapper").show();
-            // $(".pa-city-other").show();
-            $(".pa-country-other").hide();
-        }
-
-        $("#pa_city_id").trigger('onchange');
-        // checkOtherCity($("#pa_city_id").html(), 'pa-city-other');
-
-    }
-
-    function checkOtherCity(_this, selector = ''){
-
-        if($(_this).val() == '7934'){
-            $("." + selector).show();
-        } else {
-
-            $("." + selector).hide();
-        }
-    }
-    
-    $(document).ready(function(){
-        
-        getStates(null, 'pa_country_id', 'pa_state_id', 'State', <?php echo old( 'pa_state_id', $row->pa_state_id ?? 0 )?>);
-    });
-
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })    
-    
-    function getFestival() {
-
-        var year = $('select[name=project_year]').val();
-        var selectedId = "{{ old('festival_id', $row->festival_id ?? 0) }}";
-
-        if(year){
-
-            $.ajax({
-                type: "GET",
-                url: "{{ url('festivals') }}?year=" + year + '&festival_id=' + selectedId,
-                datatype: 'json',
-                success: function (response) {
-                    if(response?.status){
-                        var options = '<option value="">Select Festival</option>';
-                        if(response.data.length) {                            
-
-                            for (var i = 0; i < response.data.length; i++) {
-
-                                var _selected = '';
-
-                                if(selectedId == response.data[i].id){
-
-                                    _selected = 'selected';
-                                }
-                                //console.log(response.data[i].name);
-                                options += '<option '+_selected+' value="'+response.data[i].id+'">'+response.data[i].name+'</option>';
-                            }
-
-                            $("select[name='festival_id']").html(options);
-                            $("select[name='festival_id']").selectpicker('refresh');
-                            //getProject();
-                        }
-                    }
-                }
-            });
-
-        } else {
-
-            $("select[name='festival_id']").html('<option value="">Select Festival</option>');
-            $("select[name='festival_id']").selectpicker('refresh');
-        }
-    }
-
-    function getProject() {
-        var festival_id = $('select[name=festival_id]').val();
-
-        if (festival_id) {
-            $.ajax({
-                type: "GET",
-                url: "{{ url('projects') }}/" + festival_id,
-                datatype: 'json',
+                dataType: 'json',
                 success: function (response) {
                     if (response && response.status) {
-                        var options = '<option value="">Select Project</option>';
+                        var options = '<option value="">Select State</option>';
                         if (response.data.length) {
 
-                            var selectedId = "{{ old('project_id', $row->project_id ?? 0) }}";
+                            var selectedId = '{{ $row->state_id ?? 0 }}';
 
                             for (var i = 0; i < response.data.length; i++) {
                                 var _selected = '';
@@ -974,26 +447,96 @@
                                     _selected = 'selected';
                                 }
 
-                                options += '<option ' + _selected + ' value="' + response.data[i].id + '">' + response.data[i].name + '</option>';
+                                options += '<option ' + _selected + ' value="' + response.data[i].id + '">' + response.data[i].state_name + '</option>';
                             }
 
-                            $('select[name=project_id]').html(options);
-                            $('select[name=project_id]').selectpicker('refresh');
+                            $("select[name='state_id']").html(options);
+                            $("select[name='state_id']").selectpicker('refresh');
+                            getCity();
                         }
                     }
                 }
             });
+
         } else {
-            $('select[name=project_id]').html('<option value="">Select Project</option>');
-            $('select[name=project_id]').selectpicker('refresh');
+
+            $("select[name='state_id']").html('<option value="">Select State</option>');
+            $("select[name='state_id']").selectpicker('refresh');
         }
+    }
+
+    function getCity() {
+
+        var state_id = $('select[name=state_id]').val();
+
+        if (state_id) {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('cities') }}/" + state_id,
+                datatype: 'json',
+                success: function (response) {
+                    if (response && response.status) {
+                        var options = '<option value="">Select City</option>';
+                        if (response.data.length) {
+
+                            var selectedId = '{{ $row->city_id ?? 0 }}';
+
+                            for (var i = 0; i < response.data.length; i++) {
+                                var _selected = '';
+
+                                if (selectedId == response.data[i].id) {
+                                    _selected = 'selected';
+                                }
+
+                                options += '<option ' + _selected + ' value="' + response.data[i].id + '">' + response.data[i].city_name + '</option>';
+                            }
+
+                            $("select[name='city_id']").html(options);
+                            $("select[name='city_id']").selectpicker('refresh');
+                        }
+                    }
+                }
+            });
+
+        } else {
+            
+            $("select[name='city_id']").html('<option value="">Select City</option>');
+            $("select[name='city_id']").selectpicker('refresh');
+        }
+    }
+
+    function getUserDetails() 
+    {
+        var profile_id = $('select[name=profile_id]').val();
+
+        if(!profile_id){
+            return false
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: "{{ url('fetch-user-detail') }}",
+            data: {
+                profile_id:profile_id
+            },
+            success: function (response) {
+                if (response.status) {
+                    var data = response?.data[0];
+                    $("#name").val(data?.name);
+                    $("#permanent_address").val(data?.permanent_address);
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching user details:', error);
+            }
+        });
     }
 
     $(document).ready(function(){
         
-        getFestival();
+        getState();
         
-    });
+    });    
 
 </script>
 @endpush

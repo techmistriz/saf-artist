@@ -54,11 +54,12 @@ class ProfileMemberController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request){
-
+    public function index(Request $request)
+    {
+        $users       = User::where('status', 1)->get();
         $disciplines = \Auth::user()->getUserDisciplines();
         $individuals       = User::where('status', 1)->where('frontend_role_id', 8)->get();
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('disciplines', $disciplines)->with('individuals', $individuals);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('disciplines', $disciplines)->with('individuals', $individuals)->with('users', $users);
     }
 
     /**
@@ -69,13 +70,16 @@ class ProfileMemberController extends Controller
      */
 
     public function fetchData(Request $request, ProfileMember $profileMember)
-    {
-        
+    {        
         $data               =   $request->all();
 
-        $db_data            =   $profileMember->getList($data, ['userProfile']);
+        $whereArr = [];
+        if ($request->user_id) {
+            $whereArr = ['user_id' => $request->user_id];
+        }
+        $db_data            =   $profileMember->getList($data, ['userProfile'], $whereArr);
 
-        $count              =   $profileMember->getListCount($data);
+        $count              =   $profileMember->getListCount($data, [], $whereArr);
 
         $returnArray = array(
             'data' => $db_data,
