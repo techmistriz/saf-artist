@@ -237,19 +237,18 @@ class User extends Authenticatable
         
     }
 
-    function getActionsAttribute() 
+    public function getActionsAttribute() 
     {
-        // $user = User::where('status', 1)->get();
-        // $profileMemberList = '';
+        $profileMemberList = '';
+        if (isset($this->frontendRole->name) && $this->frontendRole->name != 'Individual') {
+            $profileMemberList = '
+                <a href="' . route('admin.profile_member.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Profile Member List">
+                    <i class="flaticon2-avatar"></i>
+                </a>';
+        }
 
-        // if (isset($user->frontendRole->name) && ($user->frontendRole->name != 'Individual')) {
-        //     $profileMemberList = '
-        //         <a href="' . route('admin.profile_member.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Profile Member List">
-        //             <i class="flaticon2-avatar"></i>
-        //         </a>';
-        // }
         return '
-        <span class="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
+        <span style="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
             <a href="show/' . $this->id . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
                 <i class="flaticon-eye"></i>
             </a>
@@ -259,13 +258,9 @@ class User extends Authenticatable
             <a href="' . route('admin.user_profile.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="User profile list">
                 <i class="flaticon2-user"></i>
             </a>
-            <a href="' . route('admin.profile_member.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Profile member list">
-                <i class="flaticon2-avatar"></i>
-            </a>
+            ' . $profileMemberList . '
         </span>';
-}
-
-
+    }
 
     protected function getArrayableAppends()
     {
