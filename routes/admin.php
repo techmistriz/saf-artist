@@ -341,10 +341,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::group(['prefix' => 'user-profile', 'middleware' => ['AdminPermissionCheck:UserProfileController']], function(){
 
-            // User routes
+            // user-profile routes
             Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'user_profile.'], function(){
                 Route::get('list/',                 'UserProfileController@index')->name('index');
-                Route::post('fetch-data/',          'UserProfileController@fetchData')->name('fetch.data');
+               Route::post('fetch-data/{user_id?}', 'UserProfileController@fetchData')->name('fetch.data');
+
                 Route::get('create/',               'UserProfileController@create')->name('create');
                 Route::post('store/',               'UserProfileController@store')->name('store');
                 Route::get('show/{id}',             'UserProfileController@show')->name('show');
@@ -353,6 +354,60 @@ Route::prefix('admin')->name('admin.')->group(function () {
                 Route::get('delete/{id}',           'UserProfileController@delete')->name('delete');
                 Route::post('export/',               'UserProfileController@export')->name('export');
                 Route::get('update-freeze-status/{id}', 'UserProfileController@updateFreezeStatus')->name('update.freeze.status');
+            });
+        });
+
+        Route::group(['prefix' => 'hotel-booking', 'middleware' => ['AdminPermissionCheck:HotelBookingController']], function(){
+
+            // hotel-booking routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'hotel_booking.'], function(){
+                Route::get('list/',                 'HotelBookingController@index')->name('index');
+               Route::post('fetch-data/{user_id?}', 'HotelBookingController@fetchData')->name('fetch.data');
+
+                Route::get('create/',               'HotelBookingController@create')->name('create');
+                Route::post('store/',               'HotelBookingController@store')->name('store');
+                Route::get('show/{id}',             'HotelBookingController@show')->name('show');
+                Route::get('edit/{id}',             'HotelBookingController@edit')->name('edit');
+                Route::put('update/{id}',           'HotelBookingController@update')->name('update');
+                Route::get('delete/{id}',           'HotelBookingController@delete')->name('delete');
+                Route::post('export/',               'HotelBookingController@export')->name('export');
+                Route::get('update-freeze-status/{id}', 'HotelBookingController@updateFreezeStatus')->name('update.freeze.status');
+            });
+        });
+
+        Route::group(['prefix' => 'ticket-booking', 'middleware' => ['AdminPermissionCheck:TicketBookingController']], function(){
+
+            // ticket-booking' routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'ticket_booking.'], function(){
+                Route::get('list/',                 'TicketBookingController@index')->name('index');
+               Route::post('fetch-data/{user_id?}', 'TicketBookingController@fetchData')->name('fetch.data');
+
+                Route::get('create/',               'TicketBookingController@create')->name('create');
+                Route::post('store/',               'TicketBookingController@store')->name('store');
+                Route::get('show/{id}',             'TicketBookingController@show')->name('show');
+                Route::get('edit/{id}',             'TicketBookingController@edit')->name('edit');
+                Route::put('update/{id}',           'TicketBookingController@update')->name('update');
+                Route::get('delete/{id}',           'TicketBookingController@delete')->name('delete');
+                Route::post('export/',               'TicketBookingController@export')->name('export');
+                Route::get('update-freeze-status/{id}', 'TicketBookingController@updateFreezeStatus')->name('update.freeze.status');
+            });
+        });
+
+        Route::group(['prefix' => 'banking-details', 'middleware' => ['AdminPermissionCheck:BankingDetailsController']], function(){
+
+            // User routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'banking_details.'], function(){
+                Route::get('list/',                 'BankingDetailsController@index')->name('index');
+               Route::post('fetch-data/{user_id?}', 'BankingDetailsController@fetchData')->name('fetch.data');
+
+                Route::get('create/',               'BankingDetailsController@create')->name('create');
+                Route::post('store/',               'BankingDetailsController@store')->name('store');
+                Route::get('show/{id}',             'BankingDetailsController@show')->name('show');
+                Route::get('edit/{id}',             'BankingDetailsController@edit')->name('edit');
+                Route::put('update/{id}',           'BankingDetailsController@update')->name('update');
+                Route::get('delete/{id}',           'BankingDetailsController@delete')->name('delete');
+                Route::post('export/',              'BankingDetailsController@export')->name('export');
+                Route::get('update-freeze-status/{id}', 'BankingDetailsController@updateFreezeStatus')->name('update.freeze.status');
             });
         });
 

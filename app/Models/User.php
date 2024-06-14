@@ -237,17 +237,25 @@ class User extends Authenticatable
         
     }
 
-    function getActionsAttribute(){
-   
-      return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-         <a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
-            <i class="flaticon-eye"></i>
-         </a>
-         <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
-            <i class="flaticon2-pen"></i>
-         </a>         
-      </span>';
-    }
+    function getActionsAttribute() {
+    return '
+        <span class="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
+            <a href="show/' . $this->id . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+                <i class="flaticon-eye"></i>
+            </a>
+            <a href="edit/' . $this->id . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+                <i class="flaticon2-pen"></i>
+            </a>
+            <a href="' . route('admin.user_profile.index', ['userId' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="User Profile">
+                <i class="flaticon2-user"></i>
+            </a>
+            <a href="' . route('admin.profile_member.index', ['userId' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Profile Member">
+                <i class="flaticon2-avatar"></i>
+            </a>
+        </span>';
+}
+
+
 
     protected function getArrayableAppends()
     {

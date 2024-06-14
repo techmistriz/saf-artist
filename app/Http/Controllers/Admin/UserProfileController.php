@@ -61,20 +61,20 @@ class UserProfileController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-   public function index()
+    public function index(Request $request)
     {
-        
-       return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig);
+        $userId = $request->userId;
+
+       return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('userId', $userId);
     }
 
     public function fetchData(Request $request, UserProfile $user_profile)
     {
-        
         $data     = $request->all();
 
-        $db_data  = $user_profile->getList($data, ['project', 'festival', 'user']);
+        $db_data  = $user_profile->getList($data, ['project', 'festival', 'user'], ['user_id' => $request->user_id]);
 
-        $count    = $user_profile->getListCount($data);
+        $count    = $user_profile->getListCount($data, [], ['user_id' => $request->user_id]);
 
         $returnArray = array(
             'data' => $db_data,

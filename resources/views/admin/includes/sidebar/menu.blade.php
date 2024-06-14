@@ -33,6 +33,18 @@
                 @include('admin/includes/sidebar/profile_member')
             @endif
 
+            @if(\Helper::checkPermisson('BankingDetailsController', $rolePermissionArr))
+                @include('admin/includes/sidebar/banking_details')
+            @endif
+
+            @if(\Helper::checkPermisson('TicketBookingController', $rolePermissionArr))
+                @include('admin/includes/sidebar/ticket_booking')
+            @endif
+
+            @if(\Helper::checkPermisson('HotelBookingController', $rolePermissionArr))
+                @include('admin/includes/sidebar/hotel_booking')
+            @endif
+
             @if(\Helper::isSuperAdmin('FaqController', $rolePermissionArr))
                 @include('admin/includes/sidebar/faq')
             @endif

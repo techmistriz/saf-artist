@@ -57,7 +57,7 @@ class UserProfileController extends Controller
     public function fetchData(Request $request, UserProfile $user_profile)
     {
         $userEmail = Auth::user()->email;
-
+        
         $data     = $request->all();
 
         $db_data  = $user_profile->getList($data, ['project', 'festival', 'user'], ['email'=> $userEmail]);
