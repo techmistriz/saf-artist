@@ -243,8 +243,17 @@ class UserProfile extends MasterModel
          <a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
             <i class="flaticon-eye"></i>
          </a>
-         <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+         <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit user profile">
             <i class="flaticon2-pen"></i>
+         </a> 
+         <a href="' . route('admin.banking_details.index', ['profile_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Banking detail list">
+            <i class="la la-bank  icon-xl"></i>
+         </a> 
+         <a href="' . route('admin.ticket_booking.index', ['profile_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Ticket booking list">
+            <i class="la la-ticket  icon-xl"></i>
+         </a> 
+         <a href="' . route('admin.hotel_booking.index', ['profile_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Hotel booking list">
+            <i class="la la-hotel  icon-xl"></i>
          </a>         
       </span>';
     }

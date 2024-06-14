@@ -69,9 +69,10 @@ class BankingDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request){
-
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig);
+    public function index(Request $request)
+    {
+        $userProfiles       = UserProfile::where('status', 1)->get();
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('userProfiles', $userProfiles);
     }
 
     /**
@@ -86,9 +87,13 @@ class BankingDetailsController extends Controller
         
         $data               =   $request->all();
 
-        $db_data            =   $ticket->getList($data,['profile', 'profile.festival']);
+        $whereArr = [];
+        if ($request->user_id) {
+            $whereArr = ['user_id' => $request->user_id];
+        }
+        $db_data            =   $ticket->getList($data,['profile', 'profile.festival'], $whereArr);
 
-        $count 				=  	$ticket->getListCount($data);
+        $count 				=  	$ticket->getListCount($data, [], $whereArr);
 
         $returnArray = array(
             'data' => $db_data,

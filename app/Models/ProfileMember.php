@@ -12,7 +12,7 @@ class ProfileMember extends MasterModel
    use HasFactory;
    use SoftDeletes;
 
-   protected $appends = ['actions'];
+   protected $appends = ['actions', 'frontend_actions'];
    protected $table = 'profile_members';
 
    protected $fillable = ['name', 'poc_id', 'email', 'contact', 'dob', 'stage_name', 'artist_bio', 'instagram_url', 'facebook_url', 'linkdin_url', 'twitter_url', 'website', 'status'];
@@ -106,7 +106,7 @@ class ProfileMember extends MasterModel
       </span>';
    }
 
-   function getActionsAttribute(){
+   function getFrontendActionsAttribute(){
    
       return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
          <a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">

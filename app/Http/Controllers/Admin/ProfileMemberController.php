@@ -100,7 +100,65 @@ class ProfileMemberController extends Controller
     public function show ($id, ProfileMember $profileMember){
 
         $row = ProfileMember::findOrFail($id);
+        // dd($row);
         return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
     }
+
+    /**
+     * Show edit form of {{moduleTitle}}.
+     *
+     * @param  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id, ProfileMember $member)
+    {
+        $row = ProfileMember::findOrFail($id);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit ')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
+    }
+
+    /**
+     * Update a {{moduleTitle}}.
+     *
+     * @param  $id
+     * @return Redirect
+     */
+    public function update(ProfileMemberRequest $request, $id)
+    {
+        $member                  = ProfileMember::findOrFail($id);
+        $member->user_id         = $request->user_id;
+        $member->profile_id      = $request->profile_id;
+        $member->name            = $request->name;
+        $member->email           = $request->email;
+        $member->contact         = $request->contact;
+        $member->dob             = $request->dob;
+        $member->stage_name      = $request->stage_name;
+        $member->artist_bio      = $request->artist_bio;
+        $member->instagram_url   = $request->instagram_url;
+        $member->facebook_url    = $request->facebook_url;
+        $member->linkdin_url     = $request->linkdin_url;
+        $member->twitter_url     = $request->twitter_url;
+        $member->website         = $request->website;
+        $member->status          = $request->input('status', 0);
+        $member->save();
+
+        \Flash::success('Profile member updated successfully.');
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
+    }
+
+    /**
+     * Delete {{moduleTitle}}.
+     *
+     * @param  $id
+     * @return Redirect
+     */
+
+    public function delete($id)
+    {
+        
+        $row = ProfileMember::findOrFail($id);
+        $row->delete();
+        \Flash::success('Profile member deleted successfully.'); 
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
+    }    
 
 }

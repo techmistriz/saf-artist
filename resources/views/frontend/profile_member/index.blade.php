@@ -131,7 +131,7 @@
                     },
                 },      
                 {
-                    field: "actions",
+                    field: "frontend_actions",
                     title: "actions",
                     sortable: false,
                 }, 

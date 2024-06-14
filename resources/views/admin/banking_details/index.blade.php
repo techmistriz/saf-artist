@@ -42,7 +42,19 @@
 										<i class="flaticon-refresh text-danger"></i>
 									</button>
 								</div>
-
+								<div class="col-md-4"></div>
+								<div class="col-md-3">
+									<div class="form-group row validated">
+			                            <select id="profile_id" class="form-control selectpicker" onchange="filterUsers(this)">
+		                                    <option>Select User Profile</option>
+		                                    @if($userProfiles->count())
+		                                        @foreach($userProfiles as $value)
+		                                            <option value="{{$value->id}}" {{ old('profile_id', request('profile_id') ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
+		                                        @endforeach
+		                                    @endif
+		                                </select>
+			                        </div>
+								</div>
 							</div>
 						</div>
 						<!--end: Search Form-->
@@ -65,7 +77,8 @@
 	<script type="text/javascript">
 
 	    jQuery(document).ready((function() {
-	    	var url = '{!! route($moduleConfig["routes"]["fetchDataRoute"]) !!}';
+	    	var profile_id = {{ request('profile_id', 0)}};
+			var url = '{!! route($moduleConfig["routes"]["fetchDataRoute"]) !!}' + '?profile_id=' + profile_id;
 
 			var columnsArray 	=	[
 	            
@@ -141,6 +154,11 @@
             });
 
         }));
+
+        function filterUsers(__this) {
+		    var profile_id = __this.value;
+		    window.location.href = "?profile_id=" + profile_id;
+		}
 
     </script>
 @endpush

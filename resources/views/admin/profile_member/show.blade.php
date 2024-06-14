@@ -18,51 +18,32 @@
 		                    <div class="col-6">
 
 		                    	<div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Member: </label>
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Name: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-right">{{$row->member->name ?? ''}}</label>
+                                        <label class="col-form-label text-lg-right">{{$row->name ?? ''}}</label>
                                     </div>
                                 </div>
 
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Accomodation Required: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->accomodation}}</label>
-		                                
-		                            </div>
-		                        </div>
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Email: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <label class="col-form-label text-lg-right">{{$row->email ?? ''}}</label>
+                                    </div>
+                                </div>
 
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check In Date: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->check_in_date}}</label>
-		                                
-		                            </div>
-		                        </div>
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Contact: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <label class="col-form-label text-lg-right">{{$row->contact ?? ''}}</label>
+                                    </div>
+                                </div>
 
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check Out Date: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->check_out_date}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Total Room Nights: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->total_room_nights}}</label>
-		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Remarks: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->artist_remarks}}</label>
-		                                
-		                            </div>
-		                        </div>
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Dob: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <label class="col-form-label text-lg-right">{{$row->dob ?? ''}}</label>
+                                    </div>
+                                </div>			                        
 
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Status: </label>

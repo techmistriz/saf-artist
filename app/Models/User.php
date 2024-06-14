@@ -256,10 +256,10 @@ class User extends Authenticatable
             <a href="edit/' . $this->id . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
                 <i class="flaticon2-pen"></i>
             </a>
-            <a href="' . route('admin.user_profile.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="User Profile List">
+            <a href="' . route('admin.user_profile.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="User profile list">
                 <i class="flaticon2-user"></i>
             </a>
-            <a href="' . route('admin.profile_member.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Profile Member List">
+            <a href="' . route('admin.profile_member.index', ['user_id' => $this->id]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Profile member list">
                 <i class="flaticon2-avatar"></i>
             </a>
         </span>';
