@@ -95,9 +95,9 @@
 		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name Curators: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Curators Name: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->curator_name ?? 'N/A'}}</label>		                                
+		                            	<label class="col-form-label text-lg-left">{{$row->curator->name ?? 'N/A'}}</label>		                                
 		                            </div>
 		                        </div>
 
@@ -129,7 +129,7 @@
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+		                        <div class="form-group row validated" >
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->dob ?? 'N/A'}}</label>
@@ -172,21 +172,21 @@
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->company_collective ?? 'N/A'}}</label>
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Troup Size: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->troup_size ?? 'N/A'}}</label>		                                
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->payment_troup ?? 'N/A'}}</label>		                                
@@ -249,109 +249,6 @@
 		                            	<label class="col-form-label text-lg-left">{{$row->website ?? 'N/A'}}</label>		                                
 		                            </div>
 		                        </div>
-		                    </div>
-		                </div>
-
-		                <div class="row" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
-
-		                    <div class="col-12">
-		                        <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>
-		                    </div>
-		                    <div class="col-12">
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Image: </label>
-		                            <div class="col-lg-3 col-md-9 col-sm-12">
-		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
-                                            @if(isset($row->practice_image_1) && !empty($row->practice_image_1))
-                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_1)}})"></div>
-                                            @else
-                                                <div class="image-input-wrapper"></div>
-                                            @endif
-                                        </div>		                                
-		                            </div>
-		                            <div class="col-lg-3 col-md-9 col-sm-12">
-		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
-                                            @if(isset($row->practice_image_2) && !empty($row->practice_image_2))
-                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_2)}})"></div>
-                                            @else
-                                                <div class="image-input-wrapper"></div>
-                                            @endif
-                                        </div>		                                
-		                            </div>
-		                            <div class="col-lg-3 col-md-9 col-sm-12">
-		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
-                                            @if(isset($row->practice_image_3) && !empty($row->practice_image_3))
-                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_3)}})"></div>
-                                            @else
-                                                <div class="image-input-wrapper"></div>
-                                            @endif
-                                        </div>		                                
-		                            </div>
-		                        </div>		                        
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 1: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->practice_credit_1 ?? 'N/A'}}</label>		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 2: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->practice_credit_2 ?? 'N/A'}}</label>		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 3: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->practice_credit_3 ?? 'N/A'}}</label>		                                
-		                            </div>
-		                        </div>
-
-	                        </div>
-		                                
-		                    <div class="col-12">
-		                        <h5 class="card-label">Please upload 2 high resolution profile images (For your festival ID and promotion)</h5><hr>
-		                    </div>
-
-		                    <div class="col-12">
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Images: </label>
-		                            <div class="col-lg-3 col-md-9 col-sm-12">
-		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
-                                            @if(isset($row->profile_image_1) && !empty($row->profile_image_1))
-                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_1)}})"></div>
-                                            @else
-                                                <div class="image-input-wrapper"></div>
-                                            @endif
-                                        </div>		                                
-		                            </div>
-		                            <div class="col-lg-3 col-md-9 col-sm-12">
-		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
-                                            @if(isset($row->profile_image_2) && !empty($row->profile_image_2))
-                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_2)}})"></div>
-                                            @else
-                                                <div class="image-input-wrapper"></div>
-                                            @endif
-                                        </div>		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Credit 1: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->profile_credit_1 ?? 'N/A'}}</label>		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Credit 2: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->profile_credit_2 ?? 'N/A'}}</label>		                                
-		                            </div>
-		                        </div>
 
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Have you been associated with Serendipity Arts in the past ?: </label>
@@ -381,6 +278,88 @@
 		                            	<label class="col-form-label text-lg-left">{{ $row->status ? 'Active' : 'Inactive' }}</label>		                            
 		                            </div>
 		                        </div>
+		                        
+		                    </div>
+		                </div>
+
+		                <div class="row">
+
+		                    <div class="col-12">
+		                        <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>
+		                    </div>
+		                    <div class="col-12">
+		                        <div class="form-group row validated">
+		                            <div class="col-lg-4 col-md-9 col-sm-12">
+		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
+                                            @if(isset($row->practice_image_1) && !empty($row->practice_image_1))
+                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_1)}})"></div>
+                                            @else
+                                                <div class="image-input-wrapper"></div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                        	<label class="col-form-label text-lg-left">{{$row->practice_credit_1 ?? 'N/A'}}</label>
+                                        </div>		                                
+		                            </div>
+		                            <div class="col-lg-4 col-md-9 col-sm-12">
+		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
+                                            @if(isset($row->practice_image_2) && !empty($row->practice_image_2))
+                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_2)}})"></div>
+                                            @else
+                                                <div class="image-input-wrapper"></div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                        	<label class="col-form-label text-lg-left">{{$row->practice_credit_2 ?? 'N/A'}}</label>
+                                        </div>		                                
+		                            </div>
+		                            <div class="col-lg-4 col-md-9 col-sm-12">
+		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
+                                            @if(isset($row->practice_image_3) && !empty($row->practice_image_3))
+                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_3)}})"></div>
+                                            @else
+                                                <div class="image-input-wrapper"></div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                        	<label class="col-form-label text-lg-left">{{$row->practice_credit_3 ?? 'N/A'}}</label>
+                                        </div>		                                
+		                            </div>
+		                        </div>
+
+	                        </div>
+		                                
+		                    <div class="col-12">
+		                        <h5 class="card-label">Please upload 2 high resolution profile images (For your festival ID and promotion)</h5><hr>
+		                    </div>
+
+		                    <div class="col-12">
+		                        <div class="form-group row validated">
+		                            <div class="col-lg-4 col-md-9 col-sm-12">
+		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
+                                            @if(isset($row->profile_image_1) && !empty($row->profile_image_1))
+                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_1)}})"></div>
+                                            @else
+                                                <div class="image-input-wrapper"></div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                        	<label class="col-form-label text-lg-left">{{$row->profile_credit_1 ?? 'N/A'}}</label>
+                                        </div>		                                
+		                            </div>
+		                            <div class="col-lg-4 col-md-9 col-sm-12">
+		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
+                                            @if(isset($row->profile_image_2) && !empty($row->profile_image_2))
+                                                <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_2)}})"></div>
+                                            @else
+                                                <div class="image-input-wrapper"></div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                        	<label class="col-form-label text-lg-left">{{$row->profile_credit_2 ?? 'N/A'}}</label>
+                                        </div>		                                
+		                            </div>
+		                        </div>		                        
 		                    </div>
 		                </div>
 		            </div>

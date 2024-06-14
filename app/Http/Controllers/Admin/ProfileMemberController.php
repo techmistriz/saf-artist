@@ -56,10 +56,8 @@ class ProfileMemberController extends Controller
 
     public function index(Request $request)
     {
-        $users       = User::where('status', 1)->get();
-        $disciplines = \Auth::user()->getUserDisciplines();
-        $individuals       = User::where('status', 1)->where('frontend_role_id', 8)->get();
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('disciplines', $disciplines)->with('individuals', $individuals)->with('users', $users);
+        $users       = User::where('status', 1)->whereNotIn('frontend_role_id', [8])->get();
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('users', $users);
     }
 
     /**

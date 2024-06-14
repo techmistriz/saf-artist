@@ -9,7 +9,7 @@
         <nav class="main-navbar">
         <a href="{{URL::to('/')}}"><img src="{{url('/image/Logo-SVG.svg')}}" alt="Image"/ class="head-logo"></a>
                 <ul class="navbar-menu">
-                    <li><a href="#">Home</a></li>
+                    <li><a href="{{route('faq.details')}}">FAQs</a></li>
                     <li><a href="#">About</a></li>
                     <li><a href="#">Contact</a></li>
                 </ul>
@@ -23,7 +23,7 @@
     </div>
 
     <div class="navbar-mobile-menu" id="mobileMenu">
-        <a href="#">Home</a>
+        <a href="{{route('faq.details')}}">FAQs</a>
         <a href="#">About</a>
         <a href="#">Contact</a>
     </div>

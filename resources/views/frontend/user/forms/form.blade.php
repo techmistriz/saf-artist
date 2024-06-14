@@ -50,21 +50,6 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="project_id" tabindex="null" >
-                                    <option value="">Select Project</option>
-                                </select>
-                                @error('project_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Type</label>
@@ -102,17 +87,17 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name of Curators </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="curator_name" id="curator_name" class="form-control form-control-lg form-control-custom selectpicker @error('curator_name') is-invalid @enderror">
+                                <select name="curator_id" id="curator_id" class="form-control form-control-lg form-control-custom selectpicker @error('curator_id') is-invalid @enderror">
                                     <option value="">Select Curator</option>
 
                                     @if($curators->count())
                                         @foreach($curators as $value)
-                                            <option value="{{$value->name}}" {{ old('curator_name', $row->curator_name ?? '') == $value->name ? 'selected' : '' }}>{{$value->name}}</option>
+                                            <option value="{{$value->id}}" {{ old('curator_id', $row->curator_id ?? '') == $value->name ? 'selected' : '' }}>{{$value->name}}</option>
                                         @endforeach
                                     @endif
                                     
                                 </select>                                            
-                                @error('curator_name')
+                                @error('curator_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -154,7 +139,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-12" id="dob" style="{{ isset($user->frontendRole->name) && ($user->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                    <div class="col-12" id="dob" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
@@ -339,7 +324,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="company_collective" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                    <div class="col-12" id="company_collective" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective (If Applicable) </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -368,7 +353,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="row" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}" id="payment_troup">
+                <!-- <div class="row" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}" id="payment_troup">
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup</label>
@@ -485,7 +470,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="hide_field" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                <div class="row" id="hide_field" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
 
                     <div class="col-12">
                         <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>

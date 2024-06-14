@@ -38,7 +38,7 @@ trait UserTrait
         $user_profile->festival_id              = $request->festival_id;
         $user_profile->user_id                  = \Auth::user()->id; 
         $user_profile->category_id              = $request->category_id;
-        $user_profile->curator_name             = $request->curator_name;
+        $user_profile->curator_id             = $request->curator_id;
         $user_profile->artist_type_id           = $request->artist_type_id;
         $user_profile->project_id               = $request->project_id;
         $user_profile->project_year             = $request->project_year;
@@ -73,6 +73,72 @@ trait UserTrait
         $user_profile->website                  = $request->website;        
         $user_profile->other_link               = $request->other_link;
         $user_profile->troup_size               = $request->troup_size;
+
+        if ($request->hasFile('practice_image_1')) {
+
+            $practice_image_1               = $request->file('practice_image_1');
+            // $practice_image_1_fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_1, $request->input('title'), 900, 900, true);
+            $practice_image_1_fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_1, 'practice_image_1');
+
+            $user_profile->practice_image_1         = $practice_image_1_fileName;
+        }
+
+        if($request->has('practice_credit_1') && $request->filled('practice_credit_1')) {
+            $user_profile->practice_credit_1   = $request->practice_credit_1;
+        }
+
+        if ($request->hasFile('practice_image_2')) {
+
+            $practice_image_2               = $request->file('practice_image_2');
+            // $practice_image_2_fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_2, $request->input('title'), 900, 900, true);
+            $practice_image_2_fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_2, 'practice_image_2');
+            $user_profile->practice_image_2         = $practice_image_2_fileName;
+        }
+
+        if($request->has('practice_credit_2') && $request->filled('practice_credit_2')) {
+            $user_profile->practice_credit_2   = $request->practice_credit_2;
+        }
+
+        if ($request->hasFile('practice_image_3')) {
+
+            $practice_image_3                       = $request->file('practice_image_3');
+            // $practice_image_3_fileName              = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_3, $request->input('title'), 900, 900, true);
+            $practice_image_3_fileName              = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_3, 'practice_image_3');
+
+            $user_profile->practice_image_3                 = $practice_image_3_fileName;
+        }
+
+        if($request->has('practice_credit_3') && $request->filled('practice_credit_3')) {
+            $user_profile->practice_credit_3   = $request->practice_credit_3;
+        }
+
+        if ($request->hasFile('profile_image_1')) {
+
+            $profile_image_1                    = $request->file('profile_image_1');
+            // $profile_image_1_fileName           = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $profile_image_1, $request->input('title'), 900, 900, true);
+            $profile_image_1_fileName           = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $profile_image_1, 'profile_image_1');
+
+            $user_profile->profile_image_1              = $profile_image_1_fileName;
+        }
+
+        if($request->has('profile_credit_1') && $request->filled('profile_credit_1')) {
+            $user_profile->profile_credit_1   = $request->profile_credit_1;
+        }
+
+        if ($request->hasFile('profile_image_2')) {
+
+            $profile_image_2            = $request->file('profile_image_2');
+            // $profile_image_2_fileName   = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $profile_image_2, $request->input('title'), 900, 900, true);
+            $profile_image_2_fileName   = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $profile_image_2, 'profile_image_2');
+            $user_profile->profile_image_2      = $profile_image_2_fileName;
+        }
+
+        if($request->has('profile_credit_2') && $request->filled('profile_credit_2')) {
+            $user_profile->profile_credit_2   = $request->profile_credit_2;
+        }
+
+        $user_profile->has_serendipity_arts     = $request->has_serendipity_arts;
+        $user_profile->year                     = $request->year;
         // dd($user_profile);
         $user_profile->save();
 
@@ -89,7 +155,7 @@ trait UserTrait
         $user_profile->festival_id              = $request->festival_id;        
         $user_profile->user_id                  = \Auth::user()->id;      
         $user_profile->category_id              = $request->category_id;
-        $user_profile->curator_name             = $request->curator_name;
+        $user_profile->curator_id             = $request->curator_id;
         $user_profile->artist_type_id           = $request->artist_type_id;
         $user_profile->project_id               = $request->project_id;
         $user_profile->project_year             = $request->project_year;
@@ -124,6 +190,72 @@ trait UserTrait
         $user_profile->website                  = $request->website;        
         $user_profile->other_link               = $request->other_link;
         $user_profile->troup_size               = $request->troup_size;
+
+        if ($request->hasFile('practice_image_1')) {
+
+            $practice_image_1               = $request->file('practice_image_1');
+            // $practice_image_1_fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_1, $request->input('title'), 900, 900, true);
+            $practice_image_1_fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_1, 'practice_image_1');
+
+            $user_profile->practice_image_1         = $practice_image_1_fileName;
+        }
+
+        if($request->has('practice_credit_1') && $request->filled('practice_credit_1')) {
+            $user_profile->practice_credit_1   = $request->practice_credit_1;
+        }
+
+        if ($request->hasFile('practice_image_2')) {
+
+            $practice_image_2               = $request->file('practice_image_2');
+            // $practice_image_2_fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_2, $request->input('title'), 900, 900, true);
+            $practice_image_2_fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_2, 'practice_image_2');
+            $user_profile->practice_image_2         = $practice_image_2_fileName;
+        }
+
+        if($request->has('practice_credit_2') && $request->filled('practice_credit_2')) {
+            $user_profile->practice_credit_2   = $request->practice_credit_2;
+        }
+
+        if ($request->hasFile('practice_image_3')) {
+
+            $practice_image_3                       = $request->file('practice_image_3');
+            // $practice_image_3_fileName              = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $practice_image_3, $request->input('title'), 900, 900, true);
+            $practice_image_3_fileName              = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $practice_image_3, 'practice_image_3');
+
+            $user_profile->practice_image_3                 = $practice_image_3_fileName;
+        }
+
+        if($request->has('practice_credit_3') && $request->filled('practice_credit_3')) {
+            $user_profile->practice_credit_3   = $request->practice_credit_3;
+        }
+
+        if ($request->hasFile('profile_image_1')) {
+
+            $profile_image_1                    = $request->file('profile_image_1');
+            // $profile_image_1_fileName           = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $profile_image_1, $request->input('title'), 900, 900, true);
+            $profile_image_1_fileName           = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $profile_image_1, 'profile_image_1');
+
+            $user_profile->profile_image_1              = $profile_image_1_fileName;
+        }
+
+        if($request->has('profile_credit_1') && $request->filled('profile_credit_1')) {
+            $user_profile->profile_credit_1   = $request->profile_credit_1;
+        }
+
+        if ($request->hasFile('profile_image_2')) {
+
+            $profile_image_2            = $request->file('profile_image_2');
+            // $profile_image_2_fileName   = ImageUploadHelper::UploadImage(self::$moduleConfig['imageUploadFolder'], $profile_image_2, $request->input('title'), 900, 900, true);
+            $profile_image_2_fileName   = FileUploadHelper::UploadFile(self::$moduleConfig['imageUploadFolder'], $profile_image_2, 'profile_image_2');
+            $user_profile->profile_image_2      = $profile_image_2_fileName;
+        }
+
+        if($request->has('profile_credit_2') && $request->filled('profile_credit_2')) {
+            $user_profile->profile_credit_2   = $request->profile_credit_2;
+        }
+
+        $user_profile->has_serendipity_arts     = $request->has_serendipity_arts;
+        $user_profile->year                     = $request->year;
         // dd($user_profile);
         $user_profile->save();
 

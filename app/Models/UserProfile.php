@@ -103,6 +103,11 @@ class UserProfile extends MasterModel
         return $this->belongsTo('App\Models\Country', 'ca_country_id', 'id');
     }
 
+    public function curator()
+    {
+        return $this->belongsTo('App\Models\Curator', 'curator_id', 'id');
+    }
+
     public function CAState()
     {
         return $this->belongsTo('App\Models\State', 'ca_state_id', 'id');
