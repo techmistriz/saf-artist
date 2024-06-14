@@ -129,7 +129,7 @@
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+		                        <div class="form-group row validated" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->dob ?? 'N/A'}}</label>
@@ -172,21 +172,21 @@
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+		                        <div class="form-group row validated" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->company_collective ?? 'N/A'}}</label>
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+		                        <div class="form-group row validated" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Troup Size: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->troup_size ?? 'N/A'}}</label>		                                
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+		                        <div class="form-group row validated" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->payment_troup ?? 'N/A'}}</label>		                                
@@ -252,7 +252,7 @@
 		                    </div>
 		                </div>
 
-		                <div class="row" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+		                <div class="row" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
 
 		                    <div class="col-12">
 		                        <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>
