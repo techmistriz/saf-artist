@@ -266,7 +266,7 @@ class TicketBookingController extends Controller
         $ticket->save();
 
         \Flash::success('Ticket booking updated successfully.');
-        return \Redirect::route('ticket.booking.list');
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
     }
 
     /**

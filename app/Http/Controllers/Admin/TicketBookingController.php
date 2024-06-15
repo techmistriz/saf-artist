@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\TicketBooking;
-use App\Models\User;
+use App\Models\UserProfile;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Project;
-use App\Models\TravelMode;
+use App\Models\TravelPurpose;
 use App\Models\MetroCity;
 use Carbon\Carbon;
 use App\Http\Requests\TicketBookingRequest;
@@ -70,9 +70,10 @@ class TicketBookingController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request){
-
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig);
+    public function index(Request $request)
+    {
+        $userProfiles       = UserProfile::where('status', 1)->get();
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.index')->with('moduleConfig', self::$moduleConfig)->with('userProfiles', $userProfiles);
     }
 
     /**
@@ -87,7 +88,7 @@ class TicketBookingController extends Controller
         
         $data               =   $request->all();
 
-        $db_data            =   $ticket->getList($data,['member', 'project']);
+        $db_data            =   $ticket->getList($data, ['userProfile.festival']);
 
         $count 				=  	$ticket->getListCount($data);
 
@@ -198,21 +199,17 @@ class TicketBookingController extends Controller
      */
     public function edit($id, TicketBooking $ticket){
 
-        $user = User::findOrFail($id);
+        $row = TicketBooking::findOrFail($id);
+        $user               = \Auth::user();
+        $userIdArr = TicketBooking::where('status', 1)->whereNotIn('profile_id', [$row->profile_id])->get()->pluck('profile_id');
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
         
-        $row = TicketBooking::where('source_id', $id)->first();
-        if (!$row) {
-           // \Flash::error('Hotel details not found');
-           //  return \Redirect::route('admin.user.index');
-        }
-
         $countries          = Country::where('status', 1)->get();
+        $travelPurposes     = TravelPurpose::where('status', 1)->get();
         $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
-        $travelModes        = TravelMode::where('status', 1)->get();
         $projects           = Project::where('status', 1)->get();
-        $members            = User::where('status', 1)->where('poc_id', $user->id)->get();
 
-       return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelModes' => $travelModes, 'projects' => $projects, 'members' => $members, 'user' => $user]);
+       return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelPurposes' => $travelPurposes, 'projects' => $projects, 'userProfiles' => $userProfiles]);
     }
 
     /**
@@ -224,37 +221,52 @@ class TicketBookingController extends Controller
     public function update(TicketBookingRequest $request, $id){
 
         $ticket                  = TicketBooking::findOrFail($id);
-        if ($request->hasFile('upload_passport')) {
-            $upload_passport         = $request->file('upload_passport');
-            $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['passportUploadFolder'], $upload_passport);
-            $ticket->upload_passport  = $fileName;
+
+        if ($request->hasFile('front_side_passport')) {
+            $front_side_passport         = $request->file('front_side_passport');
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['passportUploadFolder'], $front_side_passport);
+            $ticket->front_side_passport  = $fileName;
+        }
+        if ($request->hasFile('back_side_passport')) {
+            $back_side_passport         = $request->file('back_side_passport');
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['passportUploadFolder'], $back_side_passport);
+            $ticket->back_side_passport  = $fileName;
         }
 
+        if ($request->hasFile('upload_visa')) {
+            $upload_visa         = $request->file('upload_visa');
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['visaUploadFolder'], $upload_visa);
+            $ticket->upload_visa  = $fileName;
+        }
 
         if ($request->hasFile('adhaarcard_driving')) {
             $adhaarcard_driving         = $request->file('adhaarcard_driving');
-            $fileName      = ImageUploadHelper::UploadImage(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
+            $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
             $ticket->adhaarcard_driving  = $fileName;
-        }
+        }        
 
-        $ticket->name                                 = $request->name;
-        $ticket->project_id                           = $request->project_id;
-        $ticket->salutation                           = $request->salutation;
-        $ticket->age                                  = $request->age;
-        $ticket->email                                = $request->email;
-        $ticket->contact                              = $request->contact;
-        $ticket->onward_city_id                       = $request->onward_city_id;
-        $ticket->onward_city_other                    = $request->onward_city_other;
-        $ticket->return_city_id                       = $request->return_city_id;
-        $ticket->return_city_other                    = $request->return_city_other;
-        $ticket->artist_remarks                       = $request->artist_remarks;
-        $ticket->international_or_domestic            = $request->international_or_domestic;
-        $ticket->work_visa                            = $request->work_visa;
-        $ticket->ticket_status                        = $this->TICKET_STATUS['Added by Admin'];
+        $ticket->user_id                      = Auth::user()->id;
+        $ticket->profile_id                   = $request->profile_id;
+        $ticket->profile_member_ids           = $request->profile_member_ids;
+        $ticket->travel_purpose_id            = $request->travel_purpose_id;
+        $ticket->name                         = $request->name;
+        $ticket->project_ids                  = $request->project_ids;
+        $ticket->salutation                   = $request->salutation;
+        $ticket->age                          = $request->age;
+        $ticket->email                        = $request->email;
+        $ticket->contact                      = $request->contact;
+        $ticket->onward_city                  = $request->onward_city;
+        $ticket->return_city                  = $request->return_city;
+        $ticket->artist_remarks               = $request->artist_remarks;
+        $ticket->international_or_domestic    = $request->international_or_domestic;
+        $ticket->work_visa                    = $request->work_visa;
+        $ticket->onward_date                  = $request->onward_date;
+        $ticket->return_date                  = $request->return_date;
+        $ticket->ticket_status                = $this->TICKET_STATUS['Added by Group'];
         $ticket->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
-        return \Redirect::route('admin.user.index');
+        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
     }
 
     /**
