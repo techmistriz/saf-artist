@@ -157,7 +157,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-12" id="dob" style="{{ isset($user->frontendRole->name) && ($user->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                    <div class="col-12" id="dob" style="{{ isset($row->user->frontendRole->name) && ($row->user->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                         
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
@@ -357,7 +357,7 @@
                     
                 </div>
 
-                <div class="row" id="members_numbers" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                <div class="row" id="members_numbers" style="{{ isset($row->user->frontendRole->name) && ($row->user->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Troup Size </label>
@@ -371,7 +371,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="row" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}" id="payment_troup">
+                <!-- <div class="row" style="{{ isset($row->userfrontendRole->name) && ($row->userfrontendRole->name == 'Individual') ? 'display:none;' :''}}" id="payment_troup">
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup</label>
@@ -488,7 +488,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="hide_field" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                <div class="row" id="hide_field" style="{{ isset($row->userfrontendRole->name) && ($row->userfrontendRole->name == 'Individual') ? '' :'display:none;'}}">
 
                     <div class="col-12">
                         <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>

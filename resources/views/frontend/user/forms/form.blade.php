@@ -146,7 +146,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="dob" value="{{Auth::user()->dob}}" class="form-control form-control-lg form-control-solid kt_datepicker" readonly />
+                                    <input type="text" name="dob" value="{{ old('dob', $row->dob ?? '') }}" class="form-control form-control-lg form-control-solid kt_datepicker" readonly />
 
                                     @error('dob')
                                         <div class="invalid-feedback">{{ $message }}</div>

@@ -35,18 +35,18 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row validated">
+                                <!-- <div class="form-group row validated">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
                                         <label class="col-form-label text-lg-left">{{$row->project->name ?? 'N/A'}}</label>
                                         
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group row validated">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Type: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->frontendRole->name ?? 'N/A'}}</label>
+                                        <label class="col-form-label text-lg-left">{{$row->user->frontendRole->name ?? 'N/A'}}</label>
                                         
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                                 <div class="form-group row validated">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name Curators: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->curator_name ?? 'N/A'}}</label>                                      
+                                        <label class="col-form-label text-lg-left">{{$row->curator->name ?? 'N/A'}}</label>                                      
                                     </div>
                                 </div>
 
@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row validated" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                                <div class="form-group row validated" style="{{ isset($row->user->frontendRole->name) && ($row->user->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
                                         <label class="col-form-label text-lg-left">{{$row->dob ?? 'N/A'}}</label>
@@ -143,14 +143,14 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row validated" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                                <div class="form-group row validated" style="{{ isset($row->user->frontendRole->name) && ($row->user->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Troup Size: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
                                         <label class="col-form-label text-lg-left">{{$row->troup_size ?? 'N/A'}}</label>                                        
                                     </div>
                                 </div>
 
-                                <div class="form-group row validated" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                                <div class="form-group row validated" style="{{ isset($row->user->frontendRole->name) && ($row->user->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
                                         <label class="col-form-label text-lg-left">{{$row->payment_troup ?? 'N/A'}}</label>                                     
