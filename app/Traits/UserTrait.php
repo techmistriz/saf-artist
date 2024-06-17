@@ -154,7 +154,7 @@ trait UserTrait
             $user_profile->user_id     = \Auth::user()->id;            
         }
 
-        // $user_profile->profile_status           = $request->profile_status;
+        $user_profile->profile_status           = $request->profile_status;
         $user_profile->festival_id              = $request->festival_id;        
         $user_profile->category_id              = $request->category_id;
         $user_profile->curator_id               = $request->curator_id;
@@ -969,7 +969,7 @@ trait UserTrait
             $userAccountDetail->user_id     = \Auth::user()->id;            
         }
         
-        // $userAccountDetail->banking_status          = $request->banking_status;
+        $userAccountDetail->banking_status          = $request->banking_status;
         $userAccountDetail->profile_id              = $request->profile_id;
         $userAccountDetail->name                    = $request->name;
         $userAccountDetail->permanent_address       = $request->permanent_address;

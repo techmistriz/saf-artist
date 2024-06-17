@@ -152,6 +152,7 @@ class HotelBookingController extends Controller
         }else{
             $hotel->user_id     = \Auth::user()->id;            
         }
+        $hotel->hotel_status           = $request->hotel_status;
         $hotel->profile_id             = $request->profile_id;
         $hotel->profile_member_ids     = $request->profile_member_ids;
         $hotel->travel_purpose_id      = $request->travel_purpose_id;

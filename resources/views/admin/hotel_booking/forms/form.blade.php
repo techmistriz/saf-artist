@@ -146,6 +146,27 @@
                     </div>
 
                 </div>
+                <div class="row">
+                     <div class="col-12">
+                        <h4 class="card-label">Hotel status change</h4><hr>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Hotel Status</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="hotel_status" tabindex="null">
+                                    <option value="">Select Hotel Status</option>
+                                    <option value="1" {{ old('hotel_status') == '1' || (isset($row->hotel_status) && $row->hotel_status == '1') ? 'selected' : '' }}>Pending</option>
+                                    <option value="2" {{ old('hotel_status') == '2' || (isset($row->hotel_status) && $row->hotel_status == '2') ? 'selected' : '' }}>In Review</option>
+                                    <option value="3" {{ old('hotel_status') == '3' || (isset($row->hotel_status) && $row->hotel_status == '3') ? 'selected' : '' }}>Freeze</option>
+                                </select>
+                                @error('hotel_status')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-footer">
                 <div class="row">

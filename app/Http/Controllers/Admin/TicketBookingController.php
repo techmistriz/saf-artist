@@ -256,6 +256,7 @@ class TicketBookingController extends Controller
             $ticket->user_id     = \Auth::user()->id;            
         }
         
+        $ticket->ticket_status                = $request->ticket_status;
         $ticket->profile_id                   = $request->profile_id;
         $ticket->profile_member_ids           = $request->profile_member_ids;
         $ticket->travel_purpose_id            = $request->travel_purpose_id;
