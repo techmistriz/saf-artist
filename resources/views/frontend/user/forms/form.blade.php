@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     
-                    <div class="col-12" id="dob" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                    <div class="col-12">
                         
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">DOB </label>
@@ -470,7 +470,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="hide_field" style="{{ isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                <div class="row">
 
                     <div class="col-12">
                         <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>

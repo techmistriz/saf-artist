@@ -22,6 +22,21 @@
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
+                                                <th>Full Name</th>
+                                                <td colspan="4">{{$row->name}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Email</th>
+                                                <td colspan="4">{{$row->email}}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <th>Contact</th>
+                                                <td colspan="4">{{$row->contact}}</td>
+                                            </tr>
+                                            
+                                            <tr>
                                                 <th>User Type</th>
                                                 <td colspan="4">{{ $row->frontendRole->name ?? 'N/A' }}</td>
                                             </tr>
@@ -40,21 +55,6 @@
                                                 <th>Name of Curators</th>
                                                 <td colspan="4">{{ $row->curator_name ?? 'N/A' }}</td>
                                             </tr>
-
-                                            <tr>
-                                                <th>Full Name</th>
-                                                <td colspan="4">{{$row->name}}</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th>Contact</th>
-                                                <td colspan="4">{{$row->contact}}</td>
-                                            </tr>
-
-                                            <tr>
-                                                <th>Email</th>
-                                                <td colspan="4">{{$row->email}}</td>
-                                            </tr>                                            
 
                                             <tr>
                                                 <th>Status</th>

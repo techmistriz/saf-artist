@@ -236,20 +236,27 @@
                                             <div class="col-6">
                                                 <div class="form-group row validated" style="position:relative;">
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                                        <input type="text" oninput="this.value=this.value.replace(/[^0-9]/, '')" name="contact" id="contact" value="{{ old('contact', $row->contact ?? '') }}" class="form-control form-control-lg form-control-custom" maxlength="10"   placeholder="Enter Contact" required/>
+                                                        <input type="text" oninput="this.value=this.value.replace(/[^0-9]/g, '')" name="contact" id="contact" value="{{ old('contact', $row->contact ?? '') }}" class="form-control form-control-lg form-control-custom" maxlength="10" placeholder="Enter Contact" required />
                                                         @error('contact')
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
-                                                        
                                                     </div>
-                                                </div> 
+                                                </div>
                                                 <div id="otp" style="display:none; margin-top: -65px; margin-left: 190px; position: absolute;">
                                                     <input id="otp-input" placeholder="Enter OTP" class="form-control" name="otp" type="text">
                                                 </div>
-                                                <div class="sendBtn" style=" margin-top: -65px; margin-left: 290px; position: absolute; display:none;">
-                                                    <input type="button" id="send-otp" class="btn btn-primary" value="Send OTP" >
+                                                <div class="sendBtn" style="margin-top: -65px; margin-left: 290px; position: absolute; display:none;">
+                                                    <input type="button" id="send-otp" class="btn btn-primary" value="Send OTP">
                                                 </div>
+                                                <span class="otp-message-wrapper">
+                                                    <input type="hidden" class="is-valid">
+                                                    <span class="valid-feedback" role="alert" id="otp-message">
+                                                        <strong></strong>
+                                                    </span>
+                                                </span>
+                                                <div class="validation-errors text-danger"></div>
                                             </div>
+
                                         </div>
                                     </div>
                                     
@@ -422,25 +429,17 @@
 
     $(document).ready(function() {
         $('#send-otp').click(function(e) {
-            var contact = $("#contact").val();
-            var email   = $("#email").val();
             e.preventDefault();
+            var contact = $("#contact").val();
+            var email = $("#email").val();
 
             if (!isValidContact(contact)) {
-                $('.validation-errors').text('Please enter a valid 10-digit contact number.');
-                alert('Please enter a valid 10-digit contact number.');
-                setTimeout(function() {
-                    $('.validation-errors').text('');
-                }, 5000);
+                displayMessage('Please enter a valid 10-digit contact number.', 'danger');
                 return;
             }
 
             if (!isValidEmail(email)) {
-                $('.validation-errors').text('Please enter a valid email address.');
-                alert('Please enter a valid email address.');
-                setTimeout(function() {
-                    $('.validation-errors').text('');
-                }, 5000);
+                displayMessage('Please enter a valid email address.', 'danger');
                 return;
             }
 
@@ -450,21 +449,17 @@
                 data: {"_token": "{{ csrf_token() }}", contact: contact, email: email},
                 dataType: 'json',
                 success: function(response) {
-                    if(response.success) {
+                    if (response.status) {
                         $('#otp').show().find('input').prop('required', true);
                         $('.sendBtn').hide();
-                        alert('OTP has been sent successfully! Please check your phone.');
-                        var generatedOTP = response.otp;
+                        displayMessage('OTP has been sent successfully! Please check your email.', 'success');
                     } else {
-                        $('.validation-errors').text(response.message);
-                        alert('Failed to send OTP. Please try again later.');
-                        setTimeout(function() {
-                            $('.validation-errors').text('');
-                        }, 5000);
+                        displayMessage(response.message || 'Failed to send OTP. Please try again later.', 'danger');
                     }
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr.responseText);
+                    displayMessage('An error occurred. Please try again.', 'danger');
                 }
             });
         });
@@ -475,26 +470,33 @@
         });
 
         function isValidContact(contact) {
-            if (contact.trim() === '') {
-                return false;
-            }
-            if (!/^\d+$/.test(contact)) {
-                return false;
-            }
-            if (contact.length !== 10) {
-                return false;
-            }
-
-            return true;
+            return contact.trim() !== '' && /^\d{10}$/.test(contact);
         }
 
         function isValidEmail(email) {
-
             var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             return emailPattern.test(email);
         }
-    });
 
+        function displayMessage(message, type) {
+            var messageDiv = $('.validation-errors');
+            messageDiv.text(message).removeClass('text-success text-danger').addClass('text-' + type);
+            if (type === 'success') {
+                messageDiv.css('color', 'white');
+
+                setTimeout(function() {
+                    messageDiv.text('').removeClass('text-' + type).removeAttr('style');
+                }, 10000);
+
+            } else if (type === 'danger') {
+                messageDiv.css('color', 'red');
+
+                setTimeout(function() {
+                    messageDiv.text('').removeClass('text-' + type).removeAttr('style');
+                }, 10000);
+            }            
+        }
+    });
 
     document.addEventListener("DOMContentLoaded", function() {
         const sendBtn = document.getElementById('send-otp');

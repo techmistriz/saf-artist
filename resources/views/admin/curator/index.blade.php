@@ -83,10 +83,6 @@
             {
                 field: "name",
                 title: "name",
-            }, 
-            {
-                field: "serendipity_arts_festival",
-                title: "Serendipity Arts Festival",
             },
             {
                 field: "status",

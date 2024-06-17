@@ -57,7 +57,7 @@ class UserController extends Controller
             // "artistMemberListRoute" => 'admin.user.artist.member.index',
             // "artistMemberFetchDataRoute" => 'admin.user.artist.member.fetch.data', 
         ],
-        "moduleTitle" => 'Artist',
+        "moduleTitle" => 'Users',
         "moduleName" => 'user',
         "viewFolder" => 'user',
         // "viewArtistMemberFolder" => 'artist_member',

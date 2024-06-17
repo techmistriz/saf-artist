@@ -224,35 +224,41 @@ class AjaxController extends Controller
 
     public function sendOtp(Request $request)
     {
-        try {
-            $validation = \Validator::make($request->all(), [
-                'contact' => 'required|digits:10',
-                'email' => 'required|email',
+        $validation = \Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validation->errors()->first(),
+                'data' => new \stdClass()
             ]);
-
-            if ($validation->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => $validation->errors()->first(),
-                    'data' => new \stdClass()
-                ]);
-            }
-
-            $contact = $request->contact;
-            $email = $request->email;
-            $otp = mt_rand(100000, 999999);
-            Session::put('otp', $otp);
-            Session::put('contact', $contact);
-            Session::put('email', $email);
-
-            \Mail::to($email)->send(new \App\Mail\OtpMailable(['email' => $email, 'name' => 'User', 'otp' => $otp]));
-
-            return response()->json(['success' => true, 'message' => 'OTP Sent Successfully', 'otp' => $otp]);
-            
-        } catch (\Exception $e) {
-
-            return response()->json(['status' => false, 'message' => 'Something went wrong.']);
         }
+
+        $userByEmail = \App\Models\User::where('email', $request->email)->first();
+        
+        if (!empty($userByEmail)) {
+            return response()->json([
+                'status' => false,
+                'message' => "A visitor profile already exists with the same Email ID. Please use a different Email ID.",
+                'data' => new \stdClass()
+            ]);
+        }
+
+        $otp = \App\Helpers\Helper::generateOtp();
+
+        $user = new \stdClass();
+        $user->name = $request->name ?? 'User';
+        $user->otp = $otp;
+
+        \Mail::to($request->email)->send(new \App\Mail\RegisterOTPMailable($user));
+
+        return response()->json([
+            'status' => true,
+            'message' => 'An OTP has been shared on your email ID.',
+            'data' => new \stdClass()
+        ]);
     }
 
     public function getMember(Request $request, $member_id = NULL)
