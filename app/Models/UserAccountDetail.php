@@ -92,12 +92,16 @@ class UserAccountDetail extends MasterModel
 
     function getFrontendActionsAttribute(){
     
-        $view = '<a href="' . route('user.account.details.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show Artist Account Details">
+        $view = '<a href="' . route('user.account.details.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show Account Details">
                    <i class="flaticon-eye"></i>
                 </a>';
-        $edit = '<a href="' . route('user.account.details.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit Artist Account Details">
+
+        $edit = '';
+        if ($this->banking_status == 1) {
+            $edit = '<a href="' . route('user.account.details.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit Account Details">
                    <i class="flaticon2-pen"></i>
                 </a>';
+        }        
 
         return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
                 '.$view.$edit.'

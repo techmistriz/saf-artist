@@ -272,7 +272,6 @@ class TicketBookingController extends Controller
         $ticket->work_visa                    = $request->work_visa;
         $ticket->onward_date                  = $request->onward_date;
         $ticket->return_date                  = $request->return_date;
-        $ticket->ticket_status                = $this->TICKET_STATUS['Added by Group'];
         $ticket->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');

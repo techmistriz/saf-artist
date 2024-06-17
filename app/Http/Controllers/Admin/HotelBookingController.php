@@ -165,7 +165,6 @@ class HotelBookingController extends Controller
         $hotel->room_sharing           = $request->room_sharing;
         $hotel->local_travel           = $request->local_travel;
         $hotel->performance_date       = $request->performance_date;
-        $hotel->hotel_status           = $this->HOTEL_STATUS['Added by Admin'];
         $hotel->save();
 
         $sharing_room_Arr              = $request->sharing_room;

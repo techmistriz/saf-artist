@@ -121,7 +121,7 @@ class HotelBookingController extends Controller
         $hotel->check_out_date           = $request->check_out_date;
         $hotel->total_room_nights        = $request->total_room_nights;
         $hotel->artist_remarks           = $request->artist_remarks;
-        $hotel->hotel_status             = $this->HOTEL_STATUS['Added by Group'];
+        $hotel->hotel_status             = $request->hotel_status;
         $hotel->save();
 
         \Flash::success(' Hotel booking created successfully');
@@ -180,7 +180,7 @@ class HotelBookingController extends Controller
         $hotel->check_out_date       = $request->check_out_date;
         $hotel->total_room_nights    = $request->total_room_nights;
         $hotel->artist_remarks       = $request->artist_remarks;
-        $hotel->hotel_status         = $this->HOTEL_STATUS['Added by Group'];
+        $hotel->hotel_status         = $request->hotel_status;
         $hotel->save();
 
         \Flash::success('Hotel booking updated successfully.');

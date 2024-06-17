@@ -114,7 +114,7 @@
                 {
                     field: "name",
                     title: "Name",
-                }, 
+                },
                 {
                     field: "status",
                     title: "status",
@@ -132,7 +132,28 @@
                         };
                         return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
                     },
-                },      
+                },
+                {
+                    field: "banking_status",
+                    title: "Banking Status",
+                    template: function(t) {
+                        var banking_status = {
+                            1: {
+                                'title': 'PENDING',
+                                'class': ' label-light-danger'
+                            },
+                            2: {
+                                'title': 'IN REVIEW',
+                                'class': ' label-light-warning'
+                            },                        
+                            3: {
+                                'title': 'FREEZE',
+                                'class': ' label-light-success'
+                            },                            
+                        };
+                        return '<span class="label font-weight-bold label-lg ' + banking_status[t?.banking_status].class + ' label-inline">' + banking_status[t?.banking_status].title + '</span>';
+                    },
+                },     
                 {
                     field: "actions",
                     title: "actions",

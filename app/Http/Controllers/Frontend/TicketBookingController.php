@@ -167,7 +167,7 @@ class TicketBookingController extends Controller
         $ticket->work_visa                    = $request->work_visa;
         $ticket->onward_date                  = $request->onward_date;
         $ticket->return_date                  = $request->return_date;
-        $ticket->ticket_status                = $this->TICKET_STATUS['Added by Group'];
+        $ticket->ticket_status                = $request->ticket_status;
 
         // dd($ticket);
         $ticket->save();
@@ -262,11 +262,11 @@ class TicketBookingController extends Controller
         $ticket->work_visa                    = $request->work_visa;
         $ticket->onward_date                  = $request->onward_date;
         $ticket->return_date                  = $request->return_date;
-        $ticket->ticket_status                = $this->TICKET_STATUS['Added by Group'];
+        $ticket->ticket_status                = $request->ticket_status;
         $ticket->save();
 
         \Flash::success('Ticket booking updated successfully.');
-        return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
+        return \Redirect::route('ticket.booking.list');
     }
 
     /**

@@ -481,20 +481,45 @@
             </div>
             <div class="card-footer">
                 <div class="row">
-                    <div class="col-lg-4"></div>
-                    <div class="col-lg-4 text-center">
-                        <button type="submit" class="theme-btn mt-0 mb-0">Submit</button>
-                        <!-- <a class="btn btn-light-danger" id="cancleBtn" href="{{ route('ticket.booking.list') }}">Cancel</a> -->
-                    </div>
+                    @if(!isset($row) || $row->ticket_status == 1)
+                        <input type="hidden" name="ticket_status" id="freeze" value="1">
+                        <div class="col-lg-12 text-center">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <a data-toggle="modal" data-target="#confirmModal" class="theme-btn mt-0 mb-0  " id="saveFreeze">Submit for review</a>
+                        </div>
+                    @else
+                        <div class="col-lg-12">
+                            <p class="text-center text-danger small italic">Your account has been frozen by admin, hence you are not able to update any details.</p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center flex-column">
+                <h3 class="modal-title w-100">Please confirm your submission.</h3>
+                <p>If you freeze your ticket then you are not edit ticket.</p>                
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @push('scripts')
     <script type="text/javascript">
+
+        $('#saveFreeze').click(function() {
+            $('#freeze').val(2)
+        })
+        
         // START upload_passport
         var front_side_passport = new KTImageInput('front_side_passport');
 

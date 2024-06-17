@@ -103,33 +103,46 @@
                     title: "accomodation",
                 },
                 {
+                    field: "status",
+                    title: "status",
+                    template: function(t) {
+                        var status = {
+                            0: {
+                                'title': 'Inactive',
+                                'class': ' label-light-danger'
+                            },
+                            1: {
+                                'title': 'Active',
+                                'class': ' label-light-success'
+                            }
+                            
+                        };
+                        return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
+                    },
+                },
+                {
                     field: "hotel_status",
                     title: "Hotel Status",
                     template: function(t) {
                         var hotel_status = {
-                            0: {
-                                'title': 'Added by Group',
-                                'class': ' label-light-warning'
-                            },
                             1: {
-                                'title': 'Added by Admin',
-                                'class': ' label-light-success'
-                            },                        
-                            2: {
-                                'title': 'COMPLETED',
+                                'title': 'PENDING',
                                 'class': ' label-light-danger'
                             },
+                            2: {
+                                'title': 'IN REVIEW',
+                                'class': ' label-light-warning'
+                            },                        
                             3: {
-                                'title': 'CANCELLED',
-                                'class': ' label-danger'
-                            }
-                            
+                                'title': 'FREEZE',
+                                'class': ' label-light-success'
+                            },                            
                         };
                         return '<span class="label font-weight-bold label-lg ' + hotel_status[t?.hotel_status].class + ' label-inline">' + hotel_status[t?.hotel_status].title + '</span>';
                     },
                 },     
                 {
-                    field: "actions",
+                    field: "frontend_actions",
                     title: "actions",
                     sortable: false,
                 }, 

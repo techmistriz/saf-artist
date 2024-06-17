@@ -904,6 +904,8 @@ trait UserTrait
     public function __storeAccountDetails(Request $request){        
 
         $userAccountDetail                          = new UserAccountDetail();
+
+        $userAccountDetail->banking_status          = $request->banking_status;
         $userAccountDetail->user_id                 = \Auth::user()->id;
         $userAccountDetail->profile_id              = $request->profile_id;
         $userAccountDetail->name                    = $request->name;
@@ -911,8 +913,7 @@ trait UserTrait
         $userAccountDetail->pincode                 = $request->pincode;
         $userAccountDetail->country_id              = $request->country_id;
         $userAccountDetail->state_id                = $request->state_id;
-        $userAccountDetail->city_id                 = $request->city_id;
-
+        $userAccountDetail->city_id                 = $request->city_id;        
         $userAccountDetail->account_number          = $request->account_number;
         $userAccountDetail->bank_holder_name        = $request->bank_holder_name;
         $userAccountDetail->bank_name               = $request->bank_name;
@@ -962,7 +963,13 @@ trait UserTrait
 
         $userAccountDetail                          = UserAccountDetail::findOrFail($id);
 
-        $userAccountDetail->user_id                 = \Auth::user()->id;
+        if ($request->user_id) {
+            $userAccountDetail->user_id  = $request->user_id;
+        }else{
+            $userAccountDetail->user_id     = \Auth::user()->id;            
+        }
+        
+        // $userAccountDetail->banking_status          = $request->banking_status;
         $userAccountDetail->profile_id              = $request->profile_id;
         $userAccountDetail->name                    = $request->name;
         $userAccountDetail->permanent_address       = $request->permanent_address;
@@ -970,7 +977,6 @@ trait UserTrait
         $userAccountDetail->country_id              = $request->country_id;
         $userAccountDetail->state_id                = $request->state_id;
         $userAccountDetail->city_id                 = $request->city_id;
-
         $userAccountDetail->account_number          = $request->account_number;
         $userAccountDetail->bank_holder_name        = $request->bank_holder_name;
         $userAccountDetail->bank_name               = $request->bank_name;

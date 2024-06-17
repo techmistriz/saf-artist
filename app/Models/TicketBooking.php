@@ -190,19 +190,27 @@ class TicketBooking extends MasterModel
       </span>';
    }
 
-   function getFrontendActionsAttribute(){
-   
-      return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-         <a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
-            <i class="flaticon-eye"></i>
-         </a>
-         <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
-            <i class="flaticon2-pen"></i>
-         </a>
-         <a href="delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
-            <i class="flaticon2-trash"></i>
-         </a>
-      </span>';
+   public function getFrontendActionsAttribute()
+   {
+       $editDetailButton = '';
+       if ($this->ticket_status == 1) {
+           $editDetailButton = '
+               <a href="' . route('ticket.booking.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+                   <i class="flaticon2-pen"></i>
+               </a>';
+       }
+
+       return '
+           <span style="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
+               <a href="' . route('ticket.booking.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+                   <i class="flaticon-eye"></i>
+               </a>'
+               . $editDetailButton . '
+               <a href="' . route('ticket.booking.delete', $this->id) . '" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
+                   <i class="flaticon2-trash"></i>
+               </a>
+           </span>';
    }
+
    
 }

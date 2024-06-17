@@ -12,7 +12,7 @@ class HotelBooking extends MasterModel
    use HasFactory;
    use SoftDeletes;
 
-   protected $appends = ['actions'];
+   protected $appends = ['actions', 'frontend_actions'];
 
    public function setCheckInDateAttribute($value)
    {
@@ -170,6 +170,28 @@ class HotelBooking extends MasterModel
             <i class="flaticon2-trash"></i>
          </a>
       </span>';
+   }
+
+   public function getFrontendActionsAttribute()
+   {
+       $editDetailButton = '';
+       if ($this->hotel_status == 1) {
+           $editDetailButton = '
+               <a href="' . route('hotel.booking.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+                   <i class="flaticon2-pen"></i>
+               </a>';
+       }
+
+       return '
+           <span style="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
+               <a href="' . route('hotel.booking.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+                   <i class="flaticon-eye"></i>
+               </a>'
+               . $editDetailButton . '
+               <a href="' . route('hotel.booking.delete', $this->id) . '" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
+                   <i class="flaticon2-trash"></i>
+               </a>
+           </span>';
    }
    
 }

@@ -127,14 +127,16 @@
 
                         return (index + offset);
                     }
-                },  
+                },
                 {
                     field: "festival_id",
-                    title: "festival",
+                    title: "Festival",
                     template: function(t) {
-                        return ( typeof t?.festival?.name != 'undefined' && t?.festival?.name)? t?.festival?.name : 'N/A';
+                        let festivalName = (typeof t?.festival?.name != 'undefined' && t?.festival?.name) ? `<strong>${t.festival.name}</strong>` : 'N/A';
+                        let festivalYear = (typeof t?.festival?.year != 'undefined' && t?.festival?.year) ? ` (${t.festival.year})` : '';
+                        return festivalName + festivalYear;
                     }
-                },                
+                },
                 {
                     field: "name",
                     title: "Name",
@@ -159,7 +161,7 @@
                 },
                 {
                     field: "profile_status",
-                    title: "Ticket Status",
+                    title: "Profile Status",
                     template: function(t) {
                         var profile_status = {
                             1: {
