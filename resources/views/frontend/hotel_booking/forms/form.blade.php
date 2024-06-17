@@ -249,5 +249,5 @@
         getProfileMember();            
     });
 
-</script>
+    </script>
 @endpush

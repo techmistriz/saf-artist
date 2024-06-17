@@ -13,9 +13,7 @@
                             <h3 class="card-label">{{$moduleConfig['moduleTitle']}} 
                             <span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
                         </div>
-                        <!-- <div class="card-toolbar">
-                            <a href="{{ route($moduleConfig['routes']['createRoute']) }}" class="btn btn-light-primary font-weight-bold ml-2"> + Add</a>
-                        </div> -->
+                        
                     </div>
                     <div class="card-body">
                         
@@ -44,7 +42,19 @@
                                         <i class="flaticon-refresh text-danger"></i>
                                     </button>
                                 </div>
-
+                                <div class="col-md-4"></div>
+                                <div class="col-md-3">
+                                    <div class="form-group row validated">
+                                        <select id="profile_id" class="form-control selectpicker" onchange="filterUsers(this)">
+                                            <option>Select User Profile</option>
+                                            @if($userProfiles->count())
+                                                @foreach($userProfiles as $value)
+                                                    <option value="{{$value->id}}" {{ old('profile_id', request('profile_id') ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
+                                                @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <!--end: Search Form-->
@@ -64,11 +74,13 @@
 @endsection
 @push('scripts')
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-    jQuery(document).ready((function() {
+    jQuery(document).ready((function(){
 
-        var url             = '{!! route($moduleConfig['routes']['fetchDataRoute']) !!}';
+        var profile_id = {{ request('profile_id', 0)}};
+        var url = '{!! route($moduleConfig["routes"]["fetchDataRoute"]) !!}' + '?profile_id=' + profile_id;
+
         var columnsArray    =   [
                 
             {
@@ -79,16 +91,17 @@
                 type: 'number',
                 selector: false,
                 textAlign: 'center',
-            },            
+            },
             {
-                field: "source_id",
-                title: "Member",
-                template: function (t) {
-                    var memberName = (typeof t?.member?.name !== 'undefined' && t?.member?.name) ? t?.member?.name : 'N/A';
-                    var member_class = (t?.member?.poc_id === null) ? 'label-success' : 'label-primary';
+                field: "profile_id",
+                title: "Festival",
+                template: function(t) {
+                    var festival = typeof t?.user_profile?.festival?.name != 'undefined' && t?.user_profile?.festival?.name ? `<b>${t?.user_profile?.festival?.name}</b>` : 'N/A';
 
-                    return '<span class="label font-weight-bold label-lg ' + member_class + ' label-inline">' + memberName + '</span>';
-                },
+                    var year = typeof t?.user_profile?.project_year != 'undefined' && t?.user_profile?.project_year ? t?.user_profile?.project_year : 'N/A';
+                    
+                    return festival + ' (' + year + ')';
+                }
             },
             {
                 field: "accomodation",
@@ -150,5 +163,10 @@
 
     }));
 
-    </script>
+    function filterUsers(__this) {
+        var profile_id = __this.value;
+        window.location.href = "?profile_id=" + profile_id;
+    }
+
+</script>
 @endpush

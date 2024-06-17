@@ -132,7 +132,7 @@
 	            },
 	            {
 	                field: "profile_status",
-	                title: "Ticket Status",
+	                title: "Profile Status",
 	                template: function(t) {
 	                    var profile_status = {
 	                        1: {

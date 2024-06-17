@@ -92,7 +92,7 @@
 
                                     @if($curators->count())
                                         @foreach($curators as $value)
-                                            <option value="{{$value->id}}" {{ old('curator_id', $row->curator_id ?? '') == $value->name ? 'selected' : '' }}>{{$value->name}}</option>
+                                            <option value="{{$value->id}}" {{ old('curator_id', $row->curator_id ?? 0) == $value->id ? 'selected' : '' }}>{{$value->name}}</option>
                                         @endforeach
                                     @endif
                                     

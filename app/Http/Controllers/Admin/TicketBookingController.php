@@ -11,6 +11,7 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\Project;
 use App\Models\TravelPurpose;
+use App\Models\User;
 use App\Models\MetroCity;
 use Carbon\Carbon;
 use App\Http\Requests\TicketBookingRequest;
@@ -88,9 +89,13 @@ class TicketBookingController extends Controller
         
         $data               =   $request->all();
 
-        $db_data            =   $ticket->getList($data, ['userProfile.festival']);
+        $whereArr = [];
+        if ($request->profile_id) {
+            $whereArr = ['profile_id' => $request->profile_id];
+        }
+        $db_data            =   $ticket->getList($data, ['userProfile.festival'], $whereArr);
 
-        $count 				=  	$ticket->getListCount($data);
+        $count 				=  	$ticket->getListCount($data, [], $whereArr);
 
         $returnArray = array(
             'data' => $db_data,
@@ -200,7 +205,7 @@ class TicketBookingController extends Controller
     public function edit($id, TicketBooking $ticket){
 
         $row = TicketBooking::findOrFail($id);
-        $user               = \Auth::user();
+        $user       = User::where('status', 1)->where('id', $row->user_id)->first();
         $userIdArr = TicketBooking::where('status', 1)->whereNotIn('profile_id', [$row->profile_id])->get()->pluck('profile_id');
         $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
         
@@ -209,7 +214,7 @@ class TicketBookingController extends Controller
         $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
         $projects           = Project::where('status', 1)->get();
 
-       return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelPurposes' => $travelPurposes, 'projects' => $projects, 'userProfiles' => $userProfiles]);
+       return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with(['countries' => $countries, 'cities' => $cities, 'travelPurposes' => $travelPurposes, 'projects' => $projects, 'userProfiles' => $userProfiles, 'user' => $user]);
     }
 
     /**
@@ -243,9 +248,14 @@ class TicketBookingController extends Controller
             $adhaarcard_driving         = $request->file('adhaarcard_driving');
             $fileName      = FileUploadHelper::UploadFile(self::$moduleConfig['adhaarcardDrivingUploadFolder'], $adhaarcard_driving);
             $ticket->adhaarcard_driving  = $fileName;
-        }        
-
-        $ticket->user_id                      = Auth::user()->id;
+        }
+        
+        if ($request->user_id) {
+            $ticket->user_id  = $request->user_id;
+        }else{
+            $ticket->user_id     = \Auth::user()->id;            
+        }
+        
         $ticket->profile_id                   = $request->profile_id;
         $ticket->profile_member_ids           = $request->profile_member_ids;
         $ticket->travel_purpose_id            = $request->travel_purpose_id;

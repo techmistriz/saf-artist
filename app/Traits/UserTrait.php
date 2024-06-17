@@ -34,11 +34,11 @@ trait UserTrait
 
         $user_profile = new UserProfile();
 
-        $user_profile->profile_status                = $request->profile_status;
+        $user_profile->profile_status           = $request->profile_status;
         $user_profile->festival_id              = $request->festival_id;
         $user_profile->user_id                  = \Auth::user()->id; 
         $user_profile->category_id              = $request->category_id;
-        $user_profile->curator_id             = $request->curator_id;
+        $user_profile->curator_id               = $request->curator_id;
         $user_profile->artist_type_id           = $request->artist_type_id;
         $user_profile->project_id               = $request->project_id;
         $user_profile->project_year             = $request->project_year;
@@ -146,16 +146,18 @@ trait UserTrait
 
     public function __updateUserProfile(Request $request, $id) {
 
-        
-        // dd($request->profile_status);
-
         $user_profile = UserProfile::findOrFail($id);
 
-        $user_profile->profile_status           = $request->profile_status;
+        if ($request->user_id) {
+            $user_profile->user_id  = $request->user_id;
+        }else{
+            $user_profile->user_id     = \Auth::user()->id;            
+        }
+
+        // $user_profile->profile_status           = $request->profile_status;
         $user_profile->festival_id              = $request->festival_id;        
-        $user_profile->user_id                  = \Auth::user()->id;      
         $user_profile->category_id              = $request->category_id;
-        $user_profile->curator_id             = $request->curator_id;
+        $user_profile->curator_id               = $request->curator_id;
         $user_profile->artist_type_id           = $request->artist_type_id;
         $user_profile->project_id               = $request->project_id;
         $user_profile->project_year             = $request->project_year;
@@ -959,6 +961,7 @@ trait UserTrait
     public function __updateAccountDetails(Request $request, $id){        
 
         $userAccountDetail                          = UserAccountDetail::findOrFail($id);
+
         $userAccountDetail->user_id                 = \Auth::user()->id;
         $userAccountDetail->profile_id              = $request->profile_id;
         $userAccountDetail->name                    = $request->name;

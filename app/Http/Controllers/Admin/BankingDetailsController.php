@@ -88,8 +88,8 @@ class BankingDetailsController extends Controller
         $data               =   $request->all();
 
         $whereArr = [];
-        if ($request->user_id) {
-            $whereArr = ['user_id' => $request->user_id];
+        if ($request->profile_id) {
+            $whereArr = ['profile_id' => $request->profile_id];
         }
         $db_data            =   $ticket->getList($data,['profile', 'profile.festival'], $whereArr);
 
@@ -205,8 +205,8 @@ class BankingDetailsController extends Controller
         $row = UserAccountDetail::findOrFail($id);
         $userIdArr = UserAccountDetail::where('status', 1)->whereNotIn('profile_id', [$row->profile_id])->get()->pluck('profile_id');
         // dd($userIdArr);
-        $userEmail     = Auth::user()->email;
-        $userProfiles         = UserProfile::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();
+        $user       = User::where('status', 1)->where('id', $row->user_id)->first();
+        $userProfiles         = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
         $countries          = Country::where('status', 1)->get();
 
        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('countries', $countries) ->with('userProfiles', $userProfiles);
