@@ -13,8 +13,7 @@
 							<h3 class="card-label">List Of {{$moduleConfig['moduleTitle']}} 
 							<span class="d-block text-muted pt-2 font-size-sm">  </span></h3>
 						</div>
-						<div class="card-toolbar">
-                            <!--begin::Dropdown-->
+						<!-- <div class="card-toolbar">
                             <form action="{{ route('admin.user.export') }}" method="POST" style="display: flex;">
                                 @csrf()
                                 <div class="side-select" style="width: 250px">
@@ -37,7 +36,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-light-info font-weight-bold ml-2"> Export</button>
                             </form>
-                        </div>
+                        </div> -->
 					</div>
 					<div class="card-body">
 						

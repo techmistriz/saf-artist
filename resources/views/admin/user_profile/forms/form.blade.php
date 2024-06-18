@@ -488,7 +488,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="hide_field" style="{{ isset($row->userfrontendRole->name) && ($row->userfrontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                <div class="row">
 
                     <div class="col-12">
                         <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>

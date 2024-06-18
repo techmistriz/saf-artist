@@ -216,61 +216,48 @@
                             </div>
                         </div>
 
-                        <div class="row" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? '' :'display:none;'}}">
+                        <div class="row">
 
                             <div class="col-12">
                                 <h5 class="card-label">Please upload 3 high resolutions images of your practice (for use on social media and print collaterals)</h5><hr>
                             </div>
                             <div class="col-12">
                                 <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Image: </label>
-                                    <div class="col-lg-3 col-md-9 col-sm-12">
+                                    <div class="col-lg-4 col-md-9 col-sm-12">
                                         <div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
                                             @if(isset($row->practice_image_1) && !empty($row->practice_image_1))
                                                 <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_1)}})"></div>
                                             @else
                                                 <div class="image-input-wrapper"></div>
                                             @endif
+                                        </div>
+                                        <div>
+                                            <label class="col-form-label text-lg-left">{{$row->practice_credit_1 ?? 'N/A'}}</label>
                                         </div>                                      
                                     </div>
-                                    <div class="col-lg-3 col-md-9 col-sm-12">
+                                    <div class="col-lg-4 col-md-9 col-sm-12">
                                         <div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
                                             @if(isset($row->practice_image_2) && !empty($row->practice_image_2))
                                                 <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_2)}})"></div>
                                             @else
                                                 <div class="image-input-wrapper"></div>
                                             @endif
+                                        </div>
+                                        <div>
+                                            <label class="col-form-label text-lg-left">{{$row->practice_credit_2 ?? 'N/A'}}</label>
                                         </div>                                      
                                     </div>
-                                    <div class="col-lg-3 col-md-9 col-sm-12">
+                                    <div class="col-lg-4 col-md-9 col-sm-12">
                                         <div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
                                             @if(isset($row->practice_image_3) && !empty($row->practice_image_3))
                                                 <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->practice_image_3)}})"></div>
                                             @else
                                                 <div class="image-input-wrapper"></div>
                                             @endif
+                                        </div>
+                                        <div>
+                                            <label class="col-form-label text-lg-left">{{$row->practice_credit_3 ?? 'N/A'}}</label>
                                         </div>                                      
-                                    </div>
-                                </div>                              
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 1: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->practice_credit_1 ?? 'N/A'}}</label>                                     
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 2: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->practice_credit_2 ?? 'N/A'}}</label>                                     
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Practice Credit 3: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->practice_credit_3 ?? 'N/A'}}</label>                                     
                                     </div>
                                 </div>
 
@@ -282,69 +269,31 @@
 
                             <div class="col-12">
                                 <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Images: </label>
-                                    <div class="col-lg-3 col-md-9 col-sm-12">
+                                    <div class="col-lg-4 col-md-9 col-sm-12">
                                         <div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
                                             @if(isset($row->profile_image_1) && !empty($row->profile_image_1))
                                                 <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_1)}})"></div>
                                             @else
                                                 <div class="image-input-wrapper"></div>
                                             @endif
+                                        </div>
+                                        <div>
+                                            <label class="col-form-label text-lg-left">{{$row->profile_credit_1 ?? 'N/A'}}</label>
                                         </div>                                      
                                     </div>
-                                    <div class="col-lg-3 col-md-9 col-sm-12">
+                                    <div class="col-lg-4 col-md-9 col-sm-12">
                                         <div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank.png')}})">
                                             @if(isset($row->profile_image_2) && !empty($row->profile_image_2))
                                                 <div class="image-input-wrapper" style="background-image: url({{asset('uploads/users/'.$row->profile_image_2)}})"></div>
                                             @else
                                                 <div class="image-input-wrapper"></div>
                                             @endif
+                                        </div>
+                                        <div>
+                                            <label class="col-form-label text-lg-left">{{$row->profile_credit_2 ?? 'N/A'}}</label>
                                         </div>                                      
                                     </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Credit 1: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->profile_credit_1 ?? 'N/A'}}</label>                                      
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Credit 2: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->profile_credit_2 ?? 'N/A'}}</label>                                      
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Have you been associated with Serendipity Arts in the past ?: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->has_serendipity_arts ?? 'N/A'}}</label>                                      
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->other_link ?? 'N/A'}}</label>                                        
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated" style="display: {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? '' : 'none' }};">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{ implode(', ', $row->year) }}</label>                                      
-                                    </div>
-                                </div>
-
-                                <div class="form-group row validated">
-                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Status: </label>
-                                    <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                        <label class="col-form-label text-lg-left">{{ $row->status ? 'Active' : 'Inactive' }}</label>                                   
-                                    </div>
-                                </div>
+                                </div>                              
                             </div>
                         </div>
                     </div>                    
