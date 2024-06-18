@@ -129,6 +129,7 @@ class ProfileMemberController extends Controller
         $member->email           = $request->email;
         $member->contact         = $request->contact;
         $member->dob             = $request->dob;
+        $member->room_sharing    = $request->room_sharing;
         $member->stage_name      = $request->stage_name;
         $member->artist_bio      = $request->artist_bio;
         $member->instagram_url   = $request->instagram_url;

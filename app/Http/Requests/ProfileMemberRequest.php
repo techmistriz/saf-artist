@@ -30,6 +30,7 @@ class ProfileMemberRequest extends FormRequest
             'name'             => 'required',
             'contact'          => 'required',
             'dob'              => 'required',
+            'room_sharing'              => 'required',
         ];
     }
 

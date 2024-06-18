@@ -66,8 +66,23 @@
                                 @enderror
                             </div>
                         </div>
-                    </div>                    
-
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Room Sharing</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control selectpicker" name="room_sharing" tabindex="null">
+                                    <option value="">Select Room Sharing</option>
+                                    <option value="1" {{ old('room_sharing') == '1' || (isset($row->room_sharing) && $row->room_sharing == '1') ? 'selected' : '' }}>Single Occupancy</option>
+                                    <option value="2" {{ old('room_sharing') == '2' || (isset($row->room_sharing) && $row->room_sharing == '2') ? 'selected' : '' }}>Double Occupancy</option>
+                                    <option value="3" {{ old('room_sharing') == '3' || (isset($row->room_sharing) && $row->room_sharing == '3') ? 'selected' : '' }}>Triple Occupancy</option>
+                                </select>
+                                @error('room_sharing')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
 
