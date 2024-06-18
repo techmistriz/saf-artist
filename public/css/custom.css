@@ -4595,53 +4595,7 @@ font-weight: 500;
   display: none;
 }
 
-/* Mobile Styles */
-@media (max-width: 768px) {
-.navbar-menu {
-  display: none;
-}
-.navbar-toggler {
-  display: block;
-  height:30px;
-}
-.navbar-toggler-icon {
-  width: 25px;
-  height: 30px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: block;
-  justify-content: center;
-  align-items: center;
-  outline: none;
-}
-.navbar-toggler-icon span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background-color: #181c32;
-  margin-bottom: 5px;
-}
 
-.navbar-toggler-icon.on span.first{
-  transform: rotate(45deg);
-  margin-top: 5px;
-}
-
-.navbar-toggler-icon.on span.second{
-  transform: rotate(130deg);
-  margin-top: -5px;
-}
-
-.navbar-toggler-icon.on span.third{
-  display: none;
-}
-
-.main-navbar{
-  justify-content:space-between;
-}
-}
 
 /* Mobile Menu Styles */
 .navbar-mobile-menu {
@@ -4664,4 +4618,105 @@ font-size:16px;
 
 .navbar-toggler-icon.on{
 
+}
+
+
+
+.navbar-header{
+  border-radius: .42rem;
+  background: white;
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+
+.navbar-header .row{
+  align-items: center;
+}
+
+.navbar-header .head-logo{
+  width: 75%;
+}
+
+.navbar-header .navbar-menu{
+  display: flex;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  justify-content: right;
+  width: 100%;
+}
+
+.navbar-header .navbar-menu li {
+  margin: 0px 15px;
+}
+
+
+@media (max-width:767px){
+  .navbar-header .head-logo{
+    width: 55%;
+  }
+
+  .navbar-header .navbar-menu{
+    padding: 20px 0px;
+  }
+
+  .navbar-header .navbar-menu li{
+    margin: 0px 0px;
+    color: #181c32;
+    text-decoration: none;
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+
+  .navbar-header .navbar-menu{
+    display: none;
+  }
+
+  .navbar-header .navbar-menu.active{
+    display: block;
+  }
+
+  .navbar-header .navbar-toggler{
+    position: absolute;
+    right: 2%;
+    top: -40px;
+  }
+
+  .navbar-toggler {
+    display: block;
+    height:30px;
+  }
+  .navbar-toggler-icon {
+    width: 25px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+  }
+  .navbar-toggler-icon span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #181c32;
+    margin-bottom: 5px;
+  }
+  
+  .navbar-toggler-icon.on span.first{
+    transform: rotate(45deg);
+    margin-top: 5px;
+  }
+  
+  .navbar-toggler-icon.on span.second{
+    transform: rotate(130deg);
+    margin-top: -6px;
+  }
+  
+  .navbar-toggler-icon.on span.third{
+    display: none;
+  }
 }
