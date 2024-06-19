@@ -31,6 +31,7 @@ Route::get('/test-mail', function() {
         $user = \App\Models\User::first();           
         $email = 'developer@techmistriz.com';
         \Mail::to($email)->send(new \App\Mail\RegisterMailable($user));
+        //dd($_ENV);
 
     } catch (Exception $e) {
         dd($e);
