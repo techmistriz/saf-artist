@@ -355,7 +355,7 @@
                                                 <label class="checkbox theme-text-color">
                                                     <input type="checkbox" name="terms" value="1" required="" />
                                                     <span></span>
-                                                    I accept <a target="_blank" href="{{ url('term-conditions') }}" class="tc-btn">Terms and Conditions.</a>
+                                                    I accept <a target="_blank" href="{{ url('term') }}" class="tc-btn">Terms and Conditions.</a>
                                                 </label>
                                             </div>
 

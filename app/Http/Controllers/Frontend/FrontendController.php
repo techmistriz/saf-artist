@@ -129,4 +129,9 @@ class FrontendController extends Controller
     	\Flash::success('Your account details updated successfully.');
         return \Redirect::route('edit.account.details');
     }
+
+    public function terms()
+    {
+        return view('includes.common.terms_conditions');
+    }
 }

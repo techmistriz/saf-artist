@@ -71,7 +71,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::post('user/register', [App\Http\Controllers\HomeController::class, 'register'])->name('user.register');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('/term-conditions', '\App\Http\Controllers\HomeController@terms')->name('term.conditions');
+Route::get('/term', '\App\Http\Controllers\HomeController@terms')->name('term');
 
 Route::group(['middleware' => ['verified']], function () {
 	
@@ -184,4 +184,6 @@ Route::get('/user/account-details/show/{id}', [App\Http\Controllers\Frontend\Use
 Route::get('/user/account-details/edit/{id}', [App\Http\Controllers\Frontend\UserAccountDetailsController::class, 'edit'])->name('user.account.details.edit');
 Route::put('/user/account-details-update/{id}', [App\Http\Controllers\Frontend\UserAccountDetailsController::class, 'update'])->name('user.account.details.update');
 // end User Account Details route
+
+Route::get('/term-conditions', [App\Http\Controllers\Frontend\FrontendController::class, 'terms'])->name('term.conditions');
 
