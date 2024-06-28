@@ -108,7 +108,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="check_out_date" id="check_out_date" value="{{ old('check_out_date', $row->check_out_date ?? '') }}" class="form-control  kt_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
+                                    <input type="text" name="check_out_date" id="check_out_date" value="{{ old('check_out_date', $row->check_out_date ?? '') }}" class="form-control check_out_date_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
 
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -134,7 +134,7 @@
                         </div>
                     
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Remarks</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Additional Requirements</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <textarea class="form-control  no-summernote-editor" name="artist_remarks" id="artist_remarks" placeholder="Enter Remarks">{{ old('artist_remarks', $row->artist_remarks ?? '') }}</textarea>
                                 @error('artist_remarks')
@@ -273,5 +273,48 @@
         getProfileMember();            
     });
 
+    </script>
+    <script type="text/javascript">
+        // Class definition
+
+        var KTBootstrapDatepicker = function () {
+
+            var arrows;
+            if (KTUtil.isRTL()) {
+                arrows = {
+                    leftArrow: '<i class="la la-angle-right"></i>',
+                    rightArrow: '<i class="la la-angle-left"></i>'
+                }
+            } else {
+                arrows = {
+                    leftArrow: '<i class="la la-angle-left"></i>',
+                    rightArrow: '<i class="la la-angle-right"></i>'
+                }
+            }
+
+            // Private functions
+            var demos = function () {
+                // minimum setup
+                $('.check_out_date_datepicker').datepicker({
+                    rtl: KTUtil.isRTL(),
+                    todayHighlight: true,
+                    orientation: "bottom left",
+                    templates: arrows,
+                    autoClose: true,
+                    format: 'dd-mm-yyyy',
+                });
+            }
+
+            return {
+                // public functions
+                init: function() {
+                    demos();
+                }
+            };
+        }();
+
+        jQuery(document).ready(function() {
+            KTBootstrapDatepicker.init();
+        });
     </script>
 @endpush

@@ -670,18 +670,6 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work <i>(If any)</i> </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="other_link" value="{{ old('other_link') ? old('other_link') :( isset($row->other_link) ? $row->other_link : '') }}" class="form-control form-control-lg form-control-solid"  placeholder="Enter Link with videos of your work"/>
-                                @error('other_link')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="col-12 has-year" style="display: {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? '' : 'none' }};">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
@@ -704,6 +692,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work <i>(If any)</i> </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="other_link" value="{{ old('other_link') ? old('other_link') :( isset($row->other_link) ? $row->other_link : '') }}" class="form-control form-control-lg form-control-solid"  placeholder="Enter Link with videos of your work"/>
+                                @error('other_link')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
 
                 <div class="row">
@@ -718,7 +718,7 @@
                                     <label class="checkbox">
                                         <input type="checkbox" name="terms" value="1" required="" />
                                         <span></span>
-                                        {{ env('FORM_CONSENT', 'I Accept Terms & Conditions') }}
+                                        <a href="{{route('term.conditions')}}" target="_blank" >{{ env('FORM_CONSENT', 'I Accept Terms & Conditions') }}</a>
                                     </label>
                                 </div>
 
@@ -755,7 +755,7 @@
         <div class="modal-content">
             <div class="modal-header text-center flex-column">
                 <h3 class="modal-title w-100">Please confirm your submission.</h3>
-                <p>If you freeze your profile then you are not edit profile.</p>                
+                <p>If you freeze your profile, you will not be able to edit it.</p>                
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

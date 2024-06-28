@@ -98,7 +98,7 @@ class HomeController extends Controller
      */
     public function terms()
     {
-        
+        return view('includes.common.terms_conditions');
     }
 
 

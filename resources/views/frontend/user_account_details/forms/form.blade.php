@@ -119,7 +119,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">account number</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Account Number</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="account_number" oninput="this.value=this.value.replace(/[^0-9]/, '')" minlength="10" maxlength="20" value="{{ old('account_number') ? old('account_number') :( isset($row->account_number) ? $row->account_number : '') }}" class="form-control form-control-lg form-control-solid @error('account_number') is-invalid @enderror " placeholder="Enter account number"/>
                                 @error('account_number')
@@ -132,7 +132,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Re-enter account number</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Re-enter Account Number</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="confirm_account_number" oninput="this.value=this.value.replace(/[^0-9]/, '')" minlength="10" maxlength="20" value="{{ old('confirm_account_number') ? old('confirm_account_number') :( isset($row->confirm_account_number) ? $row->confirm_account_number : '') }}" class="form-control form-control-lg form-control-solid @error('confirm_account_number') is-invalid @enderror " placeholder="Enter confirm account number"/>
                                 @error('confirm_account_number')
@@ -158,7 +158,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">bank name</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Bank Name</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="bank_name" value="{{ old('bank_name') ? old('bank_name') :( isset($row->bank_name) ? $row->bank_name : '') }}" class="form-control form-control-lg form-control-solid @error('bank_name') is-invalid @enderror " placeholder="Enter bank name"/>
                                 @error('bank_name')
@@ -171,7 +171,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">branch address</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Branch Address</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="branch_address" value="{{ old('branch_address') ? old('branch_address') :( isset($row->branch_address) ? $row->branch_address : '') }}" class="form-control form-control-lg form-control-solid @error('branch_address') is-invalid @enderror " placeholder="Enter branch address"/>
                                 @error('branch_address')
@@ -220,7 +220,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">PAN Card Number</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">PAN Card</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="pancard_number" value="{{ old('pancard_number') ? old('pancard_number') :( isset($row->pancard_number) ? $row->pancard_number : '') }}" class="form-control form-control-lg form-control-solid @error('pancard_number') is-invalid @enderror " placeholder="Enter pancard number"/>
                                 @error('pancard_number')
@@ -232,7 +232,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Is your pancard linked with adhar?</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Is your pancard linked with adhaar ?</label>
                             <div class="col-form-label col-lg-9 col-md-9 col-sm-12">
                                 <div class="checkbox-inline">
                                     <label class="checkbox">
