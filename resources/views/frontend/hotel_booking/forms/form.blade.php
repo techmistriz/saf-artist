@@ -184,6 +184,19 @@
 @push('scripts')
    <script type="text/javascript">
 
+    var arrows;
+    if (KTUtil.isRTL()) {
+        arrows = {
+            leftArrow: '<i class="la la-angle-right"></i>',
+            rightArrow: '<i class="la la-angle-left"></i>'
+        }
+    } else {
+        arrows = {
+            leftArrow: '<i class="la la-angle-left"></i>',
+            rightArrow: '<i class="la la-angle-right"></i>'
+        }
+    }
+
     $('#saveFreeze').click(function() {
         $('#freeze').val(2)
     })
@@ -270,51 +283,27 @@
     }
 
     $(document).ready(function(){
-        getProfileMember();            
+        getProfileMember();        
+
+        $("#check_in_date").change(function(){
+
+            var check_in_date = $(this).val();
+            // var date = new Date();
+            // date.setDate(date.getDate()+100);
+
+            $('.check_out_date_datepicker').datepicker({
+                rtl: KTUtil.isRTL(),
+                // todayHighlight: true,
+                orientation: "bottom left",
+                templates: arrows,
+                autoClose: true,
+                format: 'dd-mm-yyyy',
+                startDate: check_in_date
+            });
+
+        });
+
     });
 
-    </script>
-    <script type="text/javascript">
-        // Class definition
-
-        var KTBootstrapDatepicker = function () {
-
-            var arrows;
-            if (KTUtil.isRTL()) {
-                arrows = {
-                    leftArrow: '<i class="la la-angle-right"></i>',
-                    rightArrow: '<i class="la la-angle-left"></i>'
-                }
-            } else {
-                arrows = {
-                    leftArrow: '<i class="la la-angle-left"></i>',
-                    rightArrow: '<i class="la la-angle-right"></i>'
-                }
-            }
-
-            // Private functions
-            var demos = function () {
-                // minimum setup
-                $('.check_out_date_datepicker').datepicker({
-                    rtl: KTUtil.isRTL(),
-                    todayHighlight: true,
-                    orientation: "bottom left",
-                    templates: arrows,
-                    autoClose: true,
-                    format: 'dd-mm-yyyy',
-                });
-            }
-
-            return {
-                // public functions
-                init: function() {
-                    demos();
-                }
-            };
-        }();
-
-        jQuery(document).ready(function() {
-            KTBootstrapDatepicker.init();
-        });
     </script>
 @endpush

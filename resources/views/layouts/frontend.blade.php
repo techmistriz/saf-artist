@@ -47,6 +47,8 @@
 	@stack('scripts')
 
 	<script type="text/javascript">
+
+		var KTAppSettings;
 		var KTSummernoteDemo = function () {
 			// Private functions
 			var demos = function () {
