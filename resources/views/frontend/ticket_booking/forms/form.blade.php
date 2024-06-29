@@ -69,21 +69,17 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Name </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-
-                                <select class="form-control selectpicker" name="project_ids[]" tabindex="null" multiple data-live-search="true">
+                                <select class="form-control select-project" name="project_ids[]" tabindex="null" multiple data-live-search="true">
                                     <option value="">Select Project</option>
                                     @if($projects->count())
                                         @foreach($projects as $value)
-
                                             <option {{ in_array($value->id, old('project_ids', $row->project_ids ?? [])) ? 'selected' :'' }} value="{{$value->id}}">{{$value->name}} </option>
-
                                         @endforeach
                                     @endif
                                 </select>
                                 @error('project_ids')
                                     <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                
+                                @enderror                                
                             </div>
                         </div>
                     </div>
@@ -93,7 +89,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Title </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control selectpicker" name="salutation" tabindex="null">
-                                    <option value="">Select</option>
+                                    <option value="">Select Title</option>
                                     <option value="Mr" {{ old('salutation') == 'Mr' || (isset($row->salutation) && $row->salutation == 'Mr') ? 'selected' : '' }}>Mr</option>
                                     <option value="Mrs" {{ old('salutation') == 'Mrs' || (isset($row->salutation) && $row->salutation == 'Mrs') ? 'selected' : ''  }}>Mrs</option>
                                     <option value="Miss" {{ old('salutation') == 'Miss' || (isset($row->salutation) && $row->salutation == 'Miss') ? 'selected' : ''  }}>Miss</option>
@@ -253,7 +249,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Do you have work visa for India</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="work_visa" tabindex="null" onchange="visaField()">
-                                    <option value="">Select</option>
+                                    <option value="">Select work visa for India</option>
                                     <option value="Yes" {{ old('work_visa') == 'Yes' || (isset($row->work_visa) && $row->work_visa == 'Yes') ? 'selected' : '' }}>Yes</option>
                                     <option value="No" {{ old('work_visa') == 'No' || (isset($row->work_visa) && $row->work_visa == 'No') ? 'selected' : ''  }}>No</option>
                                 </select>
@@ -283,7 +279,6 @@
                                         <input type="file" name="upload_visa" accept=".png, .jpg, .jpeg"/>
                                         <input type="hidden" name="upload_visa_remove"/>
                                     </label>
-
                                     @if(isset($row->upload_visa) && !empty($row->upload_visa))
                                         <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove">
                                             <i class="ki ki-bold-close icon-xs text-muted"></i>
@@ -294,11 +289,9 @@
                                         </span>
                                     @endif
                                 </div>
-
                                 @error('upload_visa')
                                     <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
+                                @enderror                            
                             </div>
                         </div>
                     </div>
@@ -342,11 +335,9 @@
                                         </span>
                                     @endif
                                 </div>
-
                                 @error('adhaarcard_driving')
                                     <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
+                                @enderror                            
                             </div>
                         </div>
                     </div>
@@ -355,17 +346,14 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward Date </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-
                                 <div class="input-group date">
                                     <input type="text" name="onward_date" id="onward_date" value="{{ old('onward_date', $row->onward_date ?? '') }}" class="form-control kt_datepicker" placeholder="Enter Onward Date" />
-
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-calendar-check-o"></i>
                                         </span>
                                     </div>
                                 </div>
-
                                 @error('onward_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -373,34 +361,11 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward (Mention City) </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="onward_city_id" id="onward_city_id" class="form-control form-control-lg form-control-custom selectpicker @error('onward_city_id') is-invalid @enderror" data-live-search="true" onchange="checkOtherCity(this, 'onward-city-other')">
-                                    <option value="">Select</option>
-
-                                    @if($cities->count())
-                                        @foreach($cities as $city)
-                                            <option value="{{$city->id}}" {{ old('onward_city_id', $row->onward_city_id ?? '') == $city->id ? 'selected' : '' }}>{{$city->city_name}}</option>
-                                        @endforeach
-                                    @endif
-
-                                </select>
-                                @error('onward_city_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div> -->
-
                     <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward (Mention City)</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-
                                 <input type="text" name="onward_city" value="{{ old('onward_city', $row->onward_city ?? '') }}" class="form-control" placeholder="Enter Onward (Mention City)" />
-
                                 @error('onward_city')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -412,44 +377,20 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return Date </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-
                                 <div class="input-group date">
                                     <input type="text" name="return_date" id="return_date" value="{{ old('return_date', $row->return_date ?? '') }}" class="form-control kt_datepicker" placeholder="Enter Return Date" />
-
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-calendar-check-o"></i>
                                         </span>
                                     </div>
                                 </div>
-
                                 @error('return_date')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                     </div>
-
-                    <!-- <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return City </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="return_city_id" id="return_city_id" class="form-control form-control-lg form-control-custom selectpicker @error('return_city_id') is-invalid @enderror" data-live-search="true" onchange="checkOtherCity(this, 'return-city-other')">
-                                    <option value="">Select</option>
-
-                                    @if($cities->count())
-                                        @foreach($cities as $city)
-                                            <option value="{{$city->id}}" {{ old('return_city_id', $row->return_city_id ?? '') == $city->id ? 'selected' : '' }}>{{$city->city_name}}</option>
-                                        @endforeach
-                                    @endif
-
-                                </select>
-                                @error('return_city_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div> -->
 
                     <div class="col-12">
                         <div class="form-group row validated">
@@ -515,6 +456,13 @@
 
 @push('scripts')
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.select-project').select2({
+                placeholder: 'Select Project',
+                allowClear: true
+            });
+        });
 
         $('#saveFreeze').click(function() {
             $('#freeze').val(2)

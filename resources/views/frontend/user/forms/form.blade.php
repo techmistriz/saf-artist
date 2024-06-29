@@ -657,7 +657,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Have you been associated with Serendipity Arts in the past ? </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="has_serendipity_arts" tabindex="null" onchange="serendipityArtsChangePress(this)">
-                                    <option value="">Select</option>
+                                    <option value="">Select associated with Serendipity Arts</option>
                                     <option value="Yes" {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? 'selected' : '' }}>Yes</option>
                                     <option value="No" {{ old('has_serendipity_arts') == 'No' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'No') ? 'selected' : ''  }}>No</option>
                                 </select>
@@ -772,6 +772,7 @@
     $('#saveFreeze').click(function() {
         $('#freeze').val(2)
     })
+
     function serendipityArtsChangePress(_this){
 
         if($(_this).val() == 'Yes'){
@@ -780,6 +781,8 @@
 
             $(".has-year").hide();
         }
+
+        $(".filter-option-inner-inner").html("Select Year");
     }
 
     function samAsPermanentFun(_this){

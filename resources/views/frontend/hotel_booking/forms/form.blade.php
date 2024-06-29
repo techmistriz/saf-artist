@@ -70,7 +70,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Accomodation Required</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control selectpicker" name="accomodation" tabindex="null" onchange="hideField()">
-                                    <option value="">Select</option>
+                                    <option value="">Select Accomodation Required</option>
                                     <option value="Yes" {{ old('accomodation') == 'Yes' || (isset($row->accomodation) && $row->accomodation == 'Yes') ? 'selected' : '' }}>Yes</option>
                                     <option value="No" {{ old('accomodation') == 'No' || (isset($row->accomodation) && $row->accomodation == 'No') ? 'selected' : '' }}>No</option>
                                 </select>
@@ -89,7 +89,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="check_in_date" id="check_in_date" value="{{ old('check_in_date', $row->check_in_date ?? '') }}" class="form-control  kt_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
+                                    <input type="text" name="check_in_date" id="check_in_date" value="{{ old('check_in_date', $row->check_in_date ?? '') }}" class="form-control  kt_datepicker" placeholder="Enter Check In Date" readonly onchange="roomNightCalc()" />
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-calendar-check-o"></i>
@@ -108,7 +108,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="check_out_date" id="check_out_date" value="{{ old('check_out_date', $row->check_out_date ?? '') }}" class="form-control check_out_date_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
+                                    <input type="text" name="check_out_date" id="check_out_date" value="{{ old('check_out_date', $row->check_out_date ?? '') }}" class="form-control check_out_date_datepicker" placeholder="Enter Check Out Date" readonly onchange="roomNightCalc()" />
 
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -126,7 +126,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Total Room Nights</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="total_room_nights" id="total_room_nights" value="{{ old('total_room_nights', $row->total_room_nights ?? '') }}" class="form-control " placeholder="Enter Details" readonly="" />
+                                <input type="text" name="total_room_nights" id="total_room_nights" value="{{ old('total_room_nights', $row->total_room_nights ?? '') }}" class="form-control " placeholder="Enter Total Room Nights" readonly="" />
                                 @error('total_room_nights')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -136,7 +136,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Additional Requirements</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <textarea class="form-control  no-summernote-editor" name="artist_remarks" id="artist_remarks" placeholder="Enter Remarks">{{ old('artist_remarks', $row->artist_remarks ?? '') }}</textarea>
+                                <textarea class="form-control  no-summernote-editor" name="artist_remarks" id="artist_remarks" placeholder="Enter Additional Requirements">{{ old('artist_remarks', $row->artist_remarks ?? '') }}</textarea>
                                 @error('artist_remarks')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
