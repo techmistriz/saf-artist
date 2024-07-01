@@ -57,7 +57,7 @@
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check In Date: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->check_in_date}}</label>
+		                            	<label class="col-form-label text-lg-left">{{ \Carbon\Carbon::parse($row->check_in_date)->format('d-M-Y') }}</label>
 		                                
 		                            </div>
 		                        </div>
@@ -65,7 +65,7 @@
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check Out Date: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->check_out_date}}</label>
+		                            	<label class="col-form-label text-lg-left">{{ \Carbon\Carbon::parse($row->check_out_date)->format('d-M-Y') }}</label>
 		                                
 		                            </div>
 		                        </div>

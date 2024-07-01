@@ -378,7 +378,7 @@
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return Date </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <div class="input-group date">
-                                    <input type="text" name="return_date" id="return_date" value="{{ old('return_date', $row->return_date ?? '') }}" class="form-control kt_datepicker" placeholder="Enter Return Date" />
+                                    <input type="text" name="return_date" id="return_date" value="{{ old('return_date', $row->return_date ?? '') }}" class="form-control return_date_datepicker" placeholder="Enter Return Date" readonly/>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-calendar-check-o"></i>
@@ -444,7 +444,7 @@
         <div class="modal-content">
             <div class="modal-header text-center flex-column">
                 <h3 class="modal-title w-100">Please confirm your submission.</h3>
-                <p>If you freeze your ticket then you are not edit ticket.</p>                
+                <p>Do you really want to submit this for review? In review you can not change or update the information.</p>                
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -704,5 +704,36 @@
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
+
+        var arrows;
+        if (KTUtil.isRTL()) {
+            arrows = {
+                leftArrow: '<i class="la la-angle-right"></i>',
+                rightArrow: '<i class="la la-angle-left"></i>'
+            }
+        } else {
+            arrows = {
+                leftArrow: '<i class="la la-angle-left"></i>',
+                rightArrow: '<i class="la la-angle-right"></i>'
+            }
+        }
+        
+        $(document).ready(function() {
+            var initDatePicker = function() {
+                var onward_date = $("#onward_date").val();
+                $('.return_date_datepicker').datepicker('destroy').datepicker({
+                    rtl: KTUtil.isRTL(),
+                    orientation: "bottom left",
+                    templates: arrows,
+                    autoClose: true,
+                    format: 'dd-mm-yyyy',
+                    startDate: onward_date
+                });
+            };
+            $("#onward_date").change(initDatePicker);
+            if ($("#onward_date").val()) {
+                initDatePicker();
+            }
+        });
     </script>
 @endpush

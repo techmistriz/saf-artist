@@ -347,7 +347,7 @@
                                     <label class="checkbox">
                                         <input type="checkbox" name="terms" value="1" required="" />
                                         <span></span>
-                                        {{ env('FORM_CONSENT', 'I Accept Terms & Conditions') }}
+                                        <a href="{{route('term.conditions')}}" target="_blank" >{{ env('FORM_CONSENT', 'I Accept Terms & Conditions') }}</a>
                                     </label>
                                 </div>
 
@@ -383,7 +383,7 @@
         <div class="modal-content">
             <div class="modal-header text-center flex-column">
                 <h3 class="modal-title w-100">Please confirm your submission.</h3>
-                <p>If you freeze your banking details then you are not edit banking details.</p>                
+                <p>Do you really want to submit this for review? In review you can not change or update the information.</p>                
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

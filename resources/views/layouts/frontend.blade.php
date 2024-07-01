@@ -29,7 +29,10 @@
 		<div id="app">
 
 	        <main class="">
-        		@include('frontend/includes/header')
+	        	@if(request()->segment(1) == '')
+	        	@else
+        			@include('frontend/includes/header')
+    			@endif
 	            @yield('content')
 	        </main>
 

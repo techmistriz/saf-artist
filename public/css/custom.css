@@ -105,7 +105,7 @@ main{
 }
 
 .disabled{
-    background-color: gray !important;
+    background-color: #b5b5c3 !important;
     color: white !important;
     cursor: not-allowed !important;
 }
@@ -4725,4 +4725,10 @@ font-size:16px;
   .navbar-toggler-icon.on span.third{
     display: none;
   }
+}
+
+
+.datepicker table tr td span:hover{
+  background: #981e3d!important;
+    color: #fff!important;
 }

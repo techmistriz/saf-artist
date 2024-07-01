@@ -24,7 +24,7 @@ class HotelBooking extends MasterModel
    public function getCheckInDateAttribute($value)
    {
       if (!empty($value)) {
-         return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
       }
    }
    
@@ -38,7 +38,7 @@ class HotelBooking extends MasterModel
    public function getCheckOutDateAttribute($value)
    {
       if (!empty($value)) {
-         return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
       }
    }
 

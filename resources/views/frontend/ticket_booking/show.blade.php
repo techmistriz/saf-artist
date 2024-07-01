@@ -93,7 +93,7 @@
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward Date</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->onward_date}}</label>		                                
+		                            	<label class="col-form-label text-lg-left">{{ \Carbon\Carbon::parse($row->onward_date)->format('d-M-Y') }}</label>		                                
 		                            </div>
 		                        </div>
 
@@ -107,7 +107,7 @@
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return Date</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->return_date}}</label>		                                
+		                            	<label class="col-form-label text-lg-left">{{ \Carbon\Carbon::parse($row->return_date)->format('d-M-Y') }}</label>		                                
 		                            </div>
 		                        </div>
 

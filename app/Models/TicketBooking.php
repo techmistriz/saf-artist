@@ -44,7 +44,7 @@ class TicketBooking extends MasterModel
    public function getReturnDateAttribute($value)
    {
       if($value){
-         return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
       }
    }
 
@@ -56,7 +56,7 @@ class TicketBooking extends MasterModel
    public function getOnwardDateAttribute($value)
    {
       if($value){
-         return Carbon::createFromFormat('Y-m-d', $value)->format('d-M-Y');
+         return Carbon::createFromFormat('Y-m-d', $value)->format('d-m-Y');
       }
    }
 

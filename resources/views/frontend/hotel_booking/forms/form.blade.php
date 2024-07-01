@@ -171,7 +171,7 @@
         <div class="modal-content">
             <div class="modal-header text-center flex-column">
                 <h3 class="modal-title w-100">Please confirm your submission.</h3>
-                <p>If you freeze your hotel then you are not edit hotel.</p>                
+                <p>Do you really want to submit this for review? In review you can not change or update the information.</p>                
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -283,25 +283,23 @@
     }
 
     $(document).ready(function(){
-        getProfileMember();        
+        getProfileMember();
 
-        $("#check_in_date").change(function(){
-
-            var check_in_date = $(this).val();
-            // var date = new Date();
-            // date.setDate(date.getDate()+100);
-
-            $('.check_out_date_datepicker').datepicker({
+        var initDatePicker = function() {
+            var check_in_date = $("#check_in_date").val();
+            $('.check_out_date_datepicker').datepicker('destroy').datepicker({
                 rtl: KTUtil.isRTL(),
-                // todayHighlight: true,
                 orientation: "bottom left",
                 templates: arrows,
                 autoClose: true,
                 format: 'dd-mm-yyyy',
                 startDate: check_in_date
             });
-
-        });
+        };
+        $("#check_in_date").change(initDatePicker);
+        if ($("#check_in_date").val()) {
+            initDatePicker();
+        }
 
     });
 
