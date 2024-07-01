@@ -104,6 +104,12 @@ main{
 
 }
 
+.disabled{
+    background-color: gray !important;
+    color: white !important;
+    cursor: not-allowed !important;
+}
+
 
 
 .main-header{

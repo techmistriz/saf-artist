@@ -52,23 +52,6 @@
     .input-group-text .la{
         color: #F7EAD3;
     }
-/* 
-    .radio>span {
-        background-color: transparent;
-        border: 1px solid #F7EAD3;
-        border-radius: 0px;
-    }
-
-    .radio>input:checked~span{
-        background-color: #F7EAD3;
-        border-radius: 0px;
-    }
-
-    .radio>input:checked~span:after {
-        background-color: #981e3d;
-        border-color: #981e3d;
-        display:none;
-    } */
 
     .radio>span{
         border-radius:0.42rem!important;
@@ -132,26 +115,68 @@
     border-right: 0;
     border-left: 0;
     text-transform:uppercase;
+    }
+
+    .mrslect:focus{
+        border-top: 0;
+        border-right: 0;
+        border-left: 0;
+        outline:none;
+    }
+
+    .cntform{
+        margin-bottom:50px;
+    }
+
+
+    .form-group label{
+        color:#f7ead3c9!important;
+        margin-bottom:10px;
+        padding:0px 10px;
+        text-transform:uppercase;
+    }
+
+    .modal-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        padding: 15px 20px;
+    }
+    .modal-header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+    .modal-header p {
+        margin: 5px 0;
+    }
+    .modal-content {
+        padding: 20px;
+    }
+    .modal-body {
+        max-height: 60vh;
+        overflow-y: auto;
+        padding: 15px;
+    }
+    .modal-footer {
+        padding: 15px;
+        border-top: 1px solid #dee2e6;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        font-size: 1.5rem;
+        color: #000;
+    }
+
+    @media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 700px;
+        margin: 1.75rem auto;
+    }
 }
 
-.mrslect:focus{
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
-    outline:none;
-}
-
-.cntform{
-    margin-bottom:50px;
-}
-
-
-.form-group label{
-    color:#f7ead3c9!important;
-    margin-bottom:10px;
-    padding:0px 10px;
-    text-transform:uppercase;
-}
 
 </style>
 
@@ -355,7 +380,7 @@
                                                 <label class="checkbox theme-text-color">
                                                     <input type="checkbox" name="terms" value="1" required="" />
                                                     <span></span>
-                                                    I accept <a target="_blank" href="{{ url('term') }}" class="tc-btn">Terms and Conditions.</a>
+                                                    I accept <a data-toggle="modal" data-target="#termCondition">Terms and Conditions.</a>
                                                 </label>
                                             </div>
 
@@ -382,8 +407,54 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <!-- Term Condition -->
+    <div class="modal fade" id="termCondition" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center flex-column col-md-12">
+                <h1>Terms and Conditions</h1>
+            </div>
+            <div class="modal-body col-md-12">
+                <p>Welcome to Serendipity Arts!</p>
+                <p>These terms and conditions outline the rules and regulations for the use of Serendipity Arts's Website, located at serendipityarts.com.</p>
+                <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use Serendipity Arts if you do not agree to take all of the terms and conditions stated on this page.</p>
+
+                <h2>Cookies</h2>
+                <p>We employ the use of cookies. By accessing Serendipity Arts, you agreed to use cookies in agreement with the Serendipity Arts's Privacy Policy.</p>
+
+                <h2>License</h2>
+                <p>Unless otherwise stated, Serendipity Arts and/or its licensors own the intellectual property rights for all material on Serendipity Arts. All intellectual property rights are reserved. You may access this from Serendipity Arts for your own personal use subjected to restrictions set in these terms and conditions.</p>
+
+                <h2>You must not:</h2>
+                <ul>
+                    <li>Republish material from Serendipity Arts</li>
+                    <li>Sell, rent or sub-license material from Serendipity Arts</li>
+                    <li>Reproduce, duplicate or copy material from Serendipity Arts</li>
+                    <li>Redistribute content from Serendipity Arts</li>
+                </ul>
+
+                <h2>Content Liability</h2>
+                <p>We shall not be hold responsible for any content that appears on your Website. You agree to protect and defend us against all claims that is rising on your Website.</p>
+
+                <h2>Your Privacy</h2>
+                <p>Please read Privacy Policy</p>
+
+                <h2>Reservation of Rights</h2>
+                <p>We reserve the right to request that you remove all links or any particular link to our Website. You approve to immediately remove all links to our Website upon request.</p>
+
+                <h2>Disclaimer</h2>
+                <p>To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website.</p>
+            </div>
+            <div class="modal-footer col-md-12">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 </section>
 
 @endsection

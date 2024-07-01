@@ -71,7 +71,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::post('user/register', [App\Http\Controllers\HomeController::class, 'register'])->name('user.register');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('/term', '\App\Http\Controllers\HomeController@terms')->name('term');
+// Route::get('/term', '\App\Http\Controllers\HomeController@terms')->name('term');
 
 Route::group(['middleware' => ['verified']], function () {
 	

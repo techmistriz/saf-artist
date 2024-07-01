@@ -29,6 +29,7 @@
 		<div id="app">
 
 	        <main class="">
+        		@include('frontend/includes/header')
 	            @yield('content')
 	        </main>
 
