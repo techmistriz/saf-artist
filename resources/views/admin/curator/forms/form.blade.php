@@ -26,6 +26,27 @@
                         </div>
 
                         <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-solid selectpicker" name="year" tabindex="null">
+                                    <option value="">Select Year</option>
+                                    @if( isset($years) && count($years))
+                                        @foreach($years as $year)
+
+                                           <option {{ old('year', $row->year ?? '') ? 'selected' : '' }} value="{{$year}}">{{$year}}</option>
+
+                                        @endforeach
+                                    @endif
+                                </select>
+
+                                @error('year')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+
+                        <div class="form-group row validated">
 
                         	<label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Status</label>
 							<div class="col-3">

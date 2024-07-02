@@ -74,7 +74,7 @@
             {
                 field: 'row',
                 title: '#',
-                sortable: 'asc',
+                // sortable: 'asc',
                 width: 30,
                 type: 'number',
                 selector: false,
@@ -83,6 +83,10 @@
             {
                 field: "name",
                 title: "name",
+            },                
+            {
+                field: "year",
+                title: "Year",
             },
             {
                 field: "status",

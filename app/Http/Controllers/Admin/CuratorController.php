@@ -104,7 +104,7 @@ class CuratorController extends Controller
      */
     public function create(Curator $curator){
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('years', $this->years);
     }
 
     /**
@@ -117,6 +117,7 @@ class CuratorController extends Controller
 
         $curator          = new Curator();
         $curator->name        = $request->name;
+        $curator->year        = $request->year;
         $curator->status      = $request->input('status', 0);
         $curator->save();
 
@@ -145,7 +146,7 @@ class CuratorController extends Controller
     public function edit($id, Curator $curator){
 
         $row = Curator::findOrFail($id);
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('years', $this->years);
     }
 
     /**
@@ -157,8 +158,9 @@ class CuratorController extends Controller
     public function update(CuratorRequest $request, $id){
 
         $curator                  = Curator::findOrFail($id);
-        $curator->name                = $request->name;
-        $curator->status              = $request->input('status', 0);
+        $curator->name            = $request->name;
+        $curator->year            = $request->year;
+        $curator->status          = $request->input('status', 0);
         $curator->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
