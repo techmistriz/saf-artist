@@ -119,7 +119,7 @@ class UserProfileController extends Controller
         $countries      = Country::where('status', 1)->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
         $categories     = Category::where('status', 1)->get();
-        $curators       = Curator::where('status', 1)->get();
+        $curators       = Curator::where('status', 1)->orderBy('name', 'asc')->get();
         $roles          = Role::where('status', 1)->where('type', 2)->get();
         // dd($roles);
         return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')

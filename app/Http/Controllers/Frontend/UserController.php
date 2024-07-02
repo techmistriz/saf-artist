@@ -104,7 +104,7 @@ class UserController extends Controller
         $countries      = Country::where('status', 1)->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
         $categories     = Category::where('status', 1)->get();
-        $curators       = Curator::where('status', 1)->get();
+        $curators       = Curator::where('status', 1)->orderBy('name', 'asc')->get();
         return view('frontend.user.create')
         ->with('row', null)
         ->with('years', $this->years)
@@ -156,7 +156,7 @@ class UserController extends Controller
         $countries      = Country::where('status', 1)->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
         $categories     = Category::where('status', 1)->get();
-        $curators       = Curator::where('status', 1)->get();
+        $curators       = Curator::where('status', 1)->orderBy('name', 'asc')->get();
         return view('frontend.user.edit')
         ->with('row', $row)
         ->with('years', $this->years)

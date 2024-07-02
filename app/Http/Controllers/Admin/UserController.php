@@ -140,7 +140,7 @@ class UserController extends Controller
         $addressProofs  = AddressProof::where('status', 1)->get();
         $countries      = Country::where('status', 1)->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
-        $curators       = Curator::where('status', 1)->get();
+        $curators       = Curator::where('status', 1)->orderBy('name', 'asc')->get();
         $projects       = Project::where('status', 1)->where('year', date('Y'))->get();
         $frontendRoles  = Role::where(['status' => 1, 'type' => 2])->get();
 
@@ -202,7 +202,7 @@ class UserController extends Controller
         $addressProofs  = AddressProof::where('status', 1)->get();
         $countries      = Country::where('status', 1)->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
-        $curators       = Curator::where('status', 1)->get();
+        $curators       = Curator::where('status', 1)->orderBy('name', 'asc')->get();
         $projects       = Project::where('status', 1)->where('year', date('Y'))->get();
         $frontendRoles  = Role::where(['status' => 1, 'type' => 2])->get();
 

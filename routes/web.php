@@ -71,12 +71,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::post('user/register', [App\Http\Controllers\HomeController::class, 'register'])->name('user.register');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-// Route::get('/term', '\App\Http\Controllers\HomeController@terms')->name('term');
 
 Route::group(['middleware' => ['verified']], function () {
-	
-	// start User route
-	// Route::get('/dashboard', [App\Http\Controllers\Frontend\UserController::class, 'index'])->name('dashboard');
 	Route::post('/fetch-user-data', [App\Http\Controllers\Frontend\UserController::class, 'fetchData'])->name('fetch.user.data');
 	Route::get('/user/create', [App\Http\Controllers\Frontend\UserController::class, 'create'])->name('user.create');
 	Route::post('/user/store', [App\Http\Controllers\Frontend\UserController::class, 'store'])->name('user.store');
