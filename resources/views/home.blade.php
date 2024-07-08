@@ -273,6 +273,9 @@
                                                 <div class="sendBtn" style="margin-top: -65px; margin-left: 290px; position: absolute; display:none;">
                                                     <input type="button" id="send-otp" class="btn btn-primary" value="Send OTP">
                                                 </div>
+                                                <div class="resendBtn" style="margin-top: -65px; margin-left: 280px; position: absolute; display:none;">
+                                                    <input type="button" id="resend-otp" class="btn btn-primary" value="Resend OTP">
+                                                </div>
                                                 <span class="otp-message-wrapper">
                                                     <input type="hidden" class="is-valid">
                                                     <span class="valid-feedback" role="alert" id="otp-message">
@@ -499,7 +502,7 @@
     });
 
     $(document).ready(function() {
-        $('#send-otp').click(function(e) {
+       $('#send-otp, #resend-otp').click(function(e) {
             e.preventDefault();
             var contact = $("#contact").val();
             var email = $("#email").val();
@@ -523,7 +526,13 @@
                     if (response.status) {
                         $('#otp').show().find('input').prop('required', true);
                         $('.sendBtn').hide();
-                        displayMessage('OTP has been sent successfully! Please check your email.', 'success');
+                        $('.resendBtn').hide();
+                        displayMessage('OTP has been sent successfully! Please check your WhatsApp and email for the OTP.', 'success');
+                        setTimeout(function() {
+                            $('.sendBtn').hide();
+                            $('#otp').hide().find('input').prop('required', false);
+                            $('.resendBtn').show();
+                        }, 60000);
                     } else {
                         displayMessage(response.message || 'Failed to send OTP. Please try again later.', 'danger');
                     }

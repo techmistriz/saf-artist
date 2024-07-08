@@ -21,6 +21,7 @@ use App\Models\Project;
 use App\Models\Festival;
 use App\Models\ShareRoom;
 use App\Models\Pincode;
+use App\Models\UserTemp;
 use Illuminate\Support\Facades\Session;
 
 class AjaxController extends Controller
@@ -222,7 +223,7 @@ class AjaxController extends Controller
         ]);
     }  
 
-    public function sendOtp(Request $request)
+    public function sendOtp234(Request $request)
     {
         $validation = \Validator::make($request->all(), [
             'email' => 'required|email',
@@ -257,6 +258,111 @@ class AjaxController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'An OTP has been shared on your email ID.',
+            'data' => new \stdClass()
+        ]);
+    }
+
+    public function sendOtp(Request $request)
+    {
+        $validation = \Validator::make($request->all(), [
+            'email'                 => 'required|email',
+            'contact'               => 'required',
+        ]);
+
+        $errors = $validation->errors();
+
+        if(count($errors) > 0){
+
+            return response()->json([
+                'status'    => false,
+                'message'   => $errors->first(),
+                'data'      => new \stdClass()
+            ]);
+        }
+
+        $user           = \App\Models\User::where('contact', $request->contact)->first();
+        //dd($user);
+        
+        if( !empty($user) ){
+
+            return response()->json([
+                'status'    => false,
+                'message'   => "A visitor profile already exists with the same phone number / Email Id Please use a different phone number and Email ID.",
+                'data'      => new \stdClass()
+            ]);
+        }
+
+        $userByEmail    = \App\Models\User::where('email', $request->email)->first();
+        
+        if( !empty($userByEmail) ){
+
+            return response()->json([
+                'status'    => false,
+                'message'   => "A visitor profile already exists with the same phone number / Email Id Please use a different phone number and Email ID.",
+                'data'      => new \stdClass()
+            ]);
+            
+        }
+
+        $otp        = \App\Helpers\Helper::generateOtp();
+        $contact = '+91' . $request->contact; 
+        // dd($contact);
+        $time       = time();
+
+        $userTemp = UserTemp::where('contact', $request->contact)->first();
+        
+        if($userTemp){
+
+            if( (time() - $userTemp->otp_time) < 60 ){
+
+                return response()->json([
+                    'status' => false,
+                    'message' => 'You can not request another OTP within 60 seconds.',
+                    'data' => new \stdClass()
+                ]);
+            }
+
+            // if($userTemp->counter >= 5 && (time() - $userTemp->otp_time) < 7200){
+
+            //     return response()->json([
+            //         'status' => false,
+            //         'message' => 'You can not request more than 5 OTP within 2 hours',
+            //         'data' => (time() - $userTemp->otp_time)
+            //     ]);
+            // }
+
+            $userTemp->counter  = $userTemp->counter + 1;
+            $userTemp->otp      = $otp;
+            $userTemp->otp_time = $time;
+
+        } else {
+
+            $userTemp           = new UserTemp();
+            $userTemp->counter  = 1;
+            $userTemp->contact  = $request->contact;
+            $userTemp->otp      = $otp;
+            $userTemp->otp_time = $time;
+        }
+
+        $userTemp->save();
+
+        $status = \App\Notifications\WhatsappNotification::sendRegistrationOTP($contact, $otp);
+        $user = $userTemp;
+        $user->name = $request->name ?? 'User';
+        \Mail::to($request->email)->send(new \App\Mail\RegisterOTPMailable($user));
+
+        if($status !== false){
+
+            return response()->json([
+                'status' => true,
+                'message' => 'An OTP has been shared on your email id and whatsapp number',
+                'data' => new \stdClass()
+            ]);
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'Something went wrong!',
             'data' => new \stdClass()
         ]);
     }
