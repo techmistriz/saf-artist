@@ -177,6 +177,25 @@
     }
 }
 
+#otpTimer{
+    color: #ffffff;
+    font-weight: normal;
+    display: block;
+    position: absolute;
+    right: 3%;
+    bottom: -3%;
+    font-size: 12px;
+}
+
+.validation-errors{
+    color: #ffffff;
+    font-weight: normal;
+    display: block;
+    position: absolute;
+    left: -10%;
+    bottom: -3%;
+    font-size: 12px;
+}
 
 </style>
 
@@ -282,7 +301,8 @@
                                                         <strong></strong>
                                                     </span>
                                                 </span>
-                                                <div class="validation-errors text-danger"></div>
+                                                <div id="otpTimer" style="display:none;"></div>
+                                                <div class="validation-errors"></div>
                                             </div>
 
                                         </div>
@@ -414,48 +434,48 @@
 
     <!-- Term Condition -->
     <div class="modal fade" id="termCondition" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header text-center flex-column col-md-12">
-                <h1>Terms and Conditions</h1>
-            </div>
-            <div class="modal-body col-md-12">
-                <p>Welcome to Serendipity Arts!</p>
-                <p>These terms and conditions outline the rules and regulations for the use of Serendipity Arts's Website, located at serendipityarts.com.</p>
-                <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use Serendipity Arts if you do not agree to take all of the terms and conditions stated on this page.</p>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-center flex-column col-md-12">
+                    <h1>Terms and Conditions</h1>
+                </div>
+                <div class="modal-body col-md-12">
+                    <p>Welcome to Serendipity Arts!</p>
+                    <p>These terms and conditions outline the rules and regulations for the use of Serendipity Arts's Website, located at serendipityarts.com.</p>
+                    <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use Serendipity Arts if you do not agree to take all of the terms and conditions stated on this page.</p>
 
-                <h2>Cookies</h2>
-                <p>We employ the use of cookies. By accessing Serendipity Arts, you agreed to use cookies in agreement with the Serendipity Arts's Privacy Policy.</p>
+                    <h2>Cookies</h2>
+                    <p>We employ the use of cookies. By accessing Serendipity Arts, you agreed to use cookies in agreement with the Serendipity Arts's Privacy Policy.</p>
 
-                <h2>License</h2>
-                <p>Unless otherwise stated, Serendipity Arts and/or its licensors own the intellectual property rights for all material on Serendipity Arts. All intellectual property rights are reserved. You may access this from Serendipity Arts for your own personal use subjected to restrictions set in these terms and conditions.</p>
+                    <h2>License</h2>
+                    <p>Unless otherwise stated, Serendipity Arts and/or its licensors own the intellectual property rights for all material on Serendipity Arts. All intellectual property rights are reserved. You may access this from Serendipity Arts for your own personal use subjected to restrictions set in these terms and conditions.</p>
 
-                <h2>You must not:</h2>
-                <ul>
-                    <li>Republish material from Serendipity Arts</li>
-                    <li>Sell, rent or sub-license material from Serendipity Arts</li>
-                    <li>Reproduce, duplicate or copy material from Serendipity Arts</li>
-                    <li>Redistribute content from Serendipity Arts</li>
-                </ul>
+                    <h2>You must not:</h2>
+                    <ul>
+                        <li>Republish material from Serendipity Arts</li>
+                        <li>Sell, rent or sub-license material from Serendipity Arts</li>
+                        <li>Reproduce, duplicate or copy material from Serendipity Arts</li>
+                        <li>Redistribute content from Serendipity Arts</li>
+                    </ul>
 
-                <h2>Content Liability</h2>
-                <p>We shall not be hold responsible for any content that appears on your Website. You agree to protect and defend us against all claims that is rising on your Website.</p>
+                    <h2>Content Liability</h2>
+                    <p>We shall not be hold responsible for any content that appears on your Website. You agree to protect and defend us against all claims that is rising on your Website.</p>
 
-                <h2>Your Privacy</h2>
-                <p>Please read Privacy Policy</p>
+                    <h2>Your Privacy</h2>
+                    <p>Please read Privacy Policy</p>
 
-                <h2>Reservation of Rights</h2>
-                <p>We reserve the right to request that you remove all links or any particular link to our Website. You approve to immediately remove all links to our Website upon request.</p>
+                    <h2>Reservation of Rights</h2>
+                    <p>We reserve the right to request that you remove all links or any particular link to our Website. You approve to immediately remove all links to our Website upon request.</p>
 
-                <h2>Disclaimer</h2>
-                <p>To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website.</p>
-            </div>
-            <div class="modal-footer col-md-12">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <h2>Disclaimer</h2>
+                    <p>To the maximum extent permitted by applicable law, we exclude all representations, warranties and conditions relating to our website and the use of this website.</p>
+                </div>
+                <div class="modal-footer col-md-12">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
 </section>
@@ -517,6 +537,9 @@
                 return;
             }
 
+            var button = $(this);
+            button.prop('disabled', true);
+
             $.ajax({
                 type: 'POST',
                 url: '{{ route("ajax.send.otp") }}',
@@ -527,17 +550,24 @@
                         $('#otp').show().find('input').prop('required', true);
                         $('.sendBtn').hide();
                         $('.resendBtn').hide();
-                        displayMessage('OTP has been sent successfully! Please check your WhatsApp and email for the OTP.', 'success');
+                        startTimer(60);
+
+                        displayMessage('OTP has been sent on your email & whatsapp.', 'success');
+
                         setTimeout(function() {
                             $('.sendBtn').hide();
                             $('#otp').hide().find('input').prop('required', false);
                             $('.resendBtn').show();
+                            button.prop('disabled', false);
                         }, 60000);
+
                     } else {
+                        button.prop('disabled', false);
                         displayMessage(response.message || 'Failed to send OTP. Please try again later.', 'danger');
                     }
                 },
                 error: function(xhr, status, error) {
+                    button.prop('disabled', false);
                     console.error(xhr.responseText);
                     displayMessage('An error occurred. Please try again.', 'danger');
                 }
@@ -559,32 +589,32 @@
         }
 
         function displayMessage(message, type) {
-            var messageDiv = $('.validation-errors');
-            messageDiv.text(message).removeClass('text-success text-danger').addClass('text-' + type);
-            if (type === 'success') {
-                messageDiv.css('color', 'white');
+    var messageDiv = $('.validation-errors');
+    messageDiv.text(message).css('color', type === 'success' ? 'white' : 'red');
+    
+    setTimeout(function() {
+        messageDiv.text('').removeAttr('style');
+    }, 10000);
+}
 
-                setTimeout(function() {
-                    messageDiv.text('').removeClass('text-' + type).removeAttr('style');
-                }, 10000);
-
-            } else if (type === 'danger') {
-                messageDiv.css('color', 'red');
-
-                setTimeout(function() {
-                    messageDiv.text('').removeClass('text-' + type).removeAttr('style');
-                }, 10000);
-            }            
-        }
     });
 
-    document.addEventListener("DOMContentLoaded", function() {
-        const sendBtn = document.getElementById('send-otp');
-
-        sendBtn.addEventListener('click', function() {
-            sendBtn.disabled = true;
-        });
-    });
+    function startTimer(duration) {
+        var timeleft = duration;
+        var buttonTimer = setInterval(function(){
+            if (timeleft <= 0) {
+                clearInterval(buttonTimer);
+                $('.sendBtn').disabled = false;
+                document.getElementById("otpTimer").style.display = "none";
+            } else {
+                document.getElementById("otpTimer").innerHTML = "Resend OTP in " + timeleft + " seconds";
+                document.getElementById("otpTimer").style.display = "block";
+                $('.resendBtn').disabled = true;
+                $('.sendBtn').disabled = true;
+            }
+            timeleft -= 1;
+        }, 1000);
+    }
     
 </script>
 @endpush

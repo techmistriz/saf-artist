@@ -186,7 +186,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">IFSC code</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="ifsc_code" value="{{ old('ifsc_code') ? old('ifsc_code') :( isset($row->ifsc_code) ? $row->ifsc_code : '') }}" class="form-control form-control-lg form-control-solid @error('ifsc_code') is-invalid @enderror " placeholder="Enter ifsc code"/>
+                                <input type="text" name="ifsc_code" value="{{ old('ifsc_code') ? old('ifsc_code') :( isset($row->ifsc_code) ? $row->ifsc_code : '') }}" class="form-control form-control-lg form-control-solid @error('ifsc_code') is-invalid @enderror " placeholder="Enter ifsc code" required/>
                                 @error('ifsc_code')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -198,7 +198,7 @@
                     <div class="col-12">
 
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cancelled Cheque (Image optional)</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cancel Cheque/Passbook</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
                                 <input type="file" name="cancel_cheque_image"  class="form-control form-control-lg form-control-solid @error('cancel_cheque_image') is-invalid @enderror " />
