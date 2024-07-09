@@ -75,107 +75,111 @@
 @endsection
 
 @push('scripts')
-	<script type="text/javascript">
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        var user_id = {{ request('user_id', 0)}};
+        var url = '{!! route($moduleConfig["routes"]["fetchDataRoute"]) !!}' + '?user_id=' + user_id;
 
-	    jQuery(document).ready((function() {
-			var user_id = {{ request('user_id', 0)}};
-			var url = '{!! route($moduleConfig["routes"]["fetchDataRoute"]) !!}' + '?user_id=' + user_id;
+        var columnsArray = [
+            {
+                field: 'id',
+                title: '#',
+                sortable: 'asc',
+                width: 30,
+                type: 'number',
+                selector: false,
+                textAlign: 'center',
+                template: function(t, i, o) {
+                    var index = i + 1;
+                    var page = o?.API?.params?.pagination?.page;
+                    var perpage = o?.API?.params?.pagination?.perpage;
+                    var offset = (page - 1) * perpage;
+                    return (index + offset);
+                }
+            },
+            {
+                field: "festival_id",
+                title: "Festival",
+                template: function(t) {
+                    return (t?.festival?.name) ? t?.festival?.name : 'N/A';
+                }
+            },
+            {
+                field: "name",
+                title: "Name",
+            },
+            {
+                field: "profile_status",
+                title: "Profile Status",
+                template: function(t) {
+                    return getStatusTemplate('profile_status')(t);
+                },
+            },
+            {
+                field: "banking_status",
+                title: "Banking Status",
+                sortable: false,
+                template: getStatusTemplate('banking_status'),
+            },
+            {
+                field: "ticket_status",
+                title: "Ticket Status",
+                sortable: false,
+                template: getStatusTemplate('ticket_status'),
+            },
+            {
+                field: "hotel_status",
+                title: "Hotel Status",
+                sortable: false,
+                template: getStatusTemplate('hotel_status'),
+            },
+            {
+                field: "actions",
+                title: "Actions",
+                sortable: false,
+            },
+        ];
 
-			var columnsArray 	=	[
-	            
-	            {
-	                field: 'id',
-	                title: '#',
-                 	sortable: 'asc',
-	                width: 30,
-	                type: 'number',
-	                selector: false,
-	                textAlign: 'center',
-	                template: function(t, i, o) {
+        var table_id = 'kt_datatable';
+        const t = KTDatatableRemoteAjaxDemo.init(url, columnsArray, table_id, null);
 
-	                    var index = i + 1;
-	                    var page = o?.API?.params?.pagination?.page;
-	                    var perpage = o?.API?.params?.pagination?.perpage;
-	                    var offset = (page - 1) * perpage;
+        $(".search_text").on("change", function() {
+            t.search($(this).val().toLowerCase(), 'search');
+        });
 
-	                    return (index + offset);
-	                }
-	            },            
-	            {
-	                field: "festival_id",
-	                title: "festival",
-	                template: function(t) {
-	                    return ( typeof t?.festival?.name != 'undefined' && t?.festival?.name)? t?.festival?.name : 'N/A';
-	                }
-	            },                
-	            {
-	                field: "name",
-	                title: "Name",
-	            },
-	            {
-	                field: "status",
-	                title: "status",
-	                template: function(t) {
-	                    var status = {
-	                        0: {
-	                            'title': 'Inactive',
-	                            'class': ' label-light-danger'
-	                        },
-	                        1: {
-	                            'title': 'Active',
-	                            'class': ' label-light-success'
-	                        }
-	                        
-	                    };
-	                    return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
-	                },
-	            },
-	            {
-	                field: "profile_status",
-	                title: "Profile Status",
-	                template: function(t) {
-	                    var profile_status = {
-	                        1: {
-	                            'title': 'PENDING',
-	                            'class': ' label-light-danger'
-	                        },
-	                        2: {
-	                            'title': 'IN REVIEW',
-	                            'class': ' label-light-warning'
-	                        },                        
-	                        3: {
-	                            'title': 'FREEZE',
-	                            'class': ' label-light-success'
-	                        },                            
-	                    };
-	                    return '<span class="label font-weight-bold label-lg ' + profile_status[t?.profile_status].class + ' label-inline">' + profile_status[t?.profile_status].title + '</span>';
-	                },
-	            },      
-	            {
-	                field: "actions",
-	                title: "actions",
-	                sortable: false,
-	            }, 
-	        ];
-	        var table_id    =   'kt_datatable';
-	        const t = KTDatatableRemoteAjaxDemo.init(url, columnsArray,  table_id,  null);
+        $(".refresh_all").on("click", function() {
+            window.location.reload();
+        });
 
-	        $(".search_text").on("change", function() {
-	            
-	            t.search($(this).val().toLowerCase(),'search');
-	            
-	        });
+        function getStatusTemplate(statusField) {
+            var status_map = {
+                1: {
+                    'icon': 'fa fa-times text-warning'
+                },
+                2: {
+                    'icon': 'fa fa-eye text-primary'
+                },
+                3: {
+                    'icon': 'fa fa-check text-success'
+                }
+            };
 
-	        $(".refresh_all").on("click", function() {
-	            window.location.reload();
+            return function(t) {
+                var status = t[statusField];
+                if (status_map[status]) {
+                    return '<span class="icon-style"><i class="' + status_map[status].icon + '"></i></span>';
+                } else {
+                    return '<span class="icon-style text-danger"><i class="fa fa-question"></i></span>';
+                }
+            };
+        }
 
-	        });
+        function filterUsers(__this) {
+            var user_id = __this.value;
+            window.location.href = "?user_id=" + user_id;
+        }
+    });
+</script>
 
-	    }));
 
-	    function filterUsers(__this) {
-		    var user_id = __this.value;
-		    window.location.href = "?user_id=" + user_id;
-		}
-    </script>
 @endpush

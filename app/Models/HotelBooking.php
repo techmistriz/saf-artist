@@ -12,7 +12,7 @@ class HotelBooking extends MasterModel
    use HasFactory;
    use SoftDeletes;
 
-   protected $appends = ['actions', 'frontend_actions'];
+   protected $appends = ['actions', 'frontend_actions', 'banking_status', 'user_profile_status', 'ticket_status'];
 
    public function setCheckInDateAttribute($value)
    {
@@ -169,29 +169,74 @@ class HotelBooking extends MasterModel
          <a href="delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
             <i class="flaticon2-trash"></i>
          </a>
+         <a href="'.route('admin.user_profile.index').'" class="btn btn-sm btn-clean btn-icon mr-2" title="Back User Profile List">
+            <i class="fa fa-user"></i>
+         </a>
+         <a href="' . route('admin.banking_details.index', ['profile_id' => request('profile_id')]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Banking detail list">
+            <i class="la la-bank  icon-xl"></i>
+         </a> 
+         <a href="' . route('admin.ticket_booking.index', ['profile_id' => request('profile_id')]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Ticket booking list">
+            <i class="la la-ticket  icon-xl"></i>
+         </a>
       </span>';
    }
 
    public function getFrontendActionsAttribute()
    {
-       $editDetailButton = '';
-       if ($this->hotel_status == 1) {
-           $editDetailButton = '
-               <a href="' . route('hotel.booking.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
-                   <i class="flaticon2-pen"></i>
-               </a>';
-       }
+      $editDetailButton = '';
+      if ($this->hotel_status == 1) {
+         $editDetailButton = '
+         <a href="' . route('hotel.booking.edit', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+         <i class="flaticon2-pen"></i>
+         </a>';
+      }
 
-       return '
-           <span style="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
-               <a href="' . route('hotel.booking.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
-                   <i class="flaticon-eye"></i>
-               </a>'
-               . $editDetailButton . '
-               <a href="' . route('hotel.booking.delete', $this->id) . '" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
-                   <i class="flaticon2-trash"></i>
-               </a>
-           </span>';
+      return '
+      <span style="overflow: visible; position: relative; width: 125px;" data-id="' . $this->id . '">
+         <a href="' . route('hotel.booking.show', $this->id) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+            <i class="flaticon-eye"></i>
+         </a>'
+         . $editDetailButton . '
+         <a href="' . route('hotel.booking.delete', $this->id) . '" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
+            <i class="flaticon2-trash"></i>
+         </a>
+      </span>';
    }
+
+   public function getUserProfileStatusAttribute()
+   {
+      $userProfiles = UserProfile::where(['status' => 1, 'id' => $this->profile_id])->get();
+      $userProfileStatus = null;
+     
+      foreach ($userProfiles as $userProfile) {
+         $userProfileStatus = $userProfile->profile_status;
+         break;
+      }        
+      return $userProfileStatus;
+   }
+
+   public function getBankingStatusAttribute()
+   {
+      $accounts = UserAccountDetail::where(['status' => 1, 'profile_id' => $this->profile_id])->get();
+      $bankingStatus = null;
+     
+      foreach ($accounts as $banking) {
+         $bankingStatus = $banking->banking_status;
+         break;
+      }        
+      return $bankingStatus;
+   }
+
+   public function getTicketStatusAttribute()
+   {
+      $tickets = TicketBooking::where(['status' => 1, 'profile_id' => $this->profile_id])->get();
+      $ticketStatus = null;
+        
+      foreach ($tickets as $ticket) {
+         $ticketStatus = $ticket->ticket_status;
+         break;
+      }        
+      return $ticketStatus;
+   }   
    
 }

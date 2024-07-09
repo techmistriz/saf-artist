@@ -68,7 +68,7 @@ class UserProfileController extends Controller
     }
 
     public function fetchData(Request $request, UserProfile $user_profile)
-    {
+    {        
         $data     = $request->all();
         
         $whereArr = [];

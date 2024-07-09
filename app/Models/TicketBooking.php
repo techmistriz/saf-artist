@@ -12,7 +12,7 @@ class TicketBooking extends MasterModel
    use HasFactory;
    use SoftDeletes;
 
-   protected $appends = ['actions', 'frontend_actions'];
+   protected $appends = ['actions', 'frontend_actions', 'banking_status', 'user_profile_status', 'hotel_status'];
 
    public function setProjectIdsAttribute($value){
     
@@ -187,6 +187,15 @@ class TicketBooking extends MasterModel
          <a href="delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
             <i class="flaticon2-trash"></i>
          </a>
+         <a href="'.route('admin.user_profile.index').'" class="btn btn-sm btn-clean btn-icon mr-2" title="Back User Profile List">
+            <i class="fa fa-user"></i>
+         </a>
+         <a href="' . route('admin.banking_details.index', ['profile_id' => request('profile_id')]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Banking detail list">
+            <i class="la la-bank  icon-xl"></i>
+         </a> 
+         <a href="' . route('admin.hotel_booking.index', ['profile_id' => request('profile_id')]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Hotel booking list">
+             <i class="la la-hotel  icon-xl"></i>
+         </a>
       </span>';
    }
 
@@ -212,5 +221,38 @@ class TicketBooking extends MasterModel
            </span>';
    }
 
-   
+   public function getUserProfileStatusAttribute()
+   {
+      $userProfiles = UserProfile::where(['status' => 1, 'id' => $this->profile_id])->get();
+      $userProfileStatus = null;
+     
+      foreach ($userProfiles as $userProfile) {
+         $userProfileStatus = $userProfile->profile_status;
+         break;
+      }        
+      return $userProfileStatus;
+   }
+
+   public function getBankingStatusAttribute()
+   {
+      $accounts = UserAccountDetail::where(['status' => 1, 'profile_id' => $this->profile_id])->get();
+      $bankingStatus = null;
+     
+      foreach ($accounts as $banking) {
+         $bankingStatus = $banking->banking_status;
+         break;
+      }        
+      return $bankingStatus;
+   }
+
+   public function getHotelStatusAttribute()
+   {
+      $hotels = HotelBooking::where(['status' => 1, 'profile_id' => $this->profile_id])->get();
+      $hotelStatus = null;        
+      foreach ($hotels as $hotel) {
+         $hotelStatus = $hotel->hotel_status;
+         break;
+      }        
+      return $hotelStatus;
+   }   
 }

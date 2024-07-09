@@ -116,44 +116,30 @@
                     title: "Name",
                 },
                 {
-                    field: "status",
-                    title: "status",
-                    template: function(t) {
-                        var status = {
-                            0: {
-                                'title': 'Inactive',
-                                'class': ' label-light-danger'
-                            },
-                            1: {
-                                'title': 'Active',
-                                'class': ' label-light-success'
-                            }
-                            
-                        };
-                        return '<span class="label font-weight-bold label-lg ' + status[t?.status].class + ' label-inline">' + status[t?.status].title + '</span>';
-                    },
-                },
-                {
-                    field: "banking_status",
-                    title: "Banking Status",
-                    template: function(t) {
-                        var banking_status = {
-                            1: {
-                                'title': 'PENDING',
-                                'class': ' label-light-danger'
-                            },
-                            2: {
-                                'title': 'IN REVIEW',
-                                'class': ' label-light-warning'
-                            },                        
-                            3: {
-                                'title': 'FREEZE',
-                                'class': ' label-light-success'
-                            },                            
-                        };
-                        return '<span class="label font-weight-bold label-lg ' + banking_status[t?.banking_status].class + ' label-inline">' + banking_status[t?.banking_status].title + '</span>';
-                    },
-                },     
+	                field: "user_profile_status",
+	                title: "User Profile Status",
+	                sortable: false,
+	                template: getStatusTemplate('user_profile_status'),
+	            },
+	            {
+	                field: "banking_status",
+	                title: "Banking Status",
+	                sortable: false,
+	                template: function(t) {
+	                    return getStatusTemplate('banking_status')(t);
+	                },
+	            },
+	            {
+	                field: "ticket_status",
+	                title: "Ticket Status",
+	                template: getStatusTemplate('ticket_status'),
+	            },
+	            {
+	                field: "hotel_status",
+	                title: "Hotel Status",
+	                sortable: false,
+	                template: getStatusTemplate('hotel_status'),
+	            },    
                 {
                     field: "actions",
                     title: "actions",
@@ -175,6 +161,29 @@
             });
 
         }));
+
+        function getStatusTemplate(statusField) {
+	        var status_map = {
+	            1: {
+	                'icon': 'fa fa-times text-danger'
+	            },
+	            2: {
+	                'icon': 'fa fa-eye text-warning'
+	            },
+	            3: {
+	                'icon': 'fa fa-check text-success'
+	            }
+	        };
+
+	        return function(t) {
+	            var status = t[statusField];
+	            if (status_map[status]) {
+	                return '<span class="icon-style"><i class="' + status_map[status].icon + '"></i></span>';
+	            } else {
+	                return '<span class="icon-style"><i class="fa fa-question-circle"></i></span>';
+	            }
+	        };
+	    }
 
         function filterUsers(__this) {
 		    var profile_id = __this.value;

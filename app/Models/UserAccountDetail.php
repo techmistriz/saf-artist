@@ -11,7 +11,7 @@ class UserAccountDetail extends MasterModel
     use HasFactory;
     use SoftDeletes;
 
-    protected $appends = ['actions', 'frontend_actions'];
+    protected $appends = ['actions', 'frontend_actions', 'ticket_status', 'user_profile_status', 'hotel_status'];
     protected $guarded = [];
 
     public function getList($data, $with = [], $where = []){  
@@ -75,20 +75,29 @@ class UserAccountDetail extends MasterModel
       return $this->belongsTo('App\Models\City', 'city_id', 'id');
     }
 
-    function getActionsAttribute(){
-    
-        return '<span class="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
-                <a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
-                   <i class="flaticon-eye"></i>
-                </a>
-                <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
-                   <i class="flaticon2-pen"></i>
-                </a>
-                <a href="delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
-                   <i class="flaticon2-trash"></i>
-                </a>
-            </span>';
+    function getActionsAttribute() {
+        return '<span style="overflow: visible; position: relative; width: 125px;" data-id="'.$this->id.'">
+            <a href="show/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Show details">
+               <i class="flaticon-eye"></i>
+            </a>
+            <a href="edit/'.$this->id.'" class="btn btn-sm btn-clean btn-icon mr-2" title="Edit details">
+               <i class="flaticon2-pen"></i>
+            </a>
+            <a href="delete/'.$this->id.'" class="btn btn-sm btn-clean btn-icon delete_btn" title="Delete">
+               <i class="flaticon2-trash"></i>
+            </a>
+            <a href="'.route('admin.user_profile.index').'" class="btn btn-sm btn-clean btn-icon mr-2" title="Back User Profile List">
+               <i class="fa fa-user"></i>
+            </a>
+            <a href="' . route('admin.ticket_booking.index', ['profile_id' => request('profile_id')]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Ticket booking list">
+                <i class="la la-ticket  icon-xl"></i>
+            </a> 
+            <a href="' . route('admin.hotel_booking.index', ['profile_id' => request('profile_id')]) . '" class="btn btn-sm btn-clean btn-icon mr-2" title="Hotel booking list">
+                <i class="la la-hotel  icon-xl"></i>
+            </a>
+        </span>';
     }
+
 
     function getFrontendActionsAttribute(){
     
@@ -107,5 +116,39 @@ class UserAccountDetail extends MasterModel
                 '.$view.$edit.'
             </span>';
     }
+
+    public function getUserProfileStatusAttribute()
+    {
+        $userProfiles = UserProfile::where(['status' => 1, 'id' => $this->profile_id])->get();
+        $userProfileStatus = null;
+        foreach ($userProfiles as $userProfile) {
+            $userProfileStatus = $userProfile->profile_status;
+            break;
+        }        
+        return $userProfileStatus;
+    }
+
+    public function getTicketStatusAttribute()
+    {
+        $tickets = TicketBooking::where(['status' => 1, 'profile_id' => $this->profile_id])->get();
+        $ticketStatus = null;
+        
+        foreach ($tickets as $ticket) {
+            $ticketStatus = $ticket->ticket_status;
+            break;
+        }        
+        return $ticketStatus;
+    }
+
+    public function getHotelStatusAttribute()
+    {
+        $hotels = HotelBooking::where(['status' => 1, 'profile_id' => $this->profile_id])->get();
+        $hotelStatus = null;        
+        foreach ($hotels as $hotel) {
+            $hotelStatus = $hotel->hotel_status;
+            break;
+        }        
+        return $hotelStatus;
+    }   
     
 }

@@ -19,7 +19,7 @@ class UserProfile extends MasterModel
      */
     protected $guarded = [];    
 
-    protected $appends = ['actions', 'frontend_actions'];
+    protected $appends = ['actions', 'frontend_actions', 'banking_status', 'ticket_status', 'hotel_status'];
 
     public static $withoutAppends = false;
 
@@ -262,5 +262,39 @@ class UserProfile extends MasterModel
          </a>         
       </span>';
     }
-	    
+
+    public function getBankingStatusAttribute()
+    {
+        $accounts = UserAccountDetail::where(['status' => 1, 'profile_id' => $this->id])->get();
+        $bankingStatus = null;
+        
+        foreach ($accounts as $banking) {
+            $bankingStatus = $banking->banking_status;
+            break;
+        }        
+        return $bankingStatus;
+	}
+
+    public function getTicketStatusAttribute()
+    {
+        $tickets = TicketBooking::where(['status' => 1, 'profile_id' => $this->id])->get();
+        $ticketStatus = null;
+        
+        foreach ($tickets as $ticket) {
+            $ticketStatus = $ticket->ticket_status;
+            break;
+        }        
+        return $ticketStatus;
+    } 
+
+    public function getHotelStatusAttribute()
+    {
+        $hotels = HotelBooking::where(['status' => 1, 'profile_id' => $this->id])->get();
+        $hotelStatus = null;        
+        foreach ($hotels as $hotel) {
+            $hotelStatus = $hotel->hotel_status;
+            break;
+        }        
+        return $hotelStatus;
+    }     
 }
