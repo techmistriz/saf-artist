@@ -98,8 +98,7 @@ class TicketBookingController extends Controller
     public function create(TicketBooking $ticket)
     {
         $user               = \Auth::user();
-        $userIdArr = TicketBooking::where('status', 1)->whereNotNull('profile_id')->get()->pluck('profile_id');
-        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
         //$userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
         
         $countries          = Country::where('status', 1)->get();
@@ -199,8 +198,7 @@ class TicketBookingController extends Controller
 
         $row = TicketBooking::findOrFail($id);
         $user               = \Auth::user();
-        $userIdArr = TicketBooking::where('status', 1)->whereNotIn('profile_id', [$row->profile_id])->get()->pluck('profile_id');
-        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
         
         $countries          = Country::where('status', 1)->get();
         $travelPurposes     = TravelPurpose::where('status', 1)->get();

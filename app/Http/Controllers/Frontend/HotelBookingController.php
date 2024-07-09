@@ -90,9 +90,7 @@ class HotelBookingController extends Controller
     public function create(HotelBooking $hotel)
     {
         $user               = \Auth::user();
-        $userIdArr = HotelBooking::where('status', 1)->whereNotNull('profile_id')->get()->pluck('profile_id');
-        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
-        // $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
         $travelPurposes     = TravelPurpose::where('status', 1)->get();
 
         return view('frontend.hotel_booking.create')
@@ -152,8 +150,7 @@ class HotelBookingController extends Controller
         $row = HotelBooking::findOrFail($id);
 
         $user               = \Auth::user();
-        $userIdArr = HotelBooking::where('status', 1)->whereNotIn('profile_id', [$row->profile_id])->get()->pluck('profile_id');
-        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->whereNotIn('id', $userIdArr)->get();
+        $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
         $travelPurposes     = TravelPurpose::where('status', 1)->get();
 
         return view('frontend.hotel_booking.edit')

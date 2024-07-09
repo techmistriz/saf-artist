@@ -8,9 +8,9 @@ class WhatsappNotification {
     private static $URL 		= "https://pickyassist.com/app/api/v2/";
     private static $APPLICATION	= "8";
 
-    private static $TEMPLATE1 	= "JJ8587723"; // Registration OTP
-    private static $TEMPLATE2 	= "BW5043155"; // Registration OTP
-    private static $TEMPLATE3 	= "YJ5163103"; // Registration OTP
+    private static $TEMPLATE1 	= "XA8639179"; // Registration OTP
+    private static $TEMPLATE2 	= "XA8639179"; // Registration OTP
+    private static $TEMPLATE3 	= "XA8639179"; // Registration OTP
 
     public static function sendRegistrationOTP($mobile, $otp) {
     	
