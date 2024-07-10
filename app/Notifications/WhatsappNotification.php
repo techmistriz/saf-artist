@@ -14,7 +14,7 @@ class WhatsappNotification {
 
     public static function sendRegistrationOTP($mobile, $otp) {
     	
-    	// return true;
+    	
         $payload 					= [];
         $payload['token'] 			= self::$TOKEN;
         $payload['application']		= self::$APPLICATION;
@@ -26,7 +26,7 @@ class WhatsappNotification {
 	                "User",
 	                $otp
 	            ],
-	            "language" => "en_US"
+	            "language" => "en_GB"
 	        ]
         ];
 
