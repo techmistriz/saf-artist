@@ -45,7 +45,7 @@ Route::get('/clear-flush', function() {
    
 });
 
-Route::get('/test-whatsapp-otp', function($otp = '+919670038997') {
+Route::get('/test-whatsapp-otp/{otp}', function($otp) {
 
     $response = \App\Notifications\WhatsappNotification::sendRegistrationOTP($otp, "123456");
     return ['status'=> true, 'data' => $response];
