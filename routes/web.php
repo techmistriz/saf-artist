@@ -45,6 +45,12 @@ Route::get('/clear-flush', function() {
    
 });
 
+Route::get('/test-whatsapp-otp', function($otp = '+919670038997') {
+
+    $response = \App\Notifications\WhatsappNotification::sendRegistrationOTP($otp, "123456");
+    return ['status'=> true, 'data' => $response];
+});
+
 Route::get('/mail-test', function() {
 
     (new App\Http\Controllers\TestMailController)->mailable();
