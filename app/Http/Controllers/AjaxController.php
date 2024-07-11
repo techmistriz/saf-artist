@@ -307,6 +307,8 @@ class AjaxController extends Controller
         $otp        = \App\Helpers\Helper::generateOtp();
         $contact = '+91' . $request->contact; 
         // dd($contact);
+        Session::put('otp', $otp);
+        Session::put('contact', $request->contact);
         $time       = time();
 
         $userTemp = UserTemp::where('contact', $request->contact)->first();

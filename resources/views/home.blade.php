@@ -217,7 +217,7 @@
 
         <div class="row justify-content-center">
             <div class="col-md-8">
-
+                @include('flash::message')
                 <div class="flex-row-fluid">
                     <!--begin::Card-->
                     <div class="card card-custom gutter-bs theme-bg">
@@ -589,13 +589,13 @@
         }
 
         function displayMessage(message, type) {
-    var messageDiv = $('.validation-errors');
-    messageDiv.text(message).css('color', type === 'success' ? 'white' : 'red');
-    
-    setTimeout(function() {
-        messageDiv.text('').removeAttr('style');
-    }, 10000);
-}
+            var messageDiv = $('.validation-errors');
+            messageDiv.text(message).css('color', type === 'success' ? 'white' : 'red');
+            
+            setTimeout(function() {
+                messageDiv.text('').removeAttr('style');
+            }, 10000);
+        }
 
     });
 
@@ -615,6 +615,16 @@
             timeleft -= 1;
         }, 1000);
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const flashMessage = document.querySelector('.alert');
+
+        if (flashMessage) {
+            setTimeout(function() {
+                flashMessage.style.display = 'none';
+            }, 10000);
+        }
+    });
     
 </script>
 @endpush

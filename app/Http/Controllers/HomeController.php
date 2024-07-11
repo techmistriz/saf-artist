@@ -15,7 +15,7 @@ use App\Models\ArtistType;
 use App\Traits\UserTrait;
 use Carbon\Carbon;
 use App\Http\Requests\UserRegisterRequest;
-
+use Illuminate\Support\Facades\Session;
 use DB;
 use Hash;
 use Image;
@@ -60,36 +60,45 @@ class HomeController extends Controller
     }
 
     public function register(UserRegisterRequest $request) {
-
-        $password                       = uniqid();
-        $user                           = new User();
-        $user->name                     = $request->name;
-        $user->email                    = $request->email;
-        $user->contact                  = $request->contact;
-        $user->artist_type_id           = $request->artist_type_id;
-        $user->curator_name             = $request->curator_name;
-        $user->category_id              = $request->category_id;
-        $user->frontend_role_id         = $request->frontend_role_id;
-        $user->password                 = Hash::make($password);
-        $user->password_plane           = \Helper::encrypt($password);
-        $user->save();
         
-        try {
-            
-            $user->password_plane            = $password;
-            \Mail::to($user->email)->send(new \App\Mail\RegisterMailable($user));
+        $sessionOTP = $request->session()->get('otp');
+        $sessionContact = $request->session()->get('contact');
+        // dd($sessionContact, $sessionOTP);
 
-            // $user->sendEmailVerificationNotification();
+        if ($sessionOTP == $request->otp && $sessionContact == $request->contact) {
+            $password = uniqid();
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->contact = $request->contact;
+            $user->artist_type_id = $request->artist_type_id;
+            $user->curator_name = $request->curator_name;
+            $user->category_id = $request->category_id;
+            $user->frontend_role_id = $request->frontend_role_id;
+            $user->password = Hash::make($password);
+            $user->password_plane = \Helper::encrypt($password);
+            $user->save();
 
-        } catch (Exception $e) {
-            
+            try {
+                $user->password_plane = $password;
+                \Mail::to($user->email)->send(new \App\Mail\RegisterMailable($user));
+
+                // $user->sendEmailVerificationNotification();
+            } catch (Exception $e) {
+                \Log::error('Error sending registration email: '.$e->getMessage());
+            }
+
+            // \Auth::loginUsingId($user->id);
+            // \Flash::success('Please click on the link sent to your email account to verify you email and continue the registration process.');
+
+            \Flash::success('Your registration completed successfully.');
+            return \Redirect::route('login');
+        } else {
+            \Flash::error('Invalid OTP or Contact.');
+            return redirect()->back()->withInput();
         }
-
-        // \Auth::loginUsingId($user->id);
-        // \Flash::success('Please click on the link sent to your email account to verify you email and continue the registration process.');
-        \Flash::success('Your registration completed successfully.');
-        return \Redirect::route('login');
     }
+
 
     /**
      * Show the application dashboard.
