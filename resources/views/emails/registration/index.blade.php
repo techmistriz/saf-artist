@@ -11,6 +11,12 @@ Dear {{$user->name}},
 </table>
 @endcomponent
 
+You can access your account using the link below:
+
+@component('mail::button', ['url' => 'http://artist24.demoserver.co.in/login'])
+Access Your Account
+@endcomponent
+
 Regards,<br>
 Team Serendipity Arts
 @endcomponent
