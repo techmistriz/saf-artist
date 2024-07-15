@@ -73,13 +73,29 @@
 		                        </div>
 
 		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Residency Name: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->residency ?? 'N/A'}}</label>
+		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">IBAN number/SWIFT CODE/Corresponding bank details: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->iban_swift_code ?? 'N/A'}}</label>
+		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Bank holder name: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->bank_holder_name ?? 'N/A'}}</label>
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Bank Name: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->bank_name ?? 'N/A'}}</label>
@@ -87,28 +103,28 @@
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Branch Address: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->branch_address ?? 'N/A'}}</label>		                                
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">IFSC code: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->ifsc_code ?? 'N/A'}}</label>		                                
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">PAN Card Number: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->pancard_number ?? 'N/A'}}</label>		                                
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cancelled Cheque Image: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
@@ -121,7 +137,7 @@
 		                            </div>
 		                        </div>
 
-		                    	<div class="form-group row validated">
+		                    	<div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Is your pancard linked with adhar?: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 
@@ -129,7 +145,7 @@
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">PAN Card (Image): </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
@@ -142,7 +158,7 @@
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">GST Applicable: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->has_gst_applicable ?? 'N/A'}}</label>		                                

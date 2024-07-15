@@ -119,6 +119,22 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Residency</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-solid selectpicker" name="residency" tabindex="null" onchange="showShowField()">
+                                    <option value="">Select Residency</option>
+                                    <option value="Domestic" {{ old('residency') == 'Domestic' || (isset($row->residency) && $row->residency == 'Domestic') ? 'selected' : '' }}>Domestic</option>
+                                    <option value="International" {{old('residency') == 'International' || (isset($row->residency) && $row->residency == 'International') ? 'selected' : ''  }}>International</option>
+                                </select>
+                                @error('residency')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Account Number</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="account_number" oninput="this.value=this.value.replace(/[^0-9]/, '')" minlength="10" maxlength="20" value="{{ old('account_number') ? old('account_number') :( isset($row->account_number) ? $row->account_number : '') }}" class="form-control form-control-lg form-control-solid @error('account_number') is-invalid @enderror " placeholder="Enter account number"/>
@@ -143,7 +159,20 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="ibanSwiftCode" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">IBAN number/SWIFT CODE/Corresponding bank details (If any)</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="iban_swift_code" value="{{ old('iban_swift_code', $row->iban_swift_code ?? '') }}" class="form-control form-control-lg form-control-solid @error('iban_swift_code') is-invalid @enderror " placeholder="Enter IBAN number/SWIFT CODE/Corresponding bank details (If any)"/>
+                                @error('iban_swift_code')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="bankHolder" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Bank holder name (As per bank records)</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -156,7 +185,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="bankName" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Bank Name</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -169,7 +198,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="branchAddress" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Branch Address</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -182,11 +211,11 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="ifscCode" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">IFSC code</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="ifsc_code" value="{{ old('ifsc_code') ? old('ifsc_code') :( isset($row->ifsc_code) ? $row->ifsc_code : '') }}" class="form-control form-control-lg form-control-solid @error('ifsc_code') is-invalid @enderror " placeholder="Enter ifsc code" required/>
+                                <input type="text" name="ifsc_code" value="{{ old('ifsc_code', $row->ifsc_code ?? '') }}" class="form-control form-control-lg form-control-solid @error('ifsc_code') is-invalid @enderror " placeholder="Enter ifsc code" maxlength="11" />
                                 @error('ifsc_code')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -195,7 +224,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="cancelCheque" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cancel Cheque/Passbook</label>
@@ -218,7 +247,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="pancardNumber" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">PAN Card</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -230,13 +259,13 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="linkWithAdhar" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Is your pancard linked with adhaar ?</label>
                             <div class="col-form-label col-lg-9 col-md-9 col-sm-12">
                                 <div class="checkbox-inline">
                                     <label class="checkbox">
-                                        <input type="checkbox" name="pancard_link_with_adhar" value="1" {{(old('pancard_link_with_adhar', $row->pancard_link_with_adhar ?? '') == '1') ? 'checked' : '' }} required="" />
+                                        <input type="checkbox" name="pancard_link_with_adhar" value="1" {{(old('pancard_link_with_adhar', $row->pancard_link_with_adhar ?? '') == '1') ? 'checked' : '' }} />
                                         <span></span>
                                     </label>
                                 </div>
@@ -248,7 +277,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="panCard" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
 
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">PAN Card (Image) </label>
@@ -287,7 +316,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" id="gstApplicable" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">GST Applicable</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -399,6 +428,45 @@
     $('#saveFreeze').click(function() {
         $('#freeze').val(2)
     })
+
+    function showShowField() {
+
+        var residency = $('select[name="residency"] option:selected').text();
+        if (residency == 'Domestic') {                          
+            $('#ibanSwiftCode').hide();
+            $('#bankHolder').show();
+            $('#bankName').show();
+            $('#branchAddress').show();
+            $('#ifscCode').show();
+            $('#cancelCheque').show();
+            $('#linkWithAdhar').show();
+            $('#panCard').show();
+            $('#gstApplicable').show();
+            $('#pancardNumber').show();
+        }else if(residency == 'International'){
+            $('#ibanSwiftCode').show();
+            $('#bankHolder').hide();
+            $('#bankName').hide();
+            $('#branchAddress').hide();
+            $('#ifscCode').hide();
+            $('#cancelCheque').hide();
+            $('#linkWithAdhar').hide();
+            $('#panCard').hide();
+            $('#gstApplicable').hide();
+            $('#pancardNumber').hide();
+        }else{
+            $('#ibanSwiftCode').hide();
+            $('#bankHolder').hide();
+            $('#bankName').hide();
+            $('#branchAddress').hide();
+            $('#ifscCode').hide();
+            $('#cancelCheque').hide();
+            $('#linkWithAdhar').hide();
+            $('#panCard').hide();
+            $('#gstApplicable').hide();
+            $('#pancardNumber').hide();
+        }
+    } 
 
     //START pancard_image
     var pancard_image = new KTImageInput('pancard_image');
@@ -549,6 +617,7 @@
     $(document).ready(function(){
         
         getState();
+        showShowField();
         
     });    
 

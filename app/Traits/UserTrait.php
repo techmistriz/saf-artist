@@ -919,6 +919,8 @@ trait UserTrait
         $userAccountDetail->bank_name               = $request->bank_name;
         $userAccountDetail->branch_address          = $request->branch_address;
         $userAccountDetail->ifsc_code               = $request->ifsc_code;
+        $userAccountDetail->iban_swift_code         = $request->iban_swift_code;
+        $userAccountDetail->residency               = $request->residency;
         $userAccountDetail->pancard_link_with_adhar = $request->pancard_link_with_adhar;
 
         if ($request->hasFile('cancel_cheque_image')) {
@@ -982,6 +984,8 @@ trait UserTrait
         $userAccountDetail->bank_name               = $request->bank_name;
         $userAccountDetail->branch_address          = $request->branch_address;
         $userAccountDetail->ifsc_code               = $request->ifsc_code;
+        $userAccountDetail->residency               = $request->residency;
+        $userAccountDetail->iban_swift_code         = $request->iban_swift_code;
         $userAccountDetail->pancard_link_with_adhar = $request->pancard_link_with_adhar;
 
         if ($request->hasFile('cancel_cheque_image')) {

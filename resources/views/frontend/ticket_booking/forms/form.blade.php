@@ -246,10 +246,10 @@
 
                     <div class="col-12" id="work_visa" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic' ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Do you have work visa for India</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Visa for India</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="work_visa" tabindex="null" onchange="visaField()">
-                                    <option value="">Select work visa for India</option>
+                                    <option value="">Select Visa for India</option>
                                     <option value="Yes" {{ old('work_visa') == 'Yes' || (isset($row->work_visa) && $row->work_visa == 'Yes') ? 'selected' : '' }}>Yes</option>
                                     <option value="No" {{ old('work_visa') == 'No' || (isset($row->work_visa) && $row->work_visa == 'No') ? 'selected' : ''  }}>No</option>
                                 </select>

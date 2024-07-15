@@ -32,7 +32,7 @@
                           
                             <div class="form-group position-relative">
                                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required autocomplete="new-password">
-                                <span class="fa fa-fw fa-eye field-icon show-login-password"></span>
+                                <span class="fa fa-fw fa-eye field-icon show-login-password" style="color: #FA9917;"></span>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

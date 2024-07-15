@@ -114,6 +114,10 @@
                 {
                     field: "name",
                     title: "Name",
+                },   
+                {
+                    field: "email",
+                    title: "Email",
                 },
                 {
 	                field: "user_profile_status",
