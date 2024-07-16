@@ -363,6 +363,20 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward Flight Timing Slots(like: 9:00 am to 12:00 pm)<i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="Preferred time of arrival for onward(like: 9:00 am to 12:00 pm)"></i></label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+
+                                <input type="text" name="onword_flight_timing_slot" value="{{ old('onword_flight_timing_slot', $row->onword_flight_timing_slot ?? '') }}" class="form-control" placeholder="Enter Onward Flight Timing Slots" />
+
+                                @error('onword_flight_timing_slot')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward (Mention City)</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="onward_city" value="{{ old('onward_city', $row->onward_city ?? '') }}" class="form-control" placeholder="Enter Onward (Mention City)" />
@@ -394,6 +408,20 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return Flight Timing Slots(like: 9:00 am to 12:00 pm)<i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="Preferred Time of departure for return(like: 9:00 am to 12:00 pm)"></i></label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+
+                                <input type="text" name="return_flight_timing_slot" value="{{ old('return_flight_timing_slot', $row->return_flight_timing_slot ?? '') }}" class="form-control" placeholder="Enter Return Flight Timing Slots" />
+
+                                @error('return_flight_timing_slot')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return City</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
@@ -404,6 +432,68 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pick Up Required</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="pickup_required" tabindex="null" onchange="hideCabDetails()">
+                                    <option value="">Select Pick up Required</option>
+                                    <option value="Yes" {{ old('pickup_required') == 'Yes' || (isset($row->pickup_required) && $row->pickup_required == 'Yes') ? 'selected' : '' }}>Yes</option>
+                                    <option value="No" {{ old('pickup_required') == 'No' || (isset($row->pickup_required) && $row->pickup_required == 'No') ? 'selected' : '' }}>No</option>
+                                </select>
+                                @error('pickup_required')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="cabOption" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cab Option</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="cab_option" tabindex="null">
+                                    <option value="">Select Cab Option</option>
+                                    <option value="1" {{ old('cab_option') == '1' || (isset($row->cab_option) && $row->cab_option == '1') ? 'selected' : '' }}>Transfer Only</option>
+                                    <option value="2" {{ old('cab_option') == '2' || (isset($row->cab_option) && $row->cab_option == '2') ? 'selected' : '' }}>Dedicated</option>
+                                </select>
+                                @error('cab_option')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="numberOfCabs" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Number of Cabs</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="number_of_cabs" value="{{ old('number_of_cabs', $row->number_of_cabs ?? '') }}" class="form-control" placeholder="Enter Number of Cabs" />
+                                @error('number_of_cabs')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="cabDateRange" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cab Date Range</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <div class='input-group' id='kt_daterangepicker_2'>
+                                    <input type='text' name="cab_date_range" value="{{ old('cab_date_range', $row->cab_date_range ?? '') }}" class="form-control" readonly  placeholder="Select Cab Date Range"/>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="la la-calendar-check-o"></i></span>
+                                    </div>
+                                </div>
+                                @error('cab_date_range')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="col-12">
@@ -634,6 +724,20 @@
             }
         }
 
+        function hideCabDetails() {
+            var pickup_required = $('select[name="pickup_required"] option:selected').val();
+            if (pickup_required == 'Yes') {
+                $('#cabOption').show().attr('required', true);
+                $('#numberOfCabs').show().attr('required', true);
+                $('#cabDateRange').show().attr('required', true);
+            } else { 
+                $('#cabOption').hide().removeAttr('required');
+                $('#numberOfCabs').hide().removeAttr('required');
+                $('#cabDateRange').hide().removeAttr('required');
+            }
+        }
+
+
         // end field hide 
 
         function userProfile()
@@ -735,5 +839,37 @@
                 initDatePicker();
             }
         });
+    </script>
+    <script type="text/javascript">
+        var KTBootstrapDaterangepicker = function () {
+            var demos = function () {
+                $('#kt_daterangepicker_2').daterangepicker({
+                    buttonClasses: ' btn',
+                    applyClass: 'btn-primary',
+                    cancelClass: 'btn-secondary'
+                }, function(start, end, label) {
+                    $('#kt_daterangepicker_2 .form-control').val( start.format('DD-MMM-YYYY') + '  to  ' + end.format('DD-MMM-YYYY'));
+                });
+
+                $('#kt_daterangepicker_2_modal').daterangepicker({
+                    buttonClasses: ' btn',
+                    applyClass: 'btn-primary',
+                    cancelClass: 'btn-secondary'
+                }, function(start, end, label) {
+                    $('#kt_daterangepicker_2 .form-control').val( start.format('DD-MMM-YYYY') + '  to  ' + end.format('DD-MMM-YYYY'));
+                });
+            }
+
+            return {
+                init: function() {
+                    demos();
+                }
+            };
+        }();
+
+        jQuery(document).ready(function() {
+            KTBootstrapDaterangepicker.init();
+        });
+
     </script>
 @endpush

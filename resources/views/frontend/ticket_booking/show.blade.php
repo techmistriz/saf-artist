@@ -188,7 +188,41 @@
 		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return City</label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pick Up Required</label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{ $row->pickup_required }}</label>		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cab Option</label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">
+		                            		@if($row->cab_option == 1)
+                                                Transfer Only
+                                            @elseif($row->cab_option == 2)
+                                                Dedicated
+                                            @endif
+                                        </label>		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Number of Cabs</label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{ $row->number_of_cabs }}</label>		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cab Date Range</label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{ $row->cab_date_range }}</label>		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Artist Remarks</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{!! $row->artist_remarks !!}</label>		                                
 		                            </div>

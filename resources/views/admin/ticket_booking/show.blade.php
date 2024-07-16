@@ -48,19 +48,41 @@
                                             </tr> 
                                             <tr>
                                                 <th>Onward (Mention City)</th>
-                                                <td>{{$row->onwardCity->name ?? ''}}</td>
+                                                <td>{{$row->onward_city ?? ''}}</td>
                                             </tr>
                                             <tr>
-                                                <th>Onward (Mention City) - Other</th>
-                                                <td>{{$row->onward_city_other}}</td>
+                                                <th>Onward Date</th>
+                                                <td>{{ \Carbon\Carbon::parse($row->onward_date)->format('d-M-Y') }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Return City</th>
-                                                <td>{{$row->returnCity->name ?? ''}}</td>
+                                                <td>{{$row->return_city ?? ''}}</td>
                                             </tr>
                                             <tr>
-                                                <th>Return City - Other</th>
-                                                <td>{{$row->return_city_other}}</td>
+                                                <th>Return Date</th>
+                                                <td>{{ \Carbon\Carbon::parse($row->return_date)->format('d-M-Y') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Pick Up Required</th>
+                                                <td>{{ $row->pickup_required}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Cab Option</th>
+                                                <td>
+                                                    @if($row->cab_option == 1)
+                                                        Transfer Only
+                                                    @elseif($row->cab_option == 2)
+                                                        Dedicated
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Return Date</th>
+                                                <td>{{ $row->number_of_cabs }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Cab Date Range</th>
+                                                <td>{{ $row->cab_date_range }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Artist Remarks</th>

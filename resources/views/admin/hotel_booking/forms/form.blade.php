@@ -169,7 +169,7 @@
                 </div>
                 <div class="row">
                      <div class="col-12">
-                        <h4 class="card-label">Hotel status change</h4><hr>
+                        <h4 class="card-label">For POC </h4><hr>
                     </div>
                     <div class="col-12">
                         <div class="form-group row validated">
@@ -186,6 +186,27 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Hotel Budget</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control selectpicker" name="hotel_budget" tabindex="null">
+                                    <option value="">Select Hotel Budget</option>
+
+                                    <option value="3-5k" {{ old('hotel_budget') == '3 - 5k' || (isset($row->hotel_budget) && $row->hotel_budget == '3 - 5k') ? 'selected' : '' }}>3-5k</option>
+
+                                    <option value="5-8K" {{ old('hotel_budget') == '5-8K' || (isset($row->hotel_budget) && $row->hotel_budget == '5-8K') ? 'selected' : '' }}>5-8K</option>
+
+                                    <option value="8-10K" {{ old('hotel_budget') == '8-10K' || (isset($row->hotel_budget) && $row->hotel_budget == '8-10K') ? 'selected' : '' }}>8-10K</option>
+                                </select>
+
+                                @error('hotel_budget')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

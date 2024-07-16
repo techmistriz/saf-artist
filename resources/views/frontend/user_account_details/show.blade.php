@@ -81,9 +81,25 @@
 		                        </div>
 
 		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">IBAN number/SWIFT CODE/Corresponding bank details: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Iban Number: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->iban_swift_code ?? 'N/A'}}</label>
+		                            	<label class="col-form-label text-lg-left">{{$row->iban_number ?? 'N/A'}}</label>
+		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Swift Code: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->swift_code ?? 'N/A'}}</label>
+		                                
+		                            </div>
+		                        </div>
+
+		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Corresponding Bank Details: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->corresponding_bank_details ?? 'N/A'}}</label>
 		                                
 		                            </div>
 		                        </div>

@@ -905,23 +905,25 @@ trait UserTrait
 
         $userAccountDetail                          = new UserAccountDetail();
 
-        $userAccountDetail->banking_status          = $request->banking_status;
-        $userAccountDetail->user_id                 = \Auth::user()->id;
-        $userAccountDetail->profile_id              = $request->profile_id;
-        $userAccountDetail->name                    = $request->name;
-        $userAccountDetail->permanent_address       = $request->permanent_address;
-        $userAccountDetail->pincode                 = $request->pincode;
-        $userAccountDetail->country_id              = $request->country_id;
-        $userAccountDetail->state_id                = $request->state_id;
-        $userAccountDetail->city_id                 = $request->city_id;        
-        $userAccountDetail->account_number          = $request->account_number;
-        $userAccountDetail->bank_holder_name        = $request->bank_holder_name;
-        $userAccountDetail->bank_name               = $request->bank_name;
-        $userAccountDetail->branch_address          = $request->branch_address;
-        $userAccountDetail->ifsc_code               = $request->ifsc_code;
-        $userAccountDetail->iban_swift_code         = $request->iban_swift_code;
-        $userAccountDetail->residency               = $request->residency;
-        $userAccountDetail->pancard_link_with_adhar = $request->pancard_link_with_adhar;
+        $userAccountDetail->banking_status               = $request->banking_status;
+        $userAccountDetail->user_id                      = \Auth::user()->id;
+        $userAccountDetail->profile_id                   = $request->profile_id;
+        $userAccountDetail->name                         = $request->name;
+        $userAccountDetail->permanent_address            = $request->permanent_address;
+        $userAccountDetail->pincode                      = $request->pincode;
+        $userAccountDetail->country_id                   = $request->country_id;
+        $userAccountDetail->state_id                     = $request->state_id;
+        $userAccountDetail->city_id                      = $request->city_id;        
+        $userAccountDetail->account_number               = $request->account_number;
+        $userAccountDetail->bank_holder_name             = $request->bank_holder_name;
+        $userAccountDetail->bank_name                    = $request->bank_name;
+        $userAccountDetail->branch_address               = $request->branch_address;
+        $userAccountDetail->ifsc_code                    = $request->ifsc_code;
+        $userAccountDetail->iban_number                  = $request->iban_number;
+        $userAccountDetail->swift_code                   = $request->swift_code;
+        $userAccountDetail->corresponding_bank_details   = $request->corresponding_bank_details;
+        $userAccountDetail->residency                    = $request->residency;
+        $userAccountDetail->pancard_link_with_adhar      = $request->pancard_link_with_adhar;
 
         if ($request->hasFile('cancel_cheque_image')) {
 
@@ -971,22 +973,24 @@ trait UserTrait
             $userAccountDetail->user_id     = \Auth::user()->id;            
         }
         
-        $userAccountDetail->banking_status          = $request->banking_status;
-        $userAccountDetail->profile_id              = $request->profile_id;
-        $userAccountDetail->name                    = $request->name;
-        $userAccountDetail->permanent_address       = $request->permanent_address;
-        $userAccountDetail->pincode                 = $request->pincode;
-        $userAccountDetail->country_id              = $request->country_id;
-        $userAccountDetail->state_id                = $request->state_id;
-        $userAccountDetail->city_id                 = $request->city_id;
-        $userAccountDetail->account_number          = $request->account_number;
-        $userAccountDetail->bank_holder_name        = $request->bank_holder_name;
-        $userAccountDetail->bank_name               = $request->bank_name;
-        $userAccountDetail->branch_address          = $request->branch_address;
-        $userAccountDetail->ifsc_code               = $request->ifsc_code;
-        $userAccountDetail->residency               = $request->residency;
-        $userAccountDetail->iban_swift_code         = $request->iban_swift_code;
-        $userAccountDetail->pancard_link_with_adhar = $request->pancard_link_with_adhar;
+        $userAccountDetail->banking_status                = $request->banking_status;
+        $userAccountDetail->profile_id                    = $request->profile_id;
+        $userAccountDetail->name                          = $request->name;
+        $userAccountDetail->permanent_address             = $request->permanent_address;
+        $userAccountDetail->pincode                       = $request->pincode;
+        $userAccountDetail->country_id                    = $request->country_id;
+        $userAccountDetail->state_id                      = $request->state_id;
+        $userAccountDetail->city_id                       = $request->city_id;
+        $userAccountDetail->account_number                = $request->account_number;
+        $userAccountDetail->bank_holder_name              = $request->bank_holder_name;
+        $userAccountDetail->bank_name                     = $request->bank_name;
+        $userAccountDetail->branch_address                = $request->branch_address;
+        $userAccountDetail->ifsc_code                     = $request->ifsc_code;
+        $userAccountDetail->residency                     = $request->residency;
+        $userAccountDetail->iban_number                   = $request->iban_number;
+        $userAccountDetail->swift_code                    = $request->swift_code;
+        $userAccountDetail->corresponding_bank_details    = $request->corresponding_bank_details;
+        $userAccountDetail->pancard_link_with_adhar       = $request->pancard_link_with_adhar;
 
         if ($request->hasFile('cancel_cheque_image')) {
 

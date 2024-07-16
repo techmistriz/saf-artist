@@ -219,12 +219,38 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="ibanSwiftCode" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
+                    <div class="col-12" id="ibanNumber" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">IBAN number/SWIFT CODE/Corresponding bank details (If any)</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Iban Number</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="iban_swift_code" value="{{ old('iban_swift_code', $row->iban_swift_code ?? '') }}" class="form-control form-control-lg form-control-solid @error('iban_swift_code') is-invalid @enderror " placeholder="Enter IBAN number/SWIFT CODE/Corresponding bank details (If any)"/>
-                                @error('iban_swift_code')
+                                <input type="text" name="iban_number" value="{{ old('iban_number', $row->iban_number ?? '') }}" class="form-control form-control-lg form-control-solid @error('iban_number') is-invalid @enderror " placeholder="Enter Iban Number"/>
+                                @error('iban_number')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="swiftCode" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Swift Code</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="swift_code" value="{{ old('swift_code', $row->swift_code ?? '') }}" class="form-control form-control-lg form-control-solid @error('swift_code') is-invalid @enderror " placeholder="Enter Swift Code"/>
+                                @error('swift_code')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12" id="Corresponding" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Corresponding Bank Details</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="corresponding_bank_details" value="{{ old('corresponding_bank_details', $row->corresponding_bank_details ?? '') }}" class="form-control form-control-lg form-control-solid @error('corresponding_bank_details') is-invalid @enderror " placeholder="Enter Corresponding Bank Details"/>
+                                @error('corresponding_bank_details')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -452,7 +478,9 @@
 
         var residency = $('select[name="residency"] option:selected').text();
         if (residency == 'Domestic') {                          
-            $('#ibanSwiftCode').hide();
+            $('#ibanNumber').hide();
+            $('#swiftCode').hide();
+            $('#Corresponding').hide();
             $('#bankHolder').show();
             $('#bankName').show();
             $('#branchAddress').show();
@@ -463,7 +491,9 @@
             $('#gstApplicable').show();
             $('#pancardNumber').show();
         }else if(residency == 'International'){
-            $('#ibanSwiftCode').show();
+            $('#ibanNumber').show();
+            $('#swiftCode').show();
+            $('#Corresponding').show();
             $('#bankHolder').hide();
             $('#bankName').hide();
             $('#branchAddress').hide();
@@ -474,7 +504,9 @@
             $('#gstApplicable').hide();
             $('#pancardNumber').hide();
         }else{
-            $('#ibanSwiftCode').hide();
+            $('#ibanNumber').hide();
+            $('#swiftCode').hide();
+            $('#Corresponding').hide();
             $('#bankHolder').hide();
             $('#bankName').hide();
             $('#branchAddress').hide();
