@@ -169,7 +169,7 @@
                     <div class="col-12" id="front_passport" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic' ? 'display:none;' : '' }}">
 
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Front Side Image) </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Front Side Image) <i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="Passport should have atleast 6 months validity."></i></label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
                                 <div class="image-input image-input-outline" id="front_side_passport" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
@@ -208,7 +208,7 @@
                     <div class="col-12" id="back_passport" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic' ? 'display:none;' : '' }}">
 
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Back Side Image) </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left title-case">Upload Passport (Back Side Image)</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 
                                 <div class="image-input image-input-outline" id="back_side_passport" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
@@ -246,7 +246,7 @@
 
                     <div class="col-12" id="work_visa" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic' ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Visa for India</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Do you have valid visa for India ?</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="work_visa" tabindex="null" onchange="visaField()">
                                     <option value="">Select Visa for India</option>
