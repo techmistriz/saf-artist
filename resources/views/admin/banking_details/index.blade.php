@@ -118,6 +118,9 @@
                 {
                     field: "email",
                     title: "Email",
+                    template: function(t) {
+	                    return (t?.profile?.email) ? t?.profile?.email : 'N/A';
+	                }
                 },
                 {
 	                field: "user_profile_status",

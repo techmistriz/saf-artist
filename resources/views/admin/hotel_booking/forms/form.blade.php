@@ -84,6 +84,27 @@
                     </div>
 
                     <div class="col-12" id="field_hide" style="{{ isset($row->accomodation) && ($row->accomodation == 'No') ? 'display:none;' : ''}}">
+                        
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Occupant</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control selectpicker" name="occupant" tabindex="null">
+                                    <option value="">Select Occupant</option>
+
+                                    <option value="Single Occupant" {{ old('occupant') == 'Single Occupant' || (isset($row->occupant) && $row->occupant == 'Single Occupant') ? 'selected' : '' }}>Single Occupant</option>
+
+                                    <option value="Double Occupants" {{ old('occupant') == 'Double Occupants' || (isset($row->occupant) && $row->occupant == 'Double Occupants') ? 'selected' : '' }}>Double Occupants</option>
+
+                                    <option value="Triple Occupants" {{ old('occupant') == 'Triple Occupants' || (isset($row->occupant) && $row->occupant == 'Triple Occupants') ? 'selected' : '' }}>Triple Occupants</option>
+                                </select>
+
+                                @error('occupant')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check In Date </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">

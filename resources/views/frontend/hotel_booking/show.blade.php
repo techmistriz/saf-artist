@@ -53,6 +53,16 @@
 		                                
 		                            </div>
 		                        </div>
+	                        </div>
+
+	                        <div class="col-12" style="{{ isset($row->accomodation) && ($row->accomodation == 'No') ? 'display:none;' : ''}}">
+		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Occupant: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->occupant}}</label>
+		                                
+		                            </div>
+		                        </div>
 
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Check In Date: </label>

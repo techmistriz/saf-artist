@@ -27,6 +27,10 @@
                                                 <td colspan="3">{{$row->accomodation}}</td>
                                             </tr>
                                             <tr>
+                                                <th>Occupant</th>
+                                                <td colspan="3">{{$row->occupant}}</td>
+                                            </tr>
+                                            <tr>
                                                 <th>Check In Date</th>
                                                 <td colspan="3">{{$row->check_in_date}}</td>
                                             </tr>

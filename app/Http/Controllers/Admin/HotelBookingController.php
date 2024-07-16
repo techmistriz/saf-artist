@@ -157,6 +157,7 @@ class HotelBookingController extends Controller
         $hotel->profile_member_ids     = $request->profile_member_ids;
         $hotel->travel_purpose_id      = $request->travel_purpose_id;
         $hotel->accomodation           = $request->accomodation;
+        $hotel->occupant               = $request->occupant;
         $hotel->check_in_date          = $request->check_in_date;
         $hotel->check_out_date         = $request->check_out_date;
         $hotel->total_room_nights      = $request->total_room_nights;
