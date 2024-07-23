@@ -85,37 +85,22 @@ class UserProfile extends MasterModel
 
     public function PACountry()
     {
-        return $this->belongsTo('App\Models\Country', 'pa_country_id', 'id');
+        return $this->belongsTo('App\Models\Country', 'country_id', 'id');
     }
 
     public function PAState()
     {
-        return $this->belongsTo('App\Models\State', 'pa_state_id', 'id');
+        return $this->belongsTo('App\Models\State', 'state_id', 'id');
     }
 
     public function PACity()
     {
-        return $this->belongsTo('App\Models\City', 'pa_city_id', 'id');
-    }
-
-    public function CACountry()
-    {
-        return $this->belongsTo('App\Models\Country', 'ca_country_id', 'id');
+        return $this->belongsTo('App\Models\City', 'city_id', 'id');
     }
 
     public function curator()
     {
         return $this->belongsTo('App\Models\Curator', 'curator_id', 'id');
-    }
-
-    public function CAState()
-    {
-        return $this->belongsTo('App\Models\State', 'ca_state_id', 'id');
-    }
-
-    public function CACity()
-    {
-        return $this->belongsTo('App\Models\City', 'ca_city_id', 'id');
     }
 
     public function getList($data, $with = [], $where = []){  

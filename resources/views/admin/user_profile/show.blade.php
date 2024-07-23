@@ -132,7 +132,7 @@
                                 <div class="form-group row validated">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pincode: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
-                                        <label class="col-form-label text-lg-left">{{$row->pa_pincode ?? 'N/A'}}</label>                                        
+                                        <label class="col-form-label text-lg-left">{{$row->pincode ?? 'N/A'}}</label>                                        
                                     </div>
                                 </div>
 

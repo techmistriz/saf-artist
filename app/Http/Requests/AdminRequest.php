@@ -39,7 +39,6 @@ class AdminRequest extends FormRequest
      	return [
             'name' => 'required',            
          	'email' => 'required | ' . Rule::unique('admins')->ignore($id, 'id'),
-            // 'contact' => 'required',            
             'password' => $password_rule,          
             'password_confirm' => $password_confirm_rule,
             'role_id' => 'required',

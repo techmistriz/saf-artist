@@ -40,7 +40,6 @@ trait UserTrait
         $user_profile->category_id              = $request->category_id;
         $user_profile->curator_id               = $request->curator_id;
         $user_profile->artist_type_id           = $request->artist_type_id;
-        $user_profile->project_id               = $request->project_id;
         $user_profile->project_year             = $request->project_year;
 
         if($request->has('name') && $request->filled('name')) {
@@ -59,10 +58,10 @@ trait UserTrait
         $user_profile->country_code             = $request->country_code;
         $user_profile->dob                      = $request->dob;
         $user_profile->permanent_address        = $request->permanent_address;
-        $user_profile->pa_city_id               = $request->pa_city_id;
-        $user_profile->pa_state_id              = $request->pa_state_id;
-        $user_profile->pa_country_id            = $request->pa_country_id;
-        $user_profile->pa_pincode               = $request->pa_pincode;
+        $user_profile->city_id                  = $request->city_id;
+        $user_profile->state_id                 = $request->state_id;
+        $user_profile->country_id               = $request->country_id;
+        $user_profile->pincode                  = $request->pincode;
         $user_profile->company_collective       = $request->company_collective;
         $user_profile->stage_name               = $request->stage_name;
         $user_profile->artist_bio               = $request->artist_bio;
@@ -159,7 +158,6 @@ trait UserTrait
         $user_profile->category_id              = $request->category_id;
         $user_profile->curator_id               = $request->curator_id;
         $user_profile->artist_type_id           = $request->artist_type_id;
-        $user_profile->project_id               = $request->project_id;
         $user_profile->project_year             = $request->project_year;
 
         if($request->has('name') && $request->filled('name')) {
@@ -178,10 +176,10 @@ trait UserTrait
         $user_profile->country_code             = $request->country_code;
         $user_profile->dob                      = $request->dob;
         $user_profile->permanent_address        = $request->permanent_address;
-        $user_profile->pa_city_id               = $request->pa_city_id;
-        $user_profile->pa_state_id              = $request->pa_state_id;
-        $user_profile->pa_country_id            = $request->pa_country_id;
-        $user_profile->pa_pincode               = $request->pa_pincode;
+        $user_profile->city_id                  = $request->city_id;
+        $user_profile->state_id                 = $request->state_id;
+        $user_profile->country_id               = $request->country_id;
+        $user_profile->pincode                  = $request->pincode;
         $user_profile->company_collective       = $request->company_collective;
         $user_profile->stage_name               = $request->stage_name;
         $user_profile->artist_bio               = $request->artist_bio;

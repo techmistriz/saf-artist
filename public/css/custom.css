@@ -4736,3 +4736,19 @@ font-size:16px;
 .icon-style{
   font-size: 20px;
 }
+
+.export-modal .modal-body .form-group{
+  display: flex;
+  align-items: center;
+}
+
+.export-modal .modal-body .form-group label{
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0 10px 0px;
+}
+
+.export-modal .modal-body .form-group input{
+  width: 20px; 
+  height: 20px;
+}

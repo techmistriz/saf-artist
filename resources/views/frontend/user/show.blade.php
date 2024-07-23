@@ -168,7 +168,7 @@
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pincode: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->pa_pincode ?? 'N/A'}}</label>		                                
+		                            	<label class="col-form-label text-lg-left">{{$row->pincode ?? 'N/A'}}</label>		                                
 		                            </div>
 		                        </div>
 
@@ -255,19 +255,19 @@
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->has_serendipity_arts ?? 'N/A'}}</label>		                                
 		                            </div>
+		                        </div>		                        
+
+		                        <div class="form-group row validated" style="display: {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? '' : 'none' }};">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year: </label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{ implode(', ', $row->year) }}</label>		                                
+		                            </div>
 		                        </div>
 
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->other_link ?? 'N/A'}}</label>		                                
-		                            </div>
-		                        </div>
-
-		                        <div class="form-group row validated" style="display: {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? '' : 'none' }};">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{ implode(', ', $row->year) }}</label>		                                
 		                            </div>
 		                        </div>
 

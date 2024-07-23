@@ -410,5 +410,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
             });
         });
 
+        Route::group(['prefix' => 'report', 'middleware' => ['AdminPermissionCheck:ReportController']], function(){
+
+            // report routes
+            Route::group(['namespace' => 'App\Http\Controllers\Admin', 'as' => 'report.'], function(){
+                Route::get('create/',          'ReportController@create')->name('create');
+                Route::post('export',           'ReportController@export')->name('export');
+            });
+        });
+
     });
 });

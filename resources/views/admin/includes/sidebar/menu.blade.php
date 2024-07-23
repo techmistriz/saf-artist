@@ -52,6 +52,10 @@
             @if(\Helper::checkPermisson('ProjectController', $rolePermissionArr))
                 @include('admin/includes/sidebar/project')
             @endif
+
+            @if(\Helper::checkPermisson('ReportController', $rolePermissionArr))
+                @include('admin/includes/sidebar/report')
+            @endif
             <li class="menu-section">
                 <h4 class="menu-text">Masters</h4>
                 <i class="menu-icon ki ki-bold-more-hor icon-md"></i>

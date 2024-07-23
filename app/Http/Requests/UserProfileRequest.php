@@ -30,8 +30,8 @@ class UserProfileRequest extends FormRequest
      	return [
             'dob' 					=> $this->input('frontend_role_id') == '8' ? 'required' : '',
             'permanent_address' 	=> 'required',
-            'pa_country_id' 			=> 'required',
-            'pa_pincode' 			=> 'required',
+            'country_id' 			=> 'required',
+            'pincode' 			=> 'required',
             'artist_bio' => $this->input('frontend_role_id') == '8' ? ['required', new MaxWordsRule(150)] : [],
             'max_allowed_member'         => $this->input('frontend_role_id') == '9' ? 'required' : '',
         ];

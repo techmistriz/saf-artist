@@ -141,7 +141,7 @@
 		                        </div>
 
 		                        <div class="form-group row validated" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cancelled Cheque Image: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cancel Cheque/Passbook: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<div class="image-input image-input-outline" style="background-image: url({{asset('media/users/blank_Img.jpg')}})">
                                             @if(isset($row->cancel_cheque_image) && !empty($row->cancel_cheque_image))

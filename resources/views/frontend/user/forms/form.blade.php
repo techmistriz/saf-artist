@@ -229,17 +229,17 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Country </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select name="pa_country_id" id="pa_country_id" class="form-control form-control-lg form-control-custom selectpicker @error('pa_country_id') is-invalid @enderror" onchange="getStates(this, 'pa_country_id', 'pa_state_id', 'State'); checkOtherCountry(this)">
+                                <select name="country_id" id="country_id" class="form-control form-control-lg form-control-custom selectpicker @error('country_id') is-invalid @enderror" onchange="getStates(this, 'country_id', 'state_id', 'State'); checkOtherCountry(this)">
                                     <option value="">Select Country</option>
 
                                     @if($countries->count())
                                         @foreach($countries as $country)
-                                            <option value="{{$country->id}}" {{ old('pa_country_id', $row->pa_country_id ?? 0) == $country->id ? 'selected' : '' }}>{{$country->country_name}}</option>
+                                            <option value="{{$country->id}}" {{ old('country_id', $row->country_id ?? 0) == $country->id ? 'selected' : '' }}>{{$country->country_name}}</option>
                                         @endforeach
                                     @endif
 
                                 </select>
-                                @error('pa_country_id')
+                                @error('country_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -247,31 +247,31 @@
                         </div>
                     </div>
 
-                    <div class="col-12 pa-country-other" style="display: {{ old('pa_country_id', $row->pa_country_id ?? 0) == 2 ? '' : 'none'; }}">
+                    <div class="col-12 pa-country-other" style="display: {{ old('country_id', $row->country_id ?? 0) == 2 ? '' : 'none'; }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Country - Other </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                <input type="text" name="pa_country_other" value="{{ old('pa_country_other', $row->pa_country_other ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter Country - Other" />
+                                <input type="text" name="country_other" value="{{ old('country_other', $row->country_other ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter Country - Other" />
 
-                                @error('pa_country_other')
+                                @error('country_other')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-12 state-wrapper" style="display: {{ old('pa_country_id', $row->pa_country_id ?? 0) == 2 ? 'none' : ''; }}">
+                    <div class="col-12 state-wrapper" style="display: {{ old('country_id', $row->country_id ?? 0) == 2 ? 'none' : ''; }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">State </label>
                                 <div class="col-lg-9 col-md-9 col-sm-12">
                                 
-                                <select name="pa_state_id" id="pa_state_id" class="form-control form-control-lg form-control-custom selectpicker @error('pa_state_id') is-invalid @enderror" data-live-search="true" onchange="getCities(this, 'pa_state_id', 'pa_city_id', 'City')">
+                                <select name="state_id" id="state_id" class="form-control form-control-lg form-control-custom selectpicker @error('state_id') is-invalid @enderror" data-live-search="true" onchange="getCities(this, 'state_id', 'city_id', 'City')">
                                     <option value="">Select State</option>
 
                                 </select>
 
-                                @error('pa_state_id')
+                                @error('state_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -279,17 +279,17 @@
                         </div>
                     </div>
                     
-                    <div class="col-12 state-wrapper" style="display: {{ old('pa_country_id', $row->pa_country_id ?? 0) == 2 ? 'none' : ''; }}">
+                    <div class="col-12 state-wrapper" style="display: {{ old('country_id', $row->country_id ?? 0) == 2 ? 'none' : ''; }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">City</label>
                                 <div class="col-lg-9 col-md-9 col-sm-12">
                                
-                                <select name="pa_city_id" id="pa_city_id" class="form-control form-control-lg form-control-custom selectpicker @error('pa_city_id') is-invalid @enderror" data-live-search="true" onchange="checkOtherCity(this, 'pa-city-other')">
+                                <select name="city_id" id="city_id" class="form-control form-control-lg form-control-custom selectpicker @error('city_id') is-invalid @enderror" data-live-search="true" onchange="checkOtherCity(this, 'pa-city-other')">
                                     <option value="">Select City</option>
 
                                 </select>
 
-                                @error('pa_city_id')
+                                @error('city_id')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -297,14 +297,14 @@
                         </div>
                     </div>
 
-                    <div class="col-12 pa-city-other" style="display: {{ old('pa_city_id', $row->pa_city_id ?? 0) == 7934 ? '' : 'none'; }}">
+                    <div class="col-12 pa-city-other" style="display: {{ old('city_id', $row->city_id ?? 0) == 7934 ? '' : 'none'; }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">City - Other </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                <input type="text" name="pa_city_other" value="{{ old('pa_city_other', $row->pa_city_other ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter City - Other" />
+                                <input type="text" name="city_other" value="{{ old('city_other', $row->city_other ?? '') }}" class="form-control form-control-solid form-control-lg" placeholder="Enter City - Other" />
 
-                                @error('pa_city_other')
+                                @error('city_other')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -315,8 +315,8 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pincode </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="pa_pincode" value="{{ old('pa_pincode', $row->pa_pincode ?? '') }}" class="form-control form-control-lg form-control-solid"  minlength="6" maxlength="6"  placeholder="Enter Pincode"/>
-                                @error('pa_pincode')
+                                <input type="text" name="pincode" value="{{ old('pincode', $row->pincode ?? '') }}" class="form-control form-control-lg form-control-solid"  minlength="6" maxlength="6"  placeholder="Enter Pincode"/>
+                                @error('pincode')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -824,7 +824,7 @@
                             $("#"+target_id).selectpicker('refresh');
 
                             if(selectedId){
-                                getCities(null, 'pa_state_id', 'pa_city_id', 'State', <?php echo old( 'pa_city_id', $row->pa_city_id ?? 0 )?>);
+                                getCities(null, 'state_id', 'city_id', 'State', <?php echo old( 'city_id', $row->city_id ?? 0 )?>);
                             }
                         }
                     }
@@ -876,12 +876,12 @@
 
         if($(_this).val() == '2'){
             $(".state-wrapper").hide();
-            $("#pa_state_id").val('');
-            $("#pa_state_id").selectpicker('refresh');
+            $("#state_id").val('');
+            $("#state_id").selectpicker('refresh');
 
             $(".city-wrapper").hide();
-            $("#pa_city_id").val('');
-            $("#pa_city_id").selectpicker('refresh');
+            $("#city_id").val('');
+            $("#city_id").selectpicker('refresh');
 
             $(".pa-country-other").show();
         } else {
@@ -892,8 +892,8 @@
             $(".pa-country-other").hide();
         }
 
-        $("#pa_city_id").trigger('onchange');
-        // checkOtherCity($("#pa_city_id").html(), 'pa-city-other');
+        $("#city_id").trigger('onchange');
+        // checkOtherCity($("#city_id").html(), 'pa-city-other');
 
     }
 
@@ -909,7 +909,7 @@
     
     $(document).ready(function(){
         
-        getStates(null, 'pa_country_id', 'pa_state_id', 'State', <?php echo old( 'pa_state_id', $row->pa_state_id ?? 0 )?>);
+        getStates(null, 'country_id', 'state_id', 'State', <?php echo old( 'state_id', $row->state_id ?? 0 )?>);
     });
 
 

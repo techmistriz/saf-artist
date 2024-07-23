@@ -159,6 +159,6 @@ class UserProfileController extends Controller
 
         \Flash::success('Your profile details updated successfully.');
         return \Redirect::route('dashboard');
-    }
+    }    
 
 }
