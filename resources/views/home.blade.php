@@ -201,10 +201,10 @@
     .otpButton {
         width: auto;
         border: 2px solid #FA9917 !important;
-        padding: 12px 36px;
+        padding: 10px 20px;
         position: absolute;
-        right: 15px;
-        bottom: 30px;
+        right: 14px;
+        bottom: 25.5px;
         border-radius: 4px;
         color: #FA9917;
         font-weight: 700;
