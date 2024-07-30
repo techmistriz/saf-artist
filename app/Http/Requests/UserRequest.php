@@ -58,7 +58,6 @@ class UserRequest extends FormRequest
           //   'address_proof_image'	=> 'required',
           //   'address_proof_image'	=> 'required',
           //   'stage_name' 			=> 'required',
-            'artist_bio' => $this->input('frontend_role_id') == '8' ? ['required', new MaxWordsRule(150)] : [],
           //   'facebook_username'		=> 'required',
           //   'facebook_url' 			=> 'required',
           //   'instagram_urername'	=> 'required',
