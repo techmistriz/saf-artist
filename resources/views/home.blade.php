@@ -106,15 +106,15 @@
 
     .mrslect{
         background: transparent !important;
-    color: #f7ead3c9!important;
-    border-color: #F7EAD3!important;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    padding: 0.85rem 0.25rem;
-    border-top: 0;
-    border-right: 0;
-    border-left: 0;
-    text-transform:uppercase;
+        color: #f7ead3c9!important;
+        border-color: #F7EAD3!important;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        padding: 0.85rem 0.25rem;
+        border-top: 0;
+        border-right: 0;
+        border-left: 0;
+        text-transform:uppercase;
     }
 
     .mrslect:focus{
@@ -175,52 +175,51 @@
         max-width: 700px;
         margin: 1.75rem auto;
     }
-}
+    }
 
-#otpTimer{
-    color: #ffffff;
-    font-weight: normal;
-    display: block;
-    position: absolute;
-    right: 6%;
-    bottom: -3%;
-    top: -24px;
-    font-size: 12px;
-    z-index: -100;
-}
+    #otpTimer{
+        color: #ffffff;
+        font-weight: normal;
+        display: block;
+        position: absolute;
+        right: 5%;
+        bottom: -3%;
+        top: 65px;
+        font-size: 10px;
+    }
 
-.validation-errors{
-    color: #ffffff;
-    font-weight: normal;
-    display: block;
-    position: absolute;
-    right: 4%;
-    bottom: -3%;
-    font-size: 12px;
-}
+    .validation-errors{
+        color: #ffffff;
+        font-weight: normal;
+        display: block;
+        position: absolute;
+        right: 4%;
+        bottom: -3%;
+        font-size: 12px;
+    }
 
-.otpButton {
-    width: auto;
-    border: 2px solid #FA9917 !important;
-    padding: 12px 36px;
-    position: absolute;
-    right: 15px;
-    bottom: 30px;
-    border-radius: 4px;
-    color: #FA9917;
-    font-weight: 700;
-    letter-spacing: 1.17px;
-    font-size: 0.9vw;
-    line-height: 1.2vw;
-    font-family: 'Open Sans', sans-serif;
-    text-transform: uppercase;
-    background-color: transparent !important;
-}
+    .otpButton {
+        width: auto;
+        border: 2px solid #FA9917 !important;
+        padding: 12px 36px;
+        position: absolute;
+        right: 15px;
+        bottom: 30px;
+        border-radius: 4px;
+        color: #FA9917;
+        font-weight: 700;
+        letter-spacing: 1.17px;
+        font-size: 0.9vw;
+        line-height: 1.2vw;
+        font-family: 'Open Sans', sans-serif;
+        text-transform: uppercase;
+        background-color: transparent !important;
+    }
 
-.otpButton:hover {
-    background: #FA9917 !important;
-    color: #FFF;
-}
+    .otpButton:hover {
+        background: #FA9917 !important;
+        color: #FFF;
+    }
 
 </style>
 
