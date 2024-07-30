@@ -186,6 +186,7 @@
     bottom: -3%;
     top: -24px;
     font-size: 12px;
+    z-index: -100;
 }
 
 .validation-errors{
