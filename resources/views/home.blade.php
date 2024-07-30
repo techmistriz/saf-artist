@@ -182,8 +182,9 @@
     font-weight: normal;
     display: block;
     position: absolute;
-    right: 3%;
+    right: 6%;
     bottom: -3%;
+    top: -24px;
     font-size: 12px;
 }
 
@@ -192,9 +193,32 @@
     font-weight: normal;
     display: block;
     position: absolute;
-    left: -10%;
+    right: 4%;
     bottom: -3%;
     font-size: 12px;
+}
+
+.otpButton {
+    width: auto;
+    border: 2px solid #FA9917 !important;
+    padding: 12px 36px;
+    position: absolute;
+    right: 15px;
+    bottom: 30px;
+    border-radius: 4px;
+    color: #FA9917;
+    font-weight: 700;
+    letter-spacing: 1.17px;
+    font-size: 0.9vw;
+    line-height: 1.2vw;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: uppercase;
+    background-color: transparent !important;
+}
+
+.otpButton:hover {
+    background: #FA9917 !important;
+    color: #FFF;
 }
 
 </style>
@@ -286,14 +310,14 @@
                                                         @enderror
                                                     </div>
                                                 </div>
-                                                <div id="otp" style="display:none; margin-top: -65px; margin-left: 190px; position: absolute;">
+                                                <div id="otp" style="display:none; bottom: 30px; right: 15px; position: absolute;">
                                                     <input id="otp-input" placeholder="Enter OTP" class="form-control" name="otp" type="text">
                                                 </div>
-                                                <div class="sendBtn" style="margin-top: -65px; margin-left: 290px; position: absolute; display:none;">
-                                                    <input type="button" id="send-otp" class="btn btn-primary" value="Send OTP">
+                                                <div class="sendBtn" style="display:none;">
+                                                    <input type="button" id="send-otp" class="otpButton" value="Send OTP">
                                                 </div>
-                                                <div class="resendBtn" style="margin-top: -65px; margin-left: 280px; position: absolute; display:none;">
-                                                    <input type="button" id="resend-otp" class="btn btn-primary" value="Resend OTP">
+                                                <div class="resendBtn" style="display:none;">
+                                                    <input type="button" id="resend-otp" class="otpButton" value="Resend OTP">
                                                 </div>
                                                 <span class="otp-message-wrapper">
                                                     <input type="hidden" class="is-valid">

@@ -31,12 +31,22 @@
 	<link href="{{asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{asset('css/login-1.css') }}" rel="stylesheet" type="text/css" />
 </head>
+<style type="text/css">
+    .loginForm{
+        margin-top: 0 !important;
+    }
+</style>
 <body>
     <div id="app">
-
-        <main class="">
-            @yield('content')
-        </main>
+        @if(request()->segment(2) == 'login')
+            <main class="loginForm">
+                @yield('content')
+            </main>
+        @else
+            <main class="">
+                @yield('content')
+            </main>
+        @endif
 
     </div>
 
