@@ -583,6 +583,8 @@
                 return;
             }
 
+            displayMessage('Sending otp...', 'success');
+
             var button = $(this);
             button.prop('disabled', true);
 
