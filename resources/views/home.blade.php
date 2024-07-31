@@ -604,12 +604,12 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response.status) {
+                        displayMessage('OTP has been sent on your email & whatsapp.', 'success');
                         $('#otp').show().find('input').prop('required', true);
                         // $('.sendBtn').hide();
                         // $('.resendBtn').hide();
                         startTimer(60);
 
-                        displayMessage('OTP has been sent on your email & whatsapp.', 'success');
 
                         setTimeout(function() {
                             $('.sendBtn').hide();
