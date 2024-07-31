@@ -230,9 +230,9 @@ class UserController extends Controller
 
         $this->__updateProfile($request, $id);
 
-        $user   = User::findOrFail($id);
+        // $user   = User::findOrFail($id);
         // \Mail::to($user->email)->send(new \App\Mail\UserDetailsUpdateMailable($user));
-        \App\Notifications\WhatsappNotification::sendUpdateAccountDetailsMessage($user);
+        // \App\Notifications\WhatsappNotification::sendUpdateAccountDetailsMessage($user);
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');
         return \Redirect::route(self::$moduleConfig['routes']['listRoute']);
