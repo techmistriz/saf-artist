@@ -567,17 +567,6 @@
         }
     }
 
-    $(document).ready(function () {
-        $('#contact').on('input', function () {
-            var inputValue = $(this).val();
-            if (inputValue.length === 10 && !isNaN(inputValue)) {
-                $('.sendBtn').show();
-            } else {
-                $('.sendBtn').hide();
-            }
-        });
-    });
-
     $(document).ready(function() {
        $('#send-otp, #resend-otp').click(function(e) {
             e.preventDefault();
