@@ -4752,3 +4752,71 @@ font-size:16px;
   width: 20px; 
   height: 20px;
 }
+
+
+
+@media (max-width:767px){
+
+
+.register-form select{
+  color:#f7ead3c9!important;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 16px;
+  height: 44.5px;
+}
+
+.register-form select:focus{
+  border-bottom: 1px solid #f7ead3;
+}
+
+.register-form .form-group{
+  margin-bottom: 0rem!important;
+}
+
+.register-form .checkbox-inline{
+  margin-top: 14px;
+}
+
+
+.register-form .checkbox-inline a{
+  margin: 0px 6px;;
+}
+
+.register-form .form-control-lg{
+  padding: .825rem 1rem;
+}
+
+
+.register-form .theme-btn {
+  font-size: 3.2vw;
+}
+
+
+.register-form  .otpButton{
+  font-size: 2.6vw;
+  padding: 12px 18px;
+  bottom: 6px;
+}
+
+.validation-errors{
+  position: static!important;
+  font-size: 12px!important;
+  height: max-content!important;
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  transition: all 10000000s;
+}
+
+}

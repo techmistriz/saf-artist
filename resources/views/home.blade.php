@@ -326,11 +326,16 @@
                                                     </span>
                                                 </span>
                                                 <div id="otpTimer" style="display:none;"></div>
-                                                <div class="validation-errors"></div>
+        
                                             </div>
 
                                         </div>
                                     </div>
+
+                                    <div class="col-12">
+                                    <div class="validation-errors"></div>
+                                    </div>
+                                    
                                     
                                     <div class="col-12">
                                         <div class="form-group row validated">
