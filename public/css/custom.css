@@ -4819,4 +4819,12 @@ select:-webkit-autofill:focus {
   transition: all 10000000s;
 }
 
+.register-form #otp{
+  bottom: 6px!important;
+}
+
+.register-form #otpTimer{
+  position: static!important;
+}
+
 }
