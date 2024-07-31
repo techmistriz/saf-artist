@@ -606,7 +606,7 @@
                     if (response.status) {
                         $('#otp').show().find('input').prop('required', true);
                         // $('.sendBtn').hide();
-                        $('.resendBtn').hide();
+                        // $('.resendBtn').hide();
                         startTimer(60);
 
                         displayMessage('OTP has been sent on your email & whatsapp.', 'success');
