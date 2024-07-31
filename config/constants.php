@@ -16,6 +16,10 @@ return [
 		"2025"	=>	'2025',
 	),
 
+	'project_years'	=>	array(
+		"2024"	=>	'2024',
+	),
+
 	'category_form_mapper'	=>	array(
 		"Accessibility"		=>	'accessibility',
 		"Craft"				=>	'craft',

@@ -89,7 +89,7 @@ class UserProfileController extends Controller
      */
     public function create(UserProfile $user_profile)
     {
-        
+        // dd($this->project_years);
         $countries      = Country::where('status', 1)->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
         $categories     = Category::where('status', 1)->get();
@@ -97,6 +97,7 @@ class UserProfileController extends Controller
         return view('frontend.user.create')
         ->with('row', null)
         ->with('years', $this->years)
+        ->with('project_years', $this->project_years)
         ->with('countries', $countries)
         ->with('artistTypes', $artistTypes)
         ->with('categories', $categories)
@@ -141,6 +142,7 @@ class UserProfileController extends Controller
         return view('frontend.user.edit')
         ->with('row', $row)
         ->with('years', $this->years)
+        ->with('project_years', $this->project_years)
         ->with('countries', $countries)
         ->with('artistTypes', $artistTypes)
         ->with('categories', $categories)
