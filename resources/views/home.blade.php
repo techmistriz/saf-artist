@@ -181,10 +181,11 @@
         color: #ffffff;
         font-weight: normal;
         display: block;
-        position: absolute;
-        right: 5%;
+        position: static;
+        /*right: 5%;
         bottom: -3%;
-        top: 65px;
+        top: 65px;*/
+        margin-top: 5px;
         font-size: 10px;
     }
 
@@ -338,7 +339,7 @@
 
                                     <div class="col-8 mb-5">
                                         <div id="otp" style="position: static;">
-                                            <input id="otp-input" placeholder="Enter OTP" class="form-control form-control-lg form-control-custom" name="otp" type="text">
+                                            <input id="otp-input" placeholder="Enter OTP" class="form-control form-control-lg form-control-custom" name="otp" type="text" required>
                                         </div>
                                         
                                         <span class="otp-message-wrapper">
@@ -354,7 +355,7 @@
                                         <div class="sendBtn">
                                             <input type="button" id="send-otp" class="otpButton" value="Send OTP">
                                         </div>
-                                        
+
                                         <div class="resendBtn" style="display:none;">
                                             <input type="button" id="resend-otp" class="otpButton" value="Resend OTP">
                                         </div>
@@ -612,7 +613,7 @@
 
                         setTimeout(function() {
                             $('.sendBtn').hide();
-                            $('#otp').hide().find('input').prop('required', false);
+                            // $('#otp').hide().find('input').prop('required', false);
                             $('.resendBtn').show();
                             button.prop('disabled', false);
                         }, 60000);

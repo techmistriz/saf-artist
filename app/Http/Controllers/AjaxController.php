@@ -267,6 +267,7 @@ class AjaxController extends Controller
         $validation = \Validator::make($request->all(), [
             'email'                 => 'required|email',
             'contact'               => 'required',
+            'otp'                   => 'required',
         ]);
 
         $errors = $validation->errors();
