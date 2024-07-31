@@ -341,16 +341,12 @@
                                             <input id="otp-input" placeholder="Enter OTP" class="form-control form-control-lg form-control-custom" name="otp" type="text">
                                         </div>
                                         
-                                        <div class="resendBtn" style="display:none;">
-                                            <input type="button" id="resend-otp" class="otpButton" value="Resend OTP">
-                                        </div>
                                         <span class="otp-message-wrapper">
                                             <input type="hidden" class="is-valid">
                                             <span class="valid-feedback" role="alert" id="otp-message">
                                                 <strong></strong>
                                             </span>
                                         </span>
-                                        <div id="otpTimer" style="display:none;"></div>
                                         <div class="validation-errors"></div>
                                     </div>
 
@@ -358,6 +354,13 @@
                                         <div class="sendBtn">
                                             <input type="button" id="send-otp" class="otpButton" value="Send OTP">
                                         </div>
+                                        
+                                        <div class="resendBtn" style="display:none;">
+                                            <input type="button" id="resend-otp" class="otpButton" value="Resend OTP">
+                                        </div>
+
+                                        <div id="otpTimer" style="display:none;"></div>
+
                                     </div>
                                     
                                     
@@ -601,7 +604,7 @@
                 success: function(response) {
                     if (response.status) {
                         $('#otp').show().find('input').prop('required', true);
-                        $('.sendBtn').hide();
+                        // $('.sendBtn').hide();
                         $('.resendBtn').hide();
                         startTimer(60);
 
