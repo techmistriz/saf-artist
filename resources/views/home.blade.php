@@ -226,7 +226,7 @@
         width: 100%;
         border: 2px solid #FA9917 !important;
         padding: 9px 9px;
-        margin: 15px 0px;
+        margin: 10px 0px;
         bottom: 0;
         bottom: 30px;
         border-radius: 4px;
@@ -238,6 +238,10 @@
         font-family: 'Open Sans', sans-serif;
         text-transform: uppercase;
         background-color: transparent !important;
+        }
+
+        .register-form .mb-5{
+            margin-bottom:0!important;
         }
     }
 
