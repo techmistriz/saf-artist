@@ -4755,21 +4755,16 @@ font-size:16px;
 
 
 
+/* .register-form .otpButton{
+  padding: 8px 24px!important;
+  bottom: 55px!important;
+  font-size: 0.8vw!important;
+} */
+
 @media (max-width:767px){
 
 
-.register-form select{
-  color:#f7ead3c9!important;
-  text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 1px;
-  line-height: 16px;
-  height: 44.5px;
-}
 
-.register-form select:focus{
-  border-bottom: 1px solid #f7ead3;
-}
 
 .register-form .form-group{
   margin-bottom: 0rem!important;
@@ -4794,11 +4789,11 @@ font-size:16px;
 }
 
 
-.register-form  .otpButton{
-  font-size: 2.6vw;
-  padding: 12px 18px;
-  bottom: 6px;
-}
+/* .register-form  .otpButton{
+  font-size: 2.6vw!important;
+  padding: 12px 18px!important;
+  top: -35px;
+} */
 
 .validation-errors{
   position: static!important;
@@ -4827,6 +4822,20 @@ select:-webkit-autofill:focus {
   position: static!important;
 }
 
+
+
+}
+
+
+.register-form input, .register-form select{
+  padding-left: 0!important;
+  padding-right: 0!important;
+}
+
+
+
+.sendBtn{
+  text-align: right;
 }
 
 input:-webkit-autofill,
@@ -4843,4 +4852,17 @@ select:-webkit-autofill:focus {
 
 .register-form .validation-errors{
   color: #fff!important;
+}
+
+.register-form select{
+  color:#f7ead3c9!important;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 1px;
+  line-height: 16px;
+  height: 44.5px;
+}
+
+.register-form select:focus{
+  border-bottom: 1px solid #f7ead3;
 }

@@ -192,18 +192,16 @@
         color: #ffffff;
         font-weight: normal;
         display: block;
-        position: absolute;
+        position: static;
         right: 4%;
         bottom: -3%;
         font-size: 12px;
     }
 
     .otpButton {
-        width: auto;
+        width: 100%;
         border: 2px solid #FA9917 !important;
         padding: 12px 36px;
-        position: absolute;
-        right: 15px;
         bottom: 30px;
         border-radius: 4px;
         color: #FA9917;
@@ -220,6 +218,29 @@
         background: #FA9917 !important;
         color: #FFF;
     }
+
+    @media (max-width:767px){
+        
+        .otpButton {
+        width: 100%;
+        border: 2px solid #FA9917 !important;
+        padding: 9px 9px;
+        margin: 15px 0px;
+        bottom: 0;
+        bottom: 30px;
+        border-radius: 4px;
+        color: #FA9917;
+        font-weight: 700;
+        font-size: 2vw;
+        font-size: 2.4vw;
+        line-height: 1.2vw;
+        font-family: 'Open Sans', sans-serif;
+        text-transform: uppercase;
+        background-color: transparent !important;
+        }
+    }
+
+
 
 </style>
 
@@ -292,7 +313,7 @@
                                     </div>
                                     
                                     <div class="col-12">
-                                        <div class="form-group row validated">
+                                        <div class="form-group row validated" style="margin-bottom:0;">
                                             
                                             <div class="col-6">
                                                 <input type="text" name="name" value="{{ old('name', $row->name ?? '') }}" class="form-control form-control-lg form-control-custom"  placeholder="Enter Full Name" required/>
@@ -309,36 +330,39 @@
                                                             <div class="invalid-feedback">{{ $message }}</div>
                                                         @enderror
                                                     </div>
-                                                </div>
-                                                <div id="otp" style="display:none; bottom: 30px; right: 15px; position: absolute;">
-                                                    <input id="otp-input" placeholder="Enter OTP" class="form-control" name="otp" type="text">
-                                                </div>
-                                                <div class="sendBtn" style="display:none;">
-                                                    <input type="button" id="send-otp" class="otpButton" value="Send OTP">
-                                                </div>
-                                                <div class="resendBtn" style="display:none;">
-                                                    <input type="button" id="resend-otp" class="otpButton" value="Resend OTP">
-                                                </div>
-                                                <span class="otp-message-wrapper">
-                                                    <input type="hidden" class="is-valid">
-                                                    <span class="valid-feedback" role="alert" id="otp-message">
-                                                        <strong></strong>
-                                                    </span>
-                                                </span>
-                                                <div id="otpTimer" style="display:none;"></div>
-        
+                                                </div>        
                                             </div>
 
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
-                                    <div class="validation-errors"></div>
+                                    <div class="col-8 mb-5">
+                                        <div id="otp" style="position: static;">
+                                            <input id="otp-input" placeholder="Enter OTP" class="form-control form-control-lg form-control-custom" name="otp" type="text">
+                                        </div>
+                                        
+                                        <div class="resendBtn" style="display:none;">
+                                            <input type="button" id="resend-otp" class="otpButton" value="Resend OTP">
+                                        </div>
+                                        <span class="otp-message-wrapper">
+                                            <input type="hidden" class="is-valid">
+                                            <span class="valid-feedback" role="alert" id="otp-message">
+                                                <strong></strong>
+                                            </span>
+                                        </span>
+                                        <div id="otpTimer" style="display:none;"></div>
+                                        <div class="validation-errors"></div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="sendBtn">
+                                            <input type="button" id="send-otp" class="otpButton" value="Send OTP">
+                                        </div>
                                     </div>
                                     
                                     
                                     <div class="col-12">
-                                        <div class="form-group row validated">
+                                        <div class="form-group row validated" style="margin-bottom:0;">
                                             <div class="col-6">
                                                 <div class="form-group row validated">
                                                     <div class="col-lg-12 col-md-12 col-sm-12">
