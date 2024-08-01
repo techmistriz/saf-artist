@@ -339,35 +339,7 @@
                                             </div>
 
                                         </div>
-                                    </div>
-
-                                    <div class="col-8 mb-5">
-                                        <div id="otp" style="position: static;">
-                                            <input id="otp-input" placeholder="Enter OTP" class="form-control form-control-lg form-control-custom" name="otp" type="text" required>
-                                        </div>
-                                        
-                                        <span class="otp-message-wrapper">
-                                            <input type="hidden" class="is-valid">
-                                            <span class="valid-feedback" role="alert" id="otp-message">
-                                                <strong></strong>
-                                            </span>
-                                        </span>
-                                        <div class="validation-errors"></div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="sendBtn">
-                                            <input type="button" id="send-otp" class="otpButton" value="Send OTP">
-                                        </div>
-
-                                        <div class="resendBtn" style="display:none;">
-                                            <input type="button" id="resend-otp" class="otpButton" value="Resend OTP">
-                                        </div>
-
-                                        <div id="otpTimer" style="display:none;"></div>
-
-                                    </div>
-                                    
+                                    </div>                                    
                                     
                                     <div class="col-12">
                                         <div class="form-group row validated" style="margin-bottom:0;">
@@ -458,13 +430,40 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-8 mb-5">
+                                        <div id="otp" style="position: static;">
+                                            <input id="otp-input" placeholder="Enter OTP" class="form-control form-control-lg form-control-custom" name="otp" type="text" required>
+                                        </div>
+                                        
+                                        <span class="otp-message-wrapper">
+                                            <input type="hidden" class="is-valid">
+                                            <span class="valid-feedback" role="alert" id="otp-message">
+                                                <strong></strong>
+                                            </span>
+                                        </span>
+                                        <div class="validation-errors"></div>
+                                    </div>
+
+                                    <div class="col-4">
+                                        <div class="sendBtn">
+                                            <input type="button" id="send-otp" class="otpButton" value="Send OTP">
+                                        </div>
+
+                                        <div class="resendBtn" style="display:none;">
+                                            <input type="button" id="resend-otp" class="otpButton" value="Resend OTP">
+                                        </div>
+
+                                        <div id="otpTimer" style="display:none;"></div>
+
+                                    </div>
+
                                     <div class="col-12">
                                         <div class="form-group row validated">
                                             <div class="checkbox-inline">
                                                 <label class="checkbox theme-text-color">
                                                     <input type="checkbox" name="terms" value="1" required="" />
                                                     <span></span>
-                                                    I accept <a data-toggle="modal" data-target="#termCondition">Terms and Conditions.</a>
+                                                    I accept <a data-toggle="modal" data-target="#termCondition"> Terms and Conditions.</a>
                                                 </label>
                                             </div>
 
