@@ -463,7 +463,7 @@
                                                 <label class="checkbox theme-text-color">
                                                     <input type="checkbox" name="terms" value="1" required="" />
                                                     <span></span>
-                                                    I accept <a data-toggle="modal" data-target="#termCondition"> Terms and Conditions.</a>
+                                                    I accept <a data-toggle="modal" data-target="#termCondition">&nbsp;Terms and Conditions.</a>
                                                 </label>
                                             </div>
 
