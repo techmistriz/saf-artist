@@ -104,7 +104,7 @@ class CuratorController extends Controller
      */
     public function create(Curator $curator){
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('years', $this->years);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('project_years', $this->project_years);
     }
 
     /**
@@ -146,7 +146,7 @@ class CuratorController extends Controller
     public function edit($id, Curator $curator){
 
         $row = Curator::findOrFail($id);
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('years', $this->years);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('project_years', $this->project_years);
     }
 
     /**
