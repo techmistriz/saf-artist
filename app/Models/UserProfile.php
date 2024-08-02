@@ -104,37 +104,37 @@ class UserProfile extends MasterModel
     }
 
     public function getList($data, $with = [], $where = [], $whereNotIn = [])
-{  
-    $records = $this->handleAjax($data);
+    {  
+        $records = $this->handleAjax($data);
 
-    if (isset($with) && !empty($with)) {
-        $records->with($with);        
-    }
-    
-    if (isset($where) && !empty($where)) {
-        $records->where($where);     
-    }
-
-    if (isset($whereNotIn) && !empty($whereNotIn)) {
-        foreach ($whereNotIn as $key => $values) {
-            $records->whereNotIn($key, $values);     
+        if (isset($with) && !empty($with)) {
+            $records->with($with);        
         }
-    }
+        
+        if (isset($where) && !empty($where)) {
+            $records->where($where);     
+        }
 
-    if (!empty($data['query']['search'])) {
-        $searchKey = $data['query']['search'];
-        $records->where(function($query) use ($searchKey) {
-            $query->where('name', 'LIKE', '%'.$searchKey.'%')
-                  ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
-                  ->orWhere('contact', 'LIKE', '%'.$searchKey.'%')
-                  ->orWhereHas('user', function ($query) use ($searchKey) {
-                      $query->where('name', 'LIKE', '%'.$searchKey.'%');
-                  });
-        });
-    }
+        if (isset($whereNotIn) && !empty($whereNotIn)) {
+            foreach ($whereNotIn as $key => $values) {
+                $records->whereNotIn($key, $values);     
+            }
+        }
 
-    return $records->get();
-}
+        if (!empty($data['query']['search'])) {
+            $searchKey = $data['query']['search'];
+            $records->where(function($query) use ($searchKey) {
+                $query->where('name', 'LIKE', '%'.$searchKey.'%')
+                      ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
+                      ->orWhere('contact', 'LIKE', '%'.$searchKey.'%')
+                      ->orWhereHas('user', function ($query) use ($searchKey) {
+                          $query->where('name', 'LIKE', '%'.$searchKey.'%');
+                      });
+            });
+        }
+
+        return $records->get();
+    }
 
 
     public function getListCount($data, $with = [], $where = [], $whereNotIn = []){  
@@ -150,10 +150,11 @@ class UserProfile extends MasterModel
            $records->where($where);     
         }
 
-        // if(isset($whereNotIn) && !empty($whereNotIn))
-        // {
-        //    $records->whereNotIn($whereNotIn);     
-        // }
+        if (isset($whereNotIn) && !empty($whereNotIn)) {
+            foreach ($whereNotIn as $key => $values) {
+                $records->whereNotIn($key, $values);     
+            }
+        }
 
         if(!empty($data['query']['search'])){
 

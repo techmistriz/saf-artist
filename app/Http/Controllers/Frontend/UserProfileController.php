@@ -55,30 +55,30 @@ class UserProfileController extends Controller
     }
 
     public function fetchData(Request $request, UserProfile $user_profile)
-{
-    $userEmail = Auth::user()->email;
-    
-    $data = $request->all();
+    {
+        $userEmail = Auth::user()->email;
+        
+        $data = $request->all();
 
-    // Pass the 'whereNotIn' condition as an array of keys and values
-    $db_data = $user_profile->getList($data, ['project', 'festival', 'user'], ['email' => $userEmail], ['profile_status' => [4]]);
+        // Pass the 'whereNotIn' condition as an array of keys and values
+        $db_data = $user_profile->getList($data, ['project', 'festival', 'user'], ['email' => $userEmail], ['profile_status' => [4]]);
 
-    $count = $user_profile->getListCount($data, [], ['email' => $userEmail], ['profile_status' => [4]]);
+        $count = $user_profile->getListCount($data, [], ['email' => $userEmail], ['profile_status' => [4]]);
 
-    $returnArray = array(
-        'data' => $db_data,
-        'meta' => array(
-            'page' => $data['pagination']['page'] ?? 1, 
-            'pages' => $data['pagination']['pages'] ?? 1, 
-            'perpage' => $data['pagination']['perpage'] ?? 10, 
-            'total' => $count, 
-            'sort' => $data['sort']['sort'] ?? 'asc', 
-            'field' => $data['sort']['field'] ?? '_id', 
-        ),
-    );
+        $returnArray = array(
+            'data' => $db_data,
+            'meta' => array(
+                'page' => $data['pagination']['page'] ?? 1, 
+                'pages' => $data['pagination']['pages'] ?? 1, 
+                'perpage' => $data['pagination']['perpage'] ?? 10, 
+                'total' => $count, 
+                'sort' => $data['sort']['sort'] ?? 'asc', 
+                'field' => $data['sort']['field'] ?? '_id', 
+            ),
+        );
 
-    return $returnArray;
-}
+        return $returnArray;
+    }
 
 
     

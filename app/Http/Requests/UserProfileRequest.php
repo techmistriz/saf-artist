@@ -26,10 +26,16 @@ class UserProfileRequest extends FormRequest
     public function rules()
     {
         $id = $this->input('id', 0);
+        $user_id       = \Auth::user()->id;
 
      	return [
             'project_year' 	=> 'required',
-            'festival_id' 			=> 'required',
+            'festival_id' => [
+                'required',
+                Rule::unique('user_profiles')->ignore($id, 'id')->where(function ($query) use ($user_id) {
+                    return $query->where('user_id', $user_id);
+                }),
+            ],
         ];
     }
 
