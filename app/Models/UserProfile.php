@@ -118,10 +118,10 @@ class UserProfile extends MasterModel
            $records->where($where);     
         }
 
-        if(isset($whereNotIn) && !empty($whereNotIn))
-        {
-           $records->whereNotIn($whereNotIn);     
-        }
+        // if(isset($whereNotIn) && !empty($whereNotIn))
+        // {
+        //    $records->whereNotIn($whereNotIn);     
+        // }
 
         // Added for sequence number
         // $page               =   $data['pagination']['page'] ?? 1;
@@ -146,7 +146,8 @@ class UserProfile extends MasterModel
                });
             });
         }
-
+        // $data = $records->get();
+        // dd($data);
         return $records->get();
     }
 
@@ -163,10 +164,10 @@ class UserProfile extends MasterModel
            $records->where($where);     
         }
 
-        if(isset($whereNotIn) && !empty($whereNotIn))
-        {
-           $records->whereNotIn($whereNotIn);     
-        }
+        // if(isset($whereNotIn) && !empty($whereNotIn))
+        // {
+        //    $records->whereNotIn($whereNotIn);     
+        // }
 
         if(!empty($data['query']['search'])){
 

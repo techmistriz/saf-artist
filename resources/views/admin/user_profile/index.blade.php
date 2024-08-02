@@ -162,9 +162,6 @@
                 3: {
                     'icon': 'fa fa-check text-success'
                 },
-                4: {
-                    'icon': 'fa fa-check text-danger'
-                }
             };
 
             return function(t) {
