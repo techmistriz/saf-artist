@@ -103,53 +103,39 @@ class UserProfile extends MasterModel
         return $this->belongsTo('App\Models\Curator', 'curator_id', 'id');
     }
 
-    public function getList($data, $with = [], $where = [], $whereNotIn = []){  
+    public function getList($data, $with = [], $where = [], $whereNotIn = [])
+{  
+    $records = $this->handleAjax($data);
 
-    	
-
-        $records = $this->handleAjax($data);
-        if(isset($with) && !empty($with))
-        {
-           $records->with($with);        
-        }
-        
-        if(isset($where) && !empty($where))
-        {
-           $records->where($where);     
-        }
-
-        // if(isset($whereNotIn) && !empty($whereNotIn))
-        // {
-        //    $records->whereNotIn($whereNotIn);     
-        // }
-
-        // Added for sequence number
-        // $page               =   $data['pagination']['page'] ?? 1;
-        // $page               =   $page - 1;
-        // $perPage            =   $data['pagination']['perpage'] ?? 10;
-        // $page               =   $page * $perPage;
-
-        // \DB::select(\DB::raw('SET @row := '. $page));
-        // $records->selectRaw('@row := @row + 1 as row, '.$this->getTable().'.*');
-        // $records->from(\DB::raw(''.$this->getTable().', (SELECT @row := '.$page.') r'));
-        // Added for sequence number
-        
-        if(!empty($data['query']['search'])){
-
-        	$searchKey = $data['query']['search'];
-         	$records->where(function($query) use ($searchKey){
-                $query->where('name', 'LIKE', '%'.$searchKey.'%')
-                ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
-                ->orWhere('contact', 'LIKE', '%'.$searchKey.'%')
-                ->orWhereHas('user', function ($query) use ($searchKey) {
-                  $query->where('name', 'LIKE', '%'.$searchKey.'%');
-               });
-            });
-        }
-        // $data = $records->get();
-        // dd($data);
-        return $records->get();
+    if (isset($with) && !empty($with)) {
+        $records->with($with);        
     }
+    
+    if (isset($where) && !empty($where)) {
+        $records->where($where);     
+    }
+
+    if (isset($whereNotIn) && !empty($whereNotIn)) {
+        foreach ($whereNotIn as $key => $values) {
+            $records->whereNotIn($key, $values);     
+        }
+    }
+
+    if (!empty($data['query']['search'])) {
+        $searchKey = $data['query']['search'];
+        $records->where(function($query) use ($searchKey) {
+            $query->where('name', 'LIKE', '%'.$searchKey.'%')
+                  ->orWhere('email', 'LIKE', '%'.$searchKey.'%')
+                  ->orWhere('contact', 'LIKE', '%'.$searchKey.'%')
+                  ->orWhereHas('user', function ($query) use ($searchKey) {
+                      $query->where('name', 'LIKE', '%'.$searchKey.'%');
+                  });
+        });
+    }
+
+    return $records->get();
+}
+
 
     public function getListCount($data, $with = [], $where = [], $whereNotIn = []){  
 
