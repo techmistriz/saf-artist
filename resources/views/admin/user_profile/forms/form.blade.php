@@ -737,6 +737,7 @@
                                     <option value="1" {{ old('profile_status') == '1' || (isset($row->profile_status) && $row->profile_status == '1') ? 'selected' : '' }}>Pending</option>
                                     <option value="2" {{ old('profile_status') == '2' || (isset($row->profile_status) && $row->profile_status == '2') ? 'selected' : '' }}>In Review</option>
                                     <option value="3" {{ old('profile_status') == '3' || (isset($row->profile_status) && $row->profile_status == '3') ? 'selected' : '' }}>Freeze</option>
+                                    <option value="4" {{ old('profile_status') == '4' || (isset($row->profile_status) && $row->profile_status == '4') ? 'selected' : '' }}>Delete</option>
                                 </select>
                                 @error('profile_status')
                                     <div class="invalid-feedback d-block">{{ $message }}</div>

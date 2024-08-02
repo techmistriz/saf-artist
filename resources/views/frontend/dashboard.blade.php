@@ -141,7 +141,11 @@
                             3: {
                                 'title': 'FREEZE',
                                 'class': ' label-light-success'
-                            },                            
+                            }, 
+                            4: {
+                                'title': 'Delete',
+                                'class': ' label-danger'
+                            },                           
                         };
                         return '<span class="label font-weight-bold label-lg ' + profile_status[t?.profile_status].class + ' label-inline">' + profile_status[t?.profile_status].title + '</span>';
                     },

@@ -103,7 +103,7 @@ class UserProfile extends MasterModel
         return $this->belongsTo('App\Models\Curator', 'curator_id', 'id');
     }
 
-    public function getList($data, $with = [], $where = []){  
+    public function getList($data, $with = [], $where = [], $whereNotIn = []){  
 
     	
 
@@ -116,6 +116,11 @@ class UserProfile extends MasterModel
         if(isset($where) && !empty($where))
         {
            $records->where($where);     
+        }
+
+        if(isset($whereNotIn) && !empty($whereNotIn))
+        {
+           $records->whereNotIn($whereNotIn);     
         }
 
         // Added for sequence number
@@ -145,7 +150,7 @@ class UserProfile extends MasterModel
         return $records->get();
     }
 
-    public function getListCount($data, $with = [], $where = []){  
+    public function getListCount($data, $with = [], $where = [], $whereNotIn = []){  
 
         $records = $this->query();
         if(isset($with) && !empty($with))
@@ -156,6 +161,11 @@ class UserProfile extends MasterModel
         if(isset($where) && !empty($where))
         {
            $records->where($where);     
+        }
+
+        if(isset($whereNotIn) && !empty($whereNotIn))
+        {
+           $records->whereNotIn($whereNotIn);     
         }
 
         if(!empty($data['query']['search'])){

@@ -60,9 +60,9 @@ class UserProfileController extends Controller
         
         $data     = $request->all();
 
-        $db_data  = $user_profile->getList($data, ['project', 'festival', 'user'], ['email'=> $userEmail]);
+        $db_data  = $user_profile->getList($data, ['project', 'festival', 'user'], ['email'=> $userEmail,], ['profile_status' => 4]);
 
-        $count    = $user_profile->getListCount($data,[], ['email'=> $userEmail]);
+        $count    = $user_profile->getListCount($data,[], ['email'=> $userEmail], ['profile_status' => 4]);
 
         $returnArray = array(
             'data' => $db_data,

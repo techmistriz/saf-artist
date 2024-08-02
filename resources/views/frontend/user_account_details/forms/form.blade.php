@@ -58,18 +58,6 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pincode</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="pincode" value="{{ old('pincode', $row->pincode ?? '') }}" class="form-control form-control-lg form-control-solid @error('pincode') is-invalid @enderror " placeholder="Enter Pincode" required/>
-                                @error('pincode')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Country</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control selectpicker" name="country_id" tabindex="null" onchange="getState()">
@@ -119,6 +107,18 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Pincode</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="pincode" value="{{ old('pincode', $row->pincode ?? '') }}" class="form-control form-control-lg form-control-solid @error('pincode') is-invalid @enderror " placeholder="Enter Pincode" required/>
+                                @error('pincode')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Residency</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="residency" tabindex="null" onchange="showShowField()">
@@ -137,7 +137,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Account Number</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="account_number" oninput="this.value=this.value.replace(/[^0-9]/, '')" minlength="10" maxlength="20" value="{{ old('account_number') ? old('account_number') :( isset($row->account_number) ? $row->account_number : '') }}" class="form-control form-control-lg form-control-solid @error('account_number') is-invalid @enderror " placeholder="Enter account number"/>
+                                <input type="text" name="account_number" oninput="this.value=this.value.replace(/[^0-9]/, '')" minlength="10" maxlength="20" value="{{ old('account_number', $row->account_number ?? '') }}" class="form-control form-control-lg form-control-solid @error('account_number') is-invalid @enderror " placeholder="Enter account number"/>
                                 @error('account_number')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
