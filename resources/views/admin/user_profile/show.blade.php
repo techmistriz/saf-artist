@@ -136,7 +136,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row validated" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                                <div class="form-group row validated" style="{{ isset($row->user->frontendRole->name) && ($row->user->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
                                         <label class="col-form-label text-lg-left">{{$row->company_collective ?? 'N/A'}}</label>
@@ -150,12 +150,12 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group row validated" style="{{ isset($row->user->frontendRole->name) && ($row->user->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                                <!-- <div class="form-group row validated" style="{{ isset($row->user->frontendRole->name) && ($row->user->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
                                         <label class="col-form-label text-lg-left">{{$row->payment_troup ?? 'N/A'}}</label>                                     
                                     </div>
-                                </div>
+                                </div> -->
                             </div>                          
                         </div>
 
@@ -211,6 +211,27 @@
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Website: </label>
                                     <div class="col-lg-9 col-md-9 col-sm-12">
                                         <label class="col-form-label text-lg-left">{{$row->website ?? 'N/A'}}</label>                                       
+                                    </div>
+                                </div>
+
+                                 <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Have you been associated with Serendipity Arts in the past ?: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <label class="col-form-label text-lg-left">{{$row->has_serendipity_arts ?? 'N/A'}}</label>                                      
+                                    </div>
+                                </div>                              
+
+                                <div class="form-group row validated" style="display: {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? '' : 'none' }};">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <label class="col-form-label text-lg-left">{{ implode(', ', $row->year) }}</label>                                      
+                                    </div>
+                                </div>
+
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <label class="col-form-label text-lg-left">{{$row->other_link ?? 'N/A'}}</label>                                        
                                     </div>
                                 </div>
                             </div>
