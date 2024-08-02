@@ -72,7 +72,7 @@
 		var columnsArray 	=	[
             
             {
-                field: 'row',
+                field: 'id',
                 title: '#',
                 sortable: 'asc',
                 width: 30,
