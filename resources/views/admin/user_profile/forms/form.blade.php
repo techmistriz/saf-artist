@@ -342,7 +342,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="company_collective" style="{{ isset($row->frontendRole->name) && ($row->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
+                    <div class="col-12" id="company_collective" style="{{ isset($row->user->frontendRole->name) && ($row->user->frontendRole->name == 'Individual') ? 'display:none;' :''}}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective (If Applicable) </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -481,6 +481,59 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="website" value="{{ old('website') ? old('website') :( isset($row->website) ? $row->website : '') }}" class="form-control form-control-lg form-control-solid"   placeholder="Enter Website"/>
                                 @error('website')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Have you been associated with Serendipity Arts in the past ? </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-solid selectpicker" name="has_serendipity_arts" tabindex="null" onchange="serendipityArtsChangePress(this)">
+                                    <option value="">Select</option>
+                                    <option value="Yes" {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? 'selected' : '' }}>Yes</option>
+                                    <option value="No" {{ old('has_serendipity_arts') == 'No' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'No') ? 'selected' : ''  }}>No</option>
+                                </select>
+
+                                @error('has_serendipity_arts')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work <i>(If any)</i> </label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="other_link" value="{{ old('other_link') ? old('other_link') :( isset($row->other_link) ? $row->other_link : '') }}" class="form-control form-control-lg form-control-solid"  placeholder="Enter Link with videos of your work"/>
+                                @error('other_link')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 has-year" style="display: {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? '' : 'none' }};">
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-solid selectpicker" name="year[]" id="year" tabindex="null" multiple="">
+                                    <option value="">Select Year</option>
+                                    @if( isset($years) && count($years))
+                                        @foreach($years as $year)
+
+                                           <option {{ in_array($year, old('year', $row->year ?? [] )) ? 'selected' : '' }} value="{{$year}}">{{$year}}</option>
+
+                                        @endforeach
+                                    @endif
+                                </select>
+
+                                @error('year')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
@@ -668,60 +721,7 @@
                             
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Have you been associated with Serendipity Arts in the past ? </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-solid selectpicker" name="has_serendipity_arts" tabindex="null" onchange="serendipityArtsChangePress(this)">
-                                    <option value="">Select</option>
-                                    <option value="Yes" {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? 'selected' : '' }}>Yes</option>
-                                    <option value="No" {{ old('has_serendipity_arts') == 'No' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'No') ? 'selected' : ''  }}>No</option>
-                                </select>
-
-                                @error('has_serendipity_arts')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work <i>(If any)</i> </label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="other_link" value="{{ old('other_link') ? old('other_link') :( isset($row->other_link) ? $row->other_link : '') }}" class="form-control form-control-lg form-control-solid"  placeholder="Enter Link with videos of your work"/>
-                                @error('other_link')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-12 has-year" style="display: {{ old('has_serendipity_arts') == 'Yes' || (isset($row->has_serendipity_arts) && $row->has_serendipity_arts == 'Yes') ? '' : 'none' }};">
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-solid selectpicker" name="year[]" id="year" tabindex="null" multiple="">
-                                    <option value="">Select Year</option>
-                                    @if( isset($years) && count($years))
-                                        @foreach($years as $year)
-
-                                           <option {{ in_array($year, old('year', $row->year ?? [] )) ? 'selected' : '' }} value="{{$year}}">{{$year}}</option>
-
-                                        @endforeach
-                                    @endif
-                                </select>
-
-                                @error('year')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            
-                            </div>
-                        </div>
-                    </div>
+                    </div>                    
                 </div>
 
                 <div class="row">
