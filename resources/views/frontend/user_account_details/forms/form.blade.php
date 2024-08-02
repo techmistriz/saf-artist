@@ -161,7 +161,7 @@
 
                     <div class="col-12" id="ibanNumber" style="{{( isset($row->residency) && $row->residency == 'Domestic')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Iban Number</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">IBAN Number</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <input type="text" name="iban_number" value="{{ old('iban_number', $row->iban_number ?? '') }}" class="form-control form-control-lg form-control-solid @error('iban_number') is-invalid @enderror " placeholder="Enter Iban Number"/>
                                 @error('iban_number')
