@@ -24,18 +24,7 @@ class Category extends MasterModel
         if(isset($where) && !empty($where))
         {
            $records->where($where);     
-        }
-
-        // Added for sequence number
-        $page               =   $data['pagination']['page'] ?? 1;
-        $page               =   $page - 1;
-        $perPage            =   $data['pagination']['perpage'] ?? 10;
-        $page               =   $page * $perPage;
-
-        \DB::select(\DB::raw('SET @row := '. $page));
-        $records->selectRaw('@row := @row + 1 as row, '.$this->getTable().'.*');
-        $records->from(\DB::raw(''.$this->getTable().', (SELECT @row := '.$page.') r'));
-        // Added for sequence number
+        }        
         
         if(!empty($data['query']['search'])){
 

@@ -81,9 +81,9 @@
                 @include('admin/includes/sidebar/festival')
             @endif 
 
-            @if(\Helper::checkPermisson('PincodeController', $rolePermissionArr))
+            <!-- @if(\Helper::checkPermisson('PincodeController', $rolePermissionArr))
                 @include('admin/includes/sidebar/pincode')
-            @endif            
+            @endif   -->          
             
             <!-- New Section Start -->
             <li class="menu-section">
