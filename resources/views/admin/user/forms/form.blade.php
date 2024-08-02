@@ -125,9 +125,7 @@
                             @enderror
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
                     <div class="col-6">
                         <div class="form-group">
                             <label>Password </label>
@@ -146,6 +144,38 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                    </div>
+                    <div class="col-6">
+                        <label>Image</label>
+                        <div class="form-group">
+                            <div class="image-input image-input-outline" id="profile_image_1" style="background-image: url('{{asset("media/users/blank_Img.jpg")}}')">
+
+                                @if(isset($row->profile_image_1) && !empty($row->profile_image_1))
+                                    <div class="image-input-wrapper" style="background-image:url('{{asset("uploads/users/".$row->profile_image_1)}}')"></div>
+                                @else
+                                    <div class="image-input-wrapper profile_image_1_base64"></div>
+                                @endif
+
+                                <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change">
+                                    <i class="fa fa-pen icon-sm text-muted"></i>
+                                    <input type="file" name="profile_image_1" accept=".png, .jpg, .jpeg"/>
+                                    <input type="hidden" name="profile_image_1_remove"/>
+                                </label>
+
+                                @if(isset($row->profile_image_1) && !empty($row->profile_image_1))
+                                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove">
+                                        <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                    </span>
+                                @else
+                                    <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel">
+                                        <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        @error('profile_image_1')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>                
             </div>
@@ -166,6 +196,30 @@
 
 @push('scripts')
 <script type="text/javascript">	
+    var profile_image_1 = new KTImageInput('profile_image_1');
 
+    profile_image_1.on('cancel', function(imageInput) {
+        swal.fire({
+            title: 'Image successfully canceled !',
+            type: 'success',
+            buttonsStyling: false,
+            confirmButtonText: 'Okay!',
+            confirmButtonClass: 'btn btn-primary font-weight-bold'
+        });
+    });
+
+    profile_image_1.on('change', function(imageInput) {
+        
+    });
+
+    profile_image_1.on('remove', function(imageInput) {
+        swal.fire({
+            title: 'Image successfully removed !',
+            type: 'error',
+            buttonsStyling: false,
+            confirmButtonText: 'Got it!',
+            confirmButtonClass: 'btn btn-primary font-weight-bold'
+        });
+    });
 </script>
 @endpush

@@ -9,7 +9,7 @@
             <div class="col-md-9">
                 <ul class="navbar-menu" id="mobileMenu">
                     <li><a href="{{route('home')}}">Home</a></li>
-                    <li><a href="{{route('faq.details')}}">FAQs</a></li>
+                    <!-- <li><a href="{{route('faq.details')}}">FAQs</a></li> -->
                 </ul>
 
                 <button class="navbar-toggler" onclick="toggleMobileMenu()">

@@ -22,14 +22,14 @@
                     <span class="menu-text">List</span>
                 </a>
             </li>
-            <li class="menu-item {{ $helper->isActivate(['admin.user_profile.create']) }}" aria-haspopup="true">
+            <!-- <li class="menu-item {{ $helper->isActivate(['admin.user_profile.create']) }}" aria-haspopup="true">
                 <a href="{{route('admin.user_profile.create')}}" class="menu-link">
                     <i class="menu-bullet menu-bullet-dot">
                         <span></span>
                     </i>
                     <span class="menu-text">Add</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
 </li>

@@ -137,24 +137,17 @@ class UserController extends Controller
     public function create(User $User){
         
         $categories     = Category::where('status', 1)->get();
-        $addressProofs  = AddressProof::where('status', 1)->get();
-        $countries      = Country::where('status', 1)->get();
+        $frontendRoles  = Role::where(['status' => 1, 'type' => 2])->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->orderBy('name', 'asc')->get();
-        $projects       = Project::where('status', 1)->where('year', date('Y'))->get();
-        $frontendRoles  = Role::where(['status' => 1, 'type' => 2])->get();
 
         return view('admin.'.self::$moduleConfig['viewFolder'].'.create')
             ->with('moduleConfig', self::$moduleConfig)
             ->with('row', null)
             ->with('categories', $categories)
-            ->with('addressProofs', $addressProofs)
-            ->with('years' , $this->years)
-            ->with('countries', $countries)
             ->with('artistTypes', $artistTypes)
             ->with('curators', $curators)
-            ->with('frontendRoles', $frontendRoles)
-            ->with('projects', $projects);
+            ->with('frontendRoles', $frontendRoles);
     }
 
     /**
@@ -179,10 +172,9 @@ class UserController extends Controller
      */
     public function show ($id, User $User){
 
-        $row = User::with(['category', 'artistType', 'PACountry', 'PAState', 'PACity'])->findOrFail($id);
+        $row = User::findOrFail($id);
         $members = User::where('status', 1)->where('poc_id', $row->id)->get();
-        $userCategoryDetails = UserCategoryDetail::where('status', 1)->where('user_id', $row->id)->first();
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members)->with('userCategoryDetails', $userCategoryDetails);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.show ')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('members', $members);
     }
 
     /**
@@ -199,11 +191,8 @@ class UserController extends Controller
         // \App\Notifications\WhatsappNotification::sendUpdateAccountDetailsMessage($user);
         
         $categories     = Category::where('status', 1)->get();
-        $addressProofs  = AddressProof::where('status', 1)->get();
-        $countries      = Country::where('status', 1)->get();
         $artistTypes    = ArtistType::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->orderBy('name', 'asc')->get();
-        $projects       = Project::where('status', 1)->where('year', date('Y'))->get();
         $frontendRoles  = Role::where(['status' => 1, 'type' => 2])->get();
 
         $row            = User::findOrFail($user_id);
@@ -211,13 +200,9 @@ class UserController extends Controller
             ->with('moduleConfig', self::$moduleConfig)
             ->with('row', $row)
             ->with('categories', $categories)
-            ->with('addressProofs', $addressProofs)
-            ->with('years' , $this->years)
-            ->with('countries', $countries)
             ->with('artistTypes', $artistTypes)
             ->with('curators', $curators)
-            ->with('frontendRoles', $frontendRoles)
-            ->with('projects', $projects);
+            ->with('frontendRoles', $frontendRoles);
     }
 
     /**
@@ -227,8 +212,9 @@ class UserController extends Controller
      * @return Redirect
      */
     public function update(UserRequest $request, $id){
+        // dd($request);
 
-        $this->__updateProfile($request, $id);
+        $this->__updateUser($request, $id);
 
         // $user   = User::findOrFail($id);
         // \Mail::to($user->email)->send(new \App\Mail\UserDetailsUpdateMailable($user));

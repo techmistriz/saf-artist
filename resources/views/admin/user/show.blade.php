@@ -65,6 +65,17 @@
                                     </table>
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="card p-6">
+                                    <div class="form-group">
+                                        @if(isset($row->profile_image_1) && !empty($row->profile_image_1))
+                                            <img src="{{asset('uploads/users/thumbnails/250/'.$row->profile_image_1)}}" width="100%" height="100%">                                    
+                                        @else
+                                            <img src="{{asset('media/users/blank_Img.jpg')}}" width="100%" height="250px">
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
