@@ -4866,3 +4866,7 @@ select:-webkit-autofill:focus {
 .register-form select:focus{
   border-bottom: 1px solid #f7ead3;
 }
+
+h5{
+  line-height: 25px !important;
+}

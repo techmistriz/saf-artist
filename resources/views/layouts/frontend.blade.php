@@ -9,7 +9,7 @@
 	<!--end::Fonts-->
 	<!--begin::Global Theme Styles(used by all pages)-->
 	<link href="{{asset('plugins/global/plugins.bundlef552.css') }}" rel="stylesheet" type="text/css" />
-	<link href="{{asset('css/style.bundlef552.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{asset('css/frontend_style.css') }}" rel="stylesheet" type="text/css" />
 	<!--end::Global Theme Styles-->
 	<!--begin::Layout Themes(used by all pages)-->
 	<link href="{{asset('css/themes/layout/header/base/lightf552.css') }}" rel="stylesheet" type="text/css" />
