@@ -11,7 +11,7 @@
             <div class="card-header">
                 <div class="card-title">
                     @if(isset(Auth::user()->frontendRole->name) && !empty(Auth::user()->frontendRole->name))
-                        <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} Profile Details</h3>
+                        <h3 class="card-label">{{ isset($row) && !empty($row) ? 'Edit' : 'Add' }} Your Profile</h3>
                     @endif
                 </div>
             </div>

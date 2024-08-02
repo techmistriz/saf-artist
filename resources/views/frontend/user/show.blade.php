@@ -42,9 +42,7 @@
                 <div class="card card-custom gutter-bs">
 		            <div class="card-header">
 		                <div class="card-title">
-		                	@if(isset(Auth::user()->frontendRole->name) && !empty(Auth::user()->frontendRole->name))
-		                        <h3 class="card-label">Show {{ Auth::user()->frontendRole->name }} Details</h3>
-		                    @endif
+		                	<h3>View Your Profile</h3>
 		                </div>
 		                <div class="card-toolbar" style="{{isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
     						<a href="#memberList" class="btn font-weight-bold ml-2" id="button">Member List</a>
@@ -172,26 +170,26 @@
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <div class="form-group row validated" style="{{isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : '' }}">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Company/Collective: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->company_collective ?? 'N/A'}}</label>
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <div class="form-group row validated" style="{{isset(Auth::user()->frontendRole->name) && (Auth::user()->frontendRole->name == 'Individual') ? 'display:none;' : '' }}"
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Troup Size: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->troup_size ?? 'N/A'}}</label>		                                
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <!-- <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Payment of the Troup: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->payment_troup ?? 'N/A'}}</label>		                                
 		                            </div>
-		                        </div>
+		                        </div> -->
 		                    </div>		                    
 		                </div>
 
@@ -268,14 +266,6 @@
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Link with videos of your work: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->other_link ?? 'N/A'}}</label>		                                
-		                            </div>
-		                        </div>
-
-		                    	<div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Status: </label>
-		                            <div class="col-lg-9 col-md-9 col-sm-12">
-
-		                            	<label class="col-form-label text-lg-left">{{ $row->status ? 'Active' : 'Inactive' }}</label>		                            
 		                            </div>
 		                        </div>
 		                        
