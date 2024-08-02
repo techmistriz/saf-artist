@@ -28,12 +28,8 @@ class UserProfileRequest extends FormRequest
         $id = $this->input('id', 0);
 
      	return [
-            'dob' 					=> $this->input('frontend_role_id') == '8' ? 'required' : '',
-            'permanent_address' 	=> 'required',
-            'country_id' 			=> 'required',
-            'pincode' 			=> 'required',
-            'artist_bio' => $this->input('frontend_role_id') == '8' ? ['required', new MaxWordsRule(150)] : [],
-            'max_allowed_member'         => $this->input('frontend_role_id') == '9' ? 'required' : '',
+            'project_year' 	=> 'required',
+            'festival_id' 			=> 'required',
         ];
     }
 

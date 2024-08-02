@@ -20,8 +20,8 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-custom selectpicker" name="year" tabindex="null" >
                                     <option value="">Select Year</option>
-                                    @if( isset($years) && count($years))
-                                        @foreach($years as $year)
+                                    @if( isset($project_years) && count($project_years))
+                                        @foreach($project_years as $year)
 
                                            <option {{ !empty(old('year')) && old('year') == $year ? 'selected' : ( isset($row->year) && $row->year == $year ? 'selected' : '' ) }} value="{{$year}}">{{$year}}</option>
 

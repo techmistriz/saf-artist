@@ -69,7 +69,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category <i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="Tooltip on right"></i></label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select name="category_id" id="category_id" class="form-control form-control-lg form-control-custom selectpicker @error('category_id') is-invalid @enderror">
                                     <option value="">Select Category</option>
