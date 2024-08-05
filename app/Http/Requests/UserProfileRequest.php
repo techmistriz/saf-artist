@@ -29,13 +29,18 @@ class UserProfileRequest extends FormRequest
         $user_id       = \Auth::user()->id;
 
      	return [
-            'project_year' 	=> 'required',
             'festival_id' => [
                 'required',
                 Rule::unique('user_profiles')->ignore($id, 'id')->where(function ($query) use ($user_id) {
                     return $query->where('user_id', $user_id);
                 }),
             ],
+            'project_year' 	=> 'required',
+            'practice_image_1' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
+            'practice_image_2' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
+            'practice_image_3' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
+            'profile_image_1' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
+            'profile_image_2' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
         ];
     }
 
