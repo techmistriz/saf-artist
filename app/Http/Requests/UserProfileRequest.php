@@ -26,16 +26,16 @@ class UserProfileRequest extends FormRequest
     public function rules()
     {
         $id = $this->input('id', 0);
-        $user_id       = \Auth::user()->id;
+        $user_id = \Auth::user()->id;
 
-     	return [
+        return [
             'festival_id' => [
                 'required',
                 Rule::unique('user_profiles')->ignore($id, 'id')->where(function ($query) use ($user_id) {
                     return $query->where('user_id', $user_id);
                 }),
             ],
-            'project_year' 	=> 'required',
+            'project_year' => 'required',
             'practice_image_1' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
             'practice_image_2' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
             'practice_image_3' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
@@ -46,8 +46,18 @@ class UserProfileRequest extends FormRequest
 
     public function messages()
     {
-        return [
-            'permanent_address.required' => 'Address field required.'
+        return [            
+            
+            'practice_image_1.max' => 'Practice image 1  must not be greater than 10 MB.',
+           
+            'practice_image_2.max' => 'Practice image 2  must not be greater than 10 MB.',
+            
+            'practice_image_3.max' => 'Practice image 3  must not be greater than 10 MB.',
+            
+            'profile_image_1.max' => 'Profile image 1  must not be greater than 10 MB.',
+            
+            'profile_image_2.max' => 'Profile image 2  must not be greater than 10 MB.',
         ];
     }
+
 }
