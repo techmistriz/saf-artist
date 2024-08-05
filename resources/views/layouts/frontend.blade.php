@@ -20,6 +20,19 @@
     <meta name="token" content="{{ csrf_token() }}">
     
 	@stack('style')
+	<!-- Google tag (gtag.js) -->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-39MPJJ1SB7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-39MPJJ1SB7');
+    </script>
+    <meta name="google-site-verification" content="e6QZlc1nDSbIud2s2AtchGMA5A5XduQnQiIihaf5je4" />
+
+    <!-- Webmaster Code - -->
 </head>
 <!--end::Head-->
 	<!--begin::Body-->

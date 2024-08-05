@@ -30,6 +30,20 @@
 	<link href="{{asset('css/themes/layout/aside/darkf552.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{asset('css/custom.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{asset('css/login-1.css') }}" rel="stylesheet" type="text/css" />
+
+    <!-- Google tag (gtag.js) -->
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-39MPJJ1SB7"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-39MPJJ1SB7');
+    </script>
+    <meta name="google-site-verification" content="e6QZlc1nDSbIud2s2AtchGMA5A5XduQnQiIihaf5je4" />
+
+    <!-- Webmaster Code - -->
 </head>
 <style type="text/css">
     .loginForm{
