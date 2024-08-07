@@ -61,6 +61,15 @@
                                                 <td colspan="4">{{ $row->status ? 'Active' : 'Inactive' }}</td>
                                             </tr>
 
+                                            <tr>
+                                                <th>Created ON</th>
+                                                <td colspan="3">{{$row->created_at }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Updated ON</th>
+                                                <td colspan="3">{{$row->updated_at}}</td>
+                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
