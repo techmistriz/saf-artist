@@ -14,7 +14,7 @@
 		            </div>
 		            <div class="card-body">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-8">
                                 <div class="table-responsive">
                                     <table class="table table-bordered">
                                         <tbody>
@@ -141,6 +141,14 @@
                                             <tr>
                                                 <th>Status</th>
                                                 <td>{{ $row->status ? 'Active' : 'Inactive' }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Created ON</th>
+                                                <td>{{ $row->created_at  }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Updated ON</th>
+                                                <td>{{ $row->updated_at }}</td>
                                             </tr>
                                         </tbody>
                                     </table>

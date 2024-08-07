@@ -191,6 +191,20 @@
                                     </div>
                                 </div>
 
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Created ON: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <label class="col-form-label text-lg-left">{{ $row->created_at }}</label>                                     
+                                    </div>
+                                </div>
+
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Updated ON: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <label class="col-form-label text-lg-left">{{ $row->updated_at }}</label>                                     
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>                  
