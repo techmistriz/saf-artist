@@ -80,11 +80,11 @@
                                                 <td colspan="3">{{ $row->status ? 'Active' : 'Inactive' }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Created ON</th>
+                                                <th>Created Date</th>
                                                 <td colspan="3">{{$row->created_at }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Updated ON</th>
+                                                <th>Updated Date</th>
                                                 <td colspan="3">{{$row->updated_at}}</td>
                                             </tr>
                                         </tbody>

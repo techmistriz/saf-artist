@@ -84,7 +84,7 @@
             {
                 field: 'id',
                 title: '#',
-                sortable: 'asc',
+                // sortable: 'asc',
                 width: 30,
                 type: 'number',
                 selector: false,

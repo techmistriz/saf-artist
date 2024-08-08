@@ -25,6 +25,22 @@ class TicketBooking extends MasterModel
       return !is_array($v) ? [] : $v;
    }
 
+   public function getCreatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }
+
    public function setProfileMemberIdsAttribute($value)
    {
        $this->attributes['profile_member_ids'] = json_encode($value);

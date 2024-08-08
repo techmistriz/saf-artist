@@ -19,7 +19,23 @@ class HotelBooking extends MasterModel
       if (!empty($value)) {
          $this->attributes['check_in_date'] = \Carbon\Carbon::parse($value)->format('Y-m-d');
       }
-   }   
+   }
+
+   public function getCreatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }   
 
    public function getCheckInDateAttribute($value)
    {

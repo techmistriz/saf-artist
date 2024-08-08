@@ -95,7 +95,7 @@
 		            {
 		                field: 'id',
 		                title: '#',
-	                 	sortable: 'asc',
+	                 	// sortable: 'asc',
 		                width: 30,
 		                type: 'number',
 		                selector: false,
@@ -132,6 +132,10 @@
 		            {
 		                field: "name",
 		                title: "name",
+		            },
+		            {
+		                field: "created_at",
+		                title: "Created Date",
 		            },
 		            {
 		                field: "status",

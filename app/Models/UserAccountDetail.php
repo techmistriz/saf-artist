@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Common\MasterModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 class UserAccountDetail extends MasterModel
 {
@@ -13,6 +14,22 @@ class UserAccountDetail extends MasterModel
 
     protected $appends = ['actions', 'frontend_actions', 'ticket_status', 'user_profile_status', 'hotel_status'];
     protected $guarded = [];
+
+    public function getCreatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }
 
     public function getList($data, $with = [], $where = []){  
 

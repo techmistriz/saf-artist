@@ -143,11 +143,11 @@
                                                 <td>{{ $row->status ? 'Active' : 'Inactive' }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Created ON</th>
+                                                <th>Created Date</th>
                                                 <td>{{ $row->created_at  }}</td>
                                             </tr>
                                             <tr>
-                                                <th>Updated ON</th>
+                                                <th>Updated Date</th>
                                                 <td>{{ $row->updated_at }}</td>
                                             </tr>
                                         </tbody>

@@ -24,6 +24,22 @@ class ProfileMember extends MasterModel
       $this->attributes['dob'] = $value ? \Carbon\Carbon::parse($formattedDate)->format('Y-m-d') : now()->format('Y-m-d');
    }
 
+   public function getCreatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }
+
    public function getDobAttribute($value)
    {
       return $value ? date('d-M-Y', strtotime($value)) : null;

@@ -38,6 +38,22 @@ class UserProfile extends MasterModel
     	}
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        if ($value) {
+            return Carbon::parse($value)->format('d-M-Y');
+        }
+        return null;
+    }
+
     public function setYearAttribute($value){
     	
     	$this->attributes['year'] = json_encode($value);
