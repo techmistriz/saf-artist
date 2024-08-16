@@ -21,9 +21,9 @@
 		                    <div class="col-6">
 		                        
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Name: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->name}}</label>
+		                            	<label class="col-form-label text-lg-left">{{$row->name  ?? 'N/A'}}</label>
 		                                
 		                            </div>
 		                        </div>
@@ -31,7 +31,7 @@
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->year}}</label>
+		                            	<label class="col-form-label text-lg-left">{{$row->year  ?? 'N/A'}}</label>
 		                                
 		                            </div>
 		                        </div>
@@ -39,15 +39,15 @@
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->festival->name}}</label>
+		                            	<label class="col-form-label text-lg-left">{{$row->festival->name  ?? 'N/A'}}</label>
 		                                
 		                            </div>
 		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Category: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Discipline: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
-		                            	<label class="col-form-label text-lg-left">{{$row->category->name}}</label>
+		                            	<label class="col-form-label text-lg-left">{{$row->category->name ?? 'N/A'}}</label>
 		                                
 		                            </div>
 		                        </div>

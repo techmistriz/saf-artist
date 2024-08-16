@@ -930,7 +930,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "{{ url('festivals') }}?year=" + year + '&festival_id=' + selectedId,
+                url: "{{ url('profile-festivals') }}?year=" + year + '&festival_id=' + selectedId,
                 datatype: 'json',
                 success: function (response) {
                     if(response?.status){

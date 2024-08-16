@@ -13,15 +13,25 @@
             <div class="card-body">
                 <div class="row">
                     
-                    <div class="col-6">                        
+                    <div class="col-6">
+                        
+                        <div class="form-group row validated">
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Name</label>
+                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                <input type="text" name="name" value="{{ old('name', $row->name ?? '') }}" class="form-control" required placeholder="Enter Project Name"/>
+                                @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>                        
 
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Year</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="year" tabindex="null" onchange="getFestival()">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="year" tabindex="null" onchange="getFestival()" required>
                                     <option value="">Select Year</option>
-                                    @if( isset($years) && count($years))
-                                        @foreach($years as $year)
+                                    @if( isset($project_years) && count($project_years))
+                                        @foreach($project_years as $year)
 
                                            <option {{ !empty(old('year')) && old('year') == $year ? 'selected' : ( isset($row->year) && $row->year == $year ? 'selected' : '' ) }} value="{{$year}}">{{$year}}</option>
 
@@ -39,7 +49,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left"> Festival </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control selectpicker" name="festival_id" tabindex="null" >
+                                <select class="form-control selectpicker" name="festival_id" tabindex="null" required>
                                     <option value="">Select Festival</option>
                                 </select>
 
@@ -51,10 +61,10 @@
                         </div>
 
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left"> Category </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left"> Discipline </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control selectpicker" name="category_id" tabindex="null" >
-                                    <option value="">Select Category</option>
+                                    <option value="">Select Discipline</option>
                                     @if($categories->count())
                                         @foreach($categories as $category)
 
@@ -68,16 +78,6 @@
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name</label>
-                            <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="name" value="{{ old('name', $row->name ?? '') }}" class="form-control" required placeholder="Enter Name"/>
-                                @error('name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
                             </div>
                         </div>
 

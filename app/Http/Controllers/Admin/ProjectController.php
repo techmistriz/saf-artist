@@ -107,7 +107,7 @@ class ProjectController extends Controller
 
 		$categories 	= Category::where('status', 1)->get();
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('categories', $categories)->with('years' , $this->years + ['2023' => '2023']);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.create')->with('moduleConfig', self::$moduleConfig)->with('row', null)->with('categories', $categories)->with('project_years' , $this->project_years);
     }
 
     /**
@@ -153,7 +153,7 @@ class ProjectController extends Controller
     	$categories 	= Category::where('status', 1)->get();
         $row 			= Project::findOrFail($id);
 
-        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('categories', $categories)->with('years' , $this->years);
+        return view('admin.'.self::$moduleConfig['viewFolder'].'.edit')->with('moduleConfig', self::$moduleConfig)->with('row', $row)->with('categories', $categories)->with('project_years' , $this->project_years);
     }
 
     /**

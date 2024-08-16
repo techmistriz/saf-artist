@@ -20,7 +20,9 @@
                                     <option value="" data-slug="">Select User Profile</option>
                                     @if($userProfiles->count())
                                         @foreach($userProfiles as $value)
-                                          <option {{ (old('profile_id') ?? optional($row)->profile_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->festival->name . ' ('. $value->project_year . ')'}}</option>
+                                            <option {{ (old('profile_id') ?? optional($row)->profile_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">
+                                                {{ optional($value->festival)->name . ' (' . $value->project_year . ')' }}
+                                            </option>
                                         @endforeach
                                     @endif
                                 </select>

@@ -166,6 +166,7 @@ Route::get('countries', 'App\Http\Controllers\AjaxController@getCountry')->name(
 Route::get('states/{country_id?}', 'App\Http\Controllers\AjaxController@getState')->name('ajax.states');
 Route::get('cities/{state_id?}', 'App\Http\Controllers\AjaxController@getCity')->name('ajax.cities');
 Route::get('festivals/{id?}', 'App\Http\Controllers\AjaxController@getFestival')->name('ajax.festivals');
+Route::get('profile-festivals/{id?}', 'App\Http\Controllers\AjaxController@getProfileFestival')->name('ajax.profile.festivals');
 Route::get('projects/{festival?}', 'App\Http\Controllers\AjaxController@getProject')->name('ajax.projects');
 
 Route::post('send-otp', 'App\Http\Controllers\AjaxController@sendOtp')->name('ajax.send.otp');

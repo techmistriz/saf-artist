@@ -30,7 +30,6 @@ class ProjectRequest extends FormRequest
             'name'			=> 'required | ' . Rule::unique('projects')->ignore($id, 'id'),
             'year'			=> 'required',
             'festival_id'	    => 'required',
-            'category_id'   => 'required',
             'status' 		=> 'required'
         ];
     }

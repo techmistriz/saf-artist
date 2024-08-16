@@ -107,7 +107,7 @@ class AjaxController extends Controller
         ]);
     }
     
-    public function getFestival(Request $request, $id = NULL)
+    public function getProfileFestival(Request $request, $id = NULL)
     {
         $queryModel = \App\Models\Festival::query();
         $queryModel->where('status', 1);
@@ -128,6 +128,27 @@ class AjaxController extends Controller
             if (!empty($festivalIdArr)) {
                 $queryModel->whereNotIn('id', $festivalIdArr);
             }
+        }        
+
+        $results = $queryModel->get();
+        if($results) {
+            return ['status' => true, 'message' => 'Record found.', 'data' => $results];
+        }
+
+        return response()->json([
+            'status' => false,
+            'message' => 'No data found.',
+            'data' => new \stdClass()
+        ]);
+    }
+
+    public function getFestival(Request $request, $id = NULL)
+    {
+        $queryModel = \App\Models\Festival::query();
+        $queryModel->where('status', 1);
+
+        if(!empty($request->year)){
+            $queryModel->where('year', $request->year);
         }        
 
         $results = $queryModel->get();

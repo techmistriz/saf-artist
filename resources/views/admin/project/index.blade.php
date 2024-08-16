@@ -86,7 +86,7 @@
             },
             {
                 field: "category_id",
-                title: "category",
+                title: "Discipline",
                 template: function(t) {
                     return ( typeof t?.category?.name != 'undefined' && t?.category?.name)? t?.category?.name : 'N/A';
                 }
