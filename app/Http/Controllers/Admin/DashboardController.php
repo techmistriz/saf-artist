@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Models\User;
+use App\Models\Admin;
 use App\Models\Category;
 use DB;
 
@@ -37,7 +39,9 @@ class DashboardController extends Controller
 		// dd(session('rolePermission'));
 		// $user    = \Auth::user();
         // \Mail::to($user->email)->send(new \App\Mail\RegisterMailable($user));
-
-        return view('admin.dashboard');
+        $users = User::where('status', 1)->get();
+        $admins = Admin::where('status', 1)->get();
+        // dd($roles);
+        return view('admin.dashboard')->with('users', $users)->with('admins', $admins);
     }
 }
