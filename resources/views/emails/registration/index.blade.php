@@ -13,7 +13,7 @@ Dear {{$user->name}},
 
 You can access your account using the link below:
 
-@component('mail::button', ['url' => 'http://artist24.demoserver.co.in/login'])
+@component('mail::button', ['url' => 'https://artistform.serendipityartsfestival.com/login'])
 Access Your Account
 @endcomponent
 
