@@ -23,7 +23,7 @@
 		                    <div class="col-12">
 
 		                    	<div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Profile: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival Profile: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{($row->userProfile->festival->name . ' (' . $row->userProfile->project_year . ')') ?? 'N/A'}}</label>
 		                                
@@ -91,23 +91,35 @@
 		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward Date</label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Date of Travel</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{ \Carbon\Carbon::parse($row->onward_date)->format('d-M-Y') }}</label>		                                
 		                            </div>
 		                        </div>
+		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Travel Time</label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->travel_preferred_time}}</label>
+		                            </div>
+		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward (Mention City)</label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Origin City</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->onward_city}}</label>		                                
 		                            </div>
 		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return Date</label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Return Date</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{ \Carbon\Carbon::parse($row->return_date)->format('d-M-Y') }}</label>		                                
+		                            </div>
+		                        </div>
+		                        <div class="form-group row validated">
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preffered Return Time</label>
+		                            <div class="col-lg-9 col-md-9 col-sm-12">
+		                            	<label class="col-form-label text-lg-left">{{$row->return_preffered_time}}</label>	
 		                            </div>
 		                        </div>
 
@@ -119,7 +131,7 @@
 		                        </div>
 
 		                        <div class="form-group row validated">
-								    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International/Domestic Traveller: </label>
+								    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International / Domestic Travel: </label>
 								    <div class="col-lg-9 col-md-9 col-sm-12">
 								        <label class="col-form-label text-lg-left">{{ $row->international_or_domestic ?? 'N/A' }}</label>
 								    </div>
@@ -194,7 +206,7 @@
 		                            </div>
 		                        </div>
 
-		                        <div class="form-group row validated">
+		                        <!-- <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cab Option</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">
@@ -226,7 +238,7 @@
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{!! $row->artist_remarks !!}</label>		                                
 		                            </div>
-		                        </div>	
+		                        </div>	 -->
 
 		                        <div class="form-group row validated">
 		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Status: </label>

@@ -272,13 +272,13 @@ class TicketBookingController extends Controller
         $ticket->work_visa                    = $request->work_visa;
         $ticket->onward_date                  = $request->onward_date;
         $ticket->return_date                  = $request->return_date;
-        $ticket->onword_flight_timing_slot    = $request->onword_flight_timing_slot;
-        $ticket->return_flight_timing_slot    = $request->return_flight_timing_slot;
+        $ticket->travel_preferred_time        = $request->travel_preferred_time;
+        $ticket->return_preffered_time        = $request->return_preffered_time;
         $ticket->pickup_required              = $request->pickup_required;
-        $ticket->cab_option                   = $request->cab_option;
-        $ticket->number_of_cabs               = $request->number_of_cabs;
-        $ticket->cab_date_range               = $request->cab_date_range;
-        $ticket->artist_remarks               = $request->artist_remarks;
+        // $ticket->cab_option                   = $request->cab_option;
+        // $ticket->number_of_cabs               = $request->number_of_cabs;
+        // $ticket->cab_date_range               = $request->cab_date_range;
+        // $ticket->artist_remarks               = $request->artist_remarks;
         $ticket->save();
 
         \Flash::success(self::$moduleConfig['moduleTitle'].' updated successfully.');

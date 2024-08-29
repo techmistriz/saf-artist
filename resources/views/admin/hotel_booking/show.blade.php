@@ -19,8 +19,8 @@
                                     <table class="table table-bordered">
                                         <tbody>
                                             <tr>
-                                                <th>Member</th>
-                                                <td colspan="3">{{$row->member->name ?? ''}}</td>
+                                                <th>Festival Profile</th>
+                                                <td colspan="3">{{($row->userProfile->festival->name . ' (' . $row->userProfile->project_year . ')') ?? 'N/A'}}</td>
                                             </tr>
                                             <tr>
                                                 <th>Accomodation Required</th>

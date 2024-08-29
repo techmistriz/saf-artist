@@ -98,7 +98,7 @@
                 },
                 {
                     field: "profile_id",
-                    title: "Festival",
+                    title: "Festival Profile",
                     template: function(t) {
                         var festival = typeof t?.profile?.festival?.name != 'undefined' && t?.profile?.festival?.name ? `<b>${t?.profile?.festival?.name}</b>` : 'N/A';
 

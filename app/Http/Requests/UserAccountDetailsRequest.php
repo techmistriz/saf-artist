@@ -28,7 +28,7 @@ class UserAccountDetailsRequest extends FormRequest
      	return [
             'profile_id'                  => 'required',
             'account_number' 			=> 'required',
-            'confirm_account_number'	=> 'required|same:account_number',
+            // 'confirm_account_number'	=> 'required|same:account_number',
             'ifsc_code'   => $this->input('residency') == 'Domestic' ? 'required|regex:/^[A-Z0-9]{11}$/' : '',
             'cancel_cheque_image' => '|image|mimes:jpeg,png,jpg|max:5120',
             'pancard_image' => '|image|mimes:jpeg,png,jpg|max:5120',

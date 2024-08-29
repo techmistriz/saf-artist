@@ -15,10 +15,10 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Profile</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival Profile</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control selectpicker" name="profile_id" tabindex="null" onchange="userProfile()" required>
-                                    <option value="" data-slug="">Select User Profile</option>
+                                    <option value="" data-slug="">Select Festival Profile</option>
                                     @if($userProfiles->count())
                                         @foreach($userProfiles as $value)
                                           <option {{ (old('profile_id') ?? optional($row)->profile_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->festival->name . ' ('. $value->project_year . ')'}}</option>
@@ -152,10 +152,10 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International/Domestic Traveller </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International / Domestic Travel </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="international_or_domestic" tabindex="null" onchange="travellerField()">
-                                    <option value="">Your traveller</option>
+                                    <option value="">Select</option>
                                     <option value="International" {{ old('international_or_domestic') == 'International' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'selected' : '' }}>International</option>
                                     <option value="Domestic" {{ old('international_or_domestic') == 'Domestic' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'selected' : ''  }}>Domestic</option>
                                 </select>
@@ -344,10 +344,10 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward Date </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Date of Travel </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <div class="input-group date">
-                                    <input type="text" name="onward_date" id="onward_date" value="{{ old('onward_date', $row->onward_date ?? '') }}" class="form-control kt_datepicker" placeholder="Enter Onward Date" />
+                                    <input type="text" name="onward_date" id="onward_date" value="{{ old('onward_date', $row->onward_date ?? '') }}" class="form-control travel_date_datepicker" placeholder="Enter Date of Travel" />
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-calendar-check-o"></i>
@@ -363,12 +363,15 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward Flight Timing Slots(like: 9:00 am to 12:00 pm)<i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="Preferred time of arrival for onward(like: 9:00 am to 12:00 pm)"></i></label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Travel Time</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="travel_preferred_time" tabindex="null" title="Select Preferred Travel Time">
+                                    @foreach(['Morning', 'Afternoon', 'Evening', 'Night', 'Anytime'] as $time)
+                                        <option value="{{ $time }}" {{ old('travel_preferred_time', $row->travel_preferred_time ?? '') == $time ? 'selected' : '' }}>{{ $time }}</option>
+                                    @endforeach
+                                </select>
 
-                                <input type="text" name="onword_flight_timing_slot" value="{{ old('onword_flight_timing_slot', $row->onword_flight_timing_slot ?? '') }}" class="form-control" placeholder="Enter Onward Flight Timing Slots" />
-
-                                @error('onword_flight_timing_slot')
+                                @error('travel_preferred_time')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -377,9 +380,9 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Onward (Mention City)</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Origin City</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <input type="text" name="onward_city" value="{{ old('onward_city', $row->onward_city ?? '') }}" class="form-control" placeholder="Enter Onward (Mention City)" />
+                                <input type="text" name="onward_city" value="{{ old('onward_city', $row->onward_city ?? '') }}" class="form-control" placeholder="Enter Origin City" />
                                 @error('onward_city')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -389,10 +392,10 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return Date </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Return Date </label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <div class="input-group date">
-                                    <input type="text" name="return_date" id="return_date" value="{{ old('return_date', $row->return_date ?? '') }}" class="form-control return_date_datepicker" placeholder="Enter Return Date" readonly/>
+                                    <input type="text" name="return_date" id="return_date" value="{{ old('return_date', $row->return_date ?? '') }}" class="form-control return_date_datepicker" placeholder="Enter Preferred Return Date" readonly/>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-calendar-check-o"></i>
@@ -408,12 +411,18 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Return Flight Timing Slots(like: 9:00 am to 12:00 pm)<i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="Preferred Time of departure for return(like: 9:00 am to 12:00 pm)"></i></label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preffered Return Time</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
-                                <input type="text" name="return_flight_timing_slot" value="{{ old('return_flight_timing_slot', $row->return_flight_timing_slot ?? '') }}" class="form-control" placeholder="Enter Return Flight Timing Slots" />
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="return_preffered_time" tabindex="null" title="Select Preffered Return Time">
+                                    <option value="Morning" {{ old('return_preffered_time', $row->return_preffered_time ?? '') == 'Morning' ? 'selected' : '' }}>Morning</option>
+                                    <option value="Afternoon" {{ old('return_preffered_time', $row->return_preffered_time ?? '') == 'Afternoon' ? 'selected' : '' }}>Afternoon</option>
+                                    <option value="Evening" {{ old('return_preffered_time', $row->return_preffered_time ?? '') == 'Evening' ? 'selected' : '' }}>Evening</option>
+                                    <option value="Night" {{ old('return_preffered_time', $row->return_preffered_time ?? '') == 'Night' ? 'selected' : '' }}>Night</option>
+                                    <option value="Anytime" {{ old('return_preffered_time', $row->return_preffered_time ?? '') == 'Anytime' ? 'selected' : '' }}>Anytime</option>
+                                </select>
 
-                                @error('return_flight_timing_slot')
+                                @error('return_preffered_time')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
@@ -450,7 +459,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12" id="cabOption" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
+                    <!-- <div class="col-12" id="cabOption" style="{{isset($row->international_or_domestic) && $row->international_or_domestic == 'International' ? 'display:none;' : '' }}">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Cab Option</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -507,7 +516,7 @@
                             
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="card-footer">
@@ -825,6 +834,17 @@
         $(document).ready(function() {
             var initDatePicker = function() {
                 var onward_date = $("#onward_date").val();
+                
+                // Get current date
+                var today = new Date();
+                var day = today.getDate();
+                var month = today.getMonth() + 1; // Months are zero-based
+                var year = today.getFullYear();
+
+                // Format current date as dd-mm-yyyy
+                var travelDate = (day < 10 ? '0' + day : day) + '-' + (month < 10 ? '0' + month : month) + '-' + year;
+
+                // Initialize return date datepicker
                 $('.return_date_datepicker').datepicker('destroy').datepicker({
                     rtl: KTUtil.isRTL(),
                     orientation: "bottom left",
@@ -833,12 +853,27 @@
                     format: 'dd-mm-yyyy',
                     startDate: onward_date
                 });
+
+                // Initialize travel date datepicker
+                $('.travel_date_datepicker').datepicker('destroy').datepicker({
+                    rtl: KTUtil.isRTL(),
+                    orientation: "bottom left",
+                    templates: arrows,
+                    autoClose: true,
+                    format: 'dd-mm-yyyy',
+                    startDate: travelDate 
+                });
             };
+
+            // Bind date picker initialization to onward date change event
             $("#onward_date").change(initDatePicker);
+
+            // Initialize date pickers on page load if onward date is already set
             if ($("#onward_date").val()) {
                 initDatePicker();
             }
         });
+
     </script>
     <script type="text/javascript">
         var KTBootstrapDaterangepicker = function () {

@@ -1,3 +1,5 @@
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style type="text/css">
     .profile-img-form .image-input {
         margin-right: 10px;
@@ -6,6 +8,16 @@
         width: 120px !important;
         height: 120px !important;
     }
+
+    .w3-light-grey{
+        width: 100%;
+        margin-top: 20px;
+        background: #ffffff;
+    }
+
+    .w3-green, .w3-hover-green:hover{
+            background-color: #FA9917 !important;
+        }
 
 </style>
 
@@ -46,6 +58,10 @@
                         <!--end::Username-->
                         <!--begin::Info-->
                         <div class="font-weight-bold text-dark-50 font-size-sm">{{ Auth::user()->email }}</div>
+
+                        <div class="w3-light-grey">
+    <div class="w3-container w3-green" style="width:50%">50%</div>
+  </div>
                         
                         <!--end::Info-->
                     </div>
@@ -64,7 +80,7 @@
                             <!--end::Symbol-->
                             <!--begin::Text-->
                             <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('dashboard') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Profile/Dashboard</a>
+                                <a href="{{ route('dashboard') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Step 1</a>
                                 <span class="text-muted font-weight-bold">Profile/Dashboard</span>
                             </div>
                             <!--end::Text-->
@@ -81,7 +97,7 @@
 
                             <!--begin::Text-->
                             <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('user.account.details.index') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Banking Details</a>
+                                <a href="{{ route('user.account.details.index') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Step 2</a>
                                 <span class="text-muted font-weight-bold">Banking Details</span>
                             </div>
                             <!--end::Text-->
@@ -98,7 +114,7 @@
 
                             <!--begin::Text-->
                             <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('ticket.booking.list') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Ticket Details</a>
+                                <a href="{{ route('ticket.booking.list') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Step 3</a>
                                 <span class="text-muted font-weight-bold">Ticket Details</span>
                             </div>
                             <!--end::Text-->
@@ -115,7 +131,7 @@
 
                             <!--begin::Text-->
                             <div class="d-flex flex-column flex-grow-1">
-                                <a href="{{ route('hotel.booking.list') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Hotel Details</a>
+                                <a href="{{ route('hotel.booking.list') }}" class="text-dark-75 text-hover-primary mb-1 font-size-lg font-weight-bolder">Step 4</a>
                                 <span class="text-muted font-weight-bold">Hotel Details</span>
                             </div>
                             <!--end::Text-->
@@ -295,6 +311,18 @@
         });
     });
     // END profile_image_1
+
+    $(function() {
+      $('.chart').easyPieChart({
+        size: 160,
+        barColor: "#17d3e6",
+        scaleLength: 0,
+        lineWidth: 15,
+        trackColor: "#373737",
+        lineCap: "circle",
+        animate: 2000,
+      });
+    });
 
 </script>
 @endpush

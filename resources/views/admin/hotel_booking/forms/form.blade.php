@@ -110,7 +110,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="check_in_date" id="check_in_date" value="{{ old('check_in_date', $row->check_in_date ?? '') }}" class="form-control  kt_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
+                                    <input type="text" name="check_in_date" id="check_in_date" value="{{ old('check_in_date', $row->check_in_date ?? '') }}" class="form-control  kt_datepicker" placeholder="Enter Check In Date" readonly onchange="roomNightCalc()" />
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="la la-calendar-check-o"></i>
@@ -129,7 +129,7 @@
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
-                                    <input type="text" name="check_out_date" id="check_out_date" value="{{ old('check_out_date', $row->check_out_date ?? '') }}" class="form-control  kt_datepicker" placeholder="Enter Details" readonly onchange="roomNightCalc()" />
+                                    <input type="text" name="check_out_date" id="check_out_date" value="{{ old('check_out_date', $row->check_out_date ?? '') }}" class="form-control check_out_date_datepicker" placeholder="Enter Check Out Date" readonly onchange="roomNightCalc()" />
 
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -226,6 +226,19 @@
 @push('scripts')
    <script type="text/javascript">
 
+    var arrows;
+    if (KTUtil.isRTL()) {
+        arrows = {
+            leftArrow: '<i class="la la-angle-right"></i>',
+            rightArrow: '<i class="la la-angle-left"></i>'
+        }
+    } else {
+        arrows = {
+            leftArrow: '<i class="la la-angle-left"></i>',
+            rightArrow: '<i class="la la-angle-right"></i>'
+        }
+    }
+
     function roomNightCalc(){
 
         var check_in_date  = document.getElementById('check_in_date').value;
@@ -308,7 +321,22 @@
     }
 
     $(document).ready(function(){
-        getProfileMember();            
+        getProfileMember(); 
+        var initDatePicker = function() {
+            var check_in_date = $("#check_in_date").val();
+            $('.check_out_date_datepicker').datepicker('destroy').datepicker({
+                rtl: KTUtil.isRTL(),
+                orientation: "bottom left",
+                templates: arrows,
+                autoClose: true,
+                format: 'dd-mm-yyyy',
+                startDate: check_in_date
+            });
+        };
+        $("#check_in_date").change(initDatePicker);
+        if ($("#check_in_date").val()) {
+            initDatePicker();
+        }           
     });
 
     </script>

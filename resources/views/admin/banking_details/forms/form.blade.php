@@ -23,10 +23,10 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Profile</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival Profile</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control selectpicker" name="profile_id" tabindex="null" onchange="getUserDetails()" required>
-                                    <option value="" data-slug="">Select User Profile</option>
+                                    <option value="" data-slug="">Select Festival Profile</option>
                                     @if($userProfiles->count())
                                         @foreach($userProfiles as $value)
                                           <option {{ (old('profile_id') ?? optional($row)->profile_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->festival->name . ' ('. $value->project_year . ')'}}</option>
@@ -167,7 +167,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Re-enter account number</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
@@ -178,7 +178,7 @@
                             
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="col-12"id="bankHolder" style="{{( isset($row->residency) && $row->residency == 'International')  ? 'display:none;' : '' }}">
                         <div class="form-group row validated">

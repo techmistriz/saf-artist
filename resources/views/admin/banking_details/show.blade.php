@@ -16,6 +16,13 @@
                     <div class="card-body">
                         <div class="row">                           
                             <div class="col-12">
+                                <div class="form-group row validated">
+                                    <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival Profile: </label>
+                                    <div class="col-lg-9 col-md-9 col-sm-12">
+                                        <label class="col-form-label text-lg-left">{{($row->profile->festival->name . ' (' . $row->profile->project_year . ')') ?? 'N/A'}}</label>
+                                        
+                                    </div>
+                                </div>
 
                                 <div class="form-group row validated">
                                     <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Name:</label>

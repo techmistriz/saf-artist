@@ -15,10 +15,10 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">User Profile</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival Profile</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control selectpicker" name="profile_id" tabindex="null" onchange="getProfileMember()" required>
-                                    <option value="" data-slug="">Select User Profile</option>
+                                    <option value="" data-slug="">Select Festival Profile</option>
                                     @if($userProfiles->count())
                                         @foreach($userProfiles as $value)
                                           <option {{ (old('profile_id') ?? optional($row)->profile_id) == $value->id ? 'selected' : '' }} value="{{$value->id}}">{{$value->festival->name . ' ('. $value->project_year . ')'}}</option>
