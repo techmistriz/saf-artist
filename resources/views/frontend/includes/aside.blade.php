@@ -24,10 +24,14 @@
         font-size: 15px;
     }
 
+    .progress-bar.zero{
+        background: #ffffff!important;
+        height: 2rem;
+        text-align: center;
+        width: 100%;
+    }
+
 </style>
-@php
-    $statusValue = 25;
-@endphp
 
 <div class="hamburgermenu">
 <a class="nav-toggle"><span></span></a>
@@ -71,7 +75,7 @@
                             <span class="text-muted font-weight-bold">Form Completed %</span>
                             <div class="progress">
                                 @if(isset($statusValue) && $statusValue == 0)
-                                    <div class="progress-bar text-center" role="progressbar" style="width: {{$statusValue}}%; color: black;"aria-valuenow="{{$statusValue}}" aria-valuemin="0" aria-valuemax="100">{{$statusValue}}%</div>
+                                    <div class="progress-bar zero text-center" role="progressbar" style="width: 100%; color: black;"aria-valuenow="{{$statusValue}}" aria-valuemin="0" aria-valuemax="100">{{$statusValue}}%</div>
                                 @else
                                     <div class="progress-bar" role="progressbar" style="width: {{$statusValue}}%;" aria-valuenow="{{$statusValue}}" aria-valuemin="0" aria-valuemax="100">{{$statusValue}}%</div>
                                 @endif

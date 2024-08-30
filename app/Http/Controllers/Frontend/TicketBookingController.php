@@ -53,7 +53,7 @@ class TicketBookingController extends Controller
      */
 
     public function index(Request $request){
-
+        $this->getStatus();
         return view('frontend.ticket_booking.index');
     }
 
@@ -105,7 +105,7 @@ class TicketBookingController extends Controller
         $travelPurposes     = TravelPurpose::where('status', 1)->get();
         $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
         $projects           = Project::where('status', 1)->get();
-
+        $this->getStatus();
         return view('frontend.ticket_booking.create')
         ->with('row', null)
         ->with(['countries' => $countries, 'cities' => $cities, 'projects' => $projects, 'userProfiles' => $userProfiles, 'travelPurposes' => $travelPurposes]);
@@ -189,7 +189,7 @@ class TicketBookingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show ($id, TicketBooking $ticket){
-
+        $this->getStatus();
         $row = TicketBooking::findOrFail($id);
         return view('frontend.ticket_booking.show ')->with('row', $row);
     }
@@ -210,7 +210,7 @@ class TicketBookingController extends Controller
         $travelPurposes     = TravelPurpose::where('status', 1)->get();
         $cities             = MetroCity::select('id', 'city_name')->where('status', 1)->get();
         $projects           = Project::where('status', 1)->get();
-
+        $this->getStatus();
         return view('frontend.ticket_booking.edit')
         ->with('row', $row)
         ->with(['countries' => $countries, 'cities' => $cities, 'projects' => $projects, 'userProfiles' => $userProfiles, 'travelPurposes' => $travelPurposes]);

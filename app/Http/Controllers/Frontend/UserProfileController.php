@@ -8,6 +8,9 @@ use App\Models\Category;
 use App\Models\Curator;
 use App\Models\ArtistType;
 use App\Models\UserProfile;
+use App\Models\TicketBooking;
+use App\Models\HotelBooking;
+use App\Models\UserAccountDetail;
 use App\Models\User;
 use App\Models\ProfileMember;
 use App\Models\Country;
@@ -20,6 +23,7 @@ use DB;
 use Hash;
 use Image;
 use Auth;
+use View;
 use ImageUploadHelper;
 use FileUploadHelper;
 use App\Traits\UserTrait;
@@ -41,6 +45,7 @@ class UserProfileController extends Controller
     {
     	parent::__construct();
         $this->middleware('auth');
+
     }
 
     /**
@@ -48,9 +53,11 @@ class UserProfileController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-   public function index()
+    
+
+    public function index()
     {
-        
+        $this->getStatus();
         return view('frontend.dashboard');
     }
 
@@ -96,6 +103,7 @@ class UserProfileController extends Controller
         $artistTypes    = ArtistType::where('status', 1)->get();
         $categories     = Category::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->orderBy('name', 'asc')->get();
+        $this->getStatus();
         return view('frontend.user.create')
         ->with('row', null)
         ->with('years', $this->years)
@@ -125,7 +133,7 @@ class UserProfileController extends Controller
     {
         $row = UserProfile::findOrFail($id);
         $members = ProfileMember::where('status', 1)->where('profile_id', $row->id)->paginate(10);
-
+        $this->getStatus();
         return view('frontend.user.show', compact('row', 'members'));
     }
 
@@ -141,6 +149,7 @@ class UserProfileController extends Controller
         $artistTypes    = ArtistType::where('status', 1)->get();
         $categories     = Category::where('status', 1)->get();
         $curators       = Curator::where('status', 1)->orderBy('name', 'asc')->get();
+        $this->getStatus();
         return view('frontend.user.edit')
         ->with('row', $row)
         ->with('years', $this->years)

@@ -48,6 +48,7 @@ class UserAccountDetailsController extends Controller
      */
 
     public function index(Request $request){
+        $this->getStatus();
         return view('frontend.user_account_details.index');
     }
 
@@ -100,6 +101,7 @@ class UserAccountDetailsController extends Controller
         $userProfiles  = UserProfile::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();    
         // $userProfiles  = UserProfile::where('status', 1)->where('email', $userEmail)->get();
         $countries     = Country::where('status', 1)->get();
+        $this->getStatus();
         return view('frontend.user_account_details.create')
         ->with('countries', $countries)
         ->with('userProfiles', $userProfiles)
@@ -131,7 +133,7 @@ class UserAccountDetailsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show ($id, UserAccountDetail $account){
-
+        $this->getStatus();
         $row = UserAccountDetail::findOrFail($id);
         return view('frontend.user_account_details.show ')->with('row', $row);
     }
@@ -149,7 +151,7 @@ class UserAccountDetailsController extends Controller
         $userEmail     = Auth::user()->email;
         $userProfiles         = UserProfile::where('status', 1)->where('email', $userEmail)->whereNotIn('id', $userIdArr)->get();
         $countries          = Country::where('status', 1)->get();
-
+        $this->getStatus();
         return view('frontend.user_account_details.edit')
         ->with('countries', $countries)
         ->with('userProfiles', $userProfiles)

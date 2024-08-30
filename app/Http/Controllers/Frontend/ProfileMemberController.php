@@ -42,7 +42,7 @@ class ProfileMemberController extends Controller
      */
 
     public function index(Request $request){
-
+        $this->getStatus();
         return view('frontend.profile_member.index');
     }
 
@@ -88,7 +88,7 @@ class ProfileMemberController extends Controller
     {
         $userEmail = Auth::user()->email;
         $parents = User::where(['status' => 1, 'email' => $userEmail])->latest('project_year')->get();
-        //dd($parents);
+        $this->getStatus();
         return view('frontend.profile_member.create')->with('row', null)->with('parents', $parents);
     }
 
@@ -134,7 +134,7 @@ class ProfileMemberController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show ($id, ProfileMember $member){
-
+        $this->getStatus();
         $row = ProfileMember::findOrFail($id);
         return view('frontend.profile_member.show ')->with('row', $row);
     }
@@ -148,7 +148,7 @@ class ProfileMemberController extends Controller
     public function edit($id, ProfileMember $member){
 
         $row = ProfileMember::findOrFail($id);
-        //dd($row);
+        $this->getStatus();
         return view('frontend.profile_member.edit')->with('row', $row);
     }
 

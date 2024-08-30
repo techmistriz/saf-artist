@@ -6,6 +6,12 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use App\Models\UserProfile;
+use App\Models\TicketBooking;
+use App\Models\HotelBooking;
+use App\Models\UserAccountDetail;
+use Auth;
+use View;
 
 class Controller extends BaseController
 {
@@ -143,6 +149,34 @@ class Controller extends BaseController
     	}
 
     	return '__updateCategoryDetails_others';
+    }
+
+
+    public function getStatus()
+    {   
+        $statusValue = 0;
+        $userId = Auth::user()->id;     
+        $userProfiles = UserProfile::where('user_id', $userId)->count();
+        $userTickets = TicketBooking::where('user_id', $userId)->count();
+        $userHotels = HotelBooking::where('user_id', $userId)->count();
+        $userBankings = UserAccountDetail::where('user_id', $userId)->count();
+        if($userProfiles > 0){
+            $statusValue += 25;
+        }
+        if($userTickets > 0){
+            $statusValue += 25;
+        }
+        if($userHotels > 0){
+            $statusValue += 25;
+        }
+        if($userBankings > 0){
+            $statusValue += 25;
+        }
+        View::share(
+            [
+                'statusValue' => $statusValue
+            ]
+        );
     }
     
 }

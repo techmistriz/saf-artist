@@ -45,7 +45,7 @@ class HotelBookingController extends Controller
      */
 
     public function index(Request $request){
-
+        $this->getStatus();
         return view('frontend.hotel_booking.index');
     }
 
@@ -92,7 +92,7 @@ class HotelBookingController extends Controller
         $user               = \Auth::user();
         $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
         $travelPurposes     = TravelPurpose::where('status', 1)->get();
-
+        $this->getStatus();
         return view('frontend.hotel_booking.create')
         ->with('row', null)
         ->with('travelPurposes', $travelPurposes)
@@ -135,7 +135,7 @@ class HotelBookingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show ($id, HotelBooking $hotel){
-
+        $this->getStatus();
         $row = HotelBooking::findOrFail($id);
         return view('frontend.hotel_booking.show ')->with('row', $row);
     }
@@ -153,7 +153,7 @@ class HotelBookingController extends Controller
         $user               = \Auth::user();
         $userProfiles = UserProfile::where('status', 1)->where('email', $user->email)->get();
         $travelPurposes     = TravelPurpose::where('status', 1)->get();
-
+        $this->getStatus();
         return view('frontend.hotel_booking.edit')
         ->with('row', $row)
         ->with('travelPurposes', $travelPurposes)
