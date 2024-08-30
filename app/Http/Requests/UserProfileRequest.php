@@ -36,11 +36,11 @@ class UserProfileRequest extends FormRequest
                 }),
             ],
             'project_year' => 'required',
-            'practice_image_1' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
-            'practice_image_2' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
-            'practice_image_3' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
-            'profile_image_1' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
-            'profile_image_2' => 'required_without:id|image|mimes:jpeg,png,jpg|max:10240',
+            'practice_image_1' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'practice_image_2' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'practice_image_3' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'profile_image_1' => 'image|mimes:jpeg,png,jpg|max:2048',
+            'profile_image_2' => 'image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 
@@ -48,15 +48,15 @@ class UserProfileRequest extends FormRequest
     {
         return [            
             
-            'practice_image_1.max' => 'Practice image 1  must not be greater than 10 MB.',
+            'practice_image_1.max' => 'Practice image 1  must not be greater than 2 MB.',
            
-            'practice_image_2.max' => 'Practice image 2  must not be greater than 10 MB.',
+            'practice_image_2.max' => 'Practice image 2  must not be greater than 2 MB.',
             
-            'practice_image_3.max' => 'Practice image 3  must not be greater than 10 MB.',
+            'practice_image_3.max' => 'Practice image 3  must not be greater than 2 MB.',
             
-            'profile_image_1.max' => 'Profile image 1  must not be greater than 10 MB.',
+            'profile_image_1.max' => 'Profile image 1  must not be greater than 2 MB.',
             
-            'profile_image_2.max' => 'Profile image 2  must not be greater than 10 MB.',
+            'profile_image_2.max' => 'Profile image 2  must not be greater than 2 MB.',
         ];
     }
 

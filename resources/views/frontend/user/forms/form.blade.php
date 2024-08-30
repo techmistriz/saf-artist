@@ -22,7 +22,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Project Year</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="project_year" tabindex="null" onchange="getFestival()">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="project_year" tabindex="null" onchange="getFestival()" required>
                                     <option value="">Select Year</option>
                                     @if( isset($project_years) && count($project_years))
                                         @foreach($project_years as $year)
@@ -43,7 +43,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Festival</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control form-control-lg form-control-custom selectpicker" name="festival_id" tabindex="null" onchange="getProject()">
+                                <select class="form-control form-control-lg form-control-custom selectpicker" name="festival_id" tabindex="null" onchange="getProject()" required>
                                     <option value="">Select Festival</option>
                                 </select>
                                 @error('festival_id')

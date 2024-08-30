@@ -1,5 +1,4 @@
 
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style type="text/css">
     .profile-img-form .image-input {
         margin-right: 10px;
@@ -9,17 +8,26 @@
         height: 120px !important;
     }
 
-    .w3-light-grey{
-        width: 100%;
+    .form-progress{
         margin-top: 20px;
-        background: #ffffff;
+        width: 100%;
     }
 
-    .w3-green, .w3-hover-green:hover{
-            background-color: #FA9917 !important;
-        }
+    .progress{
+        
+        background: #ffffff;
+        height: 2rem;
+    }
+
+    .progress-bar{
+        background-color: #FA9917 !important;
+        font-size: 15px;
+    }
 
 </style>
+@php
+    $statusValue = 25;
+@endphp
 
 <div class="hamburgermenu">
 <a class="nav-toggle"><span></span></a>
@@ -59,9 +67,16 @@
                         <!--begin::Info-->
                         <div class="font-weight-bold text-dark-50 font-size-sm">{{ Auth::user()->email }}</div>
 
-                        <div class="w3-light-grey">
-    <div class="w3-container w3-green" style="width:50%">50%</div>
-  </div>
+                        <div class="form-progress">
+                            <span class="text-muted font-weight-bold">Form Completed %</span>
+                            <div class="progress">
+                                @if(isset($statusValue) && $statusValue == 0)
+                                    <div class="progress-bar text-center" role="progressbar" style="width: {{$statusValue}}%; color: black;"aria-valuenow="{{$statusValue}}" aria-valuemin="0" aria-valuemax="100">{{$statusValue}}%</div>
+                                @else
+                                    <div class="progress-bar" role="progressbar" style="width: {{$statusValue}}%;" aria-valuenow="{{$statusValue}}" aria-valuemin="0" aria-valuemax="100">{{$statusValue}}%</div>
+                                @endif
+                            </div>
+                        </div>
                         
                         <!--end::Info-->
                     </div>
