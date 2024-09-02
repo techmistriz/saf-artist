@@ -9,7 +9,6 @@
     }
 
     .form-progress{
-        margin-top: 20px;
         width: 100%;
     }
 
@@ -71,8 +70,8 @@
                         <!--begin::Info-->
                         <div class="font-weight-bold text-dark-50 font-size-sm">{{ Auth::user()->email }}</div>
 
+                        <span class="text-muted font-weight-bold mt-7">Form Completion Status</span>
                         <div class="form-progress">
-                            <span class="text-muted font-weight-bold">Form Completed %</span>
                             <div class="progress">
                                 @if(isset($statusValue) && $statusValue == 0)
                                     <div class="progress-bar zero text-center" role="progressbar" style="width: 100%; color: black;"aria-valuenow="{{$statusValue}}" aria-valuemin="0" aria-valuemax="100">{{$statusValue}}%</div>

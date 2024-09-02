@@ -156,21 +156,10 @@
 		                },
 		            },	
 		            {
-		                field: "is_freeze",
-		                title: "freeze Status",
-		                template: function(t) {
-		                    var FREEZE_STATUS = {
-		                    	0: {
-		                            'title': 'Free',
-		                            'class': ' label-light-info'
-		                        },
-		                        1: {
-		                            'title': 'Freezed',
-		                            'class': ' label-light-danger'
-		                        }
-		                    };
-		                    return '<span onclick="return onFreezePress(this, '+t?.id+')" class="cursor-pointer label font-weight-bold label-lg ' + FREEZE_STATUS[t?.is_freeze].class + ' label-inline">' + FREEZE_STATUS[t?.is_freeze].title + '</span>';
-		                },
+		                field: "form_completion_status",
+		                title: "Form Completion Status",
+		                sortable: false,
+		                
 		            },		
 		            {
 		                field: "actions",

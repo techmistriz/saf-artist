@@ -40,7 +40,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['actions'];
+    protected $appends = ['actions', 'form_completion_status'];
 
     public static $withoutAppends = false;
 
@@ -276,6 +276,30 @@ class User extends Authenticatable
             </a>
             ' . $profileMemberList . '
         </span>';
+    }
+
+    public function getFormCompletionStatusAttribute() 
+    {
+        $statusValue = 0;
+        $userId = $this->id;     
+        $userProfiles = UserProfile::where('user_id', $userId)->count();
+        $userTickets = TicketBooking::where('user_id', $userId)->count();
+        $userHotels = HotelBooking::where('user_id', $userId)->count();
+        $userBankings = UserAccountDetail::where('user_id', $userId)->count();
+        if($userProfiles > 0){
+            $statusValue += 25;
+        }
+        if($userTickets > 0){
+            $statusValue += 25;
+        }
+        if($userHotels > 0){
+            $statusValue += 25;
+        }
+        if($userBankings > 0){
+            $statusValue += 25;
+        }
+
+         return $statusValue . '%';
     }
 
     protected function getArrayableAppends()

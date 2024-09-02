@@ -1,9 +1,4 @@
 @include('flash::message')
-<!-- <style type="text/css">
-    .card-custom {
-        pointer-events: none;
-    }
-</style> -->
 <div class="row">
     <div class="col-md-12">
         

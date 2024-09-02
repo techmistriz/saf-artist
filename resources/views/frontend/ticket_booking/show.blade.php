@@ -97,7 +97,7 @@
 		                            </div>
 		                        </div>
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Travel Time</label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Time</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->travel_preferred_time}}</label>
 		                            </div>
@@ -111,13 +111,13 @@
 		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Return Date</label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Return Date for Travel</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{ \Carbon\Carbon::parse($row->return_date)->format('d-M-Y') }}</label>		                                
 		                            </div>
 		                        </div>
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preffered Return Time</label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Return Time for Travel</label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->return_preffered_time}}</label>	
 		                            </div>

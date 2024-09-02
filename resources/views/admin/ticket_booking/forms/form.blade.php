@@ -155,10 +155,10 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">International / Domestic Travel </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Type of Travel</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="international_or_domestic" tabindex="null" onchange="travellerField()">
-                                    <option value="">Select</option>
+                                    <option value="">Select Travel Type</option>
                                     <option value="International" {{ old('international_or_domestic') == 'International' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'International') ? 'selected' : '' }}>International</option>
                                     <option value="Domestic" {{ old('international_or_domestic') == 'Domestic' || (isset($row->international_or_domestic) && $row->international_or_domestic == 'Domestic') ? 'selected' : ''  }}>Domestic</option>
                                 </select>
@@ -373,7 +373,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Travel Time</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preffered Time</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-custom selectpicker" name="travel_preferred_time" tabindex="null" title="Select Preferred Travel Time">
                                     @foreach(['Morning', 'Afternoon', 'Evening', 'Night', 'Anytime'] as $time)
@@ -404,7 +404,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Return Date </label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Return Date for Travel</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <div class="input-group date">
@@ -425,7 +425,7 @@
 
                     <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preffered Return Time</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Preferred Return Time for Travel</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
 
                                 <select class="form-control form-control-lg form-control-custom selectpicker" name="return_preffered_time" tabindex="null" title="Select Preffered Return Time">

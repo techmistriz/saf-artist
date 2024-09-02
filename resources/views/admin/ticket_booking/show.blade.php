@@ -47,11 +47,11 @@
                                                 <td>{{$row->contact}}</td>
                                             </tr> 
                                             <tr>
-                                                <th>Onward (Mention City)</th>
+                                                <th>Origin City</th>
                                                 <td>{{$row->onward_city ?? ''}}</td>
                                             </tr>
                                             <tr>
-                                                <th>Onward Date</th>
+                                                <th>Date of Travel</th>
                                                 <td>{{ \Carbon\Carbon::parse($row->onward_date)->format('d-M-Y') }}</td>
                                             </tr>
                                             <tr>
@@ -59,35 +59,14 @@
                                                 <td>{{$row->return_city ?? ''}}</td>
                                             </tr>
                                             <tr>
-                                                <th>Return Date</th>
+                                                <th>Preferred Return Date for Travel</th>
                                                 <td>{{ \Carbon\Carbon::parse($row->return_date)->format('d-M-Y') }}</td>
                                             </tr>
                                             <tr>
                                                 <th>Pick Up Required</th>
                                                 <td>{{ $row->pickup_required}}</td>
                                             </tr>
-                                            <tr>
-                                                <th>Cab Option</th>
-                                                <td>
-                                                    @if($row->cab_option == 1)
-                                                        Transfer Only
-                                                    @elseif($row->cab_option == 2)
-                                                        Dedicated
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>Return Date</th>
-                                                <td>{{ $row->number_of_cabs }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Cab Date Range</th>
-                                                <td>{{ $row->cab_date_range }}</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Artist Remarks</th>
-                                                <td>{{$row->artist_remarks}}</td>
-                                            </tr>
+                                            
                                              <tr style="{{ isset($row->member->poc_id) && !empty($row->member->poc_id) ? '' : 'display:none;'}}">
                                                 <th>International/Domestic Traveller</th>
                                                 <td>{{$row->international_or_domestic}}</td>

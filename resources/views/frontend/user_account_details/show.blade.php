@@ -81,7 +81,7 @@
 		                        </div>
 
 		                        <div class="form-group row validated">
-		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Residency Name: </label>
+		                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Origin of Account: </label>
 		                            <div class="col-lg-9 col-md-9 col-sm-12">
 		                            	<label class="col-form-label text-lg-left">{{$row->residency ?? 'N/A'}}</label>
 		                                

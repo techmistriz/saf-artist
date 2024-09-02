@@ -140,10 +140,10 @@
 
                      <div class="col-12">
                         <div class="form-group row validated">
-                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Residency</label>
+                            <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Origin of Account<i class="fa fa-question" data-toggle="tooltip" data-placement="right" title="If you don’t hold a valid banking account in India , please select International in this field."></i></label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
                                 <select class="form-control form-control-lg form-control-solid selectpicker" name="residency" tabindex="null" onchange="showShowField()">
-                                    <option value="">Select Residency</option>
+                                    <option value="">Select Origin </option>
                                     <option value="Domestic" {{ old('residency') == 'Domestic' || (isset($row->residency) && $row->residency == 'Domestic') ? 'selected' : '' }}>Domestic</option>
                                     <option value="International" {{old('residency') == 'International' || (isset($row->residency) && $row->residency == 'International') ? 'selected' : ''  }}>International</option>
                                 </select>
