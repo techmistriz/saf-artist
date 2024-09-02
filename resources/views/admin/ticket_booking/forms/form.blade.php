@@ -585,46 +585,26 @@
         }
         
         $(document).ready(function() {
-            var initDatePicker = function() {
-                var onward_date = $("#onward_date").val();
-                
-                // Get current date
-                var today = new Date();
-                var day = today.getDate();
-                var month = today.getMonth() + 1; // Months are zero-based
-                var year = today.getFullYear();
-
-                // Format current date as dd-mm-yyyy
-                var travelDate = (day < 10 ? '0' + day : day) + '-' + (month < 10 ? '0' + month : month) + '-' + year;
-
-                // Initialize return date datepicker
-                $('.return_date_datepicker').datepicker('destroy').datepicker({
+            var initDatePicker = function(selector, startDate) {
+                $(selector).datepicker('destroy').datepicker({
                     rtl: KTUtil.isRTL(),
                     orientation: "bottom left",
                     templates: arrows,
-                    autoClose: true,
+                    autoclose: true,
                     format: 'dd-mm-yyyy',
-                    startDate: onward_date
-                });
-
-                // Initialize travel date datepicker
-                $('.travel_date_datepicker').datepicker('destroy').datepicker({
-                    rtl: KTUtil.isRTL(),
-                    orientation: "bottom left",
-                    templates: arrows,
-                    autoClose: true,
-                    format: 'dd-mm-yyyy',
-                    startDate: travelDate 
+                    startDate: startDate
                 });
             };
 
-            // Bind date picker initialization to onward date change event
-            $("#onward_date").change(initDatePicker);
-
-            // Initialize date pickers on page load if onward date is already set
-            if ($("#onward_date").val()) {
-                initDatePicker();
+            var onwardDate = $("#onward_date").val();
+            if (onwardDate) {
+                initDatePicker('.return_date_datepicker', onwardDate);
             }
+            $("#onward_date").change(function() {
+                initDatePicker('.return_date_datepicker', $(this).val());
+            });
+
+            initDatePicker('.travel_date_datepicker', new Date());
         });
         // START upload_passport
         var front_side_passport = new KTImageInput('front_side_passport');
