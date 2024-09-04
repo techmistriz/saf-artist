@@ -440,7 +440,6 @@
         <div class="modal-content">
             <div class="modal-header text-center flex-column">
                 <h3 class="modal-title w-100">Please confirm your submission.</h3>
-                <p>Do you really want to submit this for review? In review you can not change or update the information.</p>                
             </div>
             <div class="modal-footer justify-content-center">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
