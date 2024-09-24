@@ -422,7 +422,7 @@
                         <input type="hidden" name="banking_status" id="freeze" value="1">
                         <div class="col-lg-12 text-center">
                             <button type="submit" class="btn btn-primary">Save</button>
-                            <a data-toggle="modal" data-target="#confirmModal" class="theme-btn mt-0 mb-0  " id="saveFreeze">Submit for review</a>
+                            <a data-toggle="modal" data-target="#confirmModal" class="theme-btn mt-0 mb-0  " id="saveFreeze">Submit</a>
                         </div>
                     @else
                         <div class="col-lg-12">
