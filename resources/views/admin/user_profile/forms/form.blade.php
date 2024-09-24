@@ -28,7 +28,6 @@
                                 <select class="form-control form-control-lg form-control-custom selectpicker" name="project_year" tabindex="null" onchange="getFestival()">
                                     <option value="">Select Year</option>
                                     <option value="2024" {{ old('project_year') == '2024' || (isset($row->project_year) && $row->project_year == '2024') ? 'selected' : '' }}>2024</option>
-                                    <option value="2025" {{ old('project_year') == '2025' || (isset($row->project_year) && $row->project_year == '2025') ? 'selected' : '' }}>2025</option>
                                 </select>
                                 @error('project_year')
                                     <div class="invalid-feedback">{{ $message }}</div>
