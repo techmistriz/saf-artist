@@ -193,15 +193,7 @@ class AjaxController extends Controller
 
         if(!empty($request->profile_id)){
             $queryModel->where('profile_id', $request->profile_id);
-        }
-        if (empty($request->profile_member_id)) {
-
-            $profileMemberIdArr = TicketBooking::where('status', 1)->where('profile_id', $request->profile_id)->whereNotNull('profile_member_ids')->get()->pluck('profile_member_id');
-
-            if (!empty($profileMemberIdArr)) {
-                $queryModel->whereNotIn('id', $profileMemberIdArr);
-            }
-        }        
+        } 
 
         $results = $queryModel->get();
         if($results) {

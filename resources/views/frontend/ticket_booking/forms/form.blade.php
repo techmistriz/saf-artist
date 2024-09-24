@@ -55,8 +55,7 @@
                         <div class="form-group row validated">
                             <label class="col-form-label col-lg-3 col-sm-12 text-lg-left">Profile Member</label>
                             <div class="col-lg-9 col-md-9 col-sm-12">
-                                <select class="form-control selectpicker" name="profile_member_ids[]" tabindex="null" multiple>
-                                    <option value="">Select Profile Member</option>
+                                <select class="form-control selectpicker" name="profile_member_ids[]" multiple title="Select Profile Member">
                                 </select>
                                 @error('profile_member_ids')
                                     <div class="invalid-feedback">{{ $message }}</div>
