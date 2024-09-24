@@ -147,8 +147,8 @@ trait UserTrait
 
         $user_profile = UserProfile::findOrFail($id);
 
-        if ($request->user_id) {
-            $user_profile->user_id  = $request->user_id;
+        if ($user_profile->user_id) {
+            $user_profile->user_id  = $user_profile->user_id;
         }else{
             $user_profile->user_id     = \Auth::user()->id;            
         }
