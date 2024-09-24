@@ -116,14 +116,8 @@ class AjaxController extends Controller
             $queryModel->where('year', $request->year);
         }
         if (empty($request->festival_id)) {
-            $user_email = Auth::user()->email;
-            $festivalIdArr = UserProfile::where('status', 1)->where('email', $user_email)->whereNotNull('festival_id')->get()->pluck('festival_id');
-            //dd($festival_ids);
 
-            // $festivalId = [];
-            // foreach ($users as $user){
-            //     $festivalId[] = $user->festival_id;
-            // }
+            $festivalIdArr = UserProfile::where('status', 1)->where('email', $$request->email)->whereNotNull('festival_id')->get()->pluck('festival_id');
 
             if (!empty($festivalIdArr)) {
                 $queryModel->whereNotIn('id', $festivalIdArr);

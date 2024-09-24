@@ -26,11 +26,14 @@ class UserProfileRequest extends FormRequest
     public function rules()
     {
         $id = $this->input('id', 0);
-
+        $user_id = $this->input('user_id', 0);
+        // dd($user_id);
         return [
             'festival_id' => [
                 'required',
-                Rule::unique('user_profiles')->ignore($id, 'id'),
+                Rule::unique('user_profiles')->ignore($id, 'id')->where(function ($query) use ($user_id) {
+                    return $query->where('user_id', $user_id);
+                }),
             ],
             'project_year' => 'required',
             'practice_image_1' => 'image|mimes:jpeg,png,jpg|max:2048',

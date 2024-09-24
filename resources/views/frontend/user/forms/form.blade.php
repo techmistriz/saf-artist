@@ -918,13 +918,14 @@
     function getFestival() {
 
         var year = $('select[name=project_year]').val();
+        var email = $('input[name=email]').val();
         var selectedId = "{{ old('festival_id', $row->festival_id ?? 0) }}";
 
         if(year){
 
             $.ajax({
                 type: "GET",
-                url: "{{ url('profile-festivals') }}?year=" + year + '&festival_id=' + selectedId,
+                url: "{{ url('profile-festivals') }}?year=" + year + '&festival_id=' + selectedId + '&email=' + email,
                 datatype: 'json',
                 success: function (response) {
                     if(response?.status){
