@@ -35,6 +35,12 @@ class UserProfileRequest extends FormRequest
                     return $query->where('user_id', $user_id);
                 }),
             ],
+            'artist_bio' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 150) {
+                    $fail('The :attribute must be a maximum of 150 words.');
+                }
+            }],
+            'project_year' => 'required',
             'project_year' => 'required',
             'practice_image_1' => 'image|mimes:jpeg,png,jpg|max:2048',
             'practice_image_2' => 'image|mimes:jpeg,png,jpg|max:2048',

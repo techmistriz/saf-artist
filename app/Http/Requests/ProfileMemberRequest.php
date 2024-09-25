@@ -29,8 +29,13 @@ class ProfileMemberRequest extends FormRequest
             'email'            => 'required|'.Rule::unique('profile_members')->ignore($id, 'id'),
             'name'             => 'required',
             'contact'          => 'required',
-            'dob'              => 'required',
             'room_sharing'              => 'required',
+            'dob'              => 'required',
+            'artist_bio' => ['required', function ($attribute, $value, $fail) {
+                if (str_word_count($value) > 150) {
+                    $fail('The :attribute must be a maximum of 150 words.');
+                }
+            }],
         ];
     }
 
